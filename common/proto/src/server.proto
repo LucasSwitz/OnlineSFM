@@ -1,0 +1,157 @@
+syntax="proto3";
+
+message ImageMetaData {
+    string id = 1;
+    string reconstruction = 2;
+    string path = 3;
+    string format = 4;
+};
+
+message ImageData{
+    bytes data = 1;
+    ImageMetaData metadata = 2;
+} 
+
+message SparsePointCloudData { 
+    bytes data = 1;
+    SparsePointCloudMetaData metadata = 2;
+}
+
+message SparsePointCloudMetaData { 
+    string id = 1;
+    string reconstruction = 2;
+    string mvs_path = 3;
+    string ply_path = 4;
+}
+
+message OBJMetaData {
+    string id = 1;
+    string reconstruction = 2;
+    string path = 3;
+    string texture_path = 4;
+    string mtl_path = 5;
+}
+
+message OBJData{
+    bytes obj_data = 1;
+    bytes texture_data = 2;
+    bytes mtl_data = 3;
+    OBJMetaData metadata = 4;
+}
+
+message ReconstructionData {
+    repeated string images = 1;
+    repeated string sparse_reconstruction = 2;
+    repeated string obj = 3;
+    string path = 4;
+    string id = 5; 
+}
+
+message ImageUploadResponse{
+    bool success = 1;
+}
+
+message UploadImageRequest{
+    string reconstruction_id = 1;
+    ImageData image = 2;
+}   
+
+message NewReconstructionRequest {
+
+};
+
+message NewReconstructionResponse {
+    string reconstruction_id = 1;
+};
+
+message ReconstructRequest{
+    string reconstruction_id = 1;
+}
+
+message GetOBJRequest{
+    string reconstruction_id = 1;
+}
+
+message GetOBJResponse {
+    bool success = 1;
+    OBJData obj = 2;
+};
+
+message ReconstructResponse {
+    bool success = 1;
+    string error_msg = 2;
+}
+
+message ReconstructionOBJ{
+    bytes obj = 1;
+}
+
+message DeleteReconstructionRequest {
+    string id = 1;
+}
+
+message DeleteReconstructionResponse {
+    bool success = 1;
+    string id = 2;
+}
+
+message CameraIntrinsics {
+    string model = 1;
+    float focal_length = 2;
+}
+
+message HandhsakeRequest {
+    string identifier = 1;
+    CameraIntrinsics camera_intrinsics = 2;
+}
+
+message HandshakeResponse{
+    bool success = 1;
+}
+
+message StartSessionRequest {
+    string reconstruction_id = 1;
+}
+
+message StartSessionResponse{
+    string reconstruction_id = 1;
+    string session_id = 2;
+}
+
+message StopSessionRequest {
+    string session_id = 1;
+}
+
+message StopSessionResponse {
+    string session_id = 1;
+}
+
+message SessionUploadImageRequest {
+    string session_id = 1;
+    UploadImageRequest upload_image = 2;
+};
+
+message SessionUploadImageResponse {
+
+};
+
+message GetSparseRequest {
+    string reconstruction_id = 1;
+};
+
+message GetSparseResponse {
+    SparsePointCloudData sparse = 1;
+};
+
+service ReconstructionService {
+    rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
+    rpc UploadImage(stream UploadImageRequest) returns (ImageUploadResponse){};
+    rpc Reconstruct(ReconstructRequest) returns (ReconstructResponse);
+    rpc GetOBJ(GetOBJRequest) returns (stream GetOBJResponse);
+    rpc GetSparse(GetSparseRequest) returns (stream GetSparseResponse);
+    rpc NewReconstruction(NewReconstructionRequest) returns (NewReconstructionResponse);
+    rpc DeleteReconstruction(DeleteReconstructionRequest) returns (DeleteReconstructionResponse);
+    rpc StartSession(StartSessionRequest) returns (StartSessionResponse);
+    rpc StopSession(StopSessionRequest) returns (StopSessionResponse);
+    rpc SessionUploadImage(stream SessionUploadImageRequest) returns (SessionUploadImageResponse);
+}

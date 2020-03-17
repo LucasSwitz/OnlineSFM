@@ -1,0 +1,3 @@
+wget -q -O cmake-linux.sh https://github.com/Kitware/CMake/releases/download/v3.16.1/cmake-3.16.1-Linux-x86_64.sh
+sh cmake-linux.sh -- --skip-license --prefix=/usr
+rm cmake-linux.sh
