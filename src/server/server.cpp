@@ -40,8 +40,10 @@ class ReconstructionServer : public ReconstructionService::Service {
         response->set_reconstruction_id(uuid);
         std::string reconstruction_root = CONFIG_GET_STRING("storage.root") + "/" + uuid;
         std::string reconstruction_images = reconstruction_root + "/images";
+        std::string sfm_dir = reconstruction_root + "/SFM";
         LOG(INFO) << "Making Directory: " << reconstruction_root;
         mkdir(reconstruction_root.c_str(), 0777);
+        mkdir(sfm_dir.c_str(), 0777);
         LOG(INFO) << "Making Directory: " << reconstruction_images;
         mkdir(reconstruction_images.c_str(), 0777);
         ReconstructionFetcher fetcher;
@@ -63,7 +65,7 @@ class ReconstructionServer : public ReconstructionService::Service {
 
         LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
 
-        reconstruction->AddImage(final_image);
+        reconstruction->StoreImage(final_image);
         delete reconstruction;
         return Status::OK;
     }
@@ -71,7 +73,7 @@ class ReconstructionServer : public ReconstructionService::Service {
     Status Reconstruct(ServerContext* context, const ReconstructRequest* request, ReconstructResponse* response){
         ReconstructionFetcher rf;
         Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
-        response->set_success(reconstruction->Reconstruct());
+        //response->set_success(reconstruction->Reconstruct());
         delete reconstruction;
         return Status::OK;
     }
@@ -169,7 +171,7 @@ class ReconstructionServer : public ReconstructionService::Service {
 
         LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
 
-        std::string image_uuid = reconstruction->AddImage(final_image);
+        std::string image_uuid = reconstruction->StoreImage(final_image);
         this->_sessions[request.session_id()]->AddImage(image_uuid);
         delete reconstruction;
         return Status::OK;

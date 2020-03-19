@@ -5,6 +5,9 @@
 #include <glog/logging.h>
 #include <boost/filesystem.hpp>
 #include "reconstruction.h"
+#include <chrono>
+
+using namespace std::literals::chrono_literals;
 
 Session::Session(const std::string& id, 
                  const std::string& reconstruction_id,
@@ -25,39 +28,40 @@ void Session::_Run(){
     std::set<std::string>* unconstructed_images = new std::set<std::string>();
     while(this->_running){
         std::set<std::string> new_images = this->_image_queue_adapter->Get(this->_id);
+        if(this->_blocked_reconstruction){
+            if(!reconstruction->IsRunningMVS()){
+                LOG(INFO) << "Reconstruction unblocked";
+                reconstruction->SetupMVS();
+                reconstruction->MVS();
+                this->_blocked_reconstruction = false;
+            }else{
+                LOG(INFO) << "Reconstruction blocked";
+            }
+        }
+
         if(!new_images.empty()){
             /*
              * TODO: Change this to do a new reconstruction every x seconds or after so many images are in the queue
             */
-            if(reconstruction->HasReconstructedOnce()){
-                    LOG(INFO) << "Localizing " << new_images.size() << " images in reconstruction " << this->_reconstruction_id;
-                    reconstruction->SetupRelocalization();
-                    /*for(std::string image_id : new_images){
-                        reconstruction->AddImageToRelocalization(image_id);
-                    }*/
-                    if(reconstruction->Relocalize()){
-                        if(reconstruction->IncrementalSFM()){
-                            LOG(INFO) << "Relocalized and ran SFM. Starting MVS for " << this->_reconstruction_id;
-                            //reconstruction->SetupMVS();
-                            //reconstruction->MVS();
-                        } else {
-                            LOG(ERROR) << "Incremental SFM or MVS failed";
-                        }
-                    }else{
-                        LOG(ERROR) << "Reconstruction Relocalization Failed";
-                    }
-            } else {
-                unconstructed_images->insert(new_images.begin(), new_images.end());
-                if(unconstructed_images->size() >= 2){
-                    LOG(INFO) << "Attempting first reconstruction of " << this->_reconstruction_id << " with " << unconstructed_images->size() << " images";
-                    if(reconstruction->Reconstruct()){
-                        LOG(INFO) << "Sucessfully reconstructed for the first time: " << this->_reconstruction_id;
-                        delete unconstructed_images;
-                    }
-                }
+            LOG(INFO) << "Adding " << new_images.size() << " images to reconstruction " << this->_reconstruction_id;
+            for(std::string image_id : new_images){
+                reconstruction->AddImage(image_id);
             }
+            if(reconstruction->Reconstruct(new_images)){
+                LOG(INFO) << "Relocalized and ran SFM. Starting MVS for " << this->_reconstruction_id;
+                if(!reconstruction->IsRunningMVS()){
+                    reconstruction->SetupMVS();
+                    reconstruction->MVS();
+                    this->_blocked_reconstruction = false;
+                }else{
+                    LOG(INFO) << "Reconstruction blocked";
+                    this->_blocked_reconstruction = true;
+                }
+            } else {
+                LOG(ERROR) << "Incremental SFM or MVS failed";
+            }
+            
         }
-        using namespace std::chrono_literals;
         std::this_thread::sleep_for(2s);
     }
 }

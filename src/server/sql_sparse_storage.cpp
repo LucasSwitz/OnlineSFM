@@ -50,7 +50,7 @@ SparsePointCloudMetaData SQLSparseStorage::GetMeta(const std::string& sparse_id)
 }
 
 void SQLSparseStorage::Store(const SparsePointCloudMetaData& sparse_data){
-    LOG(INFO) << "Storing Sparse Data for " << sparse_data.reconstruction();
+    LOG(INFO) << "Storing Sparse Data " << sparse_data.id() <<  " for " << sparse_data.reconstruction();
     this->IssueUpdate(SQL_INSERT_SPARSE(this->_table), 
         [this, sparse_data](sql::PreparedStatement *stmt){
             stmt->setString(1, sparse_data.id());

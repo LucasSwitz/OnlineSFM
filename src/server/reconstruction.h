@@ -5,7 +5,9 @@
 #include "image_storage.h"
 #include "obj_storage.h"
 #include "sparse_storage.h"
-#include "reconstruction_strategy.h"
+#include "openMVG/types.hpp"
+#include "openMVG/sfm/sfm_data.hpp"
+#include "openmvg_reconstruction_agent.h"
 
 class Reconstruction;
 
@@ -55,23 +57,21 @@ class Reconstruction {
                        ReconstructionStorageAdapter* reconstruction_staroage,
                        ImageStorageAdapter* image_storage,
                        SparseStorageAdapter* sparse_storage,
-                       OBJStorageAdapter* obj_storage,
-                       ReconstructionStrategy* reconstruction_strategy);
+                       OBJStorageAdapter* obj_storage);
         ~Reconstruction();
-        std::string AddImage(ImageData& image);
+        void AddImage(const std::string& image_id);
+        std::string StoreImage(ImageData& image);
         int  Reconstruct();
-        bool IncrementalSFM();
-        void SetupRelocalization();
-        bool Relocalize();
-        void AddImageToRelocalization(const std::string& image_id);
         void SetupMVS();
         void MVS();
+        bool Reconstruct(const std::set<std::string>& new_images);
         bool HasReconstructedOnce();
         std::vector<Image> GetImages();
         Image GetImage(const std::string& id);
         SparseReconstruction GetSparse();
         OBJ GetOBJ();
         void Delete();
+        bool IsRunningMVS();
     private:
         std::string _id;
         bool _running_mvs = false;
@@ -81,9 +81,7 @@ class Reconstruction {
         ImageStorageAdapter* _image_storage = nullptr;
         OBJStorageAdapter* _obj_storage = nullptr;
         SparseStorageAdapter* _sparse_storage = nullptr;
-        ReconstructionStrategy* _reconstruction_strategy = nullptr;
+        OpenMVGReconstructionAgent reconstruction_agent;
         void _MVS();
         void _ExportWorkingMVS();
-        void ExportLocalization();
-        void CleanupLocalization();
 };

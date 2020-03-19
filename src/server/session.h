@@ -19,5 +19,6 @@ class Session {
         std::thread* _session_thread = nullptr;
         SessionImageQueueAdapter* _image_queue_adapter = nullptr;
         bool _running = false;
+        bool _blocked_reconstruction = false;
         void _Run();
 };

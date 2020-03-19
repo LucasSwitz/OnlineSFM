@@ -3,10 +3,11 @@
 #include "sql_recontruction_storage.h"
 #include "sql_sparse_storage.h"
 #include "openmvs_strategy.h"
-#include "openmvg_strategy.h"
 #include "util.h"
 #include "sql_obj_storage.h"
 #include "config.h"
+#include "openmvg_reconstruction_agent.h"
+#include <thread>
 
 Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
     return new Reconstruction(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
@@ -28,9 +29,7 @@ Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
                                                     CONFIG_GET_STRING("sql.user"), 
                                                     CONFIG_GET_STRING("sql.password"),
                                                     CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.obj_table")), 
-                                  new ReconstructionStrategy(new OpenMVGStrategy(ReconstructionType::GLOBAL), 
-                                                             new OpenMVSStrategy()));
+                                                    CONFIG_GET_STRING("sql.obj_table")));
 }
 
 void ReconstructionFetcher::Create(const std::string& id, const std::string& path){
@@ -49,40 +48,39 @@ Reconstruction::Reconstruction(const std::string& id,
                        ReconstructionStorageAdapter* reconstruction_storage,
                        ImageStorageAdapter* image_storage,
                        SparseStorageAdapter* sparse_storage,
-                       OBJStorageAdapter* obj_storage,
-                       ReconstructionStrategy* reconstruction_strategy) : _id(id), 
-                                                                          _reconstruction_storage(reconstruction_storage),
-                                                                          _image_storage(image_storage), 
-                                                                          _obj_storage(obj_storage), 
-                                                                          _sparse_storage(sparse_storage),
-                                                                          _reconstruction_strategy(reconstruction_strategy){
-    
+                       OBJStorageAdapter* obj_storage) : _id(id), 
+                                                         _reconstruction_storage(reconstruction_storage),
+                                                         _image_storage(image_storage), 
+                                                         _obj_storage(obj_storage), 
+                                                         _sparse_storage(sparse_storage){
+    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
+    std::string reconstruction_reconstruction_dir = reconstruction_dir + "/SFM";
+    std::string matches_dir = reconstruction_dir + "/SFM";
+    std::string sfm_data_path = matches_dir + "/sfm_data.json";
+    std::string sfm_data_bin_path = reconstruction_reconstruction_dir +"/sfm_data.bin";
+    std::string robust_bin_path = reconstruction_reconstruction_dir + "/robust.bin";
+    std::string robust_ply_path = reconstruction_reconstruction_dir + "/robust.ply";
+    std::string mvs_path = reconstruction_reconstruction_dir + "/scene.mvs";
+    std::string undistored_images_path = reconstruction_reconstruction_dir + "/undistorted";
+    OpenMVGReconstructionAgentConfig config;
+    config.sMatchesDirectory = matches_dir;
+    config.sGeometricModel = "e";
+    config.sMatchesDir = matches_dir;
+    config.sOutDir = matches_dir;
+    config.sMatchFile = matches_dir+"/matches.e.bin";
+    config.sOutFile = robust_bin_path;
+    config.sfileDatabase = std::getenv("OPENMVG_SENSOR_DB");
+    config.sfileDatabase += "/sensor_width_camera_database.txt";
+    config.sOutputDir = matches_dir;
+    config.root_path = reconstruction_dir + "/images";
+    this->reconstruction_agent.SetConfig(config);
 }
 
-std::string Reconstruction::AddImage(ImageData& image){
+std::string Reconstruction::StoreImage(ImageData& image){
     std::string image_id = GetUUID();
     image.mutable_metadata()->set_id(image_id);
     this->_image_storage->Store(image);
     return image_id;
-}
-
-int Reconstruction::Reconstruct(){
-    std::vector<ImageMetaData> images = this->_image_storage->GetAll(this->_id);
-    LOG(INFO) << "Retrieved " << images.size() << " images for reconstruction.";
-    SparsePointCloudMetaData spc_data;
-    OBJMetaData obj_data;
-    if(!this->_reconstruction_strategy->Reconstruct(images, spc_data, obj_data)){
-        LOG(ERROR) << "Reconstrution failed for " << this->_id;
-        return 0;
-    }else{
-        spc_data.set_id(GetUUID());
-        obj_data.set_id(GetUUID());
-        this->_sparse_storage->Store(spc_data);
-        this->_obj_storage->Store(obj_data);
-        LOG(INFO) << "Reconstruction successful for " << this->_id;
-        return 1;
-        //TODO: Should incorperate some type of cleanup that will remove everything if something fails.
-    }
 }
 
 std::vector<Image> Reconstruction::GetImages(){
@@ -194,29 +192,17 @@ void Reconstruction::_MVS(){
         LOG(INFO) << "MVS Finished successfully for " << this->_id;
         _ExportWorkingMVS();
     }else{
-        LOG(INFO) << "MVS Failed for " << this->_id;
+        LOG(ERROR) << "MVS Failed for " << this->_id;
     }
     this->_running_mvs = false;
 }
 
-bool Reconstruction::Relocalize(){
-    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
-    std::string matches_dir = reconstruction_dir + "/SFM";
-    std::string relocalization_dir = reconstruction_dir + "/relocalization";
-    std::string sfm_data_bin_path = reconstruction_dir + "/SFM/sfm_data.bin";
-    std::string images_dir = reconstruction_dir +"/images";
-    bool relocalize_sucess = false;
-    if(DoOpenMVGLocalizeImages(sfm_data_bin_path, matches_dir, relocalization_dir, images_dir)){
-        this->ExportLocalization();
-        relocalize_sucess =  true;
-    }else{
-        relocalize_sucess = false;
-    }
-    this->CleanupLocalization();
-    return relocalize_sucess;
-}
+#include "openMVG/types.hpp"
+#include "openMVG/sfm/sfm_data.hpp"
+#include "openMVG/sfm/sfm_data_io.hpp"
 
-bool Reconstruction::IncrementalSFM(){
+bool Reconstruction::Reconstruct(const std::set<std::string>& new_images){
+    LOG(INFO) << "Doing Reconstruct for " << this->_id;
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     std::string reconstruction_reconstruction_dir = reconstruction_dir + "/SFM";
     std::string matches_dir = reconstruction_dir + "/SFM";
@@ -226,27 +212,33 @@ bool Reconstruction::IncrementalSFM(){
     std::string robust_ply_path = reconstruction_reconstruction_dir + "/robust.ply";
     std::string mvs_path = reconstruction_reconstruction_dir + "/scene.mvs";
     std::string undistored_images_path = reconstruction_reconstruction_dir + "/undistorted";
-    if(!DoMVGComputeMatches(sfm_data_path, matches_dir)){
+
+    std::set<std::string> new_image_paths;
+
+    for(std::string image_id : new_images){
+        ImageMetaData meta = this->_image_storage->GetMeta(image_id);
+        new_image_paths.insert(meta.path());
+    }
+    LOG(INFO) << "Gathering Matches for " << this->_id;
+    if(!reconstruction_agent.GenerateMatches(new_image_paths)){
         return false;
     }
-    if(!DoOpenMVGIncrementalSFM2(sfm_data_path, 
-                                matches_dir, 
-                                reconstruction_reconstruction_dir)){
-         return false;                       
+    LOG(INFO) << "Starting Incremental SFM for " << this->_id;
+    if(!reconstruction_agent.IncrementalSFM()){
+         return false;
     }
-    if(!DoMVGComputeStructure(sfm_data_bin_path, matches_dir, matches_dir+"/matches.e.bin", robust_bin_path)){
-        return false;
-    }
-    LOG(INFO) << "Coloring structure for " << this->_id;
-    if(!DoMVGColorizeStructure(robust_bin_path, robust_ply_path)){
+    LOG(INFO) << "Starting compute structure for " << this->_id;
+    if(!reconstruction_agent.ComputeStructure()){
         return false;
     }
     LOG(INFO) << "Creating MVS File for " << this->_id;
-    if(!ConvertToMVS(sfm_data_bin_path, undistored_images_path, mvs_path)){
+    if(!ConvertToMVS(robust_bin_path, undistored_images_path, mvs_path)){
         return false;
     }
+
     SparsePointCloudMetaData spc_data;
     OBJMetaData obj_data;
+    spc_data.set_id(GetUUID());
     spc_data.set_reconstruction(this->_id);
     spc_data.set_mvs_path(mvs_path);
     spc_data.set_ply_path(robust_ply_path);
@@ -254,38 +246,12 @@ bool Reconstruction::IncrementalSFM(){
     return true;
 }
 
-void Reconstruction::SetupRelocalization(){
-    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
-    std::string relocalization_dir = reconstruction_dir + "/relocalization";
-    LOG(INFO) << "Setting up Relocalization in " << relocalization_dir;
-    CleanAndMakeDir(relocalization_dir);
-}
-
-void Reconstruction::ExportLocalization(){
-    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
-    std::string matches_dir = reconstruction_dir + "/SFM";
-    std::string relocalization_dir = reconstruction_dir + "/relocalization";
-    std::string sfm_data_expanded_path = relocalization_dir + "/sfm_data_expanded.json";
-    std::string export_extended_sfm_data_path = matches_dir + "/sfm_data.json";
-    if(boost::filesystem::exists(export_extended_sfm_data_path)){
-        boost::filesystem::remove(export_extended_sfm_data_path);
-    }
-    boost::filesystem::copy_file(sfm_data_expanded_path, export_extended_sfm_data_path);
-}
-
-void Reconstruction::AddImageToRelocalization(const std::string& image_id){
+void Reconstruction::AddImage(const std::string& image_id){
     ImageMetaData img_meta = this->_image_storage->GetMeta(image_id);
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
-    std::string relocalization_dir = reconstruction_dir + "/relocalization";
-    boost::filesystem::copy_file(img_meta.path(), 
-                                 relocalization_dir+ "/" + boost::filesystem::path(img_meta.path()).filename().string());
-}
-
-void Reconstruction::CleanupLocalization(){
-    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
-    std::string relocalization_dir = reconstruction_dir + "/relocalization";
-    if(boost::filesystem::exists(relocalization_dir)){
-        boost::filesystem::remove_all(relocalization_dir);
+    LOG(INFO) << "Adding image: " << image_id;
+    if(!reconstruction_agent.AddImage(img_meta.path())){
+        LOG(ERROR) << "Failed to add image " << image_id;
     }
 }
 
@@ -302,4 +268,8 @@ Reconstruction::~Reconstruction(){
         this->_mvs_thread->join();
         delete this->_mvs_thread;
     }
+}
+
+bool Reconstruction::IsRunningMVS(){
+    return this->_running_mvs;
 }
