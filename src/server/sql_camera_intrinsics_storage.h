@@ -11,6 +11,7 @@ class SQLCameraIntrinsicsStorage : public CameraIntrinsicsStorage, public SQLSto
                      const std::string& table);
         void Store(const CameraIntrinsics& camera_instrinsics);
         void Delete(const std::string& model); 
+        bool Exists(const std::string& model);
         CameraIntrinsics Get(const std::string& model);
     private:
         std::string _table;

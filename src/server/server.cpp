@@ -18,9 +18,7 @@
 #include "redis_session_image_queue_adapter.h"
 
 /*
-    TODO: - potentially let upload image as a stream instead
-          - Depth maps get cached. We should store these with the reconstruction
-          - Might want to index in database by directory or just copy the relevant files to a known location?
+    TODO: 
 */
 
 using grpc::Server;
@@ -36,18 +34,33 @@ using grpc::ServerWriter;
 
 class ReconstructionServer : public ReconstructionService::Service {
     Status NewReconstruction(ServerContext* context, const NewReconstructionRequest* request, NewReconstructionResponse* response){
+        ReconstructionData new_reconstruction;
         std::string uuid = GetUUID();
-        response->set_reconstruction_id(uuid);
         std::string reconstruction_root = CONFIG_GET_STRING("storage.root") + "/" + uuid;
-        std::string reconstruction_images = reconstruction_root + "/images";
+        std::string images_dir = reconstruction_root + "/images";
+        std::string features_dir = reconstruction_root + "/features";
         std::string sfm_dir = reconstruction_root + "/SFM";
-        LOG(INFO) << "Making Directory: " << reconstruction_root;
+        std::string mvs_dir = reconstruction_root + "/MVS";
+        std::string matches_dir = reconstruction_root + "/matches";
+        
         mkdir(reconstruction_root.c_str(), 0777);
+        mkdir(images_dir.c_str(), 0777);
+        mkdir(features_dir.c_str(), 0777);
         mkdir(sfm_dir.c_str(), 0777);
-        LOG(INFO) << "Making Directory: " << reconstruction_images;
-        mkdir(reconstruction_images.c_str(), 0777);
-        ReconstructionFetcher fetcher;
-        fetcher.Create(uuid, reconstruction_root);
+        mkdir(mvs_dir.c_str(), 0777);
+        mkdir(matches_dir.c_str(), 0777);
+
+        new_reconstruction.set_id(uuid);
+        new_reconstruction.set_images_path(images_dir);
+        new_reconstruction.set_features_path(features_dir);
+        new_reconstruction.set_sfm_path(sfm_dir);
+        new_reconstruction.set_mvs_path(mvs_dir);
+        new_reconstruction.set_matches_path(matches_dir);
+        response->set_reconstruction_id(new_reconstruction.id());
+        
+        ReconstructionFetcher rf;
+        rf.Store(new_reconstruction);
+
         LOG(INFO) << "Made new reconstruction " << uuid;
         return Status::OK;
     }

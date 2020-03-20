@@ -2,6 +2,7 @@
 #include "sql_image_storage.h"
 #include "sql_recontruction_storage.h"
 #include "sql_sparse_storage.h"
+#include "sql_camera_intrinsics_storage.h"
 #include "openmvs_strategy.h"
 #include "util.h"
 #include "sql_obj_storage.h"
@@ -29,51 +30,48 @@ Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
                                                     CONFIG_GET_STRING("sql.user"), 
                                                     CONFIG_GET_STRING("sql.password"),
                                                     CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.obj_table")));
+                                                    CONFIG_GET_STRING("sql.obj_table")),
+                                  new SQLCameraIntrinsicsStorage(CONFIG_GET_STRING("sql.address"), 
+                                                    CONFIG_GET_STRING("sql.user"), 
+                                                    CONFIG_GET_STRING("sql.password"),
+                                                    CONFIG_GET_STRING("sql.db"), 
+                                                    CONFIG_GET_STRING("sql.intrinsics_table")));
 }
 
-void ReconstructionFetcher::Create(const std::string& id, const std::string& path){
-    try{
-        SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
-                                CONFIG_GET_STRING("sql.user"), 
-                                CONFIG_GET_STRING("sql.password"), 
-                                CONFIG_GET_STRING("sql.db"), 
-                                CONFIG_GET_STRING("sql.reconstruction_table")).CreateIfNew(id, path);
-    }catch(std::exception& e){
-        LOG(ERROR) << e.what();
-    }
+void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
+    SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
+                            CONFIG_GET_STRING("sql.user"), 
+                            CONFIG_GET_STRING("sql.password"), 
+                            CONFIG_GET_STRING("sql.db"), 
+                            CONFIG_GET_STRING("sql.reconstruction_table")).Store(reconstruction);
 }
 
 Reconstruction::Reconstruction(const std::string& id,
                        ReconstructionStorageAdapter* reconstruction_storage,
                        ImageStorageAdapter* image_storage,
                        SparseStorageAdapter* sparse_storage,
-                       OBJStorageAdapter* obj_storage) : _id(id), 
+                       OBJStorageAdapter* obj_storage,
+                       CameraIntrinsicsStorage* intrinsics_storage) : _id(id), 
                                                          _reconstruction_storage(reconstruction_storage),
                                                          _image_storage(image_storage), 
                                                          _obj_storage(obj_storage), 
-                                                         _sparse_storage(sparse_storage){
-    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
-    std::string reconstruction_reconstruction_dir = reconstruction_dir + "/SFM";
-    std::string matches_dir = reconstruction_dir + "/SFM";
-    std::string sfm_data_path = matches_dir + "/sfm_data.json";
-    std::string sfm_data_bin_path = reconstruction_reconstruction_dir +"/sfm_data.bin";
-    std::string robust_bin_path = reconstruction_reconstruction_dir + "/robust.bin";
-    std::string robust_ply_path = reconstruction_reconstruction_dir + "/robust.ply";
-    std::string mvs_path = reconstruction_reconstruction_dir + "/scene.mvs";
-    std::string undistored_images_path = reconstruction_reconstruction_dir + "/undistorted";
+                                                         _sparse_storage(sparse_storage),
+                                                         _intrinsics_storage(intrinsics_storage),
+                                                         reconstruction_agent(_intrinsics_storage){
+    this->_data = this->_reconstruction_storage->Get(this->_id);
     OpenMVGReconstructionAgentConfig config;
-    config.sMatchesDirectory = matches_dir;
+    config.sMatchFile = this->_data.matches_path() + "/matches.e.bin";
+    config.features_dir = this->_data.features_path();
+    config.sfm_dir = this->_data.features_path();
+    config.root_path = this->_data.images_path();
+    config.matches_dir = this->_data.matches_path();
+    config.sOutFile =  this->_data.sfm_path() + "/robust.bin";
     config.sGeometricModel = "e";
-    config.sMatchesDir = matches_dir;
-    config.sOutDir = matches_dir;
-    config.sMatchFile = matches_dir+"/matches.e.bin";
-    config.sOutFile = robust_bin_path;
-    config.sfileDatabase = std::getenv("OPENMVG_SENSOR_DB");
-    config.sfileDatabase += "/sensor_width_camera_database.txt";
-    config.sOutputDir = matches_dir;
-    config.root_path = reconstruction_dir + "/images";
     this->reconstruction_agent.SetConfig(config);
+}
+
+const ReconstructionData& Reconstruction::Data(){
+    return this->_data;
 }
 
 std::string Reconstruction::StoreImage(ImageData& image){

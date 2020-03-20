@@ -10,10 +10,12 @@
 #include "openMVG/cameras/Camera_Common.hpp"
 
 #include "reconstruction_agent.h"
+#include "camera_intrinsics_storage.h"
 
 typedef struct OpenMVGReconstructionAgentConfig {
-    std::string sfileDatabase = "",
-    sOutputDir = "",
+    std::string features_dir = "",
+    sfm_dir = "",
+    matches_dir = "",
     sKmatrix;
     std::string sPriorWeights;
     std::pair<bool, openMVG::Vec3> prior_w_info = std::pair<bool, openMVG::Vec3>(false, openMVG::Vec3(1.0,1.0,1.0));
@@ -22,12 +24,11 @@ typedef struct OpenMVGReconstructionAgentConfig {
     double focal_pixels = -1.0;
     
     bool bUpRight = false;
-    std::string sImage_Describer_Method = "SIFT";
+    std::string sImage_Describer_Method = "SIFT_ANATOMY"; //Using regular SIFT causes memory errors since the describer uses external threads
     bool bForce = false;
     std::string sFeaturePreset = "";
     int iNumThreads = 0;
-    std::string sMatchesDir, sMatchFilename;
-    std::string sOutDir = "";
+    std::string sMatchFilename;
     std::string sIntrinsic_refinement_options = "ADJUST_ALL";
     std::string sSfMInitializer_method = "STELLAR";
     int i_User_camera_model = openMVG::cameras::EINTRINSIC::PINHOLE_CAMERA_RADIAL3;
@@ -40,7 +41,6 @@ typedef struct OpenMVGReconstructionAgentConfig {
     double dMax_reprojection_error = 4.0;
     unsigned int ui_max_cache_size = 0;
 
-    std::string sMatchesDirectory = "";
     std::string sGeometricModel = "f";
     float fDistRatio = 0.8f;
     int iMatchingVideoMode = -1;
@@ -53,7 +53,7 @@ typedef struct OpenMVGReconstructionAgentConfig {
 
 class OpenMVGReconstructionAgent : public ReconstructionAgent{
     public:
-        OpenMVGReconstructionAgent();
+        OpenMVGReconstructionAgent(CameraIntrinsicsStorage* intrinsics_storage);
         bool IncrementalSFM(const std::set<std::string>& new_images){}
         bool AddImage(const std::string& image_id);
         bool GenerateMatches(const std::set<std::string>& images);
@@ -63,8 +63,10 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         void SetConfig(const OpenMVGReconstructionAgentConfig& config);
     private:
         openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_images);
-        bool _GenerateImageFeatures(openMVG::IndexT view_id);
+        bool _GenerateImageFeatures(const std::string& image_path);
         OpenMVGReconstructionAgentConfig _config;
         openMVG::sfm::SfM_Data _sfm_data;
         openMVG::matching::PairWiseMatches _matches;
+        CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
+        
 };

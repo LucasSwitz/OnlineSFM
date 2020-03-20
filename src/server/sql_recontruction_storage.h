@@ -10,7 +10,7 @@ class SQLReconstructionStorage : public ReconstructionStorageAdapter, public SQL
                    const std::string& pass, 
                    const std::string& db,
                    const std::string& table);
-        void CreateIfNew(const std::string& id, const std::string& path);
+        void Store(const ReconstructionData& data);
         ReconstructionData Get(const std::string& id);
         void Delete(const std::string& id);
     private:

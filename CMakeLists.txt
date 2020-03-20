@@ -12,7 +12,15 @@ file(GLOB SERVER_SOURCES
     src/server/*.cpp
     common/proto/gen/cpp/*.cc
     common/proto/gen/cpp/*.cpp
-    )
+)
+
+file(GLOB UPLOAD_INTRINISICS_SOURCES
+    tools/upload_intrinsics_db_to_mysql.cpp
+    src/server/sql_camera_intrinsics_storage.cpp
+    src/server/sql_storage.cpp
+    common/proto/gen/cpp/*.cc
+    common/proto/gen/cpp/*.cpp
+)
 
 add_executable(server ${SERVER_SOURCES})
 set_property(TARGET server PROPERTY CXX_STANDARD 14)
@@ -32,3 +40,9 @@ OpenMVG::openMVG_numeric
 OpenMVG::openMVG_robust_estimation
 OpenMVG::openMVG_sfm
 OpenMVG::openMVG_system)
+
+add_executable(upload_intrinsics_tool ${UPLOAD_INTRINISICS_SOURCES})
+set_property(TARGET upload_intrinsics_tool PROPERTY CXX_STANDARD 14)
+target_link_libraries(upload_intrinsics_tool gRPC::grpc++ ${GLOG_LIBRARIES} ${Protobuf_LIBRARIES} mysqlcppconn stlplus3 redis++ hiredis
+    OpenMVG::openMVG_exif
+)

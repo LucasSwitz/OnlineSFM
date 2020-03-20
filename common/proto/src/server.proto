@@ -40,11 +40,16 @@ message OBJData{
 }
 
 message ReconstructionData {
-    repeated string images = 1;
-    repeated string sparse_reconstruction = 2;
-    repeated string obj = 3;
-    string path = 4;
-    string id = 5; 
+    string id = 1; 
+    string root = 2;
+    repeated string images = 3;
+    string sparse_reconstruction = 4;
+    string obj = 5;
+    string images_path = 6;
+    string sfm_path = 7;
+    string mvs_path = 8;
+    string features_path = 9;
+    string matches_path = 10;
 }
 
 message ImageUploadResponse{
@@ -97,7 +102,12 @@ message DeleteReconstructionResponse {
 
 message CameraIntrinsics {
     string model = 1;
-    float focal_length = 2;
+    string maker  = 2;
+    string numeric_model = 3;
+    float sensor_size = 4;
+    string focus_mode = 5;
+    float horizontal_view_angle = 6;
+    int32 jpeg_quality = 7;
 }
 
 message HandhsakeRequest {

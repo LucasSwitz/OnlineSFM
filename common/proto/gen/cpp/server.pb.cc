@@ -613,11 +613,16 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, id_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, root_),
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, images_),
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, sparse_reconstruction_),
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, obj_),
-  PROTOBUF_FIELD_OFFSET(::ReconstructionData, path_),
-  PROTOBUF_FIELD_OFFSET(::ReconstructionData, id_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, images_path_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, sfm_path_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, mvs_path_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, features_path_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionData, matches_path_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ImageUploadResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -693,7 +698,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, model_),
-  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, focal_length_),
+  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, maker_),
+  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, numeric_model_),
+  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, sensor_size_),
+  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, focus_mode_),
+  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, horizontal_view_angle_),
+  PROTOBUF_FIELD_OFFSET(::CameraIntrinsics, jpeg_quality_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::HandhsakeRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -765,28 +775,28 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 32, -1, sizeof(::OBJMetaData)},
   { 42, -1, sizeof(::OBJData)},
   { 51, -1, sizeof(::ReconstructionData)},
-  { 61, -1, sizeof(::ImageUploadResponse)},
-  { 67, -1, sizeof(::UploadImageRequest)},
-  { 74, -1, sizeof(::NewReconstructionRequest)},
-  { 79, -1, sizeof(::NewReconstructionResponse)},
-  { 85, -1, sizeof(::ReconstructRequest)},
-  { 91, -1, sizeof(::GetOBJRequest)},
-  { 97, -1, sizeof(::GetOBJResponse)},
-  { 104, -1, sizeof(::ReconstructResponse)},
-  { 111, -1, sizeof(::ReconstructionOBJ)},
-  { 117, -1, sizeof(::DeleteReconstructionRequest)},
-  { 123, -1, sizeof(::DeleteReconstructionResponse)},
-  { 130, -1, sizeof(::CameraIntrinsics)},
-  { 137, -1, sizeof(::HandhsakeRequest)},
-  { 144, -1, sizeof(::HandshakeResponse)},
-  { 150, -1, sizeof(::StartSessionRequest)},
-  { 156, -1, sizeof(::StartSessionResponse)},
-  { 163, -1, sizeof(::StopSessionRequest)},
-  { 169, -1, sizeof(::StopSessionResponse)},
-  { 175, -1, sizeof(::SessionUploadImageRequest)},
-  { 182, -1, sizeof(::SessionUploadImageResponse)},
-  { 187, -1, sizeof(::GetSparseRequest)},
-  { 193, -1, sizeof(::GetSparseResponse)},
+  { 66, -1, sizeof(::ImageUploadResponse)},
+  { 72, -1, sizeof(::UploadImageRequest)},
+  { 79, -1, sizeof(::NewReconstructionRequest)},
+  { 84, -1, sizeof(::NewReconstructionResponse)},
+  { 90, -1, sizeof(::ReconstructRequest)},
+  { 96, -1, sizeof(::GetOBJRequest)},
+  { 102, -1, sizeof(::GetOBJResponse)},
+  { 109, -1, sizeof(::ReconstructResponse)},
+  { 116, -1, sizeof(::ReconstructionOBJ)},
+  { 122, -1, sizeof(::DeleteReconstructionRequest)},
+  { 128, -1, sizeof(::DeleteReconstructionResponse)},
+  { 135, -1, sizeof(::CameraIntrinsics)},
+  { 147, -1, sizeof(::HandhsakeRequest)},
+  { 154, -1, sizeof(::HandshakeResponse)},
+  { 160, -1, sizeof(::StartSessionRequest)},
+  { 166, -1, sizeof(::StartSessionResponse)},
+  { 173, -1, sizeof(::StopSessionRequest)},
+  { 179, -1, sizeof(::StopSessionResponse)},
+  { 185, -1, sizeof(::SessionUploadImageRequest)},
+  { 192, -1, sizeof(::SessionUploadImageResponse)},
+  { 197, -1, sizeof(::GetSparseRequest)},
+  { 203, -1, sizeof(::GetSparseResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -835,56 +845,61 @@ const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\030\003 \001(\t\022\024\n\014texture_path\030\004 \001(\t\022\020\n\010mtl_path"
   "\030\005 \001(\t\"c\n\007OBJData\022\020\n\010obj_data\030\001 \001(\014\022\024\n\014t"
   "exture_data\030\002 \001(\014\022\020\n\010mtl_data\030\003 \001(\014\022\036\n\010m"
-  "etadata\030\004 \001(\0132\014.OBJMetaData\"j\n\022Reconstru"
-  "ctionData\022\016\n\006images\030\001 \003(\t\022\035\n\025sparse_reco"
-  "nstruction\030\002 \003(\t\022\013\n\003obj\030\003 \003(\t\022\014\n\004path\030\004 "
-  "\001(\t\022\n\n\002id\030\005 \001(\t\"&\n\023ImageUploadResponse\022\017"
-  "\n\007success\030\001 \001(\010\"J\n\022UploadImageRequest\022\031\n"
-  "\021reconstruction_id\030\001 \001(\t\022\031\n\005image\030\002 \001(\0132"
-  "\n.ImageData\"\032\n\030NewReconstructionRequest\""
-  "6\n\031NewReconstructionResponse\022\031\n\021reconstr"
-  "uction_id\030\001 \001(\t\"/\n\022ReconstructRequest\022\031\n"
-  "\021reconstruction_id\030\001 \001(\t\"*\n\rGetOBJReques"
-  "t\022\031\n\021reconstruction_id\030\001 \001(\t\"8\n\016GetOBJRe"
-  "sponse\022\017\n\007success\030\001 \001(\010\022\025\n\003obj\030\002 \001(\0132\010.O"
-  "BJData\"9\n\023ReconstructResponse\022\017\n\007success"
-  "\030\001 \001(\010\022\021\n\terror_msg\030\002 \001(\t\" \n\021Reconstruct"
-  "ionOBJ\022\013\n\003obj\030\001 \001(\014\")\n\033DeleteReconstruct"
-  "ionRequest\022\n\n\002id\030\001 \001(\t\";\n\034DeleteReconstr"
-  "uctionResponse\022\017\n\007success\030\001 \001(\010\022\n\n\002id\030\002 "
-  "\001(\t\"7\n\020CameraIntrinsics\022\r\n\005model\030\001 \001(\t\022\024"
-  "\n\014focal_length\030\002 \001(\002\"T\n\020HandhsakeRequest"
-  "\022\022\n\nidentifier\030\001 \001(\t\022,\n\021camera_intrinsic"
-  "s\030\002 \001(\0132\021.CameraIntrinsics\"$\n\021HandshakeR"
-  "esponse\022\017\n\007success\030\001 \001(\010\"0\n\023StartSession"
-  "Request\022\031\n\021reconstruction_id\030\001 \001(\t\"E\n\024St"
-  "artSessionResponse\022\031\n\021reconstruction_id\030"
-  "\001 \001(\t\022\022\n\nsession_id\030\002 \001(\t\"(\n\022StopSession"
-  "Request\022\022\n\nsession_id\030\001 \001(\t\")\n\023StopSessi"
-  "onResponse\022\022\n\nsession_id\030\001 \001(\t\"Z\n\031Sessio"
-  "nUploadImageRequest\022\022\n\nsession_id\030\001 \001(\t\022"
-  ")\n\014upload_image\030\002 \001(\0132\023.UploadImageReque"
-  "st\"\034\n\032SessionUploadImageResponse\"-\n\020GetS"
-  "parseRequest\022\031\n\021reconstruction_id\030\001 \001(\t\""
-  ":\n\021GetSparseResponse\022%\n\006sparse\030\001 \001(\0132\025.S"
-  "parsePointCloudData2\221\005\n\025ReconstructionSe"
-  "rvice\0224\n\tHandshake\022\021.HandhsakeRequest\032\022."
-  "HandshakeResponse\"\000\022<\n\013UploadImage\022\023.Upl"
-  "oadImageRequest\032\024.ImageUploadResponse\"\000("
-  "\001\0228\n\013Reconstruct\022\023.ReconstructRequest\032\024."
-  "ReconstructResponse\022+\n\006GetOBJ\022\016.GetOBJRe"
-  "quest\032\017.GetOBJResponse0\001\0224\n\tGetSparse\022\021."
-  "GetSparseRequest\032\022.GetSparseResponse0\001\022J"
-  "\n\021NewReconstruction\022\031.NewReconstructionR"
-  "equest\032\032.NewReconstructionResponse\022S\n\024De"
-  "leteReconstruction\022\034.DeleteReconstructio"
-  "nRequest\032\035.DeleteReconstructionResponse\022"
-  ";\n\014StartSession\022\024.StartSessionRequest\032\025."
-  "StartSessionResponse\0228\n\013StopSession\022\023.St"
-  "opSessionRequest\032\024.StopSessionResponse\022O"
-  "\n\022SessionUploadImage\022\032.SessionUploadImag"
-  "eRequest\032\033.SessionUploadImageResponse(\001b"
-  "\006proto3"
+  "etadata\030\004 \001(\0132\014.OBJMetaData\"\320\001\n\022Reconstr"
+  "uctionData\022\n\n\002id\030\001 \001(\t\022\014\n\004root\030\002 \001(\t\022\016\n\006"
+  "images\030\003 \003(\t\022\035\n\025sparse_reconstruction\030\004 "
+  "\001(\t\022\013\n\003obj\030\005 \001(\t\022\023\n\013images_path\030\006 \001(\t\022\020\n"
+  "\010sfm_path\030\007 \001(\t\022\020\n\010mvs_path\030\010 \001(\t\022\025\n\rfea"
+  "tures_path\030\t \001(\t\022\024\n\014matches_path\030\n \001(\t\"&"
+  "\n\023ImageUploadResponse\022\017\n\007success\030\001 \001(\010\"J"
+  "\n\022UploadImageRequest\022\031\n\021reconstruction_i"
+  "d\030\001 \001(\t\022\031\n\005image\030\002 \001(\0132\n.ImageData\"\032\n\030Ne"
+  "wReconstructionRequest\"6\n\031NewReconstruct"
+  "ionResponse\022\031\n\021reconstruction_id\030\001 \001(\t\"/"
+  "\n\022ReconstructRequest\022\031\n\021reconstruction_i"
+  "d\030\001 \001(\t\"*\n\rGetOBJRequest\022\031\n\021reconstructi"
+  "on_id\030\001 \001(\t\"8\n\016GetOBJResponse\022\017\n\007success"
+  "\030\001 \001(\010\022\025\n\003obj\030\002 \001(\0132\010.OBJData\"9\n\023Reconst"
+  "ructResponse\022\017\n\007success\030\001 \001(\010\022\021\n\terror_m"
+  "sg\030\002 \001(\t\" \n\021ReconstructionOBJ\022\013\n\003obj\030\001 \001"
+  "(\014\")\n\033DeleteReconstructionRequest\022\n\n\002id\030"
+  "\001 \001(\t\";\n\034DeleteReconstructionResponse\022\017\n"
+  "\007success\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n\020CameraInt"
+  "rinsics\022\r\n\005model\030\001 \001(\t\022\r\n\005maker\030\002 \001(\t\022\025\n"
+  "\rnumeric_model\030\003 \001(\t\022\023\n\013sensor_size\030\004 \001("
+  "\002\022\022\n\nfocus_mode\030\005 \001(\t\022\035\n\025horizontal_view"
+  "_angle\030\006 \001(\002\022\024\n\014jpeg_quality\030\007 \001(\005\"T\n\020Ha"
+  "ndhsakeRequest\022\022\n\nidentifier\030\001 \001(\t\022,\n\021ca"
+  "mera_intrinsics\030\002 \001(\0132\021.CameraIntrinsics"
+  "\"$\n\021HandshakeResponse\022\017\n\007success\030\001 \001(\010\"0"
+  "\n\023StartSessionRequest\022\031\n\021reconstruction_"
+  "id\030\001 \001(\t\"E\n\024StartSessionResponse\022\031\n\021reco"
+  "nstruction_id\030\001 \001(\t\022\022\n\nsession_id\030\002 \001(\t\""
+  "(\n\022StopSessionRequest\022\022\n\nsession_id\030\001 \001("
+  "\t\")\n\023StopSessionResponse\022\022\n\nsession_id\030\001"
+  " \001(\t\"Z\n\031SessionUploadImageRequest\022\022\n\nses"
+  "sion_id\030\001 \001(\t\022)\n\014upload_image\030\002 \001(\0132\023.Up"
+  "loadImageRequest\"\034\n\032SessionUploadImageRe"
+  "sponse\"-\n\020GetSparseRequest\022\031\n\021reconstruc"
+  "tion_id\030\001 \001(\t\":\n\021GetSparseResponse\022%\n\006sp"
+  "arse\030\001 \001(\0132\025.SparsePointCloudData2\221\005\n\025Re"
+  "constructionService\0224\n\tHandshake\022\021.Handh"
+  "sakeRequest\032\022.HandshakeResponse\"\000\022<\n\013Upl"
+  "oadImage\022\023.UploadImageRequest\032\024.ImageUpl"
+  "oadResponse\"\000(\001\0228\n\013Reconstruct\022\023.Reconst"
+  "ructRequest\032\024.ReconstructResponse\022+\n\006Get"
+  "OBJ\022\016.GetOBJRequest\032\017.GetOBJResponse0\001\0224"
+  "\n\tGetSparse\022\021.GetSparseRequest\032\022.GetSpar"
+  "seResponse0\001\022J\n\021NewReconstruction\022\031.NewR"
+  "econstructionRequest\032\032.NewReconstruction"
+  "Response\022S\n\024DeleteReconstruction\022\034.Delet"
+  "eReconstructionRequest\032\035.DeleteReconstru"
+  "ctionResponse\022;\n\014StartSession\022\024.StartSes"
+  "sionRequest\032\025.StartSessionResponse\0228\n\013St"
+  "opSession\022\023.StopSessionRequest\032\024.StopSes"
+  "sionResponse\022O\n\022SessionUploadImage\022\032.Ses"
+  "sionUploadImageRequest\032\033.SessionUploadIm"
+  "ageResponse(\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_server_2eproto_deps[1] = {
 };
@@ -922,7 +937,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_server_2eproto_once;
 static bool descriptor_table_server_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_server_2eproto = {
-  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 2487,
+  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 2701,
   &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 29, 0,
   schemas, file_default_instances, TableStruct_server_2eproto::offsets,
   file_level_metadata_server_2eproto, 29, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
@@ -2716,25 +2731,58 @@ ReconstructionData::ReconstructionData()
 ReconstructionData::ReconstructionData(const ReconstructionData& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr),
-      images_(from.images_),
-      sparse_reconstruction_(from.sparse_reconstruction_),
-      obj_(from.obj_) {
+      images_(from.images_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_path().empty()) {
-    path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_id().empty()) {
     id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.id_);
+  }
+  root_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_root().empty()) {
+    root_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.root_);
+  }
+  sparse_reconstruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_sparse_reconstruction().empty()) {
+    sparse_reconstruction_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sparse_reconstruction_);
+  }
+  obj_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_obj().empty()) {
+    obj_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.obj_);
+  }
+  images_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_images_path().empty()) {
+    images_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.images_path_);
+  }
+  sfm_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_sfm_path().empty()) {
+    sfm_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sfm_path_);
+  }
+  mvs_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_mvs_path().empty()) {
+    mvs_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.mvs_path_);
+  }
+  features_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_features_path().empty()) {
+    features_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.features_path_);
+  }
+  matches_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_matches_path().empty()) {
+    matches_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.matches_path_);
   }
   // @@protoc_insertion_point(copy_constructor:ReconstructionData)
 }
 
 void ReconstructionData::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReconstructionData_server_2eproto.base);
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  root_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sparse_reconstruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  obj_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  images_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sfm_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mvs_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  features_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  matches_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 ReconstructionData::~ReconstructionData() {
@@ -2743,8 +2791,15 @@ ReconstructionData::~ReconstructionData() {
 }
 
 void ReconstructionData::SharedDtor() {
-  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  root_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sparse_reconstruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  obj_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  images_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sfm_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mvs_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  features_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  matches_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void ReconstructionData::SetCachedSize(int size) const {
@@ -2763,10 +2818,15 @@ void ReconstructionData::Clear() {
   (void) cached_has_bits;
 
   images_.Clear();
-  sparse_reconstruction_.Clear();
-  obj_.Clear();
-  path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  root_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sparse_reconstruction_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  obj_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  images_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  sfm_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mvs_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  features_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  matches_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -2777,9 +2837,27 @@ const char* ReconstructionData::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // repeated string images = 1;
+      // string id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string root = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_root();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.root"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated string images = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -2788,52 +2866,69 @@ const char* ReconstructionData::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
             CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.images"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated string sparse_reconstruction = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_sparse_reconstruction();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.sparse_reconstruction"));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else goto handle_unusual;
-        continue;
-      // repeated string obj = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_obj();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.obj"));
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
-      // string path = 4;
+      // string sparse_reconstruction = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          auto str = _internal_mutable_path();
+          auto str = _internal_mutable_sparse_reconstruction();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.path"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.sparse_reconstruction"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string id = 5;
+      // string obj = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          auto str = _internal_mutable_id();
+          auto str = _internal_mutable_obj();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.obj"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string images_path = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+          auto str = _internal_mutable_images_path();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.images_path"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string sfm_path = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+          auto str = _internal_mutable_sfm_path();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.sfm_path"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string mvs_path = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
+          auto str = _internal_mutable_mvs_path();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.mvs_path"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string features_path = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
+          auto str = _internal_mutable_features_path();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.features_path"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string matches_path = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
+          auto str = _internal_mutable_matches_path();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionData.matches_path"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2863,54 +2958,104 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated string images = 1;
-  for (int i = 0, n = this->_internal_images_size(); i < n; i++) {
-    const auto& s = this->_internal_images(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ReconstructionData.images");
-    target = stream->WriteString(1, s, target);
-  }
-
-  // repeated string sparse_reconstruction = 2;
-  for (int i = 0, n = this->_internal_sparse_reconstruction_size(); i < n; i++) {
-    const auto& s = this->_internal_sparse_reconstruction(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ReconstructionData.sparse_reconstruction");
-    target = stream->WriteString(2, s, target);
-  }
-
-  // repeated string obj = 3;
-  for (int i = 0, n = this->_internal_obj_size(); i < n; i++) {
-    const auto& s = this->_internal_obj(i);
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      s.data(), static_cast<int>(s.length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ReconstructionData.obj");
-    target = stream->WriteString(3, s, target);
-  }
-
-  // string path = 4;
-  if (this->path().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_path().data(), static_cast<int>(this->_internal_path().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "ReconstructionData.path");
-    target = stream->WriteStringMaybeAliased(
-        4, this->_internal_path(), target);
-  }
-
-  // string id = 5;
+  // string id = 1;
   if (this->id().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_id().data(), static_cast<int>(this->_internal_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "ReconstructionData.id");
     target = stream->WriteStringMaybeAliased(
-        5, this->_internal_id(), target);
+        1, this->_internal_id(), target);
+  }
+
+  // string root = 2;
+  if (this->root().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_root().data(), static_cast<int>(this->_internal_root().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.root");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_root(), target);
+  }
+
+  // repeated string images = 3;
+  for (int i = 0, n = this->_internal_images_size(); i < n; i++) {
+    const auto& s = this->_internal_images(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.images");
+    target = stream->WriteString(3, s, target);
+  }
+
+  // string sparse_reconstruction = 4;
+  if (this->sparse_reconstruction().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_sparse_reconstruction().data(), static_cast<int>(this->_internal_sparse_reconstruction().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.sparse_reconstruction");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_sparse_reconstruction(), target);
+  }
+
+  // string obj = 5;
+  if (this->obj().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_obj().data(), static_cast<int>(this->_internal_obj().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.obj");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_obj(), target);
+  }
+
+  // string images_path = 6;
+  if (this->images_path().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_images_path().data(), static_cast<int>(this->_internal_images_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.images_path");
+    target = stream->WriteStringMaybeAliased(
+        6, this->_internal_images_path(), target);
+  }
+
+  // string sfm_path = 7;
+  if (this->sfm_path().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_sfm_path().data(), static_cast<int>(this->_internal_sfm_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.sfm_path");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_sfm_path(), target);
+  }
+
+  // string mvs_path = 8;
+  if (this->mvs_path().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mvs_path().data(), static_cast<int>(this->_internal_mvs_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.mvs_path");
+    target = stream->WriteStringMaybeAliased(
+        8, this->_internal_mvs_path(), target);
+  }
+
+  // string features_path = 9;
+  if (this->features_path().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_features_path().data(), static_cast<int>(this->_internal_features_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.features_path");
+    target = stream->WriteStringMaybeAliased(
+        9, this->_internal_features_path(), target);
+  }
+
+  // string matches_path = 10;
+  if (this->matches_path().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_matches_path().data(), static_cast<int>(this->_internal_matches_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionData.matches_path");
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_matches_path(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2929,7 +3074,7 @@ size_t ReconstructionData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string images = 1;
+  // repeated string images = 3;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(images_.size());
   for (int i = 0, n = images_.size(); i < n; i++) {
@@ -2937,34 +3082,67 @@ size_t ReconstructionData::ByteSizeLong() const {
       images_.Get(i));
   }
 
-  // repeated string sparse_reconstruction = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(sparse_reconstruction_.size());
-  for (int i = 0, n = sparse_reconstruction_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      sparse_reconstruction_.Get(i));
-  }
-
-  // repeated string obj = 3;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(obj_.size());
-  for (int i = 0, n = obj_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      obj_.Get(i));
-  }
-
-  // string path = 4;
-  if (this->path().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_path());
-  }
-
-  // string id = 5;
+  // string id = 1;
   if (this->id().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_id());
+  }
+
+  // string root = 2;
+  if (this->root().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_root());
+  }
+
+  // string sparse_reconstruction = 4;
+  if (this->sparse_reconstruction().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_sparse_reconstruction());
+  }
+
+  // string obj = 5;
+  if (this->obj().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_obj());
+  }
+
+  // string images_path = 6;
+  if (this->images_path().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_images_path());
+  }
+
+  // string sfm_path = 7;
+  if (this->sfm_path().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_sfm_path());
+  }
+
+  // string mvs_path = 8;
+  if (this->mvs_path().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mvs_path());
+  }
+
+  // string features_path = 9;
+  if (this->features_path().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_features_path());
+  }
+
+  // string matches_path = 10;
+  if (this->matches_path().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_matches_path());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2999,15 +3177,41 @@ void ReconstructionData::MergeFrom(const ReconstructionData& from) {
   (void) cached_has_bits;
 
   images_.MergeFrom(from.images_);
-  sparse_reconstruction_.MergeFrom(from.sparse_reconstruction_);
-  obj_.MergeFrom(from.obj_);
-  if (from.path().size() > 0) {
-
-    path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.path_);
-  }
   if (from.id().size() > 0) {
 
     id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.id_);
+  }
+  if (from.root().size() > 0) {
+
+    root_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.root_);
+  }
+  if (from.sparse_reconstruction().size() > 0) {
+
+    sparse_reconstruction_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sparse_reconstruction_);
+  }
+  if (from.obj().size() > 0) {
+
+    obj_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.obj_);
+  }
+  if (from.images_path().size() > 0) {
+
+    images_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.images_path_);
+  }
+  if (from.sfm_path().size() > 0) {
+
+    sfm_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.sfm_path_);
+  }
+  if (from.mvs_path().size() > 0) {
+
+    mvs_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.mvs_path_);
+  }
+  if (from.features_path().size() > 0) {
+
+    features_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.features_path_);
+  }
+  if (from.matches_path().size() > 0) {
+
+    matches_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.matches_path_);
   }
 }
 
@@ -3033,11 +3237,23 @@ void ReconstructionData::InternalSwap(ReconstructionData* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   images_.InternalSwap(&other->images_);
-  sparse_reconstruction_.InternalSwap(&other->sparse_reconstruction_);
-  obj_.InternalSwap(&other->obj_);
-  path_.Swap(&other->path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
   id_.Swap(&other->id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  root_.Swap(&other->root_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  sparse_reconstruction_.Swap(&other->sparse_reconstruction_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  obj_.Swap(&other->obj_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  images_path_.Swap(&other->images_path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  sfm_path_.Swap(&other->sfm_path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  mvs_path_.Swap(&other->mvs_path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  features_path_.Swap(&other->features_path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  matches_path_.Swap(&other->matches_path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }
 
@@ -5316,14 +5532,33 @@ CameraIntrinsics::CameraIntrinsics(const CameraIntrinsics& from)
   if (!from._internal_model().empty()) {
     model_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.model_);
   }
-  focal_length_ = from.focal_length_;
+  maker_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_maker().empty()) {
+    maker_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.maker_);
+  }
+  numeric_model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_numeric_model().empty()) {
+    numeric_model_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.numeric_model_);
+  }
+  focus_mode_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_focus_mode().empty()) {
+    focus_mode_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.focus_mode_);
+  }
+  ::memcpy(&sensor_size_, &from.sensor_size_,
+    static_cast<size_t>(reinterpret_cast<char*>(&jpeg_quality_) -
+    reinterpret_cast<char*>(&sensor_size_)) + sizeof(jpeg_quality_));
   // @@protoc_insertion_point(copy_constructor:CameraIntrinsics)
 }
 
 void CameraIntrinsics::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CameraIntrinsics_server_2eproto.base);
   model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  focal_length_ = 0;
+  maker_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  numeric_model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  focus_mode_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&sensor_size_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&jpeg_quality_) -
+      reinterpret_cast<char*>(&sensor_size_)) + sizeof(jpeg_quality_));
 }
 
 CameraIntrinsics::~CameraIntrinsics() {
@@ -5333,6 +5568,9 @@ CameraIntrinsics::~CameraIntrinsics() {
 
 void CameraIntrinsics::SharedDtor() {
   model_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  maker_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  numeric_model_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  focus_mode_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void CameraIntrinsics::SetCachedSize(int size) const {
@@ -5351,7 +5589,12 @@ void CameraIntrinsics::Clear() {
   (void) cached_has_bits;
 
   model_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  focal_length_ = 0;
+  maker_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  numeric_model_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  focus_mode_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&sensor_size_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&jpeg_quality_) -
+      reinterpret_cast<char*>(&sensor_size_)) + sizeof(jpeg_quality_));
   _internal_metadata_.Clear();
 }
 
@@ -5371,11 +5614,52 @@ const char* CameraIntrinsics::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // float focal_length = 2;
+      // string maker = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
-          focal_length_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_maker();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CameraIntrinsics.maker"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string numeric_model = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_numeric_model();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CameraIntrinsics.numeric_model"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float sensor_size = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 37)) {
+          sensor_size_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // string focus_mode = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          auto str = _internal_mutable_focus_mode();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CameraIntrinsics.focus_mode"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // float horizontal_view_angle = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 53)) {
+          horizontal_view_angle_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // int32 jpeg_quality = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          jpeg_quality_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -5414,10 +5698,52 @@ failure:
         1, this->_internal_model(), target);
   }
 
-  // float focal_length = 2;
-  if (!(this->focal_length() <= 0 && this->focal_length() >= 0)) {
+  // string maker = 2;
+  if (this->maker().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_maker().data(), static_cast<int>(this->_internal_maker().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CameraIntrinsics.maker");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_maker(), target);
+  }
+
+  // string numeric_model = 3;
+  if (this->numeric_model().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_numeric_model().data(), static_cast<int>(this->_internal_numeric_model().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CameraIntrinsics.numeric_model");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_numeric_model(), target);
+  }
+
+  // float sensor_size = 4;
+  if (!(this->sensor_size() <= 0 && this->sensor_size() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_focal_length(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_sensor_size(), target);
+  }
+
+  // string focus_mode = 5;
+  if (this->focus_mode().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_focus_mode().data(), static_cast<int>(this->_internal_focus_mode().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CameraIntrinsics.focus_mode");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_focus_mode(), target);
+  }
+
+  // float horizontal_view_angle = 6;
+  if (!(this->horizontal_view_angle() <= 0 && this->horizontal_view_angle() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(6, this->_internal_horizontal_view_angle(), target);
+  }
+
+  // int32 jpeg_quality = 7;
+  if (this->jpeg_quality() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_jpeg_quality(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5443,9 +5769,42 @@ size_t CameraIntrinsics::ByteSizeLong() const {
         this->_internal_model());
   }
 
-  // float focal_length = 2;
-  if (!(this->focal_length() <= 0 && this->focal_length() >= 0)) {
+  // string maker = 2;
+  if (this->maker().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_maker());
+  }
+
+  // string numeric_model = 3;
+  if (this->numeric_model().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_numeric_model());
+  }
+
+  // string focus_mode = 5;
+  if (this->focus_mode().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_focus_mode());
+  }
+
+  // float sensor_size = 4;
+  if (!(this->sensor_size() <= 0 && this->sensor_size() >= 0)) {
     total_size += 1 + 4;
+  }
+
+  // float horizontal_view_angle = 6;
+  if (!(this->horizontal_view_angle() <= 0 && this->horizontal_view_angle() >= 0)) {
+    total_size += 1 + 4;
+  }
+
+  // int32 jpeg_quality = 7;
+  if (this->jpeg_quality() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_jpeg_quality());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5483,8 +5842,26 @@ void CameraIntrinsics::MergeFrom(const CameraIntrinsics& from) {
 
     model_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.model_);
   }
-  if (!(from.focal_length() <= 0 && from.focal_length() >= 0)) {
-    _internal_set_focal_length(from._internal_focal_length());
+  if (from.maker().size() > 0) {
+
+    maker_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.maker_);
+  }
+  if (from.numeric_model().size() > 0) {
+
+    numeric_model_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.numeric_model_);
+  }
+  if (from.focus_mode().size() > 0) {
+
+    focus_mode_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.focus_mode_);
+  }
+  if (!(from.sensor_size() <= 0 && from.sensor_size() >= 0)) {
+    _internal_set_sensor_size(from._internal_sensor_size());
+  }
+  if (!(from.horizontal_view_angle() <= 0 && from.horizontal_view_angle() >= 0)) {
+    _internal_set_horizontal_view_angle(from._internal_horizontal_view_angle());
+  }
+  if (from.jpeg_quality() != 0) {
+    _internal_set_jpeg_quality(from._internal_jpeg_quality());
   }
 }
 
@@ -5511,7 +5888,15 @@ void CameraIntrinsics::InternalSwap(CameraIntrinsics* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   model_.Swap(&other->model_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
-  swap(focal_length_, other->focal_length_);
+  maker_.Swap(&other->maker_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  numeric_model_.Swap(&other->numeric_model_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  focus_mode_.Swap(&other->focus_mode_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(sensor_size_, other->sensor_size_);
+  swap(horizontal_view_angle_, other->horizontal_view_angle_);
+  swap(jpeg_quality_, other->jpeg_quality_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CameraIntrinsics::GetMetadata() const {

@@ -34,8 +34,6 @@ void Session::_Run(){
                 reconstruction->SetupMVS();
                 reconstruction->MVS();
                 this->_blocked_reconstruction = false;
-            }else{
-                LOG(INFO) << "Reconstruction blocked";
             }
         }
 

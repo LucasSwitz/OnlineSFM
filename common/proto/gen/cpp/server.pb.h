@@ -1358,13 +1358,18 @@ class ReconstructionData :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kImagesFieldNumber = 1,
-    kSparseReconstructionFieldNumber = 2,
-    kObjFieldNumber = 3,
-    kPathFieldNumber = 4,
-    kIdFieldNumber = 5,
+    kImagesFieldNumber = 3,
+    kIdFieldNumber = 1,
+    kRootFieldNumber = 2,
+    kSparseReconstructionFieldNumber = 4,
+    kObjFieldNumber = 5,
+    kImagesPathFieldNumber = 6,
+    kSfmPathFieldNumber = 7,
+    kMvsPathFieldNumber = 8,
+    kFeaturesPathFieldNumber = 9,
+    kMatchesPathFieldNumber = 10,
   };
-  // repeated string images = 1;
+  // repeated string images = 3;
   int images_size() const;
   private:
   int _internal_images_size() const;
@@ -1388,71 +1393,7 @@ class ReconstructionData :
   std::string* _internal_add_images();
   public:
 
-  // repeated string sparse_reconstruction = 2;
-  int sparse_reconstruction_size() const;
-  private:
-  int _internal_sparse_reconstruction_size() const;
-  public:
-  void clear_sparse_reconstruction();
-  const std::string& sparse_reconstruction(int index) const;
-  std::string* mutable_sparse_reconstruction(int index);
-  void set_sparse_reconstruction(int index, const std::string& value);
-  void set_sparse_reconstruction(int index, std::string&& value);
-  void set_sparse_reconstruction(int index, const char* value);
-  void set_sparse_reconstruction(int index, const char* value, size_t size);
-  std::string* add_sparse_reconstruction();
-  void add_sparse_reconstruction(const std::string& value);
-  void add_sparse_reconstruction(std::string&& value);
-  void add_sparse_reconstruction(const char* value);
-  void add_sparse_reconstruction(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& sparse_reconstruction() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_sparse_reconstruction();
-  private:
-  const std::string& _internal_sparse_reconstruction(int index) const;
-  std::string* _internal_add_sparse_reconstruction();
-  public:
-
-  // repeated string obj = 3;
-  int obj_size() const;
-  private:
-  int _internal_obj_size() const;
-  public:
-  void clear_obj();
-  const std::string& obj(int index) const;
-  std::string* mutable_obj(int index);
-  void set_obj(int index, const std::string& value);
-  void set_obj(int index, std::string&& value);
-  void set_obj(int index, const char* value);
-  void set_obj(int index, const char* value, size_t size);
-  std::string* add_obj();
-  void add_obj(const std::string& value);
-  void add_obj(std::string&& value);
-  void add_obj(const char* value);
-  void add_obj(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& obj() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_obj();
-  private:
-  const std::string& _internal_obj(int index) const;
-  std::string* _internal_add_obj();
-  public:
-
-  // string path = 4;
-  void clear_path();
-  const std::string& path() const;
-  void set_path(const std::string& value);
-  void set_path(std::string&& value);
-  void set_path(const char* value);
-  void set_path(const char* value, size_t size);
-  std::string* mutable_path();
-  std::string* release_path();
-  void set_allocated_path(std::string* path);
-  private:
-  const std::string& _internal_path() const;
-  void _internal_set_path(const std::string& value);
-  std::string* _internal_mutable_path();
-  public:
-
-  // string id = 5;
+  // string id = 1;
   void clear_id();
   const std::string& id() const;
   void set_id(const std::string& value);
@@ -1468,16 +1409,149 @@ class ReconstructionData :
   std::string* _internal_mutable_id();
   public:
 
+  // string root = 2;
+  void clear_root();
+  const std::string& root() const;
+  void set_root(const std::string& value);
+  void set_root(std::string&& value);
+  void set_root(const char* value);
+  void set_root(const char* value, size_t size);
+  std::string* mutable_root();
+  std::string* release_root();
+  void set_allocated_root(std::string* root);
+  private:
+  const std::string& _internal_root() const;
+  void _internal_set_root(const std::string& value);
+  std::string* _internal_mutable_root();
+  public:
+
+  // string sparse_reconstruction = 4;
+  void clear_sparse_reconstruction();
+  const std::string& sparse_reconstruction() const;
+  void set_sparse_reconstruction(const std::string& value);
+  void set_sparse_reconstruction(std::string&& value);
+  void set_sparse_reconstruction(const char* value);
+  void set_sparse_reconstruction(const char* value, size_t size);
+  std::string* mutable_sparse_reconstruction();
+  std::string* release_sparse_reconstruction();
+  void set_allocated_sparse_reconstruction(std::string* sparse_reconstruction);
+  private:
+  const std::string& _internal_sparse_reconstruction() const;
+  void _internal_set_sparse_reconstruction(const std::string& value);
+  std::string* _internal_mutable_sparse_reconstruction();
+  public:
+
+  // string obj = 5;
+  void clear_obj();
+  const std::string& obj() const;
+  void set_obj(const std::string& value);
+  void set_obj(std::string&& value);
+  void set_obj(const char* value);
+  void set_obj(const char* value, size_t size);
+  std::string* mutable_obj();
+  std::string* release_obj();
+  void set_allocated_obj(std::string* obj);
+  private:
+  const std::string& _internal_obj() const;
+  void _internal_set_obj(const std::string& value);
+  std::string* _internal_mutable_obj();
+  public:
+
+  // string images_path = 6;
+  void clear_images_path();
+  const std::string& images_path() const;
+  void set_images_path(const std::string& value);
+  void set_images_path(std::string&& value);
+  void set_images_path(const char* value);
+  void set_images_path(const char* value, size_t size);
+  std::string* mutable_images_path();
+  std::string* release_images_path();
+  void set_allocated_images_path(std::string* images_path);
+  private:
+  const std::string& _internal_images_path() const;
+  void _internal_set_images_path(const std::string& value);
+  std::string* _internal_mutable_images_path();
+  public:
+
+  // string sfm_path = 7;
+  void clear_sfm_path();
+  const std::string& sfm_path() const;
+  void set_sfm_path(const std::string& value);
+  void set_sfm_path(std::string&& value);
+  void set_sfm_path(const char* value);
+  void set_sfm_path(const char* value, size_t size);
+  std::string* mutable_sfm_path();
+  std::string* release_sfm_path();
+  void set_allocated_sfm_path(std::string* sfm_path);
+  private:
+  const std::string& _internal_sfm_path() const;
+  void _internal_set_sfm_path(const std::string& value);
+  std::string* _internal_mutable_sfm_path();
+  public:
+
+  // string mvs_path = 8;
+  void clear_mvs_path();
+  const std::string& mvs_path() const;
+  void set_mvs_path(const std::string& value);
+  void set_mvs_path(std::string&& value);
+  void set_mvs_path(const char* value);
+  void set_mvs_path(const char* value, size_t size);
+  std::string* mutable_mvs_path();
+  std::string* release_mvs_path();
+  void set_allocated_mvs_path(std::string* mvs_path);
+  private:
+  const std::string& _internal_mvs_path() const;
+  void _internal_set_mvs_path(const std::string& value);
+  std::string* _internal_mutable_mvs_path();
+  public:
+
+  // string features_path = 9;
+  void clear_features_path();
+  const std::string& features_path() const;
+  void set_features_path(const std::string& value);
+  void set_features_path(std::string&& value);
+  void set_features_path(const char* value);
+  void set_features_path(const char* value, size_t size);
+  std::string* mutable_features_path();
+  std::string* release_features_path();
+  void set_allocated_features_path(std::string* features_path);
+  private:
+  const std::string& _internal_features_path() const;
+  void _internal_set_features_path(const std::string& value);
+  std::string* _internal_mutable_features_path();
+  public:
+
+  // string matches_path = 10;
+  void clear_matches_path();
+  const std::string& matches_path() const;
+  void set_matches_path(const std::string& value);
+  void set_matches_path(std::string&& value);
+  void set_matches_path(const char* value);
+  void set_matches_path(const char* value, size_t size);
+  std::string* mutable_matches_path();
+  std::string* release_matches_path();
+  void set_allocated_matches_path(std::string* matches_path);
+  private:
+  const std::string& _internal_matches_path() const;
+  void _internal_set_matches_path(const std::string& value);
+  std::string* _internal_mutable_matches_path();
+  public:
+
   // @@protoc_insertion_point(class_scope:ReconstructionData)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> images_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> sparse_reconstruction_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> obj_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr root_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sparse_reconstruction_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obj_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr images_path_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sfm_path_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mvs_path_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr features_path_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr matches_path_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
@@ -3097,7 +3171,12 @@ class CameraIntrinsics :
 
   enum : int {
     kModelFieldNumber = 1,
-    kFocalLengthFieldNumber = 2,
+    kMakerFieldNumber = 2,
+    kNumericModelFieldNumber = 3,
+    kFocusModeFieldNumber = 5,
+    kSensorSizeFieldNumber = 4,
+    kHorizontalViewAngleFieldNumber = 6,
+    kJpegQualityFieldNumber = 7,
   };
   // string model = 1;
   void clear_model();
@@ -3115,13 +3194,79 @@ class CameraIntrinsics :
   std::string* _internal_mutable_model();
   public:
 
-  // float focal_length = 2;
-  void clear_focal_length();
-  float focal_length() const;
-  void set_focal_length(float value);
+  // string maker = 2;
+  void clear_maker();
+  const std::string& maker() const;
+  void set_maker(const std::string& value);
+  void set_maker(std::string&& value);
+  void set_maker(const char* value);
+  void set_maker(const char* value, size_t size);
+  std::string* mutable_maker();
+  std::string* release_maker();
+  void set_allocated_maker(std::string* maker);
   private:
-  float _internal_focal_length() const;
-  void _internal_set_focal_length(float value);
+  const std::string& _internal_maker() const;
+  void _internal_set_maker(const std::string& value);
+  std::string* _internal_mutable_maker();
+  public:
+
+  // string numeric_model = 3;
+  void clear_numeric_model();
+  const std::string& numeric_model() const;
+  void set_numeric_model(const std::string& value);
+  void set_numeric_model(std::string&& value);
+  void set_numeric_model(const char* value);
+  void set_numeric_model(const char* value, size_t size);
+  std::string* mutable_numeric_model();
+  std::string* release_numeric_model();
+  void set_allocated_numeric_model(std::string* numeric_model);
+  private:
+  const std::string& _internal_numeric_model() const;
+  void _internal_set_numeric_model(const std::string& value);
+  std::string* _internal_mutable_numeric_model();
+  public:
+
+  // string focus_mode = 5;
+  void clear_focus_mode();
+  const std::string& focus_mode() const;
+  void set_focus_mode(const std::string& value);
+  void set_focus_mode(std::string&& value);
+  void set_focus_mode(const char* value);
+  void set_focus_mode(const char* value, size_t size);
+  std::string* mutable_focus_mode();
+  std::string* release_focus_mode();
+  void set_allocated_focus_mode(std::string* focus_mode);
+  private:
+  const std::string& _internal_focus_mode() const;
+  void _internal_set_focus_mode(const std::string& value);
+  std::string* _internal_mutable_focus_mode();
+  public:
+
+  // float sensor_size = 4;
+  void clear_sensor_size();
+  float sensor_size() const;
+  void set_sensor_size(float value);
+  private:
+  float _internal_sensor_size() const;
+  void _internal_set_sensor_size(float value);
+  public:
+
+  // float horizontal_view_angle = 6;
+  void clear_horizontal_view_angle();
+  float horizontal_view_angle() const;
+  void set_horizontal_view_angle(float value);
+  private:
+  float _internal_horizontal_view_angle() const;
+  void _internal_set_horizontal_view_angle(float value);
+  public:
+
+  // int32 jpeg_quality = 7;
+  void clear_jpeg_quality();
+  ::PROTOBUF_NAMESPACE_ID::int32 jpeg_quality() const;
+  void set_jpeg_quality(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_jpeg_quality() const;
+  void _internal_set_jpeg_quality(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // @@protoc_insertion_point(class_scope:CameraIntrinsics)
@@ -3130,7 +3275,12 @@ class CameraIntrinsics :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr model_;
-  float focal_length_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr maker_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr numeric_model_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr focus_mode_;
+  float sensor_size_;
+  float horizontal_view_angle_;
+  ::PROTOBUF_NAMESPACE_ID::int32 jpeg_quality_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
@@ -5803,7 +5953,127 @@ inline void OBJData::set_allocated_metadata(::OBJMetaData* metadata) {
 
 // ReconstructionData
 
-// repeated string images = 1;
+// string id = 1;
+inline void ReconstructionData::clear_id() {
+  id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ReconstructionData::id() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.id)
+  return _internal_id();
+}
+inline void ReconstructionData::set_id(const std::string& value) {
+  _internal_set_id(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.id)
+}
+inline std::string* ReconstructionData::mutable_id() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.id)
+  return _internal_mutable_id();
+}
+inline const std::string& ReconstructionData::_internal_id() const {
+  return id_.GetNoArena();
+}
+inline void ReconstructionData::_internal_set_id(const std::string& value) {
+  
+  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ReconstructionData::set_id(std::string&& value) {
+  
+  id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.id)
+}
+inline void ReconstructionData::set_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.id)
+}
+inline void ReconstructionData::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.id)
+}
+inline std::string* ReconstructionData::_internal_mutable_id() {
+  
+  return id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ReconstructionData::release_id() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.id)
+  
+  return id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ReconstructionData::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.id)
+}
+
+// string root = 2;
+inline void ReconstructionData::clear_root() {
+  root_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ReconstructionData::root() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.root)
+  return _internal_root();
+}
+inline void ReconstructionData::set_root(const std::string& value) {
+  _internal_set_root(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.root)
+}
+inline std::string* ReconstructionData::mutable_root() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.root)
+  return _internal_mutable_root();
+}
+inline const std::string& ReconstructionData::_internal_root() const {
+  return root_.GetNoArena();
+}
+inline void ReconstructionData::_internal_set_root(const std::string& value) {
+  
+  root_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ReconstructionData::set_root(std::string&& value) {
+  
+  root_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.root)
+}
+inline void ReconstructionData::set_root(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  root_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.root)
+}
+inline void ReconstructionData::set_root(const char* value, size_t size) {
+  
+  root_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.root)
+}
+inline std::string* ReconstructionData::_internal_mutable_root() {
+  
+  return root_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ReconstructionData::release_root() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.root)
+  
+  return root_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ReconstructionData::set_allocated_root(std::string* root) {
+  if (root != nullptr) {
+    
+  } else {
+    
+  }
+  root_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), root);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.root)
+}
+
+// repeated string images = 3;
 inline int ReconstructionData::_internal_images_size() const {
   return images_.size();
 }
@@ -5877,272 +6147,424 @@ ReconstructionData::mutable_images() {
   return &images_;
 }
 
-// repeated string sparse_reconstruction = 2;
-inline int ReconstructionData::_internal_sparse_reconstruction_size() const {
-  return sparse_reconstruction_.size();
-}
-inline int ReconstructionData::sparse_reconstruction_size() const {
-  return _internal_sparse_reconstruction_size();
-}
+// string sparse_reconstruction = 4;
 inline void ReconstructionData::clear_sparse_reconstruction() {
-  sparse_reconstruction_.Clear();
+  sparse_reconstruction_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* ReconstructionData::add_sparse_reconstruction() {
-  // @@protoc_insertion_point(field_add_mutable:ReconstructionData.sparse_reconstruction)
-  return _internal_add_sparse_reconstruction();
-}
-inline const std::string& ReconstructionData::_internal_sparse_reconstruction(int index) const {
-  return sparse_reconstruction_.Get(index);
-}
-inline const std::string& ReconstructionData::sparse_reconstruction(int index) const {
+inline const std::string& ReconstructionData::sparse_reconstruction() const {
   // @@protoc_insertion_point(field_get:ReconstructionData.sparse_reconstruction)
-  return _internal_sparse_reconstruction(index);
+  return _internal_sparse_reconstruction();
 }
-inline std::string* ReconstructionData::mutable_sparse_reconstruction(int index) {
+inline void ReconstructionData::set_sparse_reconstruction(const std::string& value) {
+  _internal_set_sparse_reconstruction(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.sparse_reconstruction)
+}
+inline std::string* ReconstructionData::mutable_sparse_reconstruction() {
   // @@protoc_insertion_point(field_mutable:ReconstructionData.sparse_reconstruction)
-  return sparse_reconstruction_.Mutable(index);
+  return _internal_mutable_sparse_reconstruction();
 }
-inline void ReconstructionData::set_sparse_reconstruction(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:ReconstructionData.sparse_reconstruction)
-  sparse_reconstruction_.Mutable(index)->assign(value);
+inline const std::string& ReconstructionData::_internal_sparse_reconstruction() const {
+  return sparse_reconstruction_.GetNoArena();
 }
-inline void ReconstructionData::set_sparse_reconstruction(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:ReconstructionData.sparse_reconstruction)
-  sparse_reconstruction_.Mutable(index)->assign(std::move(value));
+inline void ReconstructionData::_internal_set_sparse_reconstruction(const std::string& value) {
+  
+  sparse_reconstruction_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void ReconstructionData::set_sparse_reconstruction(int index, const char* value) {
+inline void ReconstructionData::set_sparse_reconstruction(std::string&& value) {
+  
+  sparse_reconstruction_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.sparse_reconstruction)
+}
+inline void ReconstructionData::set_sparse_reconstruction(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  sparse_reconstruction_.Mutable(index)->assign(value);
+  
+  sparse_reconstruction_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ReconstructionData.sparse_reconstruction)
 }
-inline void ReconstructionData::set_sparse_reconstruction(int index, const char* value, size_t size) {
-  sparse_reconstruction_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
+inline void ReconstructionData::set_sparse_reconstruction(const char* value, size_t size) {
+  
+  sparse_reconstruction_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:ReconstructionData.sparse_reconstruction)
 }
-inline std::string* ReconstructionData::_internal_add_sparse_reconstruction() {
-  return sparse_reconstruction_.Add();
+inline std::string* ReconstructionData::_internal_mutable_sparse_reconstruction() {
+  
+  return sparse_reconstruction_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructionData::add_sparse_reconstruction(const std::string& value) {
-  sparse_reconstruction_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:ReconstructionData.sparse_reconstruction)
+inline std::string* ReconstructionData::release_sparse_reconstruction() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.sparse_reconstruction)
+  
+  return sparse_reconstruction_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructionData::add_sparse_reconstruction(std::string&& value) {
-  sparse_reconstruction_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:ReconstructionData.sparse_reconstruction)
-}
-inline void ReconstructionData::add_sparse_reconstruction(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  sparse_reconstruction_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:ReconstructionData.sparse_reconstruction)
-}
-inline void ReconstructionData::add_sparse_reconstruction(const char* value, size_t size) {
-  sparse_reconstruction_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:ReconstructionData.sparse_reconstruction)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-ReconstructionData::sparse_reconstruction() const {
-  // @@protoc_insertion_point(field_list:ReconstructionData.sparse_reconstruction)
-  return sparse_reconstruction_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-ReconstructionData::mutable_sparse_reconstruction() {
-  // @@protoc_insertion_point(field_mutable_list:ReconstructionData.sparse_reconstruction)
-  return &sparse_reconstruction_;
+inline void ReconstructionData::set_allocated_sparse_reconstruction(std::string* sparse_reconstruction) {
+  if (sparse_reconstruction != nullptr) {
+    
+  } else {
+    
+  }
+  sparse_reconstruction_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sparse_reconstruction);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.sparse_reconstruction)
 }
 
-// repeated string obj = 3;
-inline int ReconstructionData::_internal_obj_size() const {
-  return obj_.size();
-}
-inline int ReconstructionData::obj_size() const {
-  return _internal_obj_size();
-}
+// string obj = 5;
 inline void ReconstructionData::clear_obj() {
-  obj_.Clear();
+  obj_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* ReconstructionData::add_obj() {
-  // @@protoc_insertion_point(field_add_mutable:ReconstructionData.obj)
-  return _internal_add_obj();
-}
-inline const std::string& ReconstructionData::_internal_obj(int index) const {
-  return obj_.Get(index);
-}
-inline const std::string& ReconstructionData::obj(int index) const {
+inline const std::string& ReconstructionData::obj() const {
   // @@protoc_insertion_point(field_get:ReconstructionData.obj)
-  return _internal_obj(index);
+  return _internal_obj();
 }
-inline std::string* ReconstructionData::mutable_obj(int index) {
+inline void ReconstructionData::set_obj(const std::string& value) {
+  _internal_set_obj(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.obj)
+}
+inline std::string* ReconstructionData::mutable_obj() {
   // @@protoc_insertion_point(field_mutable:ReconstructionData.obj)
-  return obj_.Mutable(index);
+  return _internal_mutable_obj();
 }
-inline void ReconstructionData::set_obj(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:ReconstructionData.obj)
-  obj_.Mutable(index)->assign(value);
+inline const std::string& ReconstructionData::_internal_obj() const {
+  return obj_.GetNoArena();
 }
-inline void ReconstructionData::set_obj(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:ReconstructionData.obj)
-  obj_.Mutable(index)->assign(std::move(value));
+inline void ReconstructionData::_internal_set_obj(const std::string& value) {
+  
+  obj_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void ReconstructionData::set_obj(int index, const char* value) {
+inline void ReconstructionData::set_obj(std::string&& value) {
+  
+  obj_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.obj)
+}
+inline void ReconstructionData::set_obj(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
-  obj_.Mutable(index)->assign(value);
+  
+  obj_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:ReconstructionData.obj)
 }
-inline void ReconstructionData::set_obj(int index, const char* value, size_t size) {
-  obj_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
+inline void ReconstructionData::set_obj(const char* value, size_t size) {
+  
+  obj_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:ReconstructionData.obj)
 }
-inline std::string* ReconstructionData::_internal_add_obj() {
-  return obj_.Add();
-}
-inline void ReconstructionData::add_obj(const std::string& value) {
-  obj_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:ReconstructionData.obj)
-}
-inline void ReconstructionData::add_obj(std::string&& value) {
-  obj_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:ReconstructionData.obj)
-}
-inline void ReconstructionData::add_obj(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  obj_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:ReconstructionData.obj)
-}
-inline void ReconstructionData::add_obj(const char* value, size_t size) {
-  obj_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:ReconstructionData.obj)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-ReconstructionData::obj() const {
-  // @@protoc_insertion_point(field_list:ReconstructionData.obj)
-  return obj_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-ReconstructionData::mutable_obj() {
-  // @@protoc_insertion_point(field_mutable_list:ReconstructionData.obj)
-  return &obj_;
-}
-
-// string path = 4;
-inline void ReconstructionData::clear_path() {
-  path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& ReconstructionData::path() const {
-  // @@protoc_insertion_point(field_get:ReconstructionData.path)
-  return _internal_path();
-}
-inline void ReconstructionData::set_path(const std::string& value) {
-  _internal_set_path(value);
-  // @@protoc_insertion_point(field_set:ReconstructionData.path)
-}
-inline std::string* ReconstructionData::mutable_path() {
-  // @@protoc_insertion_point(field_mutable:ReconstructionData.path)
-  return _internal_mutable_path();
-}
-inline const std::string& ReconstructionData::_internal_path() const {
-  return path_.GetNoArena();
-}
-inline void ReconstructionData::_internal_set_path(const std::string& value) {
+inline std::string* ReconstructionData::_internal_mutable_obj() {
   
-  path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  return obj_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructionData::set_path(std::string&& value) {
+inline std::string* ReconstructionData::release_obj() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.obj)
   
-  path_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.path)
+  return obj_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructionData::set_path(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ReconstructionData.path)
-}
-inline void ReconstructionData::set_path(const char* value, size_t size) {
-  
-  path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.path)
-}
-inline std::string* ReconstructionData::_internal_mutable_path() {
-  
-  return path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* ReconstructionData::release_path() {
-  // @@protoc_insertion_point(field_release:ReconstructionData.path)
-  
-  return path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void ReconstructionData::set_allocated_path(std::string* path) {
-  if (path != nullptr) {
+inline void ReconstructionData::set_allocated_obj(std::string* obj) {
+  if (obj != nullptr) {
     
   } else {
     
   }
-  path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), path);
-  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.path)
+  obj_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), obj);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.obj)
 }
 
-// string id = 5;
-inline void ReconstructionData::clear_id() {
-  id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+// string images_path = 6;
+inline void ReconstructionData::clear_images_path() {
+  images_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& ReconstructionData::id() const {
-  // @@protoc_insertion_point(field_get:ReconstructionData.id)
-  return _internal_id();
+inline const std::string& ReconstructionData::images_path() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.images_path)
+  return _internal_images_path();
 }
-inline void ReconstructionData::set_id(const std::string& value) {
-  _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:ReconstructionData.id)
+inline void ReconstructionData::set_images_path(const std::string& value) {
+  _internal_set_images_path(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.images_path)
 }
-inline std::string* ReconstructionData::mutable_id() {
-  // @@protoc_insertion_point(field_mutable:ReconstructionData.id)
-  return _internal_mutable_id();
+inline std::string* ReconstructionData::mutable_images_path() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.images_path)
+  return _internal_mutable_images_path();
 }
-inline const std::string& ReconstructionData::_internal_id() const {
-  return id_.GetNoArena();
+inline const std::string& ReconstructionData::_internal_images_path() const {
+  return images_path_.GetNoArena();
 }
-inline void ReconstructionData::_internal_set_id(const std::string& value) {
+inline void ReconstructionData::_internal_set_images_path(const std::string& value) {
   
-  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  images_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void ReconstructionData::set_id(std::string&& value) {
+inline void ReconstructionData::set_images_path(std::string&& value) {
   
-  id_.SetNoArena(
+  images_path_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.id)
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.images_path)
 }
-inline void ReconstructionData::set_id(const char* value) {
+inline void ReconstructionData::set_images_path(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
-  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ReconstructionData.id)
+  images_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.images_path)
 }
-inline void ReconstructionData::set_id(const char* value, size_t size) {
+inline void ReconstructionData::set_images_path(const char* value, size_t size) {
   
-  id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+  images_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.id)
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.images_path)
 }
-inline std::string* ReconstructionData::_internal_mutable_id() {
+inline std::string* ReconstructionData::_internal_mutable_images_path() {
   
-  return id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  return images_path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* ReconstructionData::release_id() {
-  // @@protoc_insertion_point(field_release:ReconstructionData.id)
+inline std::string* ReconstructionData::release_images_path() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.images_path)
   
-  return id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  return images_path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructionData::set_allocated_id(std::string* id) {
-  if (id != nullptr) {
+inline void ReconstructionData::set_allocated_images_path(std::string* images_path) {
+  if (images_path != nullptr) {
     
   } else {
     
   }
-  id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id);
-  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.id)
+  images_path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), images_path);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.images_path)
+}
+
+// string sfm_path = 7;
+inline void ReconstructionData::clear_sfm_path() {
+  sfm_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ReconstructionData::sfm_path() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.sfm_path)
+  return _internal_sfm_path();
+}
+inline void ReconstructionData::set_sfm_path(const std::string& value) {
+  _internal_set_sfm_path(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.sfm_path)
+}
+inline std::string* ReconstructionData::mutable_sfm_path() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.sfm_path)
+  return _internal_mutable_sfm_path();
+}
+inline const std::string& ReconstructionData::_internal_sfm_path() const {
+  return sfm_path_.GetNoArena();
+}
+inline void ReconstructionData::_internal_set_sfm_path(const std::string& value) {
+  
+  sfm_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ReconstructionData::set_sfm_path(std::string&& value) {
+  
+  sfm_path_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.sfm_path)
+}
+inline void ReconstructionData::set_sfm_path(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  sfm_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.sfm_path)
+}
+inline void ReconstructionData::set_sfm_path(const char* value, size_t size) {
+  
+  sfm_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.sfm_path)
+}
+inline std::string* ReconstructionData::_internal_mutable_sfm_path() {
+  
+  return sfm_path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ReconstructionData::release_sfm_path() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.sfm_path)
+  
+  return sfm_path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ReconstructionData::set_allocated_sfm_path(std::string* sfm_path) {
+  if (sfm_path != nullptr) {
+    
+  } else {
+    
+  }
+  sfm_path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sfm_path);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.sfm_path)
+}
+
+// string mvs_path = 8;
+inline void ReconstructionData::clear_mvs_path() {
+  mvs_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ReconstructionData::mvs_path() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.mvs_path)
+  return _internal_mvs_path();
+}
+inline void ReconstructionData::set_mvs_path(const std::string& value) {
+  _internal_set_mvs_path(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.mvs_path)
+}
+inline std::string* ReconstructionData::mutable_mvs_path() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.mvs_path)
+  return _internal_mutable_mvs_path();
+}
+inline const std::string& ReconstructionData::_internal_mvs_path() const {
+  return mvs_path_.GetNoArena();
+}
+inline void ReconstructionData::_internal_set_mvs_path(const std::string& value) {
+  
+  mvs_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ReconstructionData::set_mvs_path(std::string&& value) {
+  
+  mvs_path_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.mvs_path)
+}
+inline void ReconstructionData::set_mvs_path(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  mvs_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.mvs_path)
+}
+inline void ReconstructionData::set_mvs_path(const char* value, size_t size) {
+  
+  mvs_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.mvs_path)
+}
+inline std::string* ReconstructionData::_internal_mutable_mvs_path() {
+  
+  return mvs_path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ReconstructionData::release_mvs_path() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.mvs_path)
+  
+  return mvs_path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ReconstructionData::set_allocated_mvs_path(std::string* mvs_path) {
+  if (mvs_path != nullptr) {
+    
+  } else {
+    
+  }
+  mvs_path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), mvs_path);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.mvs_path)
+}
+
+// string features_path = 9;
+inline void ReconstructionData::clear_features_path() {
+  features_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ReconstructionData::features_path() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.features_path)
+  return _internal_features_path();
+}
+inline void ReconstructionData::set_features_path(const std::string& value) {
+  _internal_set_features_path(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.features_path)
+}
+inline std::string* ReconstructionData::mutable_features_path() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.features_path)
+  return _internal_mutable_features_path();
+}
+inline const std::string& ReconstructionData::_internal_features_path() const {
+  return features_path_.GetNoArena();
+}
+inline void ReconstructionData::_internal_set_features_path(const std::string& value) {
+  
+  features_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ReconstructionData::set_features_path(std::string&& value) {
+  
+  features_path_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.features_path)
+}
+inline void ReconstructionData::set_features_path(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  features_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.features_path)
+}
+inline void ReconstructionData::set_features_path(const char* value, size_t size) {
+  
+  features_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.features_path)
+}
+inline std::string* ReconstructionData::_internal_mutable_features_path() {
+  
+  return features_path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ReconstructionData::release_features_path() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.features_path)
+  
+  return features_path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ReconstructionData::set_allocated_features_path(std::string* features_path) {
+  if (features_path != nullptr) {
+    
+  } else {
+    
+  }
+  features_path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), features_path);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.features_path)
+}
+
+// string matches_path = 10;
+inline void ReconstructionData::clear_matches_path() {
+  matches_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ReconstructionData::matches_path() const {
+  // @@protoc_insertion_point(field_get:ReconstructionData.matches_path)
+  return _internal_matches_path();
+}
+inline void ReconstructionData::set_matches_path(const std::string& value) {
+  _internal_set_matches_path(value);
+  // @@protoc_insertion_point(field_set:ReconstructionData.matches_path)
+}
+inline std::string* ReconstructionData::mutable_matches_path() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionData.matches_path)
+  return _internal_mutable_matches_path();
+}
+inline const std::string& ReconstructionData::_internal_matches_path() const {
+  return matches_path_.GetNoArena();
+}
+inline void ReconstructionData::_internal_set_matches_path(const std::string& value) {
+  
+  matches_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ReconstructionData::set_matches_path(std::string&& value) {
+  
+  matches_path_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ReconstructionData.matches_path)
+}
+inline void ReconstructionData::set_matches_path(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  matches_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ReconstructionData.matches_path)
+}
+inline void ReconstructionData::set_matches_path(const char* value, size_t size) {
+  
+  matches_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ReconstructionData.matches_path)
+}
+inline std::string* ReconstructionData::_internal_mutable_matches_path() {
+  
+  return matches_path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ReconstructionData::release_matches_path() {
+  // @@protoc_insertion_point(field_release:ReconstructionData.matches_path)
+  
+  return matches_path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ReconstructionData::set_allocated_matches_path(std::string* matches_path) {
+  if (matches_path != nullptr) {
+    
+  } else {
+    
+  }
+  matches_path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), matches_path);
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionData.matches_path)
 }
 
 // -------------------------------------------------------------------
@@ -6933,24 +7355,244 @@ inline void CameraIntrinsics::set_allocated_model(std::string* model) {
   // @@protoc_insertion_point(field_set_allocated:CameraIntrinsics.model)
 }
 
-// float focal_length = 2;
-inline void CameraIntrinsics::clear_focal_length() {
-  focal_length_ = 0;
+// string maker = 2;
+inline void CameraIntrinsics::clear_maker() {
+  maker_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline float CameraIntrinsics::_internal_focal_length() const {
-  return focal_length_;
+inline const std::string& CameraIntrinsics::maker() const {
+  // @@protoc_insertion_point(field_get:CameraIntrinsics.maker)
+  return _internal_maker();
 }
-inline float CameraIntrinsics::focal_length() const {
-  // @@protoc_insertion_point(field_get:CameraIntrinsics.focal_length)
-  return _internal_focal_length();
+inline void CameraIntrinsics::set_maker(const std::string& value) {
+  _internal_set_maker(value);
+  // @@protoc_insertion_point(field_set:CameraIntrinsics.maker)
 }
-inline void CameraIntrinsics::_internal_set_focal_length(float value) {
+inline std::string* CameraIntrinsics::mutable_maker() {
+  // @@protoc_insertion_point(field_mutable:CameraIntrinsics.maker)
+  return _internal_mutable_maker();
+}
+inline const std::string& CameraIntrinsics::_internal_maker() const {
+  return maker_.GetNoArena();
+}
+inline void CameraIntrinsics::_internal_set_maker(const std::string& value) {
   
-  focal_length_ = value;
+  maker_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void CameraIntrinsics::set_focal_length(float value) {
-  _internal_set_focal_length(value);
-  // @@protoc_insertion_point(field_set:CameraIntrinsics.focal_length)
+inline void CameraIntrinsics::set_maker(std::string&& value) {
+  
+  maker_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CameraIntrinsics.maker)
+}
+inline void CameraIntrinsics::set_maker(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  maker_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CameraIntrinsics.maker)
+}
+inline void CameraIntrinsics::set_maker(const char* value, size_t size) {
+  
+  maker_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CameraIntrinsics.maker)
+}
+inline std::string* CameraIntrinsics::_internal_mutable_maker() {
+  
+  return maker_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CameraIntrinsics::release_maker() {
+  // @@protoc_insertion_point(field_release:CameraIntrinsics.maker)
+  
+  return maker_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CameraIntrinsics::set_allocated_maker(std::string* maker) {
+  if (maker != nullptr) {
+    
+  } else {
+    
+  }
+  maker_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), maker);
+  // @@protoc_insertion_point(field_set_allocated:CameraIntrinsics.maker)
+}
+
+// string numeric_model = 3;
+inline void CameraIntrinsics::clear_numeric_model() {
+  numeric_model_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CameraIntrinsics::numeric_model() const {
+  // @@protoc_insertion_point(field_get:CameraIntrinsics.numeric_model)
+  return _internal_numeric_model();
+}
+inline void CameraIntrinsics::set_numeric_model(const std::string& value) {
+  _internal_set_numeric_model(value);
+  // @@protoc_insertion_point(field_set:CameraIntrinsics.numeric_model)
+}
+inline std::string* CameraIntrinsics::mutable_numeric_model() {
+  // @@protoc_insertion_point(field_mutable:CameraIntrinsics.numeric_model)
+  return _internal_mutable_numeric_model();
+}
+inline const std::string& CameraIntrinsics::_internal_numeric_model() const {
+  return numeric_model_.GetNoArena();
+}
+inline void CameraIntrinsics::_internal_set_numeric_model(const std::string& value) {
+  
+  numeric_model_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void CameraIntrinsics::set_numeric_model(std::string&& value) {
+  
+  numeric_model_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CameraIntrinsics.numeric_model)
+}
+inline void CameraIntrinsics::set_numeric_model(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  numeric_model_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CameraIntrinsics.numeric_model)
+}
+inline void CameraIntrinsics::set_numeric_model(const char* value, size_t size) {
+  
+  numeric_model_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CameraIntrinsics.numeric_model)
+}
+inline std::string* CameraIntrinsics::_internal_mutable_numeric_model() {
+  
+  return numeric_model_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CameraIntrinsics::release_numeric_model() {
+  // @@protoc_insertion_point(field_release:CameraIntrinsics.numeric_model)
+  
+  return numeric_model_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CameraIntrinsics::set_allocated_numeric_model(std::string* numeric_model) {
+  if (numeric_model != nullptr) {
+    
+  } else {
+    
+  }
+  numeric_model_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), numeric_model);
+  // @@protoc_insertion_point(field_set_allocated:CameraIntrinsics.numeric_model)
+}
+
+// float sensor_size = 4;
+inline void CameraIntrinsics::clear_sensor_size() {
+  sensor_size_ = 0;
+}
+inline float CameraIntrinsics::_internal_sensor_size() const {
+  return sensor_size_;
+}
+inline float CameraIntrinsics::sensor_size() const {
+  // @@protoc_insertion_point(field_get:CameraIntrinsics.sensor_size)
+  return _internal_sensor_size();
+}
+inline void CameraIntrinsics::_internal_set_sensor_size(float value) {
+  
+  sensor_size_ = value;
+}
+inline void CameraIntrinsics::set_sensor_size(float value) {
+  _internal_set_sensor_size(value);
+  // @@protoc_insertion_point(field_set:CameraIntrinsics.sensor_size)
+}
+
+// string focus_mode = 5;
+inline void CameraIntrinsics::clear_focus_mode() {
+  focus_mode_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CameraIntrinsics::focus_mode() const {
+  // @@protoc_insertion_point(field_get:CameraIntrinsics.focus_mode)
+  return _internal_focus_mode();
+}
+inline void CameraIntrinsics::set_focus_mode(const std::string& value) {
+  _internal_set_focus_mode(value);
+  // @@protoc_insertion_point(field_set:CameraIntrinsics.focus_mode)
+}
+inline std::string* CameraIntrinsics::mutable_focus_mode() {
+  // @@protoc_insertion_point(field_mutable:CameraIntrinsics.focus_mode)
+  return _internal_mutable_focus_mode();
+}
+inline const std::string& CameraIntrinsics::_internal_focus_mode() const {
+  return focus_mode_.GetNoArena();
+}
+inline void CameraIntrinsics::_internal_set_focus_mode(const std::string& value) {
+  
+  focus_mode_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void CameraIntrinsics::set_focus_mode(std::string&& value) {
+  
+  focus_mode_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:CameraIntrinsics.focus_mode)
+}
+inline void CameraIntrinsics::set_focus_mode(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  focus_mode_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:CameraIntrinsics.focus_mode)
+}
+inline void CameraIntrinsics::set_focus_mode(const char* value, size_t size) {
+  
+  focus_mode_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:CameraIntrinsics.focus_mode)
+}
+inline std::string* CameraIntrinsics::_internal_mutable_focus_mode() {
+  
+  return focus_mode_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CameraIntrinsics::release_focus_mode() {
+  // @@protoc_insertion_point(field_release:CameraIntrinsics.focus_mode)
+  
+  return focus_mode_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CameraIntrinsics::set_allocated_focus_mode(std::string* focus_mode) {
+  if (focus_mode != nullptr) {
+    
+  } else {
+    
+  }
+  focus_mode_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), focus_mode);
+  // @@protoc_insertion_point(field_set_allocated:CameraIntrinsics.focus_mode)
+}
+
+// float horizontal_view_angle = 6;
+inline void CameraIntrinsics::clear_horizontal_view_angle() {
+  horizontal_view_angle_ = 0;
+}
+inline float CameraIntrinsics::_internal_horizontal_view_angle() const {
+  return horizontal_view_angle_;
+}
+inline float CameraIntrinsics::horizontal_view_angle() const {
+  // @@protoc_insertion_point(field_get:CameraIntrinsics.horizontal_view_angle)
+  return _internal_horizontal_view_angle();
+}
+inline void CameraIntrinsics::_internal_set_horizontal_view_angle(float value) {
+  
+  horizontal_view_angle_ = value;
+}
+inline void CameraIntrinsics::set_horizontal_view_angle(float value) {
+  _internal_set_horizontal_view_angle(value);
+  // @@protoc_insertion_point(field_set:CameraIntrinsics.horizontal_view_angle)
+}
+
+// int32 jpeg_quality = 7;
+inline void CameraIntrinsics::clear_jpeg_quality() {
+  jpeg_quality_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 CameraIntrinsics::_internal_jpeg_quality() const {
+  return jpeg_quality_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 CameraIntrinsics::jpeg_quality() const {
+  // @@protoc_insertion_point(field_get:CameraIntrinsics.jpeg_quality)
+  return _internal_jpeg_quality();
+}
+inline void CameraIntrinsics::_internal_set_jpeg_quality(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  jpeg_quality_ = value;
+}
+inline void CameraIntrinsics::set_jpeg_quality(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_jpeg_quality(value);
+  // @@protoc_insertion_point(field_set:CameraIntrinsics.jpeg_quality)
 }
 
 // -------------------------------------------------------------------

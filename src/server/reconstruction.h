@@ -8,13 +8,14 @@
 #include "openMVG/types.hpp"
 #include "openMVG/sfm/sfm_data.hpp"
 #include "openmvg_reconstruction_agent.h"
+#include "camera_intrinsics_storage.h"
 
 class Reconstruction;
 
 class ReconstructionFetcher {
     public:
         Reconstruction* Fetch(const std::string& id);
-        void Create(const std::string& id, const std::string& path);
+        void Store(const ReconstructionData& reconstruction);
 };
 
 /*These represent the remote objects and should implement delete and update functions etc.*/
@@ -57,7 +58,8 @@ class Reconstruction {
                        ReconstructionStorageAdapter* reconstruction_staroage,
                        ImageStorageAdapter* image_storage,
                        SparseStorageAdapter* sparse_storage,
-                       OBJStorageAdapter* obj_storage);
+                       OBJStorageAdapter* obj_storage,
+                       CameraIntrinsicsStorage* intrinsics_storages);
         ~Reconstruction();
         void AddImage(const std::string& image_id);
         std::string StoreImage(ImageData& image);
@@ -72,6 +74,7 @@ class Reconstruction {
         OBJ GetOBJ();
         void Delete();
         bool IsRunningMVS();
+        const ReconstructionData& Data();
     private:
         std::string _id;
         bool _running_mvs = false;
@@ -81,7 +84,9 @@ class Reconstruction {
         ImageStorageAdapter* _image_storage = nullptr;
         OBJStorageAdapter* _obj_storage = nullptr;
         SparseStorageAdapter* _sparse_storage = nullptr;
+        CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
         OpenMVGReconstructionAgent reconstruction_agent;
+        ReconstructionData _data;
         void _MVS();
         void _ExportWorkingMVS();
 };

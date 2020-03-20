@@ -76,7 +76,6 @@
 
 #include "openMVG/cameras/cameras.hpp"
 #include "openMVG/exif/exif_IO_EasyExif.hpp"
-#include "openMVG/exif/sensor_width_database/ParseDatabase.hpp"
 #include "openMVG/geodesy/geodesy.hpp"
 #include "openMVG/image/image_io.hpp"
 #include "openMVG/numeric/eigen_alias_definition.hpp"
@@ -163,7 +162,7 @@ std::pair<bool, Vec3> checkGPS
   return val;
 }
 
-OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(){
+OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(CameraIntrinsicsStorage* intrinsics_storage) : _intrinsics_storage(intrinsics_storage){
 
 }
 
@@ -174,7 +173,7 @@ void OpenMVGReconstructionAgent::SetConfig(const OpenMVGReconstructionAgentConfi
 
 bool OpenMVGReconstructionAgent::IncrementalSFM(){
     using namespace openMVG::features;
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.sMatchesDir, "image_describer", "json");
+  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
   if (!regions_type)
   {
@@ -185,7 +184,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
 
   // Features reading
   std::shared_ptr<Features_Provider> feats_provider = std::make_shared<Features_Provider>();
-  if (!feats_provider->load(this->_sfm_data, this->_config.sMatchesDir, regions_type)) {
+  if (!feats_provider->load(this->_sfm_data, this->_config.features_dir, regions_type)) {
     std::cerr << std::endl
       << "Invalid features." << std::endl;
     return false;
@@ -213,7 +212,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   SequentialSfMReconstructionEngine2 sfmEngine(
     scene_initializer.get(),
     this->_sfm_data,
-    this->_config.sOutDir);
+    this->_config.sfm_dir);
 
   // Configure the features_provider & the matches_provider
   sfmEngine.SetFeaturesProvider(feats_provider.get());
@@ -239,10 +238,10 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
     << " #tracks: " <<  this->_sfm_data.GetLandmarks().size()
     << std::endl;
     Save(this->_sfm_data,
-      stlplus::create_filespec(this->_config.sOutDir, "sfm_data", ".bin"),
+      stlplus::create_filespec(this->_config.sfm_dir, "sfm_data", ".bin"),
       ESfM_Data(ALL));
     Save(this->_sfm_data,
-      stlplus::create_filespec(this->_config.sOutDir, "sfm_data_2", ".json"),
+      stlplus::create_filespec(this->_config.sfm_dir, "sfm_data_2", ".json"),
       ESfM_Data(ALL));
   }else{
     std::cout << "...SFM process failed" << std::endl;
@@ -253,7 +252,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
 }
 
 bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
-  bool success = false;
+  this->_GenerateImageFeatures(image_path);
   std::string sPriorWeights;
   std::pair<bool, Vec3> prior_w_info(false, Vec3(1.0,1.0,1.0));
   int i_User_camera_model = PINHOLE_CAMERA_RADIAL3;
@@ -268,183 +267,169 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
 
   const EINTRINSIC e_User_camera_model = EINTRINSIC(i_User_camera_model);
 
-
-  std::vector<Datasheet> vec_database;
-  if (!this->_config.sfileDatabase.empty())
-  {
-    if ( !parseDatabase(this->_config.sfileDatabase, vec_database ) )
-    {
-      std::cerr
-       << "\nInvalid input database: " << this->_config.sfileDatabase
-       << ", please specify a valid file." << std::endl;
-      return false;
-    }
-  }
-
   Views & views = this->_sfm_data.views;
   Intrinsics & intrinsics =  this->_sfm_data.intrinsics;
 
-    // Read meta data to fill camera parameter (w,h,focal,ppx,ppy) fields.
-    width = height = ppx = ppy = focal = -1.0;
+  // Read meta data to fill camera parameter (w,h,focal,ppx,ppy) fields.
+  width = height = ppx = ppy = focal = -1.0;
 
-    const std::string sImFilenamePart = stlplus::filename_part(image_path);
-    // Test if the image format is supported:
-    if (openMVG::image::GetFormat(image_path.c_str()) == openMVG::image::Unknown)
+  const std::string sImFilenamePart = stlplus::filename_part(image_path);
+  // Test if the image format is supported:
+  if (openMVG::image::GetFormat(image_path.c_str()) == openMVG::image::Unknown)
+  {
+      std::cout
+          << sImFilenamePart << ": Unkown image file format." << "\n";
+      return false; // image cannot be opened
+  }
+
+  if (sImFilenamePart.find("mask.png") != std::string::npos
+      || sImFilenamePart.find("_mask.png") != std::string::npos)
+  {
+      std::cout
+          << sImFilenamePart << " is a mask image" << "\n";
+      return false;
+  }
+
+  ImageHeader imgHeader;
+  if (!openMVG::image::ReadImageHeader(image_path.c_str(), &imgHeader)){
+      std::cout
+          << sImFilenamePart << " Failed to read header" << "\n";
+      return false; // image cannot be read
+  }
+
+  width = imgHeader.width;
+  height = imgHeader.height;
+  ppx = width / 2.0;
+  ppy = height / 2.0;
+
+  // If not manually provided or wrongly provided
+  if (focal == -1)
+  {
+    std::unique_ptr<Exif_IO> exifReader(new Exif_IO_EasyExif);
+    exifReader->open(image_path);
+
+    const bool bHaveValidExifMetadata =
+    exifReader->doesHaveExifInfo()
+    && !exifReader->getModel().empty();
+
+    if (bHaveValidExifMetadata) // If image contains meta data
     {
-        std::cout
-            << sImFilenamePart << ": Unkown image file format." << "\n";
-        return false; // image cannot be opened
-    }
-
-    if (sImFilenamePart.find("mask.png") != std::string::npos
-        || sImFilenamePart.find("_mask.png") != std::string::npos)
-    {
-        std::cout
-            << sImFilenamePart << " is a mask image" << "\n";
-        return false;
-    }
-
-    ImageHeader imgHeader;
-    if (!openMVG::image::ReadImageHeader(image_path.c_str(), &imgHeader)){
-        std::cout
-            << sImFilenamePart << " Failed to read header" << "\n";
-        return false; // image cannot be read
-    }
-
-    width = imgHeader.width;
-    height = imgHeader.height;
-    ppx = width / 2.0;
-    ppy = height / 2.0;
-
-    // If not manually provided or wrongly provided
-    if (focal == -1)
-    {
-        std::unique_ptr<Exif_IO> exifReader(new Exif_IO_EasyExif);
-        exifReader->open(image_path);
-
-        const bool bHaveValidExifMetadata =
-        exifReader->doesHaveExifInfo()
-        && !exifReader->getModel().empty();
-
-        if (bHaveValidExifMetadata) // If image contains meta data
-        {
-        const std::string sCamModel = exifReader->getModel();
-
-        // Handle case where focal length is equal to 0
-        if (exifReader->getFocal() == 0.0f)
-        {
-            std::cout
-            << stlplus::basename_part(image_path) << ": Focal length is missing." << "\n";
-            focal = -1.0;
-        }
-        else
-        // Create the image entry in the list file
-        {
-            Datasheet datasheet;
-            if ( getInfo( sCamModel, vec_database, datasheet ))
-            {
-            // The camera model was found in the database so we can compute it's approximated focal length
-            const double ccdw = datasheet.sensorSize_;
+      const std::string sCamModel = exifReader->getModel();
+      // Handle case where focal length is equal to 0
+      if (exifReader->getFocal() == 0.0f)
+      {
+          std::cout
+          << stlplus::basename_part(image_path) 
+          << ": Focal length is missing." << "\n";
+          focal = -1.0;
+      }
+      else
+      {
+          CameraIntrinsics intrinsics = this->_intrinsics_storage->Get(sCamModel);
+          if (!intrinsics.model().empty())
+          {
+          // The camera model was found in the database so we can compute it's approximated focal length
+            const double ccdw = intrinsics.sensor_size();
             focal = std::max ( width, height ) * exifReader->getFocal() / ccdw;
-            }
-            else
-            {
-                std::cout
-                << stlplus::basename_part(image_path)
-                << "\" model \"" << sCamModel << "\" doesn't exist in the database" << "\n"
-                << "Please consider add your camera model and sensor width in the database." << "\n";
-            }
-        }
-        }
+          }
+          else
+          {
+              std::cout
+              << stlplus::basename_part(image_path)
+              << "\" model \"" << sCamModel << "\" doesn't exist in the database" << "\n"
+              << "Please consider add your camera model and sensor width in the database." << "\n";
+          }
+      }
     }
-    // Build intrinsic parameter related to the view
-    std::shared_ptr<IntrinsicBase> intrinsic;
+  }
+  // Build intrinsic parameter related to the view
+  std::shared_ptr<IntrinsicBase> intrinsic;
 
-    if (focal > 0 && ppx > 0 && ppy > 0 && width > 0 && height > 0)
-    {
-        // Create the desired camera type
-        switch (e_User_camera_model)
-        {
-        case PINHOLE_CAMERA:
-            intrinsic = std::make_shared<Pinhole_Intrinsic>
-            (width, height, focal, ppx, ppy);
-        break;
-        case PINHOLE_CAMERA_RADIAL1:
-            intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K1>
-            (width, height, focal, ppx, ppy, 0.0); // setup no distortion as initial guess
-        break;
-        case PINHOLE_CAMERA_RADIAL3:
-            intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K3>
-            (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0);  // setup no distortion as initial guess
-        break;
-        case PINHOLE_CAMERA_BROWN:
-            intrinsic = std::make_shared<Pinhole_Intrinsic_Brown_T2>
-            (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
-        break;
-        case PINHOLE_CAMERA_FISHEYE:
-            intrinsic = std::make_shared<Pinhole_Intrinsic_Fisheye>
-            (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
-        break;
-        case CAMERA_SPHERICAL:
-            intrinsic = std::make_shared<Intrinsic_Spherical>
-                (width, height);
-        break;
-        default:
-            std::cerr << "Error: unknown camera model: " << (int) e_User_camera_model << std::endl;
-            return -1;
-        }
-    }
+  if (focal > 0 && ppx > 0 && ppy > 0 && width > 0 && height > 0)
+  {
+      // Create the desired camera type
+      switch (e_User_camera_model)
+      {
+      case PINHOLE_CAMERA:
+          intrinsic = std::make_shared<Pinhole_Intrinsic>
+          (width, height, focal, ppx, ppy);
+      break;
+      case PINHOLE_CAMERA_RADIAL1:
+          intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K1>
+          (width, height, focal, ppx, ppy, 0.0); // setup no distortion as initial guess
+      break;
+      case PINHOLE_CAMERA_RADIAL3:
+          intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K3>
+          (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0);  // setup no distortion as initial guess
+      break;
+      case PINHOLE_CAMERA_BROWN:
+          intrinsic = std::make_shared<Pinhole_Intrinsic_Brown_T2>
+          (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
+      break;
+      case PINHOLE_CAMERA_FISHEYE:
+          intrinsic = std::make_shared<Pinhole_Intrinsic_Fisheye>
+          (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
+      break;
+      case CAMERA_SPHERICAL:
+          intrinsic = std::make_shared<Intrinsic_Spherical>
+              (width, height);
+      break;
+      default:
+          std::cerr << "Error: unknown camera model: " << (int) e_User_camera_model << std::endl;
+          return -1;
+      }
+  }
 
-    // Build the view corresponding to the image
-    const std::pair<bool, Vec3> gps_info = checkGPS(image_path, i_GPS_XYZ_method);
-    if (gps_info.first)
-    {
-        ViewPriors v(sImFilenamePart, views.size(), views.size(), views.size(), width, height);
+  // Build the view corresponding to the image
+  const std::pair<bool, Vec3> gps_info = checkGPS(image_path, i_GPS_XYZ_method);
+  if (gps_info.first)
+  {
+      ViewPriors v(sImFilenamePart, views.size(), views.size(), views.size(), width, height);
 
-        // Add intrinsic related to the image (if any)
-        if (intrinsic == nullptr)
-        {
-        //Since the view have invalid intrinsic data
-        // (export the view, with an invalid intrinsic field value)
+      // Add intrinsic related to the image (if any)
+      if (intrinsic == nullptr)
+      {
+      //Since the view have invalid intrinsic data
+      // (export the view, with an invalid intrinsic field value)
         v.id_intrinsic = UndefinedIndexT;
-        }
-        else
-        {
-        // Add the defined intrinsic to the sfm_container
+      }
+      else
+      {
+      // Add the defined intrinsic to the sfm_container
         intrinsics[v.id_intrinsic] = intrinsic;
-        }
+      }
 
-        v.b_use_pose_center_ = true;
-        v.pose_center_ = gps_info.second;
-        // prior weights
-        if (prior_w_info.first == true)
-        {
-        v.center_weight_ = prior_w_info.second;
-        }
+      v.b_use_pose_center_ = true;
+      v.pose_center_ = gps_info.second;
+      // prior weights
+      if (prior_w_info.first == true)
+      {
+       v.center_weight_ = prior_w_info.second;
+      }
 
-        // Add the view to the sfm_container
-        views[v.id_view] = std::make_shared<ViewPriors>(v);
-    }
-    else
-    {
-        v = View(sImFilenamePart, views.size(), views.size(), views.size(), width, height);
+      // Add the view to the sfm_container
+      views[v.id_view] = std::make_shared<ViewPriors>(v);
+  }
+  else
+  {
+      v = View(sImFilenamePart, views.size(), views.size(), views.size(), width, height);
 
-        // Add intrinsic related to the image (if any)
-        if (intrinsic == nullptr)
-        {
-        //Since the view have invalid intrinsic data
-        // (export the view, with an invalid intrinsic field value)
-        v.id_intrinsic = UndefinedIndexT;
-        }
-        else
-        {
-        // Add the defined intrinsic to the sfm_container
-        intrinsics[v.id_intrinsic] = intrinsic;
-        }
+      // Add intrinsic related to the image (if any)
+      if (intrinsic == nullptr)
+      {
+      //Since the view have invalid intrinsic data
+      // (export the view, with an invalid intrinsic field value)
+      v.id_intrinsic = UndefinedIndexT;
+      }
+      else
+      {
+      // Add the defined intrinsic to the sfm_container
+      intrinsics[v.id_intrinsic] = intrinsic;
+      }
 
-        // Add the view to the sfm_container
-        views[v.id_view] = std::make_shared<View>(v);
-    }
+      // Add the view to the sfm_container
+      views[v.id_view] = std::make_shared<View>(v);
+  }
 
   // Group camera that share common properties if desired (leads to more faster & stable BA).
   if (b_Group_camera_model)
@@ -453,25 +438,19 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
   }
 
   // Store SfM_Data views & intrinsic data
-  if (Save(
+  if (!Save(
     this->_sfm_data,
-    stlplus::create_filespec(this->_config.sOutputDir, "sfm_data.json" ).c_str(),
+    stlplus::create_filespec(this->_config.sfm_dir, "sfm_data.json" ).c_str(),
     ESfM_Data(ALL)))
   {
-    success = true;
-  }else{
-      std::cout <<" failed to save sfm_json.data in " << this->_config.sOutputDir <<  "\n";
+    std::cout <<" failed to save sfm_json.data in " << this->_config.sfm_dir <<  "\n";
         return false;
   }
-  if(success){
-    LOG(INFO) << "Generating image features for " << image_path;
-    this->_GenerateImageFeatures(v.id_view);
-  }
-  return success;
+  return true;
 }
 
-bool OpenMVGReconstructionAgent::_GenerateImageFeatures(IndexT view_id){
-    if (this->_config.sOutputDir.empty())  {
+bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image_path){
+    if (this->_config.features_dir.empty())  {
     std::cerr << "\nIt is an invalid output directory" << std::endl;
     return false;
   }
@@ -480,10 +459,9 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(IndexT view_id){
   // - retrieve the used one in case of pre-computed features
   // - else create the desired one
 
-  using namespace openMVG::features;
   std::unique_ptr<Image_describer> image_describer;
 
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.sOutputDir, "image_describer", "json");
+  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   if (stlplus::is_file(sImage_describer))
   {
     // Dynamically load the image_describer from the file (will restore old used settings)
@@ -580,18 +558,9 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(IndexT view_id){
     #pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
 #endif
 
-    const View* view = nullptr;
-    for(std::pair<IndexT, std::shared_ptr<View>> e : this->_sfm_data.views){
-        std::shared_ptr<View> v = e.second;
-        if(v->id_view == view_id){
-            view = v.get();
-        }
-    }
-    if(!view) return false;
     const std::string
-    sView_filename = stlplus::create_filespec(this->_sfm_data.s_root_path, view->s_Img_path),
-    sFeat = stlplus::create_filespec(this->_config.sOutputDir, stlplus::basename_part(sView_filename), "feat"),
-    sDesc = stlplus::create_filespec(this->_config.sOutputDir, stlplus::basename_part(sView_filename), "desc");
+    sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
+    sDesc = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "desc");
 
     // If features or descriptors file are missing, compute them
     if (!preemptive_exit && 
@@ -599,7 +568,7 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(IndexT view_id){
             !stlplus::file_exists(sFeat) || 
             !stlplus::file_exists(sDesc)))
     {
-        if (!ReadImage(sView_filename.c_str(), &imageGray))
+        if (!ReadImage(image_path.c_str(), &imageGray))
             return false;
 
         Image<unsigned char> * mask = nullptr; // The mask is null by default
@@ -607,7 +576,7 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(IndexT view_id){
         const std::string
             mask_filename_local =
             stlplus::create_filespec(this->_sfm_data.s_root_path,
-                stlplus::basename_part(sView_filename) + "_mask", "png"),
+                stlplus::basename_part(image_path) + "_mask", "png"),
             mask__filename_global =
             stlplus::create_filespec(this->_sfm_data.s_root_path, "mask", "png");
 
@@ -647,7 +616,7 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(IndexT view_id){
         // Compute features and descriptors and export them to files
         auto regions = image_describer->Describe(imageGray, mask);
         if (regions && !image_describer->Save(regions.get(), sFeat, sDesc)) {
-            std::cerr << "Cannot save regions for images: " << sView_filename << std::endl
+            std::cerr << "Cannot save regions for images: " << image_path << std::endl
                     << "Stopping feature extraction." << std::endl;
             preemptive_exit = true;
             return false;
@@ -690,7 +659,7 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::set<std::string>& ne
   }
 
   using namespace openMVG::features;
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.sMatchesDirectory, "image_describer", "json");
+  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
   if (!regions_type)
   {
@@ -708,7 +677,7 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::set<std::string>& ne
       // Cached regions provider (load & store regions on demand)
       regions_provider = std::make_shared<Regions_Provider_Cache>(this->_config.ui_max_cache_size);
   }
-  if (!regions_provider->load(this->_sfm_data, this->_config.sMatchesDirectory, regions_type)) {
+  if (!regions_provider->load(this->_sfm_data, this->_config.features_dir, regions_type)) {
       std::cerr << std::endl << "Invalid regions." << std::endl;
       return false;
   }
@@ -735,12 +704,12 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::set<std::string>& ne
 
   std::cout << std::endl << " - PUTATIVE MATCHES - " << std::endl;
   // If the matches already exists, reload them
-  if ((stlplus::file_exists(this->_config.sMatchesDirectory + "/matches.putative.txt")
-        || stlplus::file_exists(this->_config.sMatchesDirectory + "/matches.putative.bin"))
+  if ((stlplus::file_exists(this->_config.matches_dir + "/matches.putative.txt")
+        || stlplus::file_exists(this->_config.matches_dir + "/matches.putative.bin"))
   )
   {
-    if (!(openMVG::matching::Load(map_PutativesMatches, this->_config.sMatchesDirectory + "/matches.putative.bin") ||
-          openMVG::matching::Load(map_PutativesMatches,  this->_config.sMatchesDirectory + "/matches.putative.txt")) )
+    if (!(openMVG::matching::Load(map_PutativesMatches, this->_config.matches_dir + "/matches.putative.bin") ||
+          openMVG::matching::Load(map_PutativesMatches,  this->_config.matches_dir + "/matches.putative.txt")) )
     {
       std::cerr << "Cannot load input matches file";
       return false;
@@ -813,11 +782,11 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::set<std::string>& ne
   //---------------------------------------
   //-- Export putative matches
   //---------------------------------------
-  if (!Save(map_PutativesMatches, std::string(this->_config.sMatchesDirectory + "/matches.putative.bin")))
+  if (!Save(map_PutativesMatches, std::string(this->_config.matches_dir + "/matches.putative.bin")))
   {
     std::cerr
       << "Cannot save computed matches in: "
-      << std::string(this->_config.sMatchesDirectory + "/matches.putative.bin");
+      << std::string(this->_config.matches_dir + "/matches.putative.bin");
     return false;
   }
 
@@ -898,11 +867,11 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::set<std::string>& ne
     }
 
     if (!Save(this->_matches,
-      std::string(this->_config.sMatchesDirectory + "/" + sGeometricMatchesFilename)))
+      std::string(this->_config.matches_dir + "/" + sGeometricMatchesFilename)))
     {
       std::cerr
           << "Cannot save computed matches in: "
-          << std::string(this->_config.sMatchesDirectory + "/" + sGeometricMatchesFilename);
+          << std::string(this->_config.matches_dir + "/" + sGeometricMatchesFilename);
       return false;
     }
   }
@@ -911,7 +880,7 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::set<std::string>& ne
 
 bool OpenMVGReconstructionAgent::ComputeStructure(){
   // Init the regions_type from the image describer file (used for image regions extraction)
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.sMatchesDir, "image_describer", "json");
+  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
   if (!regions_type)
   {
@@ -933,7 +902,7 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
     regions_provider = std::make_shared<Regions_Provider_Cache>(this->_config.ui_max_cache_size);
   }
 
-  if (!regions_provider->load(this->_sfm_data, this->_config.sMatchesDir, regions_type)) {
+  if (!regions_provider->load(this->_sfm_data, this->_config.features_dir, regions_type)) {
     std::cerr << std::endl
       << "Invalid regions." << std::endl;
     return false;
@@ -987,10 +956,14 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
 }
 
 openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_paths){
-    LOG(INFO) << "Gathering matches for new image: " << new_image_paths.size();
+    LOG(INFO) << "Gathering matches for new images: " << new_image_paths.size();
     
     std::set<IndexT> new_ids;
     openMVG::Pair_Set matches_to_compute;
+
+    if(this->_sfm_data.GetViews().size() < 2){
+      return openMVG::Pair_Set();
+    }
 
     for(std::pair<openMVG::IndexT, std::shared_ptr<openMVG::sfm::View>> e : this->_sfm_data.GetViews()){
         std::shared_ptr<openMVG::sfm::View> view = e.second;
