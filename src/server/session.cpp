@@ -11,9 +11,9 @@ using namespace std::literals::chrono_literals;
 
 Session::Session(const std::string& id, 
                  const std::string& reconstruction_id,
-                 SessionImageQueueAdapter* image_queue_adapter) : _id(id),
+                 SFMBacklogCounter* session_backlog) : _id(id),
                                                        _reconstruction_id(reconstruction_id),
-                                                       _image_queue_adapter(image_queue_adapter){
+                                                       _session_backlog(session_backlog){
 
 }
 
@@ -27,7 +27,6 @@ void Session::_Run(){
     Reconstruction * reconstruction = rf.Fetch(this->_reconstruction_id);
     std::set<std::string>* unconstructed_images = new std::set<std::string>();
     while(this->_running){
-        std::set<std::string> new_images = this->_image_queue_adapter->Get(this->_id);
         if(this->_blocked_reconstruction){
             if(!reconstruction->IsRunningMVS()){
                 LOG(INFO) << "Reconstruction unblocked";
@@ -37,15 +36,8 @@ void Session::_Run(){
             }
         }
 
-        if(!new_images.empty()){
-            /*
-             * TODO: Change this to do a new reconstruction every x seconds or after so many images are in the queue
-            */
-            LOG(INFO) << "Adding " << new_images.size() << " images to reconstruction " << this->_reconstruction_id;
-            for(std::string image_id : new_images){
-                reconstruction->AddImage(image_id);
-            }
-            if(reconstruction->Reconstruct(new_images)){
+        if(this->_session_backlog->CheckCounter(this->_reconstruction_id) > 0){
+            if(reconstruction->Reconstruct()){
                 LOG(INFO) << "Relocalized and ran SFM. Starting MVS for " << this->_reconstruction_id;
                 if(!reconstruction->IsRunningMVS()){
                     reconstruction->SetupMVS();
@@ -67,10 +59,6 @@ void Session::_Run(){
 void Session::Stop(){
     this->_running = false;
     this->_session_thread->join();
-}
-
-void Session::AddImage(const std::string& image_id){
-    this->_image_queue_adapter->Put(this->_id, image_id);
 }
 
 Session::~Session(){

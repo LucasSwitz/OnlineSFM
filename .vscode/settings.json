@@ -76,6 +76,7 @@
         "variant": "cpp",
         "filesystem": "cpp",
         "alignedvector3": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "rope": "cpp"
     }
 }

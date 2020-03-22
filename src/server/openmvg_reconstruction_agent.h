@@ -8,6 +8,7 @@
 #include "openMVG/sfm/sfm_data.hpp"
 #include "openMVG/numeric/eigen_alias_definition.hpp"
 #include "openMVG/cameras/Camera_Common.hpp"
+#include "openmvg_storage_adapter.h"
 
 #include "reconstruction_agent.h"
 #include "camera_intrinsics_storage.h"
@@ -53,20 +54,20 @@ typedef struct OpenMVGReconstructionAgentConfig {
 
 class OpenMVGReconstructionAgent : public ReconstructionAgent{
     public:
-        OpenMVGReconstructionAgent(CameraIntrinsicsStorage* intrinsics_storage);
+        OpenMVGReconstructionAgent(const std::string& reconstruction_id, CameraIntrinsicsStorage* intrinsics_storage, OpenMVGStorageAdapter* openmvg_storage);
         bool IncrementalSFM(const std::set<std::string>& new_images){}
-        bool AddImage(const std::string& image_id);
-        bool GenerateMatches(const std::set<std::string>& images);
+        bool AddImage(const std::string& image_path);
+        bool GenerateMatches(const std::string& image_path);
         bool IncrementalSFM();
         bool ComputeStructure();
         void Load(const std::string& sfm_data);
         void SetConfig(const OpenMVGReconstructionAgentConfig& config);
     private:
-        openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_images);
+        openMVG::Pair_Set _GatherMatchesToCompute(const std::string& new_images);
         bool _GenerateImageFeatures(const std::string& image_path);
         OpenMVGReconstructionAgentConfig _config;
-        openMVG::sfm::SfM_Data _sfm_data;
-        openMVG::matching::PairWiseMatches _matches;
+        std::unique_ptr<openMVG::sfm::SfM_Data> _sfm_data;
         CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
-        
+        OpenMVGStorageAdapter* _openmvg_storage = nullptr;
+        std::string _reconstruction_id;
 };

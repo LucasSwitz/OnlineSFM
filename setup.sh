@@ -4,22 +4,23 @@ pip3 install grpcio-tools open3d
 # Need to build GRPC
 # Then need to build protobuf
 
-# OpenMVS Stuff
+
+#boost 1.66
+wget https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
+tar -xf boost_1_66_0.tar.gz
+cd boost_1_66_0
+./bootstrap.sh
+./b2 install
+
+#Redis
+git clone https://github.com/redis/hiredis.git
+cd hiredis
+make
+make install
+
 
 #OpenMVG Stuff
 https://github.com/openMVG/openMVG/blob/master/BUILD.md#linux
-
-
-
-#Redis
-
-git clone https://github.com/redis/hiredis.git
-
-cd hiredis
-
-make
-
-make install
 
 #Prepare and empty machine for building:
 sudo apt-get update -qq && sudo apt-get install -qq

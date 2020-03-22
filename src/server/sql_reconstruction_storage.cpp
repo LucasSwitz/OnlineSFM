@@ -40,6 +40,9 @@ ReconstructionData SQLReconstructionStorage::Get(const std::string& id){
             stmt->setString(1, id);
     });
     ReconstructionData reconstruction_data;
+    if(!res){
+        LOG(ERROR) << "Failed to get reconstruction data for " << id;
+    }
     if(res->next()){
         reconstruction_data.set_id(res->getString("ID"));
         reconstruction_data.set_root(res->getString("ROOT_PATH"));

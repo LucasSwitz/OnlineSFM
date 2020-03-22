@@ -9,6 +9,7 @@
 #include "openMVG/sfm/sfm_data.hpp"
 #include "openmvg_reconstruction_agent.h"
 #include "camera_intrinsics_storage.h"
+#include "sfm_backlog_counter.h"
 
 class Reconstruction;
 
@@ -59,11 +60,12 @@ class Reconstruction {
                        ImageStorageAdapter* image_storage,
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
-                       CameraIntrinsicsStorage* intrinsics_storages);
+                       CameraIntrinsicsStorage* intrinsics_storages,
+                       SFMBacklogCounter* session_backlog);
         ~Reconstruction();
         void AddImage(const std::string& image_id);
         std::string StoreImage(ImageData& image);
-        int  Reconstruct();
+        bool Reconstruct();
         void SetupMVS();
         void MVS();
         bool Reconstruct(const std::set<std::string>& new_images);
@@ -87,6 +89,7 @@ class Reconstruction {
         CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
         OpenMVGReconstructionAgent reconstruction_agent;
         ReconstructionData _data;
+        SFMBacklogCounter* _session_backlog = nullptr;
         void _MVS();
         void _ExportWorkingMVS();
 };

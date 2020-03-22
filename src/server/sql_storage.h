@@ -12,8 +12,18 @@ class SQLStorage {
                    const std::string& db);
         sql::ResultSet* IssueQuery(const std::string& q, 
                                    std::function<void(sql::PreparedStatement *stmt)> modifier);
+        sql::ResultSet* IssueQuery(const std::string& q, 
+                                   sql::Connection* con, 
+                                   std::function<void(sql::PreparedStatement *stmt)> modifier);
         void IssueUpdate(const std::string& u, 
                          std::function<void(sql::PreparedStatement *stmt)> modifier);
+
+        void IssueUpdate(const std::string& u, 
+                             sql::Connection* con, 
+                             std::function<void(sql::PreparedStatement *stmt)> modifier);
+        void Execute(const std::string& e, std::function<void(sql::PreparedStatement *stmt)> modifier);
+        void Execute(const std::string& ex, sql::Connection* con, std::function<void(sql::PreparedStatement *stmt)> modifier);
+        void Transaction(std::function<void(sql::Connection *con)> t);
     private:
         std::string _db;
         std::string _address;

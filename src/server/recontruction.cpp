@@ -8,6 +8,7 @@
 #include "sql_obj_storage.h"
 #include "config.h"
 #include "openmvg_reconstruction_agent.h"
+#include "redis_sfm_backlog.h"
 #include <thread>
 
 Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
@@ -35,7 +36,10 @@ Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
                                                     CONFIG_GET_STRING("sql.user"), 
                                                     CONFIG_GET_STRING("sql.password"),
                                                     CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.intrinsics_table")));
+                                                    CONFIG_GET_STRING("sql.intrinsics_table")),
+                                  new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
+                                                      CONFIG_GET_STRING("redis.user"),
+                                                      CONFIG_GET_STRING("redis.password")));
 }
 
 void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
@@ -46,18 +50,32 @@ void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
                             CONFIG_GET_STRING("sql.reconstruction_table")).Store(reconstruction);
 }
 
+#include "sql_openmvg_storage.h"
 Reconstruction::Reconstruction(const std::string& id,
                        ReconstructionStorageAdapter* reconstruction_storage,
                        ImageStorageAdapter* image_storage,
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
-                       CameraIntrinsicsStorage* intrinsics_storage) : _id(id), 
+                       CameraIntrinsicsStorage* intrinsics_storage,
+                       SFMBacklogCounter* backlog_monitor) : _id(id), 
                                                          _reconstruction_storage(reconstruction_storage),
                                                          _image_storage(image_storage), 
                                                          _obj_storage(obj_storage), 
                                                          _sparse_storage(sparse_storage),
                                                          _intrinsics_storage(intrinsics_storage),
-                                                         reconstruction_agent(_intrinsics_storage){
+                                                         _session_backlog(backlog_monitor),
+                                                         reconstruction_agent(id,
+                                                                              _intrinsics_storage, 
+                                                                              new SQLOpenMVGStorage(CONFIG_GET_STRING("sql.address"),
+                                                                                                    CONFIG_GET_STRING("sql.user"), 
+                                                                                                    CONFIG_GET_STRING("sql.password"),
+                                                                                                    CONFIG_GET_STRING("sql.db"), 
+                                                                                                    CONFIG_GET_STRING("sql.openmvg_views_table"),
+                                                                                                    CONFIG_GET_STRING("sql.openmvg_intrinsics_table"),
+                                                                                                    CONFIG_GET_STRING("sql.openmvg_matches_table"),
+                                                                                                    CONFIG_GET_STRING("sql.openmvg_meta_table"),
+                                                                                                    CONFIG_GET_STRING("sql.openmvg_poses_table"))
+                                                                              ){
     this->_data = this->_reconstruction_storage->Get(this->_id);
     OpenMVGReconstructionAgentConfig config;
     config.sMatchFile = this->_data.matches_path() + "/matches.e.bin";
@@ -199,28 +217,15 @@ void Reconstruction::_MVS(){
 #include "openMVG/sfm/sfm_data.hpp"
 #include "openMVG/sfm/sfm_data_io.hpp"
 
-bool Reconstruction::Reconstruct(const std::set<std::string>& new_images){
+bool Reconstruction::Reconstruct(){
     LOG(INFO) << "Doing Reconstruct for " << this->_id;
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     std::string reconstruction_reconstruction_dir = reconstruction_dir + "/SFM";
-    std::string matches_dir = reconstruction_dir + "/SFM";
-    std::string sfm_data_path = matches_dir + "/sfm_data.json";
-    std::string sfm_data_bin_path = reconstruction_reconstruction_dir +"/sfm_data.bin";
     std::string robust_bin_path = reconstruction_reconstruction_dir + "/robust.bin";
     std::string robust_ply_path = reconstruction_reconstruction_dir + "/robust.ply";
     std::string mvs_path = reconstruction_reconstruction_dir + "/scene.mvs";
     std::string undistored_images_path = reconstruction_reconstruction_dir + "/undistorted";
 
-    std::set<std::string> new_image_paths;
-
-    for(std::string image_id : new_images){
-        ImageMetaData meta = this->_image_storage->GetMeta(image_id);
-        new_image_paths.insert(meta.path());
-    }
-    LOG(INFO) << "Gathering Matches for " << this->_id;
-    if(!reconstruction_agent.GenerateMatches(new_image_paths)){
-        return false;
-    }
     LOG(INFO) << "Starting Incremental SFM for " << this->_id;
     if(!reconstruction_agent.IncrementalSFM()){
          return false;
@@ -250,6 +255,8 @@ void Reconstruction::AddImage(const std::string& image_id){
     LOG(INFO) << "Adding image: " << image_id;
     if(!reconstruction_agent.AddImage(img_meta.path())){
         LOG(ERROR) << "Failed to add image " << image_id;
+    }else{
+        this->_session_backlog->Incr(this->_id);
     }
 }
 
