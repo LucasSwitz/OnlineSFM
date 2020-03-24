@@ -229,7 +229,7 @@ int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
     mkdir(CONFIG_GET_STRING("storage.root").c_str(), 0777);
-    ReconstructionServer service(1);
+    ReconstructionServer service(4);
     std::string server_address(CONFIG_GET_STRING("grpc_server.server_address"));
     LOG(INFO) << "Starting server at address " << server_address; 
     grpc::EnableDefaultHealthCheckService(true);

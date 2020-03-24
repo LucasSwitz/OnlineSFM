@@ -18,5 +18,7 @@ void RedisSFMBacklog::Incr(const std::string& session_id, size_t incr){
 
 uint64_t RedisSFMBacklog::CheckCounter(const std::string& session_id){
     sw::redis::OptionalString res = this->_redis.get(session_id);
-    return std::stoi(*res);
+    if(!res->empty())
+        return std::stoi(*res);
+    return 0;
 }

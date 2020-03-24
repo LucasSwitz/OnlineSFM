@@ -30,18 +30,19 @@ void Session::_Run(){
         if(this->_blocked_reconstruction){
             if(!reconstruction->IsRunningMVS()){
                 LOG(INFO) << "Reconstruction unblocked";
-                reconstruction->SetupMVS();
-                reconstruction->MVS();
+                //reconstruction->SetupMVS();
+                //reconstruction->MVS();
                 this->_blocked_reconstruction = false;
             }
         }
 
         if(this->_session_backlog->CheckCounter(this->_reconstruction_id) > 0){
+            LOG(INFO) << "New matches avilable. Running SFM.... " << this->_reconstruction_id;
             if(reconstruction->Reconstruct()){
                 LOG(INFO) << "Relocalized and ran SFM. Starting MVS for " << this->_reconstruction_id;
                 if(!reconstruction->IsRunningMVS()){
-                    reconstruction->SetupMVS();
-                    reconstruction->MVS();
+                    //reconstruction->SetupMVS();
+                    //reconstruction->MVS();
                     this->_blocked_reconstruction = false;
                 }else{
                     LOG(INFO) << "Reconstruction blocked";

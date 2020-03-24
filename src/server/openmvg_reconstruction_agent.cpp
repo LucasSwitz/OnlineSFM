@@ -305,7 +305,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
   }
 
   this->_GenerateImageFeatures(image_path);
-  // Build the view corresponding to the image
+
   if(intrinsic){
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
     this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, v, intrinsic);
@@ -590,22 +590,6 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
     }
   }
 
-  std::cout << std::endl << " - PUTATIVE MATCHES - " << std::endl;
-  // If the matches already exists, reload them
-  if ((stlplus::file_exists(this->_config.matches_dir + "/matches.putative.txt")
-        || stlplus::file_exists(this->_config.matches_dir + "/matches.putative.bin"))
-  )
-  {
-    if (!(openMVG::matching::Load(map_PutativesMatches, this->_config.matches_dir + "/matches.putative.bin") ||
-          openMVG::matching::Load(map_PutativesMatches,  this->_config.matches_dir + "/matches.putative.txt")) )
-    {
-      std::cerr << "Cannot load input matches file";
-      return false;
-    }
-    std::cout << "\t PREVIOUS RESULTS LOADED;"
-      << " #pair: " << map_PutativesMatches.size() << std::endl;
-  }
-
   // Allocate the right Matcher according the Matching requested method
   std::unique_ptr<Matcher> collectionMatcher;
   if (this->_config.sNearestMatchingMethod == "AUTO")
@@ -665,16 +649,6 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
   }
 
   collectionMatcher->Match(regions_provider, pairs, map_PutativesMatches);
-  //---------------------------------------
-  //-- Export putative matches
-  //---------------------------------------
-  if (!Save(map_PutativesMatches, std::string(this->_config.matches_dir + "/matches.putative.bin")))
-  {
-    std::cerr
-      << "Cannot save computed matches in: "
-      << std::string(this->_config.matches_dir + "/matches.putative.bin");
-    return false;
-  }
 
   //---------------------------------------
   // b. Geometric filtering of putative matches
@@ -751,17 +725,7 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
       }
       break;
     }
-
     this->_openmvg_storage->StoreMatches(this->_reconstruction_id, this->_config.sGeometricModel[0], geometric_matches);
-
-    if (!Save(geometric_matches,
-      std::string(this->_config.matches_dir + "/" + sGeometricMatchesFilename)))
-    {
-      std::cerr
-          << "Cannot save computed matches in: "
-          << std::string(this->_config.matches_dir + "/" + sGeometricMatchesFilename);
-      return false;
-    }
   }
   return true;
 }
@@ -777,19 +741,16 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
     return false;
   }
 
-  // Features reading
+  std::shared_ptr<Matches_Provider> matches_provider = std::make_shared<Matches_Provider>();
+  matches_provider->pairWise_matches_ = std::move(this->_openmvg_storage->GetMatches(this->_reconstruction_id));
+  this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
+                                                       ESfM_Data::VIEWS | ESfM_Data::INTRINSICS | ESfM_Data::EXTRINSICS);
   std::shared_ptr<Features_Provider> feats_provider = std::make_shared<Features_Provider>();
   if (!feats_provider->load(*this->_sfm_data, this->_config.features_dir, regions_type)) {
     std::cerr << std::endl
       << "Invalid features." << std::endl;
     return false;
   }
-
-  std::shared_ptr<Matches_Provider> matches_provider = std::make_shared<Matches_Provider>();
-  matches_provider->pairWise_matches_ = this->_openmvg_storage->GetMatches(this->_reconstruction_id);
-  this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
-                                                       ESfM_Data::VIEWS | ESfM_Data::INTRINSICS | ESfM_Data::EXTRINSICS);
-  
   std::unique_ptr<SfMSceneInitializer> scene_initializer;
     
   if(!this->_sfm_data->poses.empty()){

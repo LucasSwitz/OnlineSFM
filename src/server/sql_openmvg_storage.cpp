@@ -11,8 +11,8 @@
 #define SQL_INTRINSICS_COUNT(t) "SELECT @intrinsic_count:= COUNT(*) FROM " + t + " WHERE RECONSTRUCTION_ID = ?;"
 #define SQL_INSERT_OPENMVG_INTRINSIC(t) "INSERT INTO " + t + " VALUES (?,@intrinsic_count,?,?,?);"
 #define SQL_VIEW_COUNT(t) "SELECT @view_count:=COUNT(*) FROM " + t + " WHERE RECONSTRUCTION_ID = ?;"
-#define SQL_INSERT_OPENMVG_VIEW(t) "INSERT INTO " + t + " VALUES (?,@view_count,@intrinsic_count,?,?);"
-#define SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(t) "INSERT INTO " + t + " VALUES (?,@view_count,?,?);"
+#define SQL_INSERT_OPENMVG_VIEW(t) "INSERT INTO " + t + " VALUES (?,@view_count,@intrinsic_count,@view_count,?);"
+#define SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(t) "INSERT INTO " + t + " VALUES (?,@view_count,?,@view_count,?);"
 #define SQL_GET_INTRINSIC_BY_HASH(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ? AND DATA_HASH = ?"
 
 #define SQL_INSERT_MATCH(t) "INSERT INTO " + t + " VALUES (?,?,?,?,?)"
@@ -138,7 +138,6 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
     bool store_intrinsic = false;
     int64_t intrinsic_idx = -1;
     int intrinsic_type = -1;
-    IndexT pose_idx = view->id_pose;
 
     std::size_t intrinsic_hash = intrinsic->hashValue();
 
@@ -170,8 +169,7 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
                      intrinsic, 
                      intrinsic_idx, 
                      intrinsic_type, 
-                     intrinsic_hash,
-                     pose_idx](sql::Connection* con){
+                     intrinsic_hash](sql::Connection* con){
         if(store_intrinsic){
             std::stringstream instrinsic_os;
             {
@@ -200,10 +198,9 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
             });
             this->Execute(SQL_INSERT_OPENMVG_VIEW(this->_views_table),
                 con,
-                [reconstruction_id, view_json, pose_idx](sql::PreparedStatement* stmt){
+                [reconstruction_id, view_json](sql::PreparedStatement* stmt){
                     stmt->setString(1, reconstruction_id);
-                    stmt->setInt64(2, pose_idx);
-                    stmt->setString(3, view_json);
+                    stmt->setString(2, view_json);
             });
         }else{
             this->Execute(SQL_VIEW_COUNT(this->_views_table),
@@ -213,11 +210,10 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
             });
             this->Execute(SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(this->_views_table),
                 con,
-                [reconstruction_id, view_json, intrinsic_idx, pose_idx](sql::PreparedStatement* stmt){
+                [reconstruction_id, view_json, intrinsic_idx](sql::PreparedStatement* stmt){
                     stmt->setString(1, reconstruction_id);
                     stmt->setInt64(2, intrinsic_idx);
-                    stmt->setInt64(3, pose_idx);
-                    stmt->setString(4, view_json);
+                    stmt->setString(3, view_json);
             });
         }
     });
@@ -248,7 +244,7 @@ void SQLOpenMVGStorage::StoreMatches(const std::string& reconstruction_id,
             pstmt->setString(1, reconstruction_id);
             pstmt->setInt64(2, view_1);
             pstmt->setInt64(3, view_2);
-            pstmt->setString(4, &model);
+            pstmt->setString(4, std::string(1, model));
             pstmt->setBlob(5, blob_stream);
         });
         delete blob_stream;
@@ -331,7 +327,7 @@ OpenMVGMetadata SQLOpenMVGStorage::GetMeta(const std::string& reconstruction_id)
             cereal::JSONOutputArchive archive_out(os);
             archive_out(cereal::make_nvp("pose", pose));
     }
-    std::string pose_json;
+    std::string pose_json = os.str();
     int pose_idx = view->id_pose;
     int view_idx = view->id_view;
     this->IssueUpdate(SQL_INSERT_OPENMVG_POSE(this->_poses_table), 
@@ -339,6 +335,7 @@ OpenMVGMetadata SQLOpenMVGStorage::GetMeta(const std::string& reconstruction_id)
             pstmt->setString(1, reconstruction_id);
             pstmt->setInt64(2, pose_idx);
             pstmt->setString(3, pose_json);
+            pstmt->setString(4, pose_json);
     });
     this->IssueUpdate(SQL_UPDATE_VIEW_POSE_IDX(this->_views_table), 
             [this, reconstruction_id, pose_idx, view_idx](sql::PreparedStatement* pstmt){
@@ -360,7 +357,7 @@ Poses SQLOpenMVGStorage::GetPoses(const std::string& reconstruction_id){
         return poses;
     }
 
-    while(!res->next()){
+    while(res->next()){
         Pose3 pose;
         std::stringstream is(res->getString("DATA"));
         IndexT pose_idx = res->getInt64("POSE_IDX");
