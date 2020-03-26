@@ -9,6 +9,7 @@
 #include "config.h"
 #include "openmvg_reconstruction_agent.h"
 #include "redis_sfm_backlog.h"
+#include "mongodb_configuration_adapter.h"
 #include <thread>
 
 Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
@@ -57,34 +58,36 @@ Reconstruction::Reconstruction(const std::string& id,
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
                        CameraIntrinsicsStorage* intrinsics_storage,
-                       SFMBacklogCounter* backlog_monitor) : _id(id), 
-                                                         _reconstruction_storage(reconstruction_storage),
-                                                         _image_storage(image_storage), 
-                                                         _obj_storage(obj_storage), 
-                                                         _sparse_storage(sparse_storage),
-                                                         _intrinsics_storage(intrinsics_storage),
-                                                         _session_backlog(backlog_monitor),
-                                                         reconstruction_agent(id,
-                                                                              _intrinsics_storage, 
-                                                                              new SQLOpenMVGStorage(CONFIG_GET_STRING("sql.address"),
-                                                                                                    CONFIG_GET_STRING("sql.user"), 
-                                                                                                    CONFIG_GET_STRING("sql.password"),
-                                                                                                    CONFIG_GET_STRING("sql.db"), 
-                                                                                                    CONFIG_GET_STRING("sql.openmvg_views_table"),
-                                                                                                    CONFIG_GET_STRING("sql.openmvg_intrinsics_table"),
-                                                                                                    CONFIG_GET_STRING("sql.openmvg_matches_table"),
-                                                                                                    CONFIG_GET_STRING("sql.openmvg_meta_table"),
-                                                                                                    CONFIG_GET_STRING("sql.openmvg_poses_table"))
-                                                                              ){
+                       SFMBacklogCounter* backlog_monitor) : 
+    _id(id), 
+    _reconstruction_storage(reconstruction_storage),
+    _image_storage(image_storage), 
+    _obj_storage(obj_storage), 
+    _sparse_storage(sparse_storage),
+    _intrinsics_storage(intrinsics_storage),
+    _session_backlog(backlog_monitor),
+    reconstruction_agent(id,
+                        _intrinsics_storage, 
+                        new SQLOpenMVGStorage(CONFIG_GET_STRING("sql.address"),
+                                            CONFIG_GET_STRING("sql.user"), 
+                                            CONFIG_GET_STRING("sql.password"),
+                                            CONFIG_GET_STRING("sql.db"), 
+                                            CONFIG_GET_STRING("sql.openmvg_views_table"),
+                                            CONFIG_GET_STRING("sql.openmvg_intrinsics_table"),
+                                            CONFIG_GET_STRING("sql.openmvg_matches_table"),
+                                            CONFIG_GET_STRING("sql.openmvg_meta_table"),
+                                            CONFIG_GET_STRING("sql.openmvg_poses_table")),
+                        std::make_shared<MongoDBConfigurationAdapter>(CONFIG_GET_STRING("mongodb.uri"),
+                                                                      CONFIG_GET_STRING("mongodb.db"),
+                                                                      CONFIG_GET_STRING("mongodb.configurations_collection"),
+                                                                      CONFIG_GET_STRING("mongodb.default_configurations_collection"))){
     this->_data = this->_reconstruction_storage->Get(this->_id);
     OpenMVGReconstructionAgentConfig config;
-    config.sMatchFile = this->_data.matches_path() + "/matches.e.bin";
     config.features_dir = this->_data.features_path();
     config.sfm_dir = this->_data.features_path();
     config.root_path = this->_data.images_path();
     config.matches_dir = this->_data.matches_path();
     config.sOutFile =  this->_data.sfm_path() + "/robust.bin";
-    config.sGeometricModel = "e";
     this->reconstruction_agent.SetConfig(config);
 }
 

@@ -3,7 +3,11 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/local/include/mongocxx/v_noabi",
+                "/usr/local/include/libmongoc-1.0",
+                "/usr/local/include/bsoncxx/v_noabi",
+                "/usr/local/include/libbson-1.0"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

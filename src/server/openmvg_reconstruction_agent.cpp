@@ -162,11 +162,14 @@ std::pair<bool, Vec3> checkGPS
   return val;
 }
 
-OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& reconstruction_id, CameraIntrinsicsStorage* intrinsics_storage,
-                                                       OpenMVGStorageAdapter* openmvg_storage):
+OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& reconstruction_id, 
+                                                       CameraIntrinsicsStorage* intrinsics_storage,
+                                                       OpenMVGStorageAdapter* openmvg_storage,
+                                                       std::shared_ptr<ConfigurationAdapter> configuration_adapter):
                                                                                   _reconstruction_id(reconstruction_id), 
                                                                                   _intrinsics_storage(intrinsics_storage),
-                                                                                  _openmvg_storage(openmvg_storage){
+                                                                                  _openmvg_storage(openmvg_storage),
+                                                                                  _configuration_adapter(configuration_adapter){
   
   
 }
@@ -183,12 +186,7 @@ void OpenMVGReconstructionAgent::SetConfig(const OpenMVGReconstructionAgentConfi
 }
 
 bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
-  std::string sPriorWeights;
-  std::pair<bool, Vec3> prior_w_info(false, Vec3(1.0,1.0,1.0));
   int i_User_camera_model = PINHOLE_CAMERA_RADIAL3;
-  bool b_Group_camera_model = true;
-  int i_GPS_XYZ_method = 0;
-  double focal_pixels = -1.0;
   std::shared_ptr<View> v;
 
   // Expected properties for each image
@@ -315,10 +313,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
   }
 
   // Group camera that share common properties if desired (leads to more faster & stable BA).
-  if (b_Group_camera_model)
-  {
-    GroupSharedIntrinsics(*this->_sfm_data);
-  }
+  GroupSharedIntrinsics(*this->_sfm_data);
 
   // Store SfM_Data views & intrinsic data
   if (!Save(
@@ -339,6 +334,16 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image
     std::cerr << "\nIt is an invalid output directory" << std::endl;
     return false;
   }
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+    this->_reconstruction_id,
+    "openmvg",
+    nullptr
+  );
+  bool bUpRight = config->get_bool("up_right");
+  std::string sImage_Describer_Method = config->get_string("image_describer_method");
+  bool bForce = config->get_bool("brute_force");
+  std::string sFeaturePreset = config->get_string("feature_preset");
+
 
   // b. Init the image_describer
   // - retrieve the used one in case of pre-computed features
@@ -370,39 +375,39 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image
   {
     // Create the desired Image_describer method.
     // Don't use a factory, perform direct allocation
-    if (this->_config.sImage_Describer_Method == "SIFT")
+    if (sImage_Describer_Method == "SIFT")
     {
       image_describer.reset(new SIFT_Image_describer
-        (SIFT_Image_describer::Params(), !this->_config.bUpRight));
+        (SIFT_Image_describer::Params(), bUpRight));
     }
     else
-    if (this->_config.sImage_Describer_Method == "SIFT_ANATOMY")
+    if (sImage_Describer_Method == "SIFT_ANATOMY")
     {
       image_describer.reset(
         new SIFT_Anatomy_Image_describer(SIFT_Anatomy_Image_describer::Params()));
     }
     else
-    if (this->_config.sImage_Describer_Method == "AKAZE_FLOAT")
+    if (sImage_Describer_Method == "AKAZE_FLOAT")
     {
       image_describer = AKAZE_Image_describer::create
-        (AKAZE_Image_describer::Params(AKAZE::Params(), AKAZE_MSURF), !this->_config.bUpRight);
+        (AKAZE_Image_describer::Params(AKAZE::Params(), AKAZE_MSURF), bUpRight);
     }
     else
-    if (this->_config.sImage_Describer_Method == "AKAZE_MLDB")
+    if (sImage_Describer_Method == "AKAZE_MLDB")
     {
       image_describer = AKAZE_Image_describer::create
-        (AKAZE_Image_describer::Params(AKAZE::Params(), AKAZE_MLDB), !this->_config.bUpRight);
+        (AKAZE_Image_describer::Params(AKAZE::Params(), AKAZE_MLDB), bUpRight);
     }
     if (!image_describer)
     {
       std::cerr << "Cannot create the designed Image_describer:"
-        << this->_config.sImage_Describer_Method << "." << std::endl;
+        << sImage_Describer_Method << "." << std::endl;
       return false;
     }
     else
     {
-      if (!this->_config.sFeaturePreset.empty())
-      if (!image_describer->Set_configuration_preset(stringToEnum(this->_config.sFeaturePreset)))
+      if (!sFeaturePreset.empty())
+      if (!image_describer->Set_configuration_preset(stringToEnum(sFeaturePreset)))
       {
         std::cerr << "Preset configuration failed." << std::endl;
         return false;
@@ -449,7 +454,7 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image
 
     // If features or descriptors file are missing, compute them
     if (!preemptive_exit && 
-            (this->_config.bForce || 
+            (bForce || 
             !stlplus::file_exists(sFeat) || 
             !stlplus::file_exists(sDesc)))
     {
@@ -514,13 +519,26 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image
 bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_paths){
   // Update our SFM data to get all the images to match with
   LOG(INFO) << "Generating matches for " << new_image_paths;
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+    this->_reconstruction_id,
+    "openmvg",
+    nullptr
+  );
+  std::string sGeometricModel = config->get_string("geometric_model");
+  float fDistRatio = config->get_double("dist_ratio");
+  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method");
+  bool bGuided_matching = config->get_bool("guided_matching");
+  int imax_iteration = config->get_int("max_iterations");
+  int ui_max_cache_size = config->get_int("ui_max_cache_size");
+
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
                                                        ESfM_Data::VIEWS | ESfM_Data::INTRINSICS);
   Pair_Set pairs = this->_GatherMatchesToCompute(new_image_paths);
   std::shared_ptr<Regions_Provider> regions_provider;
   EGeometricModel eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
   std::string sGeometricMatchesFilename = "";
-  switch (this->_config.sGeometricModel[0])
+
+  switch (sGeometricModel[0])
   {
     case 'f': case 'F':
       eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
@@ -555,7 +573,7 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
       << sImage_describer << " regions type file." << std::endl;
     return false;
   }
-  if (this->_config.ui_max_cache_size == 0)
+  if (ui_max_cache_size == 0)
   {
       // Default regions provider (load & store all regions in memory)
       regions_provider = std::make_shared<Regions_Provider>();
@@ -563,7 +581,7 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
   else
   {
       // Cached regions provider (load & store regions on demand)
-      regions_provider = std::make_shared<Regions_Provider_Cache>(this->_config.ui_max_cache_size);
+      regions_provider = std::make_shared<Regions_Provider_Cache>(ui_max_cache_size);
   }
   if (!regions_provider->load(*this->_sfm_data, this->_config.features_dir, regions_type)) {
       std::cerr << std::endl << "Invalid regions." << std::endl;
@@ -592,59 +610,59 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
 
   // Allocate the right Matcher according the Matching requested method
   std::unique_ptr<Matcher> collectionMatcher;
-  if (this->_config.sNearestMatchingMethod == "AUTO")
+  if (sNearestMatchingMethod == "AUTO")
   {
     if (regions_type->IsScalar())
     {
       std::cout << "Using FAST_CASCADE_HASHING_L2 matcher" << std::endl;
-      collectionMatcher.reset(new Cascade_Hashing_Matcher_Regions(this->_config.fDistRatio));
+      collectionMatcher.reset(new Cascade_Hashing_Matcher_Regions(fDistRatio));
     }
     else
     if (regions_type->IsBinary())
     {
       std::cout << "Using BRUTE_FORCE_HAMMING matcher" << std::endl;
-      collectionMatcher.reset(new Matcher_Regions(this->_config.fDistRatio, BRUTE_FORCE_HAMMING));
+      collectionMatcher.reset(new Matcher_Regions(fDistRatio, BRUTE_FORCE_HAMMING));
     }
   }
   else
-  if (this->_config.sNearestMatchingMethod == "BRUTEFORCEL2")
+  if (sNearestMatchingMethod == "BRUTEFORCEL2")
   {
     std::cout << "Using BRUTE_FORCE_L2 matcher" << std::endl;
-    collectionMatcher.reset(new Matcher_Regions(this->_config.fDistRatio, BRUTE_FORCE_L2));
+    collectionMatcher.reset(new Matcher_Regions(fDistRatio, BRUTE_FORCE_L2));
   }
   else
-  if (this->_config.sNearestMatchingMethod == "BRUTEFORCEHAMMING")
+  if (sNearestMatchingMethod == "BRUTEFORCEHAMMING")
   {
     std::cout << "Using BRUTE_FORCE_HAMMING matcher" << std::endl;
-    collectionMatcher.reset(new Matcher_Regions(this->_config.fDistRatio, BRUTE_FORCE_HAMMING));
+    collectionMatcher.reset(new Matcher_Regions(fDistRatio, BRUTE_FORCE_HAMMING));
   }
   else
-  if (this->_config.sNearestMatchingMethod == "HNSWL2")
+  if (sNearestMatchingMethod == "HNSWL2")
   {
     std::cout << "Using HNSWL2 matcher" << std::endl;
-    collectionMatcher.reset(new Matcher_Regions(this->_config.fDistRatio, HNSW_L2));
+    collectionMatcher.reset(new Matcher_Regions(fDistRatio, HNSW_L2));
   }
   else
-  if (this->_config.sNearestMatchingMethod == "ANNL2")
+  if (sNearestMatchingMethod == "ANNL2")
   {
     std::cout << "Using ANN_L2 matcher" << std::endl;
-    collectionMatcher.reset(new Matcher_Regions(this->_config.fDistRatio, ANN_L2));
+    collectionMatcher.reset(new Matcher_Regions(fDistRatio, ANN_L2));
   }
   else
-  if (this->_config.sNearestMatchingMethod == "CASCADEHASHINGL2")
+  if (sNearestMatchingMethod == "CASCADEHASHINGL2")
   {
     std::cout << "Using CASCADE_HASHING_L2 matcher" << std::endl;
-    collectionMatcher.reset(new Matcher_Regions(this->_config.fDistRatio, CASCADE_HASHING_L2));
+    collectionMatcher.reset(new Matcher_Regions(fDistRatio, CASCADE_HASHING_L2));
   }
   else
-  if (this->_config.sNearestMatchingMethod == "FASTCASCADEHASHINGL2")
+  if (sNearestMatchingMethod == "FASTCASCADEHASHINGL2")
   {
     std::cout << "Using FAST_CASCADE_HASHING_L2 matcher" << std::endl;
-    collectionMatcher.reset(new Cascade_Hashing_Matcher_Regions(this->_config.fDistRatio));
+    collectionMatcher.reset(new Cascade_Hashing_Matcher_Regions(fDistRatio));
   }
   if (!collectionMatcher)
   {
-    std::cerr << "Invalid Nearest Neighbor method: " << this->_config.sNearestMatchingMethod << std::endl;
+    std::cerr << "Invalid Nearest Neighbor method: " << sNearestMatchingMethod << std::endl;
     return false;
   }
 
@@ -668,8 +686,8 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
       {
         const bool bGeometric_only_guided_matching = true;
         filter_ptr->Robust_model_estimation(
-          GeometricFilter_HMatrix_AC(4.0, this->_config.imax_iteration),
-          map_PutativesMatches, this->_config.bGuided_matching,
+          GeometricFilter_HMatrix_AC(4.0, imax_iteration),
+          map_PutativesMatches, bGuided_matching,
           bGeometric_only_guided_matching ? -1.0 : d_distance_ratio);
          geometric_matches = filter_ptr->Get_geometric_matches();
       }
@@ -677,16 +695,16 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
       case FUNDAMENTAL_MATRIX:
       {
         filter_ptr->Robust_model_estimation(
-          GeometricFilter_FMatrix_AC(4.0, this->_config.imax_iteration),
-          map_PutativesMatches, this->_config.bGuided_matching, d_distance_ratio);
+          GeometricFilter_FMatrix_AC(4.0, imax_iteration),
+          map_PutativesMatches, bGuided_matching, d_distance_ratio);
           geometric_matches = filter_ptr->Get_geometric_matches();
       }
       break;
       case ESSENTIAL_MATRIX:
       {
         filter_ptr->Robust_model_estimation(
-          GeometricFilter_EMatrix_AC(4.0, this->_config.imax_iteration),
-          map_PutativesMatches, this->_config.bGuided_matching, d_distance_ratio);
+          GeometricFilter_EMatrix_AC(4.0, imax_iteration),
+          map_PutativesMatches, bGuided_matching, d_distance_ratio);
          geometric_matches = filter_ptr->Get_geometric_matches();
 
         //-- Perform an additional check to remove pairs with poor overlap
@@ -711,27 +729,36 @@ bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_pa
       case ESSENTIAL_MATRIX_ANGULAR:
       {
         filter_ptr->Robust_model_estimation(
-          GeometricFilter_ESphericalMatrix_AC_Angular(4.0, this->_config.imax_iteration),
-          map_PutativesMatches, this->_config.bGuided_matching);
+          GeometricFilter_ESphericalMatrix_AC_Angular(4.0, imax_iteration),
+          map_PutativesMatches, bGuided_matching);
          geometric_matches = filter_ptr->Get_geometric_matches();
       }
       break;
       case ESSENTIAL_MATRIX_ORTHO:
       {
         filter_ptr->Robust_model_estimation(
-          GeometricFilter_EOMatrix_RA(2.0, this->_config.imax_iteration),
-          map_PutativesMatches, this->_config.bGuided_matching, d_distance_ratio);
+          GeometricFilter_EOMatrix_RA(2.0, imax_iteration),
+          map_PutativesMatches, bGuided_matching, d_distance_ratio);
         geometric_matches = filter_ptr->Get_geometric_matches();
       }
       break;
     }
-    this->_openmvg_storage->StoreMatches(this->_reconstruction_id, this->_config.sGeometricModel[0], geometric_matches);
+    this->_openmvg_storage->StoreMatches(this->_reconstruction_id, sGeometricModel[0], geometric_matches);
   }
   return true;
 }
 
 bool OpenMVGReconstructionAgent::IncrementalSFM(){
-    using namespace openMVG::features;
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+    this->_reconstruction_id,
+    "openmvg",
+    nullptr
+  );
+  std::string sIntrinsic_refinement_options = config->get_string("intrinsic_refinement_options");
+  int i_User_camera_model = config->get_int("user_camera_model");
+  bool b_use_motion_priors = config->get_bool("use_motion_priors");
+  int triangulation_method = config->get_int("trangulation_method");
+
   const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
   if (!regions_type)
@@ -770,17 +797,15 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
     *this->_sfm_data,
     this->_config.sfm_dir);
 
-  // Configure the features_provider & the matches_provider
   sfmEngine.SetFeaturesProvider(feats_provider.get());
   sfmEngine.SetMatchesProvider(matches_provider.get());
 
-  // Configure reconstruction parameters
   const cameras::Intrinsic_Parameter_Type intrinsic_refinement_options =
-    cameras::StringTo_Intrinsic_Parameter_Type(this->_config.sIntrinsic_refinement_options);
+    cameras::StringTo_Intrinsic_Parameter_Type(sIntrinsic_refinement_options);
   sfmEngine.Set_Intrinsics_Refinement_Type(intrinsic_refinement_options);
-  sfmEngine.SetUnknownCameraType(EINTRINSIC(this->_config.i_User_camera_model));
-  sfmEngine.Set_Use_Motion_Prior(this->_config.b_use_motion_priors);
-  sfmEngine.SetTriangulationMethod(static_cast<ETriangulationMethod>(this->_config.triangulation_method));
+  sfmEngine.SetUnknownCameraType(EINTRINSIC(i_User_camera_model));
+  sfmEngine.Set_Use_Motion_Prior(b_use_motion_priors);
+  sfmEngine.SetTriangulationMethod(static_cast<ETriangulationMethod>(triangulation_method));
 
   if (sfmEngine.Process())
   {
@@ -811,7 +836,15 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
 }
 
 bool OpenMVGReconstructionAgent::ComputeStructure(){
-  // Init the regions_type from the image describer file (used for image regions extraction)
+   ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+    this->_reconstruction_id,
+    "openmvg",
+    nullptr
+  );
+  double dMax_reprojection_error = config->get_double("max_reprojection_error");
+  unsigned int ui_max_cache_size = config->get_int("ui_max_cache_size");
+  int triangulation_method = config->get_int("trangulation_method");
+  
   const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
   if (!regions_type)
@@ -821,17 +854,14 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
     return false;
   }
 
-  // Prepare the Regions provider
   std::shared_ptr<Regions_Provider> regions_provider;
-  if (this->_config.ui_max_cache_size == 0)
+  if (ui_max_cache_size == 0)
   {
-    // Default regions provider (load & store all regions in memory)
     regions_provider = std::make_shared<Regions_Provider>();
   }
   else
   {
-    // Cached regions provider (load & store regions on demand)
-    regions_provider = std::make_shared<Regions_Provider_Cache>(this->_config.ui_max_cache_size);
+    regions_provider = std::make_shared<Regions_Provider_Cache>(ui_max_cache_size);
   }
 
   if (!regions_provider->load(*this->_sfm_data, this->_config.features_dir, regions_type)) {
@@ -855,9 +885,9 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
     //------------------------------------------
     // Compute Structure from known camera poses
     //------------------------------------------
-    SfM_Data_Structure_Estimation_From_Known_Poses structure_estimator(this->_config.dMax_reprojection_error);
+    SfM_Data_Structure_Estimation_From_Known_Poses structure_estimator(dMax_reprojection_error);
     structure_estimator.run(*this->_sfm_data, pairs, regions_provider,
-        static_cast<ETriangulationMethod>(this->_config.triangulation_method));
+        static_cast<ETriangulationMethod>(triangulation_method));
 
           std::cout
     << "\n#landmark found: " << this->_sfm_data->GetLandmarks().size() << std::endl;

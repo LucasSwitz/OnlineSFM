@@ -153,6 +153,23 @@ message GetSparseResponse {
     SparsePointCloudData sparse = 1;
 };
 
+message SetReconstructionConfigRequest {
+    string reconstruction_id = 1;
+    string config_json = 2; 
+};
+
+message SetReconstructionConfigResponse {
+    bool success = 1;
+};
+
+message GetReconstructionConfigRequest {
+    string reconstruction_id = 1;
+};
+
+message GetReconstructionConfigResponse {
+    string config_json = 1;
+};
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
     rpc UploadImage(stream UploadImageRequest) returns (ImageUploadResponse){};
@@ -164,4 +181,6 @@ service ReconstructionService {
     rpc StartSession(StartSessionRequest) returns (StartSessionResponse);
     rpc StopSession(StopSessionRequest) returns (StopSessionResponse);
     rpc SessionUploadImage(stream SessionUploadImageRequest) returns (SessionUploadImageResponse);
+    rpc SetReconstructionConfig(SetReconstructionConfigRequest) returns (SetReconstructionConfigResponse);
+    rpc GetReconstructionConfig(GetReconstructionConfigRequest) returns (GetReconstructionConfigResponse);
 }

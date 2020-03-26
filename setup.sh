@@ -1,9 +1,25 @@
-sudo apt install protobuf-compiler libprotobuf-dev protobuf-compiler-grpc libgrpc++-dev autoconf libmysqlcppconn-dev nlohmann-json-dev
+sudo apt install protobuf-compiler libprotobuf-dev protobuf-compiler-grpc libgrpc++-dev autoconf libmysqlcppconn-dev nlohmann-json-dev libmongoclient-dev 
+sudo apt-get install libbson-dev
 pip3 install grpcio-tools open3d
 #protocol buffers stuff 
 # Need to build GRPC
 # Then need to build protobuf
 
+#MONGO DB
+http://mongocxx.org/mongocxx-v3/installation/
+
+wget https://github.com/mongodb/mongo-c-driver/releases/download/1.16.2/mongo-c-driver-1.16.2.tar.gz
+tar xzf mongo-c-driver-1.16.2.tar.gz
+cd mongo-c-driver-1.16.2
+mkdir cmake-build
+cd cmake-build
+cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
+sudo make install ..
+
+
+cmake ..                                \
+    -DCMAKE_BUILD_TYPE=Release          \
+    -DCMAKE_INSTALL_PREFIX=/usr/local
 
 #boost 1.66
 wget https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
@@ -12,12 +28,14 @@ cd boost_1_66_0
 ./bootstrap.sh
 ./b2 install
 
+# MongoDB server 
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+
 #Redis
 git clone https://github.com/redis/hiredis.git
 cd hiredis
 make
 make install
-
 
 #OpenMVG Stuff
 https://github.com/openMVG/openMVG/blob/master/BUILD.md#linux

@@ -2,7 +2,14 @@ cmake_minimum_required(VERSION 3.10)
 project(ReconstructionServer CXX)
 set(CMAKE_BUILD_TYPE DEBUG)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)  
-include_directories(common/proto/gen/cpp src /home/gumbo00/OnlineSFM/depends/openMVG/src depends/CTPL)
+include_directories(common/proto/gen/cpp 
+                    src 
+                    /home/gumbo00/OnlineSFM/depends/openMVG/src 
+                    depends/CTPL 
+                    /usr/local/include/mongocxx/v_noabi
+                    /usr/local/include/libmongoc-1.0
+                    /usr/local/include/bsoncxx/v_noabi
+                    /usr/local/include/libbson-1.0)
 find_package(Protobuf REQUIRED)
 find_package(Boost COMPONENTS filesystem REQUIRED)
 find_package(glog REQUIRED)
@@ -24,7 +31,7 @@ file(GLOB UPLOAD_INTRINISICS_SOURCES
 
 add_executable(server ${SERVER_SOURCES})
 set_property(TARGET server PROPERTY CXX_STANDARD 14)
-target_link_libraries(server  ${Protobuf_LIBRARIES} ${GLOG_LIBRARIES} vlsift gRPC::grpc++ mysqlcppconn Boost::filesystem redis++ hiredis      
+target_link_libraries(server mongocxx bsoncxx ${Protobuf_LIBRARIES} ${GLOG_LIBRARIES} vlsift gRPC::grpc++ mysqlcppconn Boost::filesystem redis++ hiredis      
 OpenMVG::openMVG_camera
 OpenMVG::openMVG_exif
 OpenMVG::openMVG_features
