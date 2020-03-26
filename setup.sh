@@ -1,5 +1,4 @@
 sudo apt install protobuf-compiler libprotobuf-dev protobuf-compiler-grpc libgrpc++-dev autoconf libmysqlcppconn-dev nlohmann-json-dev libmongoclient-dev 
-sudo apt-get install libbson-dev
 pip3 install grpcio-tools open3d
 #protocol buffers stuff 
 # Need to build GRPC
@@ -26,7 +25,7 @@ wget https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
 tar -xf boost_1_66_0.tar.gz
 cd boost_1_66_0
 ./bootstrap.sh
-./b2 install
+sudo ./b2 install
 
 # MongoDB server 
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/

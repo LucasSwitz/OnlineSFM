@@ -1,0 +1,38 @@
+{
+    "grpc_server" : {
+        "server_address":"0.0.0.0:9999"
+    },
+    "storage" : {
+        "root": "/home/gumbo00/OnlineSFMDatabase"
+    },
+    "sql" : {
+        "address" : "tcp://127.0.0.1:3306",
+        "user" :  "root",
+        "password" : "D1ct10n@ry_W0rd!",
+        "db" : "reconstruction",
+        "views_table" : "VIEWS",
+        "reconstruction_table": "RECONSTRUCTIONS",
+        "sparse_table" : "SPARSE",
+        "obj_table" : "OBJ",
+        "intrinsics_table" : "CAMERA_INTRINSICS",
+        "openmvg_intrinsics_table": "OPENMVG_INTRINSICS",
+        "openmvg_views_table" : "OPENMVG_VIEWS",
+        "openmvg_matches_table" : "OPENMVG_MATCHES",
+        "openmvg_meta_table" : "OPENMVG_META",
+        "openmvg_poses_table" : "OPENMVG_POSES"
+    },
+    "redis" : {
+        "address" : "tcp://127.0.0.1:6379",
+        "user" : "CHANGEME",
+        "password" : "CHANGEME"
+    },
+    "mongodb" : {
+        "uri" : "mongodb://localhost:27017",
+        "db" : "reconstruction",
+        "configurations_collection": "reconstruction_configurations",
+        "default_configurations_collection" : "default_reconstruction_configurations"
+    },
+    "reconstruction" :{
+        "threads" : 1
+    }
+}

@@ -7,3 +7,6 @@ build: src/*
 	mkdir -p build; \
 	cd build; \
 	cmake ..
+	
+docker: src/*
+	docker image build . --tag rdev

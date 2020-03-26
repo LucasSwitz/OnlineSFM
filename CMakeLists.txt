@@ -31,22 +31,31 @@ file(GLOB UPLOAD_INTRINISICS_SOURCES
 
 add_executable(server ${SERVER_SOURCES})
 set_property(TARGET server PROPERTY CXX_STANDARD 14)
-target_link_libraries(server mongocxx bsoncxx ${Protobuf_LIBRARIES} ${GLOG_LIBRARIES} vlsift gRPC::grpc++ mysqlcppconn Boost::filesystem redis++ hiredis      
-OpenMVG::openMVG_camera
-OpenMVG::openMVG_exif
-OpenMVG::openMVG_features
-OpenMVG::openMVG_geodesy
-OpenMVG::openMVG_geometry
-OpenMVG::openMVG_graph
-OpenMVG::openMVG_image
-OpenMVG::openMVG_linearProgramming
-OpenMVG::openMVG_matching
-OpenMVG::openMVG_matching_image_collection
-OpenMVG::openMVG_multiview
-OpenMVG::openMVG_numeric
-OpenMVG::openMVG_robust_estimation
-OpenMVG::openMVG_sfm
-OpenMVG::openMVG_system)
+target_link_libraries(server 
+                      mongocxx 
+                      bsoncxx 
+                      ${Protobuf_LIBRARIES} 
+                      ${GLOG_LIBRARIES} 
+                      vlsift 
+                      gRPC::grpc++ 
+                      mysqlcppconn Boost::filesystem 
+                      redis++ 
+                      hiredis      
+                      OpenMVG::openMVG_camera
+                      OpenMVG::openMVG_exif
+                      OpenMVG::openMVG_features
+                      OpenMVG::openMVG_geodesy
+                      OpenMVG::openMVG_geometry
+                      OpenMVG::openMVG_graph
+                      OpenMVG::openMVG_image
+                      OpenMVG::openMVG_linearProgramming
+                      OpenMVG::openMVG_matching
+                      OpenMVG::openMVG_matching_image_collection
+                      OpenMVG::openMVG_multiview
+                      OpenMVG::openMVG_numeric
+                      OpenMVG::openMVG_robust_estimation
+                      OpenMVG::openMVG_sfm
+                      OpenMVG::openMVG_system)
 
 add_executable(upload_intrinsics_tool ${UPLOAD_INTRINISICS_SOURCES})
 set_property(TARGET upload_intrinsics_tool PROPERTY CXX_STANDARD 14)

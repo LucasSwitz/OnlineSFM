@@ -1,0 +1,7 @@
+depends/*
+tools/*
+scripts/*
+db/*
+src/*
+common/*
+cmake/*
