@@ -7,7 +7,7 @@ message ImageMetaData {
     string format = 4;
 };
 
-message ImageData{
+message ImageData {
     bytes data = 1;
     ImageMetaData metadata = 2;
 } 
@@ -52,11 +52,11 @@ message ReconstructionData {
     string matches_path = 10;
 }
 
-message ImageUploadResponse{
+message StoreImageResponse{
     bool success = 1;
 }
 
-message UploadImageRequest{
+message StoreImageRequest{
     string reconstruction_id = 1;
     ImageData image = 2;
 }   
@@ -136,12 +136,12 @@ message StopSessionResponse {
     string session_id = 1;
 }
 
-message SessionUploadImageRequest {
+message SessionAddImageRequest {
     string session_id = 1;
-    UploadImageRequest upload_image = 2;
+    StoreImageRequest upload_image = 2;
 };
 
-message SessionUploadImageResponse {
+message SessionAddImageResponse {
 
 };
 
@@ -170,9 +170,18 @@ message GetReconstructionConfigResponse {
     string config_json = 1;
 };
 
+message ReconstructionUploadImageBatchRequest {
+    int32 idx = 1;
+    ImageData data = 2;
+}
+
+message ReconstructionUploadImageBatchResponse{
+    int32 images_uploaded =  1;
+}
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
-    rpc UploadImage(stream UploadImageRequest) returns (ImageUploadResponse){};
+    rpc StoreImage(stream StoreImageRequest) returns (StoreImageResponse){};
     rpc Reconstruct(ReconstructRequest) returns (ReconstructResponse);
     rpc GetOBJ(GetOBJRequest) returns (stream GetOBJResponse);
     rpc GetSparse(GetSparseRequest) returns (stream GetSparseResponse);
@@ -180,7 +189,8 @@ service ReconstructionService {
     rpc DeleteReconstruction(DeleteReconstructionRequest) returns (DeleteReconstructionResponse);
     rpc StartSession(StartSessionRequest) returns (StartSessionResponse);
     rpc StopSession(StopSessionRequest) returns (StopSessionResponse);
-    rpc SessionUploadImage(stream SessionUploadImageRequest) returns (SessionUploadImageResponse);
+    rpc SessionAddImage(stream SessionAddImageRequest) returns (SessionAddImageResponse);
     rpc SetReconstructionConfig(SetReconstructionConfigRequest) returns (SetReconstructionConfigResponse);
     rpc GetReconstructionConfig(GetReconstructionConfigRequest) returns (GetReconstructionConfigResponse);
+    rpc ReconstructionUploadImageBatch(stream ReconstructionUploadImageBatchRequest) returns (ReconstructionUploadImageBatchResponse);
 }

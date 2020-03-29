@@ -19,10 +19,10 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.HandhsakeRequest.SerializeToString,
         response_deserializer=server__pb2.HandshakeResponse.FromString,
         )
-    self.UploadImage = channel.stream_unary(
-        '/ReconstructionService/UploadImage',
-        request_serializer=server__pb2.UploadImageRequest.SerializeToString,
-        response_deserializer=server__pb2.ImageUploadResponse.FromString,
+    self.StoreImage = channel.stream_unary(
+        '/ReconstructionService/StoreImage',
+        request_serializer=server__pb2.StoreImageRequest.SerializeToString,
+        response_deserializer=server__pb2.StoreImageResponse.FromString,
         )
     self.Reconstruct = channel.unary_unary(
         '/ReconstructionService/Reconstruct',
@@ -59,10 +59,25 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.StopSessionRequest.SerializeToString,
         response_deserializer=server__pb2.StopSessionResponse.FromString,
         )
-    self.SessionUploadImage = channel.stream_unary(
-        '/ReconstructionService/SessionUploadImage',
-        request_serializer=server__pb2.SessionUploadImageRequest.SerializeToString,
-        response_deserializer=server__pb2.SessionUploadImageResponse.FromString,
+    self.SessionAddImage = channel.stream_unary(
+        '/ReconstructionService/SessionAddImage',
+        request_serializer=server__pb2.SessionAddImageRequest.SerializeToString,
+        response_deserializer=server__pb2.SessionAddImageResponse.FromString,
+        )
+    self.SetReconstructionConfig = channel.unary_unary(
+        '/ReconstructionService/SetReconstructionConfig',
+        request_serializer=server__pb2.SetReconstructionConfigRequest.SerializeToString,
+        response_deserializer=server__pb2.SetReconstructionConfigResponse.FromString,
+        )
+    self.GetReconstructionConfig = channel.unary_unary(
+        '/ReconstructionService/GetReconstructionConfig',
+        request_serializer=server__pb2.GetReconstructionConfigRequest.SerializeToString,
+        response_deserializer=server__pb2.GetReconstructionConfigResponse.FromString,
+        )
+    self.ReconstructionUploadImageBatch = channel.stream_unary(
+        '/ReconstructionService/ReconstructionUploadImageBatch',
+        request_serializer=server__pb2.ReconstructionUploadImageBatchRequest.SerializeToString,
+        response_deserializer=server__pb2.ReconstructionUploadImageBatchResponse.FromString,
         )
 
 
@@ -77,7 +92,7 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def UploadImage(self, request_iterator, context):
+  def StoreImage(self, request_iterator, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -133,7 +148,28 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def SessionUploadImage(self, request_iterator, context):
+  def SessionAddImage(self, request_iterator, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def SetReconstructionConfig(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetReconstructionConfig(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ReconstructionUploadImageBatch(self, request_iterator, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -148,10 +184,10 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           request_deserializer=server__pb2.HandhsakeRequest.FromString,
           response_serializer=server__pb2.HandshakeResponse.SerializeToString,
       ),
-      'UploadImage': grpc.stream_unary_rpc_method_handler(
-          servicer.UploadImage,
-          request_deserializer=server__pb2.UploadImageRequest.FromString,
-          response_serializer=server__pb2.ImageUploadResponse.SerializeToString,
+      'StoreImage': grpc.stream_unary_rpc_method_handler(
+          servicer.StoreImage,
+          request_deserializer=server__pb2.StoreImageRequest.FromString,
+          response_serializer=server__pb2.StoreImageResponse.SerializeToString,
       ),
       'Reconstruct': grpc.unary_unary_rpc_method_handler(
           servicer.Reconstruct,
@@ -188,10 +224,25 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           request_deserializer=server__pb2.StopSessionRequest.FromString,
           response_serializer=server__pb2.StopSessionResponse.SerializeToString,
       ),
-      'SessionUploadImage': grpc.stream_unary_rpc_method_handler(
-          servicer.SessionUploadImage,
-          request_deserializer=server__pb2.SessionUploadImageRequest.FromString,
-          response_serializer=server__pb2.SessionUploadImageResponse.SerializeToString,
+      'SessionAddImage': grpc.stream_unary_rpc_method_handler(
+          servicer.SessionAddImage,
+          request_deserializer=server__pb2.SessionAddImageRequest.FromString,
+          response_serializer=server__pb2.SessionAddImageResponse.SerializeToString,
+      ),
+      'SetReconstructionConfig': grpc.unary_unary_rpc_method_handler(
+          servicer.SetReconstructionConfig,
+          request_deserializer=server__pb2.SetReconstructionConfigRequest.FromString,
+          response_serializer=server__pb2.SetReconstructionConfigResponse.SerializeToString,
+      ),
+      'GetReconstructionConfig': grpc.unary_unary_rpc_method_handler(
+          servicer.GetReconstructionConfig,
+          request_deserializer=server__pb2.GetReconstructionConfigRequest.FromString,
+          response_serializer=server__pb2.GetReconstructionConfigResponse.SerializeToString,
+      ),
+      'ReconstructionUploadImageBatch': grpc.stream_unary_rpc_method_handler(
+          servicer.ReconstructionUploadImageBatch,
+          request_deserializer=server__pb2.ReconstructionUploadImageBatchRequest.FromString,
+          response_serializer=server__pb2.ReconstructionUploadImageBatchResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

@@ -1,5 +1,6 @@
 sudo apt install protobuf-compiler libprotobuf-dev protobuf-compiler-grpc libgrpc++-dev autoconf libmysqlcppconn-dev nlohmann-json-dev libmongoclient-dev 
 pip3 install grpcio-tools open3d
+pip3 install docker
 #protocol buffers stuff 
 # Need to build GRPC
 # Then need to build protobuf
@@ -27,8 +28,7 @@ cd boost_1_66_0
 ./bootstrap.sh
 sudo ./b2 install
 
-# MongoDB server 
-https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+# MongoDB server  https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 
 #Redis
 git clone https://github.com/redis/hiredis.git
@@ -36,8 +36,7 @@ cd hiredis
 make
 make install
 
-#OpenMVG Stuff
-https://github.com/openMVG/openMVG/blob/master/BUILD.md#linux
+#OpenMVG Stuff https://github.com/openMVG/openMVG/blob/master/BUILD.md#linux
 
 #Prepare and empty machine for building:
 sudo apt-get update -qq && sudo apt-get install -qq

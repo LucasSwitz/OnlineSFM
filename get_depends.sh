@@ -1,4 +1,10 @@
-apt install -y git libprotobuf-dev protobuf-compiler-grpc libgrpc++-dev autoconf libmysqlcppconn-dev nlohmann-json-dev libmongoclient-dev
+apt install -y git wget cmake libprotobuf-dev protobuf-compiler-grpc libgrpc++-dev autoconf libmysqlcppconn-dev nlohmann-json-dev libmongoclient-dev
+export DEBIAN_FRONTEND=noninteractive
+#install tzdata package
+apt-get install -y tzdata
+# set your timezone
+ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata
 
 #openMVG  https://github.com/openMVG/openMVG/blob/master/BUILD.md#linux
 apt-get install -y libpng-dev libjpeg-dev libtiff-dev libxxf86vm1 libxxf86vm-dev libxi-dev libxrandr-dev
@@ -46,12 +52,12 @@ cd cmake-build
 cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
 make install ..
 
-cmake ..                                \
-    -DCMAKE_BUILD_TYPE=Release          \
-    -DCMAKE_INSTALL_PREFIX=/usr/local
-
-#MONGO DB C++
-http://mongocxx.org/mongocxx-v3/installation/
+#MONGO DB C++ http://mongocxx.org/mongocxx-v3/installation/
+git clone https://github.com/mongodb/mongo-cxx-driver.git
+    --branch releases/stable --depth 1
+cd mongo-cxx-driver/build
+cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
+make && make install
 
 #boost 1.66
 wget https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
@@ -59,15 +65,6 @@ tar -xf boost_1_66_0.tar.gz
 cd boost_1_66_0
 ./bootstrap.sh
 ./b2 install
-
-# MongoDB server  https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-git clone https://github.com/mongodb/mongo-cxx-driver.git \
-    --branch releases/stable --depth 1
-cd mongo-cxx-driver/build
-cmake ..                                \
-    -DCMAKE_BUILD_TYPE=Release          \
-    -DCMAKE_INSTALL_PREFIX=/usr/local
-make && make install
 
 #Redis
 git clone https://github.com/redis/hiredis.git

@@ -16,7 +16,7 @@
 #include <unordered_map>
 #include "session.h"
 
-#include "ctpl.h"
+#include "CTPL/ctpl.h"
 
 #include "config.h"
 #include "redis_sfm_backlog.h"
@@ -72,8 +72,10 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
-        Status UploadImage(ServerContext* context, ServerReader<UploadImageRequest>* stream, ImageUploadResponse* response){
-            UploadImageRequest request;
+        Status StoreImage(ServerContext* context, 
+                          ServerReader<StoreImageRequest>* stream, 
+                          StoreImageResponse* response){
+            StoreImageRequest request;
             stream->Read(&request);
             ImageData final_image;
             final_image.CopyFrom(request.image());
@@ -90,7 +92,9 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
-        Status Reconstruct(ServerContext* context, const ReconstructRequest* request, ReconstructResponse* response){
+        Status Reconstruct(ServerContext* context, 
+                           const ReconstructRequest* request, 
+                           ReconstructResponse* response){
             ReconstructionFetcher rf;
             Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
             //response->set_success(reconstruction->Reconstruct());
@@ -98,7 +102,9 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
-        Status GetOBJ(ServerContext* context, const GetOBJRequest* request, ServerWriter<GetOBJResponse>* writer){
+        Status GetOBJ(ServerContext* context, 
+                      const GetOBJRequest* request, 
+                      ServerWriter<GetOBJResponse>* writer){
             LOG(INFO) << "Getting OBJ for " << request->reconstruction_id();
             ReconstructionFetcher rf;
             Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
@@ -140,7 +146,9 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         };
 
-        Status DeleteReconstruction(ServerContext* context, const DeleteReconstructionRequest* request, DeleteReconstructionResponse* response){
+        Status DeleteReconstruction(ServerContext* context, 
+                                    const DeleteReconstructionRequest* request, 
+                                    DeleteReconstructionResponse* response){
             ReconstructionFetcher fetcher;
             Reconstruction* reconstruction = fetcher.Fetch(request->id());
             reconstruction->Delete();
@@ -150,7 +158,9 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         };
 
-        Status StartSession(ServerContext* context, const StartSessionRequest* request, StartSessionResponse* response){
+        Status StartSession(ServerContext* context, 
+                            const StartSessionRequest* request, 
+                            StartSessionResponse* response){
             LOG(INFO) << "Creating new session for reconstruction " << request->reconstruction_id();
             std::string session_id = GetUUID();
             Session* s = new Session(session_id, 
@@ -167,7 +177,9 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
-        Status StopSession(ServerContext* context, const StopSessionRequest* request, StopSessionResponse* response){
+        Status StopSession(ServerContext* context, 
+                           const StopSessionRequest* request, 
+                           StopSessionResponse* response){
             Session* s = this->_sessions[request->session_id()];
             response->set_session_id(request->session_id());
             LOG(INFO) << "Stopping session " << request->session_id();
@@ -177,13 +189,15 @@ class ReconstructionServer : public ReconstructionService::Service {
         }
 
 
-        Status SessionUploadImage(ServerContext* context, ServerReader<SessionUploadImageRequest>* stream, SessionUploadImageResponse* response){
-            SessionUploadImageRequest request;
+        Status SessionAddImage(ServerContext* context, 
+                               ServerReader<SessionAddImageRequest>* stream, 
+                               SessionAddImageResponse* response){
+            SessionAddImageRequest request;
             stream->Read(&request);
             ImageData final_image;
             final_image.CopyFrom(request.upload_image().image());
             while(stream->Read(&request)){
-                UploadImageRequest upload_image_request = request.upload_image();
+                StoreImageRequest upload_image_request = request.upload_image();
                 final_image.mutable_data()->append(upload_image_request.image().data());  
             }
             LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
@@ -191,13 +205,17 @@ class ReconstructionServer : public ReconstructionService::Service {
                     ReconstructionFetcher rf;
                     Reconstruction* reconstruction = rf.Fetch(final_image.metadata().reconstruction());
                     std::string image_uuid = reconstruction->StoreImage(final_image);
+                    reconstruction->ComputeFeatures({final_image.metadata().path()});
                     reconstruction->AddImage(final_image.metadata().id());
+                    reconstruction->ComputeMatches({final_image.metadata().path()});
                     delete reconstruction;
             });
             return Status::OK;
         }
 
-        Status GetSparse(ServerContext* context, const GetSparseRequest* request, ServerWriter<GetSparseResponse>* writer){
+        Status GetSparse(ServerContext* context, 
+                         const GetSparseRequest* request, 
+                         ServerWriter<GetSparseResponse>* writer){
             LOG(INFO) << "Getting Sparse for " << request->reconstruction_id();
             ReconstructionFetcher rf;
             Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
@@ -215,11 +233,40 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
-        void RunAddImageThreadPool(){
-            while(true){
-                auto f = this->thread_pool.pop();
+       Status ReconstructionUploadImageBatch(ServerContext* context, 
+                                             ServerReader<ReconstructionUploadImageBatchRequest>* reader, 
+                                             ReconstructionUploadImageBatchResponse* response){
+            int last_idx = 0;
+            ReconstructionUploadImageBatchRequest request;
+            ImageData final_image;
+            ReconstructionFetcher rf;
+            reader->Read(&request);
+            Reconstruction* reconstruction = rf.Fetch(request.data().metadata().reconstruction());
+            std::set<std::string> new_image_ids;
+
+            final_image.CopyFrom(request.data());
+            while(reader->Read(&request)){
+                if(request.idx() != last_idx){
+                    new_image_ids.insert(reconstruction->StoreImage(final_image));
+                    final_image.CopyFrom(request.data());
+                    last_idx++;
+                    continue;
+                }else{
+                    final_image.mutable_data()->append(request.data().data());  
+                }
             }
-        }
+            reconstruction->ComputeFeatures(new_image_ids);
+            std::for_each(new_image_ids.begin(), 
+                          new_image_ids.end(), 
+                          [reconstruction](const std::string& image_id){
+                            reconstruction->AddImage(image_id);
+            });
+            reconstruction->ComputeMatches(new_image_ids);
+
+            delete reconstruction;
+            return Status::OK;
+       }
+
     private:
         std::unordered_map<std::string, Session*> _sessions;
         ctpl::thread_pool thread_pool;

@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0cserver.proto\"Q\n\rImageMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x04 \x01(\t\";\n\tImageData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12 \n\x08metadata\x18\x02 \x01(\x0b\x32\x0e.ImageMetaData\"Q\n\x14SparsePointCloudData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12+\n\x08metadata\x18\x02 \x01(\x0b\x32\x19.SparsePointCloudMetaData\"b\n\x18SparsePointCloudMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x10\n\x08mvs_path\x18\x03 \x01(\t\x12\x10\n\x08ply_path\x18\x04 \x01(\t\"g\n\x0bOBJMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x14\n\x0ctexture_path\x18\x04 \x01(\t\x12\x10\n\x08mtl_path\x18\x05 \x01(\t\"c\n\x07OBJData\x12\x10\n\x08obj_data\x18\x01 \x01(\x0c\x12\x14\n\x0ctexture_data\x18\x02 \x01(\x0c\x12\x10\n\x08mtl_data\x18\x03 \x01(\x0c\x12\x1e\n\x08metadata\x18\x04 \x01(\x0b\x32\x0c.OBJMetaData\"\xd0\x01\n\x12ReconstructionData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04root\x18\x02 \x01(\t\x12\x0e\n\x06images\x18\x03 \x03(\t\x12\x1d\n\x15sparse_reconstruction\x18\x04 \x01(\t\x12\x0b\n\x03obj\x18\x05 \x01(\t\x12\x13\n\x0bimages_path\x18\x06 \x01(\t\x12\x10\n\x08sfm_path\x18\x07 \x01(\t\x12\x10\n\x08mvs_path\x18\x08 \x01(\t\x12\x15\n\rfeatures_path\x18\t \x01(\t\x12\x14\n\x0cmatches_path\x18\n \x01(\t\"&\n\x13ImageUploadResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"J\n\x12UploadImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x19\n\x05image\x18\x02 \x01(\x0b\x32\n.ImageData\"\x1a\n\x18NewReconstructionRequest\"6\n\x19NewReconstructionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"/\n\x12ReconstructRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"*\n\rGetOBJRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"8\n\x0eGetOBJResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\x03obj\x18\x02 \x01(\x0b\x32\x08.OBJData\"9\n\x13ReconstructResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x11\n\terror_msg\x18\x02 \x01(\t\" \n\x11ReconstructionOBJ\x12\x0b\n\x03obj\x18\x01 \x01(\x0c\")\n\x1b\x44\x65leteReconstructionRequest\x12\n\n\x02id\x18\x01 \x01(\t\";\n\x1c\x44\x65leteReconstructionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\n\n\x02id\x18\x02 \x01(\t\"\xa5\x01\n\x10\x43\x61meraIntrinsics\x12\r\n\x05model\x18\x01 \x01(\t\x12\r\n\x05maker\x18\x02 \x01(\t\x12\x15\n\rnumeric_model\x18\x03 \x01(\t\x12\x13\n\x0bsensor_size\x18\x04 \x01(\x02\x12\x12\n\nfocus_mode\x18\x05 \x01(\t\x12\x1d\n\x15horizontal_view_angle\x18\x06 \x01(\x02\x12\x14\n\x0cjpeg_quality\x18\x07 \x01(\x05\"T\n\x10HandhsakeRequest\x12\x12\n\nidentifier\x18\x01 \x01(\t\x12,\n\x11\x63\x61mera_intrinsics\x18\x02 \x01(\x0b\x32\x11.CameraIntrinsics\"$\n\x11HandshakeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"0\n\x13StartSessionRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"E\n\x14StartSessionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"(\n\x12StopSessionRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\")\n\x13StopSessionResponse\x12\x12\n\nsession_id\x18\x01 \x01(\t\"Z\n\x19SessionUploadImageRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12)\n\x0cupload_image\x18\x02 \x01(\x0b\x32\x13.UploadImageRequest\"\x1c\n\x1aSessionUploadImageResponse\"-\n\x10GetSparseRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\":\n\x11GetSparseResponse\x12%\n\x06sparse\x18\x01 \x01(\x0b\x32\x15.SparsePointCloudData2\x91\x05\n\x15ReconstructionService\x12\x34\n\tHandshake\x12\x11.HandhsakeRequest\x1a\x12.HandshakeResponse\"\x00\x12<\n\x0bUploadImage\x12\x13.UploadImageRequest\x1a\x14.ImageUploadResponse\"\x00(\x01\x12\x38\n\x0bReconstruct\x12\x13.ReconstructRequest\x1a\x14.ReconstructResponse\x12+\n\x06GetOBJ\x12\x0e.GetOBJRequest\x1a\x0f.GetOBJResponse0\x01\x12\x34\n\tGetSparse\x12\x11.GetSparseRequest\x1a\x12.GetSparseResponse0\x01\x12J\n\x11NewReconstruction\x12\x19.NewReconstructionRequest\x1a\x1a.NewReconstructionResponse\x12S\n\x14\x44\x65leteReconstruction\x12\x1c.DeleteReconstructionRequest\x1a\x1d.DeleteReconstructionResponse\x12;\n\x0cStartSession\x12\x14.StartSessionRequest\x1a\x15.StartSessionResponse\x12\x38\n\x0bStopSession\x12\x13.StopSessionRequest\x1a\x14.StopSessionResponse\x12O\n\x12SessionUploadImage\x12\x1a.SessionUploadImageRequest\x1a\x1b.SessionUploadImageResponse(\x01\x62\x06proto3'
+  serialized_pb=b'\n\x0cserver.proto\"Q\n\rImageMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x04 \x01(\t\";\n\tImageData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12 \n\x08metadata\x18\x02 \x01(\x0b\x32\x0e.ImageMetaData\"Q\n\x14SparsePointCloudData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12+\n\x08metadata\x18\x02 \x01(\x0b\x32\x19.SparsePointCloudMetaData\"b\n\x18SparsePointCloudMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x10\n\x08mvs_path\x18\x03 \x01(\t\x12\x10\n\x08ply_path\x18\x04 \x01(\t\"g\n\x0bOBJMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x14\n\x0ctexture_path\x18\x04 \x01(\t\x12\x10\n\x08mtl_path\x18\x05 \x01(\t\"c\n\x07OBJData\x12\x10\n\x08obj_data\x18\x01 \x01(\x0c\x12\x14\n\x0ctexture_data\x18\x02 \x01(\x0c\x12\x10\n\x08mtl_data\x18\x03 \x01(\x0c\x12\x1e\n\x08metadata\x18\x04 \x01(\x0b\x32\x0c.OBJMetaData\"\xd0\x01\n\x12ReconstructionData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04root\x18\x02 \x01(\t\x12\x0e\n\x06images\x18\x03 \x03(\t\x12\x1d\n\x15sparse_reconstruction\x18\x04 \x01(\t\x12\x0b\n\x03obj\x18\x05 \x01(\t\x12\x13\n\x0bimages_path\x18\x06 \x01(\t\x12\x10\n\x08sfm_path\x18\x07 \x01(\t\x12\x10\n\x08mvs_path\x18\x08 \x01(\t\x12\x15\n\rfeatures_path\x18\t \x01(\t\x12\x14\n\x0cmatches_path\x18\n \x01(\t\"%\n\x12StoreImageResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"I\n\x11StoreImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x19\n\x05image\x18\x02 \x01(\x0b\x32\n.ImageData\"\x1a\n\x18NewReconstructionRequest\"6\n\x19NewReconstructionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"/\n\x12ReconstructRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"*\n\rGetOBJRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"8\n\x0eGetOBJResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\x03obj\x18\x02 \x01(\x0b\x32\x08.OBJData\"9\n\x13ReconstructResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x11\n\terror_msg\x18\x02 \x01(\t\" \n\x11ReconstructionOBJ\x12\x0b\n\x03obj\x18\x01 \x01(\x0c\")\n\x1b\x44\x65leteReconstructionRequest\x12\n\n\x02id\x18\x01 \x01(\t\";\n\x1c\x44\x65leteReconstructionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\n\n\x02id\x18\x02 \x01(\t\"\xa5\x01\n\x10\x43\x61meraIntrinsics\x12\r\n\x05model\x18\x01 \x01(\t\x12\r\n\x05maker\x18\x02 \x01(\t\x12\x15\n\rnumeric_model\x18\x03 \x01(\t\x12\x13\n\x0bsensor_size\x18\x04 \x01(\x02\x12\x12\n\nfocus_mode\x18\x05 \x01(\t\x12\x1d\n\x15horizontal_view_angle\x18\x06 \x01(\x02\x12\x14\n\x0cjpeg_quality\x18\x07 \x01(\x05\"T\n\x10HandhsakeRequest\x12\x12\n\nidentifier\x18\x01 \x01(\t\x12,\n\x11\x63\x61mera_intrinsics\x18\x02 \x01(\x0b\x32\x11.CameraIntrinsics\"$\n\x11HandshakeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"0\n\x13StartSessionRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"E\n\x14StartSessionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"(\n\x12StopSessionRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\")\n\x13StopSessionResponse\x12\x12\n\nsession_id\x18\x01 \x01(\t\"V\n\x16SessionAddImageRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12(\n\x0cupload_image\x18\x02 \x01(\x0b\x32\x12.StoreImageRequest\"\x19\n\x17SessionAddImageResponse\"-\n\x10GetSparseRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\":\n\x11GetSparseResponse\x12%\n\x06sparse\x18\x01 \x01(\x0b\x32\x15.SparsePointCloudData\"P\n\x1eSetReconstructionConfigRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x13\n\x0b\x63onfig_json\x18\x02 \x01(\t\"2\n\x1fSetReconstructionConfigResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\";\n\x1eGetReconstructionConfigRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"6\n\x1fGetReconstructionConfigResponse\x12\x13\n\x0b\x63onfig_json\x18\x01 \x01(\t\"N\n%ReconstructionUploadImageBatchRequest\x12\x0b\n\x03idx\x18\x01 \x01(\x05\x12\x18\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\n.ImageData\"A\n&ReconstructionUploadImageBatchResponse\x12\x17\n\x0fimages_uploaded\x18\x01 \x01(\x05\x32\xb6\x07\n\x15ReconstructionService\x12\x34\n\tHandshake\x12\x11.HandhsakeRequest\x1a\x12.HandshakeResponse\"\x00\x12\x39\n\nStoreImage\x12\x12.StoreImageRequest\x1a\x13.StoreImageResponse\"\x00(\x01\x12\x38\n\x0bReconstruct\x12\x13.ReconstructRequest\x1a\x14.ReconstructResponse\x12+\n\x06GetOBJ\x12\x0e.GetOBJRequest\x1a\x0f.GetOBJResponse0\x01\x12\x34\n\tGetSparse\x12\x11.GetSparseRequest\x1a\x12.GetSparseResponse0\x01\x12J\n\x11NewReconstruction\x12\x19.NewReconstructionRequest\x1a\x1a.NewReconstructionResponse\x12S\n\x14\x44\x65leteReconstruction\x12\x1c.DeleteReconstructionRequest\x1a\x1d.DeleteReconstructionResponse\x12;\n\x0cStartSession\x12\x14.StartSessionRequest\x1a\x15.StartSessionResponse\x12\x38\n\x0bStopSession\x12\x13.StopSessionRequest\x1a\x14.StopSessionResponse\x12\x46\n\x0fSessionAddImage\x12\x17.SessionAddImageRequest\x1a\x18.SessionAddImageResponse(\x01\x12\\\n\x17SetReconstructionConfig\x12\x1f.SetReconstructionConfigRequest\x1a .SetReconstructionConfigResponse\x12\\\n\x17GetReconstructionConfig\x12\x1f.GetReconstructionConfigRequest\x1a .GetReconstructionConfigResponse\x12s\n\x1eReconstructionUploadImageBatch\x12&.ReconstructionUploadImageBatchRequest\x1a\'.ReconstructionUploadImageBatchResponse(\x01\x62\x06proto3'
 )
 
 
@@ -409,15 +409,15 @@ _RECONSTRUCTIONDATA = _descriptor.Descriptor(
 )
 
 
-_IMAGEUPLOADRESPONSE = _descriptor.Descriptor(
-  name='ImageUploadResponse',
-  full_name='ImageUploadResponse',
+_STOREIMAGERESPONSE = _descriptor.Descriptor(
+  name='StoreImageResponse',
+  full_name='StoreImageResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='success', full_name='ImageUploadResponse.success', index=0,
+      name='success', full_name='StoreImageResponse.success', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -436,26 +436,26 @@ _IMAGEUPLOADRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=760,
-  serialized_end=798,
+  serialized_end=797,
 )
 
 
-_UPLOADIMAGEREQUEST = _descriptor.Descriptor(
-  name='UploadImageRequest',
-  full_name='UploadImageRequest',
+_STOREIMAGEREQUEST = _descriptor.Descriptor(
+  name='StoreImageRequest',
+  full_name='StoreImageRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='reconstruction_id', full_name='UploadImageRequest.reconstruction_id', index=0,
+      name='reconstruction_id', full_name='StoreImageRequest.reconstruction_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='image', full_name='UploadImageRequest.image', index=1,
+      name='image', full_name='StoreImageRequest.image', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -473,8 +473,8 @@ _UPLOADIMAGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=800,
-  serialized_end=874,
+  serialized_start=799,
+  serialized_end=872,
 )
 
 
@@ -497,8 +497,8 @@ _NEWRECONSTRUCTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=876,
-  serialized_end=902,
+  serialized_start=874,
+  serialized_end=900,
 )
 
 
@@ -528,8 +528,8 @@ _NEWRECONSTRUCTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=904,
-  serialized_end=958,
+  serialized_start=902,
+  serialized_end=956,
 )
 
 
@@ -559,8 +559,8 @@ _RECONSTRUCTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=960,
-  serialized_end=1007,
+  serialized_start=958,
+  serialized_end=1005,
 )
 
 
@@ -590,8 +590,8 @@ _GETOBJREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1009,
-  serialized_end=1051,
+  serialized_start=1007,
+  serialized_end=1049,
 )
 
 
@@ -628,8 +628,8 @@ _GETOBJRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1053,
-  serialized_end=1109,
+  serialized_start=1051,
+  serialized_end=1107,
 )
 
 
@@ -666,8 +666,8 @@ _RECONSTRUCTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1111,
-  serialized_end=1168,
+  serialized_start=1109,
+  serialized_end=1166,
 )
 
 
@@ -697,8 +697,8 @@ _RECONSTRUCTIONOBJ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1170,
-  serialized_end=1202,
+  serialized_start=1168,
+  serialized_end=1200,
 )
 
 
@@ -728,8 +728,8 @@ _DELETERECONSTRUCTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1204,
-  serialized_end=1245,
+  serialized_start=1202,
+  serialized_end=1243,
 )
 
 
@@ -766,8 +766,8 @@ _DELETERECONSTRUCTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1247,
-  serialized_end=1306,
+  serialized_start=1245,
+  serialized_end=1304,
 )
 
 
@@ -839,8 +839,8 @@ _CAMERAINTRINSICS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1309,
-  serialized_end=1474,
+  serialized_start=1307,
+  serialized_end=1472,
 )
 
 
@@ -877,8 +877,8 @@ _HANDHSAKEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1476,
-  serialized_end=1560,
+  serialized_start=1474,
+  serialized_end=1558,
 )
 
 
@@ -908,8 +908,8 @@ _HANDSHAKERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1562,
-  serialized_end=1598,
+  serialized_start=1560,
+  serialized_end=1596,
 )
 
 
@@ -939,8 +939,8 @@ _STARTSESSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1600,
-  serialized_end=1648,
+  serialized_start=1598,
+  serialized_end=1646,
 )
 
 
@@ -977,8 +977,8 @@ _STARTSESSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1650,
-  serialized_end=1719,
+  serialized_start=1648,
+  serialized_end=1717,
 )
 
 
@@ -1008,8 +1008,8 @@ _STOPSESSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1721,
-  serialized_end=1761,
+  serialized_start=1719,
+  serialized_end=1759,
 )
 
 
@@ -1039,27 +1039,27 @@ _STOPSESSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1763,
-  serialized_end=1804,
+  serialized_start=1761,
+  serialized_end=1802,
 )
 
 
-_SESSIONUPLOADIMAGEREQUEST = _descriptor.Descriptor(
-  name='SessionUploadImageRequest',
-  full_name='SessionUploadImageRequest',
+_SESSIONADDIMAGEREQUEST = _descriptor.Descriptor(
+  name='SessionAddImageRequest',
+  full_name='SessionAddImageRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='session_id', full_name='SessionUploadImageRequest.session_id', index=0,
+      name='session_id', full_name='SessionAddImageRequest.session_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='upload_image', full_name='SessionUploadImageRequest.upload_image', index=1,
+      name='upload_image', full_name='SessionAddImageRequest.upload_image', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -1077,14 +1077,14 @@ _SESSIONUPLOADIMAGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1806,
-  serialized_end=1896,
+  serialized_start=1804,
+  serialized_end=1890,
 )
 
 
-_SESSIONUPLOADIMAGERESPONSE = _descriptor.Descriptor(
-  name='SessionUploadImageResponse',
-  full_name='SessionUploadImageResponse',
+_SESSIONADDIMAGERESPONSE = _descriptor.Descriptor(
+  name='SessionAddImageResponse',
+  full_name='SessionAddImageResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -1101,8 +1101,8 @@ _SESSIONUPLOADIMAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1898,
-  serialized_end=1926,
+  serialized_start=1892,
+  serialized_end=1917,
 )
 
 
@@ -1132,8 +1132,8 @@ _GETSPARSEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1928,
-  serialized_end=1973,
+  serialized_start=1919,
+  serialized_end=1964,
 )
 
 
@@ -1163,18 +1163,219 @@ _GETSPARSERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1975,
-  serialized_end=2033,
+  serialized_start=1966,
+  serialized_end=2024,
+)
+
+
+_SETRECONSTRUCTIONCONFIGREQUEST = _descriptor.Descriptor(
+  name='SetReconstructionConfigRequest',
+  full_name='SetReconstructionConfigRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='reconstruction_id', full_name='SetReconstructionConfigRequest.reconstruction_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='config_json', full_name='SetReconstructionConfigRequest.config_json', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2026,
+  serialized_end=2106,
+)
+
+
+_SETRECONSTRUCTIONCONFIGRESPONSE = _descriptor.Descriptor(
+  name='SetReconstructionConfigResponse',
+  full_name='SetReconstructionConfigResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='success', full_name='SetReconstructionConfigResponse.success', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2108,
+  serialized_end=2158,
+)
+
+
+_GETRECONSTRUCTIONCONFIGREQUEST = _descriptor.Descriptor(
+  name='GetReconstructionConfigRequest',
+  full_name='GetReconstructionConfigRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='reconstruction_id', full_name='GetReconstructionConfigRequest.reconstruction_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2160,
+  serialized_end=2219,
+)
+
+
+_GETRECONSTRUCTIONCONFIGRESPONSE = _descriptor.Descriptor(
+  name='GetReconstructionConfigResponse',
+  full_name='GetReconstructionConfigResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='config_json', full_name='GetReconstructionConfigResponse.config_json', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2221,
+  serialized_end=2275,
+)
+
+
+_RECONSTRUCTIONUPLOADIMAGEBATCHREQUEST = _descriptor.Descriptor(
+  name='ReconstructionUploadImageBatchRequest',
+  full_name='ReconstructionUploadImageBatchRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='idx', full_name='ReconstructionUploadImageBatchRequest.idx', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='data', full_name='ReconstructionUploadImageBatchRequest.data', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2277,
+  serialized_end=2355,
+)
+
+
+_RECONSTRUCTIONUPLOADIMAGEBATCHRESPONSE = _descriptor.Descriptor(
+  name='ReconstructionUploadImageBatchResponse',
+  full_name='ReconstructionUploadImageBatchResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='images_uploaded', full_name='ReconstructionUploadImageBatchResponse.images_uploaded', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2357,
+  serialized_end=2422,
 )
 
 _IMAGEDATA.fields_by_name['metadata'].message_type = _IMAGEMETADATA
 _SPARSEPOINTCLOUDDATA.fields_by_name['metadata'].message_type = _SPARSEPOINTCLOUDMETADATA
 _OBJDATA.fields_by_name['metadata'].message_type = _OBJMETADATA
-_UPLOADIMAGEREQUEST.fields_by_name['image'].message_type = _IMAGEDATA
+_STOREIMAGEREQUEST.fields_by_name['image'].message_type = _IMAGEDATA
 _GETOBJRESPONSE.fields_by_name['obj'].message_type = _OBJDATA
 _HANDHSAKEREQUEST.fields_by_name['camera_intrinsics'].message_type = _CAMERAINTRINSICS
-_SESSIONUPLOADIMAGEREQUEST.fields_by_name['upload_image'].message_type = _UPLOADIMAGEREQUEST
+_SESSIONADDIMAGEREQUEST.fields_by_name['upload_image'].message_type = _STOREIMAGEREQUEST
 _GETSPARSERESPONSE.fields_by_name['sparse'].message_type = _SPARSEPOINTCLOUDDATA
+_RECONSTRUCTIONUPLOADIMAGEBATCHREQUEST.fields_by_name['data'].message_type = _IMAGEDATA
 DESCRIPTOR.message_types_by_name['ImageMetaData'] = _IMAGEMETADATA
 DESCRIPTOR.message_types_by_name['ImageData'] = _IMAGEDATA
 DESCRIPTOR.message_types_by_name['SparsePointCloudData'] = _SPARSEPOINTCLOUDDATA
@@ -1182,8 +1383,8 @@ DESCRIPTOR.message_types_by_name['SparsePointCloudMetaData'] = _SPARSEPOINTCLOUD
 DESCRIPTOR.message_types_by_name['OBJMetaData'] = _OBJMETADATA
 DESCRIPTOR.message_types_by_name['OBJData'] = _OBJDATA
 DESCRIPTOR.message_types_by_name['ReconstructionData'] = _RECONSTRUCTIONDATA
-DESCRIPTOR.message_types_by_name['ImageUploadResponse'] = _IMAGEUPLOADRESPONSE
-DESCRIPTOR.message_types_by_name['UploadImageRequest'] = _UPLOADIMAGEREQUEST
+DESCRIPTOR.message_types_by_name['StoreImageResponse'] = _STOREIMAGERESPONSE
+DESCRIPTOR.message_types_by_name['StoreImageRequest'] = _STOREIMAGEREQUEST
 DESCRIPTOR.message_types_by_name['NewReconstructionRequest'] = _NEWRECONSTRUCTIONREQUEST
 DESCRIPTOR.message_types_by_name['NewReconstructionResponse'] = _NEWRECONSTRUCTIONRESPONSE
 DESCRIPTOR.message_types_by_name['ReconstructRequest'] = _RECONSTRUCTREQUEST
@@ -1200,10 +1401,16 @@ DESCRIPTOR.message_types_by_name['StartSessionRequest'] = _STARTSESSIONREQUEST
 DESCRIPTOR.message_types_by_name['StartSessionResponse'] = _STARTSESSIONRESPONSE
 DESCRIPTOR.message_types_by_name['StopSessionRequest'] = _STOPSESSIONREQUEST
 DESCRIPTOR.message_types_by_name['StopSessionResponse'] = _STOPSESSIONRESPONSE
-DESCRIPTOR.message_types_by_name['SessionUploadImageRequest'] = _SESSIONUPLOADIMAGEREQUEST
-DESCRIPTOR.message_types_by_name['SessionUploadImageResponse'] = _SESSIONUPLOADIMAGERESPONSE
+DESCRIPTOR.message_types_by_name['SessionAddImageRequest'] = _SESSIONADDIMAGEREQUEST
+DESCRIPTOR.message_types_by_name['SessionAddImageResponse'] = _SESSIONADDIMAGERESPONSE
 DESCRIPTOR.message_types_by_name['GetSparseRequest'] = _GETSPARSEREQUEST
 DESCRIPTOR.message_types_by_name['GetSparseResponse'] = _GETSPARSERESPONSE
+DESCRIPTOR.message_types_by_name['SetReconstructionConfigRequest'] = _SETRECONSTRUCTIONCONFIGREQUEST
+DESCRIPTOR.message_types_by_name['SetReconstructionConfigResponse'] = _SETRECONSTRUCTIONCONFIGRESPONSE
+DESCRIPTOR.message_types_by_name['GetReconstructionConfigRequest'] = _GETRECONSTRUCTIONCONFIGREQUEST
+DESCRIPTOR.message_types_by_name['GetReconstructionConfigResponse'] = _GETRECONSTRUCTIONCONFIGRESPONSE
+DESCRIPTOR.message_types_by_name['ReconstructionUploadImageBatchRequest'] = _RECONSTRUCTIONUPLOADIMAGEBATCHREQUEST
+DESCRIPTOR.message_types_by_name['ReconstructionUploadImageBatchResponse'] = _RECONSTRUCTIONUPLOADIMAGEBATCHRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ImageMetaData = _reflection.GeneratedProtocolMessageType('ImageMetaData', (_message.Message,), {
@@ -1255,19 +1462,19 @@ ReconstructionData = _reflection.GeneratedProtocolMessageType('ReconstructionDat
   })
 _sym_db.RegisterMessage(ReconstructionData)
 
-ImageUploadResponse = _reflection.GeneratedProtocolMessageType('ImageUploadResponse', (_message.Message,), {
-  'DESCRIPTOR' : _IMAGEUPLOADRESPONSE,
+StoreImageResponse = _reflection.GeneratedProtocolMessageType('StoreImageResponse', (_message.Message,), {
+  'DESCRIPTOR' : _STOREIMAGERESPONSE,
   '__module__' : 'server_pb2'
-  # @@protoc_insertion_point(class_scope:ImageUploadResponse)
+  # @@protoc_insertion_point(class_scope:StoreImageResponse)
   })
-_sym_db.RegisterMessage(ImageUploadResponse)
+_sym_db.RegisterMessage(StoreImageResponse)
 
-UploadImageRequest = _reflection.GeneratedProtocolMessageType('UploadImageRequest', (_message.Message,), {
-  'DESCRIPTOR' : _UPLOADIMAGEREQUEST,
+StoreImageRequest = _reflection.GeneratedProtocolMessageType('StoreImageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STOREIMAGEREQUEST,
   '__module__' : 'server_pb2'
-  # @@protoc_insertion_point(class_scope:UploadImageRequest)
+  # @@protoc_insertion_point(class_scope:StoreImageRequest)
   })
-_sym_db.RegisterMessage(UploadImageRequest)
+_sym_db.RegisterMessage(StoreImageRequest)
 
 NewReconstructionRequest = _reflection.GeneratedProtocolMessageType('NewReconstructionRequest', (_message.Message,), {
   'DESCRIPTOR' : _NEWRECONSTRUCTIONREQUEST,
@@ -1381,19 +1588,19 @@ StopSessionResponse = _reflection.GeneratedProtocolMessageType('StopSessionRespo
   })
 _sym_db.RegisterMessage(StopSessionResponse)
 
-SessionUploadImageRequest = _reflection.GeneratedProtocolMessageType('SessionUploadImageRequest', (_message.Message,), {
-  'DESCRIPTOR' : _SESSIONUPLOADIMAGEREQUEST,
+SessionAddImageRequest = _reflection.GeneratedProtocolMessageType('SessionAddImageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SESSIONADDIMAGEREQUEST,
   '__module__' : 'server_pb2'
-  # @@protoc_insertion_point(class_scope:SessionUploadImageRequest)
+  # @@protoc_insertion_point(class_scope:SessionAddImageRequest)
   })
-_sym_db.RegisterMessage(SessionUploadImageRequest)
+_sym_db.RegisterMessage(SessionAddImageRequest)
 
-SessionUploadImageResponse = _reflection.GeneratedProtocolMessageType('SessionUploadImageResponse', (_message.Message,), {
-  'DESCRIPTOR' : _SESSIONUPLOADIMAGERESPONSE,
+SessionAddImageResponse = _reflection.GeneratedProtocolMessageType('SessionAddImageResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SESSIONADDIMAGERESPONSE,
   '__module__' : 'server_pb2'
-  # @@protoc_insertion_point(class_scope:SessionUploadImageResponse)
+  # @@protoc_insertion_point(class_scope:SessionAddImageResponse)
   })
-_sym_db.RegisterMessage(SessionUploadImageResponse)
+_sym_db.RegisterMessage(SessionAddImageResponse)
 
 GetSparseRequest = _reflection.GeneratedProtocolMessageType('GetSparseRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETSPARSEREQUEST,
@@ -1409,6 +1616,48 @@ GetSparseResponse = _reflection.GeneratedProtocolMessageType('GetSparseResponse'
   })
 _sym_db.RegisterMessage(GetSparseResponse)
 
+SetReconstructionConfigRequest = _reflection.GeneratedProtocolMessageType('SetReconstructionConfigRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SETRECONSTRUCTIONCONFIGREQUEST,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:SetReconstructionConfigRequest)
+  })
+_sym_db.RegisterMessage(SetReconstructionConfigRequest)
+
+SetReconstructionConfigResponse = _reflection.GeneratedProtocolMessageType('SetReconstructionConfigResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SETRECONSTRUCTIONCONFIGRESPONSE,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:SetReconstructionConfigResponse)
+  })
+_sym_db.RegisterMessage(SetReconstructionConfigResponse)
+
+GetReconstructionConfigRequest = _reflection.GeneratedProtocolMessageType('GetReconstructionConfigRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETRECONSTRUCTIONCONFIGREQUEST,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:GetReconstructionConfigRequest)
+  })
+_sym_db.RegisterMessage(GetReconstructionConfigRequest)
+
+GetReconstructionConfigResponse = _reflection.GeneratedProtocolMessageType('GetReconstructionConfigResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETRECONSTRUCTIONCONFIGRESPONSE,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:GetReconstructionConfigResponse)
+  })
+_sym_db.RegisterMessage(GetReconstructionConfigResponse)
+
+ReconstructionUploadImageBatchRequest = _reflection.GeneratedProtocolMessageType('ReconstructionUploadImageBatchRequest', (_message.Message,), {
+  'DESCRIPTOR' : _RECONSTRUCTIONUPLOADIMAGEBATCHREQUEST,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:ReconstructionUploadImageBatchRequest)
+  })
+_sym_db.RegisterMessage(ReconstructionUploadImageBatchRequest)
+
+ReconstructionUploadImageBatchResponse = _reflection.GeneratedProtocolMessageType('ReconstructionUploadImageBatchResponse', (_message.Message,), {
+  'DESCRIPTOR' : _RECONSTRUCTIONUPLOADIMAGEBATCHRESPONSE,
+  '__module__' : 'server_pb2'
+  # @@protoc_insertion_point(class_scope:ReconstructionUploadImageBatchResponse)
+  })
+_sym_db.RegisterMessage(ReconstructionUploadImageBatchResponse)
+
 
 
 _RECONSTRUCTIONSERVICE = _descriptor.ServiceDescriptor(
@@ -1417,8 +1666,8 @@ _RECONSTRUCTIONSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2036,
-  serialized_end=2693,
+  serialized_start=2425,
+  serialized_end=3375,
   methods=[
   _descriptor.MethodDescriptor(
     name='Handshake',
@@ -1430,12 +1679,12 @@ _RECONSTRUCTIONSERVICE = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='UploadImage',
-    full_name='ReconstructionService.UploadImage',
+    name='StoreImage',
+    full_name='ReconstructionService.StoreImage',
     index=1,
     containing_service=None,
-    input_type=_UPLOADIMAGEREQUEST,
-    output_type=_IMAGEUPLOADRESPONSE,
+    input_type=_STOREIMAGEREQUEST,
+    output_type=_STOREIMAGERESPONSE,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
@@ -1502,12 +1751,39 @@ _RECONSTRUCTIONSERVICE = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='SessionUploadImage',
-    full_name='ReconstructionService.SessionUploadImage',
+    name='SessionAddImage',
+    full_name='ReconstructionService.SessionAddImage',
     index=9,
     containing_service=None,
-    input_type=_SESSIONUPLOADIMAGEREQUEST,
-    output_type=_SESSIONUPLOADIMAGERESPONSE,
+    input_type=_SESSIONADDIMAGEREQUEST,
+    output_type=_SESSIONADDIMAGERESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SetReconstructionConfig',
+    full_name='ReconstructionService.SetReconstructionConfig',
+    index=10,
+    containing_service=None,
+    input_type=_SETRECONSTRUCTIONCONFIGREQUEST,
+    output_type=_SETRECONSTRUCTIONCONFIGRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetReconstructionConfig',
+    full_name='ReconstructionService.GetReconstructionConfig',
+    index=11,
+    containing_service=None,
+    input_type=_GETRECONSTRUCTIONCONFIGREQUEST,
+    output_type=_GETRECONSTRUCTIONCONFIGRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ReconstructionUploadImageBatch',
+    full_name='ReconstructionService.ReconstructionUploadImageBatch',
+    index=12,
+    containing_service=None,
+    input_type=_RECONSTRUCTIONUPLOADIMAGEBATCHREQUEST,
+    output_type=_RECONSTRUCTIONUPLOADIMAGEBATCHRESPONSE,
     serialized_options=None,
   ),
 ])

@@ -10,6 +10,7 @@
 #include "openmvg_reconstruction_agent.h"
 #include "redis_sfm_backlog.h"
 #include "mongodb_configuration_adapter.h"
+#include "image_filesystem_storer.h"
 #include <thread>
 
 Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
@@ -18,7 +19,8 @@ Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
                                                                CONFIG_GET_STRING("sql.password"), 
                                                                CONFIG_GET_STRING("sql.db"), 
                                                                CONFIG_GET_STRING("sql.reconstruction_table")), 
-                                  new SQLImageStorage(CONFIG_GET_STRING("sql.address"), 
+                                  new SQLImageStorage(new FileSystemImageDataStorage(),
+                                                      CONFIG_GET_STRING("sql.address"), 
                                                       CONFIG_GET_STRING("sql.user"), 
                                                       CONFIG_GET_STRING("sql.password"), 
                                                       CONFIG_GET_STRING("sql.db"), 
@@ -259,7 +261,7 @@ void Reconstruction::AddImage(const std::string& image_id){
     if(!reconstruction_agent.AddImage(img_meta.path())){
         LOG(ERROR) << "Failed to add image " << image_id;
     }else{
-        this->_session_backlog->Incr(this->_id);
+        //this->_session_backlog->Incr(this->_id);
     }
 }
 
@@ -280,4 +282,21 @@ Reconstruction::~Reconstruction(){
 
 bool Reconstruction::IsRunningMVS(){
     return this->_running_mvs;
+}
+
+void Reconstruction::ComputeFeatures(const std::set<std::string>& images){
+    std::set<std::string> paths;
+    std::for_each(images.begin(), images.end(), [this, &paths] (const std::string& image_id) mutable {
+        std::string path = this->_image_storage->GetMeta(image_id).path();
+        paths.insert(path);
+    });
+    this->reconstruction_agent.ComputeFeatures(paths);
+}
+
+void Reconstruction::ComputeMatches(const std::set<std::string>& images){
+    std::set<std::string> paths;
+    std::for_each(images.begin(), images.end(), [this, &paths] (const std::string& image_id) mutable {
+        paths.insert(this->_image_storage->GetMeta(image_id).path());
+    });
+    this->reconstruction_agent.ComputeMatches(paths);
 }

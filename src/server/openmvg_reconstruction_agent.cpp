@@ -67,7 +67,7 @@
 
 #include "third_party/stlplus3/filesystemSimplified/file_system.hpp"
 
-#include "nonFree/sift/SIFT_describer_io.hpp"
+#include "openMVG_dependencies/nonFree/sift/SIFT_describer_io.hpp"
 
 #include <cereal/details/helpers.hpp>
 
@@ -301,9 +301,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
           return false;
       }
   }
-
-  this->_GenerateImageFeatures(image_path);
-
+  
   if(intrinsic){
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
     this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, v, intrinsic);
@@ -324,13 +322,12 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
     std::cout <<" failed to save sfm_json.data in " << this->_config.sfm_dir <<  "\n";
         return false;
   }
-  this->GenerateMatches(image_path);
   return true;
 }
 
-bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image_path){
-    LOG(INFO) << "Computing Features for image " << image_path;
-    if (this->_config.features_dir.empty())  {
+bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_paths){
+  LOG(INFO) << "Computing features for " << image_paths.size() << " new images";
+  if (this->_config.features_dir.empty())  {
     std::cerr << "\nIt is an invalid output directory" << std::endl;
     return false;
   }
@@ -447,78 +444,80 @@ bool OpenMVGReconstructionAgent::_GenerateImageFeatures(const std::string& image
 
     #pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
 #endif
+    for(std::string image_path : image_paths){
+      LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
+      const std::string
+      sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
+      sDesc = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "desc");
 
-    const std::string
-    sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
-    sDesc = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "desc");
+      // If features or descriptors file are missing, compute them
+      if (!preemptive_exit && 
+              (bForce || 
+              !stlplus::file_exists(sFeat) || 
+              !stlplus::file_exists(sDesc)))
+      {
+          if (!ReadImage(image_path.c_str(), &imageGray))
+              return false;
 
-    // If features or descriptors file are missing, compute them
-    if (!preemptive_exit && 
-            (bForce || 
-            !stlplus::file_exists(sFeat) || 
-            !stlplus::file_exists(sDesc)))
-    {
-        if (!ReadImage(image_path.c_str(), &imageGray))
-            return false;
+          Image<unsigned char> * mask = nullptr; // The mask is null by default
 
-        Image<unsigned char> * mask = nullptr; // The mask is null by default
+          const std::string
+              mask_filename_local =
+              stlplus::create_filespec(this->_sfm_data->s_root_path,
+                  stlplus::basename_part(image_path) + "_mask", "png"),
+              mask__filename_global =
+              stlplus::create_filespec(this->_sfm_data->s_root_path, "mask", "png");
 
-        const std::string
-            mask_filename_local =
-            stlplus::create_filespec(this->_sfm_data->s_root_path,
-                stlplus::basename_part(image_path) + "_mask", "png"),
-            mask__filename_global =
-            stlplus::create_filespec(this->_sfm_data->s_root_path, "mask", "png");
+          Image<unsigned char> imageMask;
+          // Try to read the local mask
+          if (stlplus::file_exists(mask_filename_local))
+          {
+              if (!ReadImage(mask_filename_local.c_str(), &imageMask))
+              {
+                  std::cerr << "Invalid mask: " << mask_filename_local << std::endl
+                              << "Stopping feature extraction." << std::endl;
+                  preemptive_exit = true;
+                  return false;
+              }
+              // Use the local mask only if it fits the current image size
+              if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
+              mask = &imageMask;
+          }
+          else
+          {
+              // Try to read the global mask
+              if (stlplus::file_exists(mask__filename_global))
+              {
+              if (!ReadImage(mask__filename_global.c_str(), &imageMask))
+              {
+                  std::cerr << "Invalid mask: " << mask__filename_global << std::endl
+                          << "Stopping feature extraction." << std::endl;
+                  preemptive_exit = true;
+                  return false;
+              }
+              // Use the global mask only if it fits the current image size
+              if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
+                  mask = &imageMask;
+              }
+          }
 
-        Image<unsigned char> imageMask;
-        // Try to read the local mask
-        if (stlplus::file_exists(mask_filename_local))
-        {
-            if (!ReadImage(mask_filename_local.c_str(), &imageMask))
-            {
-                std::cerr << "Invalid mask: " << mask_filename_local << std::endl
-                            << "Stopping feature extraction." << std::endl;
-                preemptive_exit = true;
-                return false;
-            }
-            // Use the local mask only if it fits the current image size
-            if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
-            mask = &imageMask;
-        }
-        else
-        {
-            // Try to read the global mask
-            if (stlplus::file_exists(mask__filename_global))
-            {
-            if (!ReadImage(mask__filename_global.c_str(), &imageMask))
-            {
-                std::cerr << "Invalid mask: " << mask__filename_global << std::endl
-                        << "Stopping feature extraction." << std::endl;
-                preemptive_exit = true;
-                return false;
-            }
-            // Use the global mask only if it fits the current image size
-            if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
-                mask = &imageMask;
-            }
-        }
-
-        // Compute features and descriptors and export them to files
-        auto regions = image_describer->Describe(imageGray, mask);
-        if (regions && !image_describer->Save(regions.get(), sFeat, sDesc)) {
-            std::cerr << "Cannot save regions for images: " << image_path << std::endl
-                    << "Stopping feature extraction." << std::endl;
-            preemptive_exit = true;
-            return false;
-        }
+          // Compute features and descriptors and export them to files
+          auto regions = image_describer->Describe(imageGray, mask);
+          if (regions && !image_describer->Save(regions.get(), sFeat, sDesc)) {
+              std::cerr << "Cannot save regions for images: " << image_path << std::endl
+                      << "Stopping feature extraction." << std::endl;
+              preemptive_exit = true;
+              return false;
+          }
+      }
     }
   }
   return true;
 }
 
-bool OpenMVGReconstructionAgent::GenerateMatches(const std::string& new_image_paths){
+bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_paths){
   // Update our SFM data to get all the images to match with
-  LOG(INFO) << "Generating matches for " << new_image_paths;
+  LOG(INFO) << "Generating matches for " << new_image_paths.size() << " new images";
   ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
     this->_reconstruction_id,
     "openmvg",
@@ -918,9 +917,7 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   return false;
 }
 
-openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::string& new_image_path){
-    LOG(INFO) << "Gathering matches for new image: " << new_image_path;
-    
+openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_paths){    
     std::set<IndexT> new_ids;
     openMVG::Pair_Set matches_to_compute;
 
@@ -931,8 +928,10 @@ openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std:
     for(std::pair<openMVG::IndexT, std::shared_ptr<openMVG::sfm::View>> e : this->_sfm_data->GetViews()){
         std::shared_ptr<openMVG::sfm::View> view = e.second;
         std::string full_path = this->_sfm_data->s_root_path + "/" + view->s_Img_path;
-        if(full_path.compare(new_image_path) == 0){
-            new_ids.insert(view->id_view);
+        for(std::string new_image_path : new_image_paths){
+          if(full_path.compare(new_image_path) == 0){
+              new_ids.insert(view->id_view);
+          }
         }
     }
 
@@ -944,6 +943,7 @@ openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std:
             }
          }
     }
+
     return matches_to_compute;
 }
 

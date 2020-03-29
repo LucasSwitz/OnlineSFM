@@ -11,10 +11,9 @@ template<typename T>
 class FileSystemStorer{
     public:
         FileSystemStorer(const std::string& storage_root) : _storage_root(storage_root){};
-        std::string Store(T pb, const std::string& reconstruction_id, const std::string& subpath, const std::string& item_name){
+        std::string Store(T pb, const std::string& path){
             std::filebuf fb;
-            std::string root = this->_storage_root + "/" + reconstruction_id + "/" + subpath;
-            std::string store_location = root + "/" + item_name;
+            std::string store_location = this->_storage_root + "/" + path;
             fb.open(store_location , std::ios::out|std::ios::binary);
             std::ostream os(&fb);
             os << pb.data();

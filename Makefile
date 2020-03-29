@@ -6,7 +6,7 @@ proto: common/proto/src/*
 build: src/*
 	mkdir -p build; \
 	cd build; \
-	cmake ..
-	
+	cmake ..; \
+	make
 docker: src/*
-	docker image build . --tag rdev
+	docker image build . --tag rserver

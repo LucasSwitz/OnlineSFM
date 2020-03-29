@@ -1,7 +1,8 @@
-depends/*
-tools/*
-scripts/*
-db/*
-src/*
-common/*
-cmake/*
+tools
+db
+cmake
+datasets
+depends
+**/cmake
+**/build
+**/cmake-build

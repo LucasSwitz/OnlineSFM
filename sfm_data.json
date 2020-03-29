@@ -10,7 +10,7 @@
                     "id": 2147483649,
                     "data": {
                         "local_path": "",
-                        "filename": "dde733d2-575b-4b2f-a3b0-76bdbf1fcd06.JPG",
+                        "filename": "0a42d38d-9493-4cf2-a876-63165d7016e3.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 0,
@@ -28,7 +28,7 @@
                     "id": 2147483650,
                     "data": {
                         "local_path": "",
-                        "filename": "ec75b9a2-271a-4e0a-a5ad-8fc3cdfec2e8.JPG",
+                        "filename": "0efe2e69-f7d6-4c40-adc1-70f881e409fd.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 1,
@@ -46,7 +46,7 @@
                     "id": 2147483651,
                     "data": {
                         "local_path": "",
-                        "filename": "597dd55b-847f-44f5-a62b-d0d2d84c5a7c.JPG",
+                        "filename": "107fa339-6e0a-4a98-8c12-3165920a2795.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 2,
@@ -64,7 +64,7 @@
                     "id": 2147483652,
                     "data": {
                         "local_path": "",
-                        "filename": "4f216c11-0d74-4901-8c58-acd8186b25a3.JPG",
+                        "filename": "104bc711-2684-4e1f-8d0a-a00c5dafb06c.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 3,
@@ -82,7 +82,7 @@
                     "id": 2147483653,
                     "data": {
                         "local_path": "",
-                        "filename": "e882d13f-ec46-4ec7-a630-25824703c071.JPG",
+                        "filename": "2f9b9d9b-2481-4431-b90c-a5f0ecc06973.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 4,
@@ -100,7 +100,7 @@
                     "id": 2147483654,
                     "data": {
                         "local_path": "",
-                        "filename": "24566870-b52e-445d-baf7-5b11ec7a3910.JPG",
+                        "filename": "2eda5bff-48ce-4d53-bd6d-34f2d26ad2b0.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 5,
@@ -118,7 +118,7 @@
                     "id": 2147483655,
                     "data": {
                         "local_path": "",
-                        "filename": "a10bcb97-ee35-40c2-9776-88251b25ccf5.JPG",
+                        "filename": "033138c0-552d-4c85-92ad-9cbb8a25df5d.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 6,
@@ -136,7 +136,7 @@
                     "id": 2147483656,
                     "data": {
                         "local_path": "",
-                        "filename": "22aee758-0517-4f68-8f3a-7a432ec5a7dc.JPG",
+                        "filename": "1be5d6f7-4080-4592-9b6b-656f77cbf6d7.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 7,
@@ -154,7 +154,7 @@
                     "id": 2147483657,
                     "data": {
                         "local_path": "",
-                        "filename": "2368b828-2365-4243-b67f-513acd1088ae.JPG",
+                        "filename": "2e8d2fa0-562e-4137-9433-66e0524b75b2.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 8,
@@ -172,30 +172,12 @@
                     "id": 2147483658,
                     "data": {
                         "local_path": "",
-                        "filename": "d1a1efdc-b09c-4acc-91d8-23992931ad77.JPG",
+                        "filename": "089ecc19-6309-4137-945f-92217010acfc.JPG",
                         "width": 2832,
                         "height": 2128,
                         "id_view": 9,
                         "id_intrinsic": 0,
                         "id_pose": 9
-                    }
-                }
-            }
-        },
-        {
-            "key": 10,
-            "value": {
-                "polymorphic_id": 1073741824,
-                "ptr_wrapper": {
-                    "id": 2147483659,
-                    "data": {
-                        "local_path": "",
-                        "filename": "3942dec6-c5e8-4987-96b7-f29f670c4bd1.JPG",
-                        "width": 2832,
-                        "height": 2128,
-                        "id_view": 10,
-                        "id_intrinsic": 0,
-                        "id_pose": 10
                     }
                 }
             }
@@ -208,7 +190,7 @@
                 "polymorphic_id": 2147483649,
                 "polymorphic_name": "pinhole_radial_k3",
                 "ptr_wrapper": {
-                    "id": 2147483660,
+                    "id": 2147483659,
                     "data": {
                         "width": 2832,
                         "height": 2128,

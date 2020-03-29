@@ -47,7 +47,7 @@ struct TableStruct_server_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[29]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[35]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -69,6 +69,12 @@ extern GetOBJRequestDefaultTypeInternal _GetOBJRequest_default_instance_;
 class GetOBJResponse;
 class GetOBJResponseDefaultTypeInternal;
 extern GetOBJResponseDefaultTypeInternal _GetOBJResponse_default_instance_;
+class GetReconstructionConfigRequest;
+class GetReconstructionConfigRequestDefaultTypeInternal;
+extern GetReconstructionConfigRequestDefaultTypeInternal _GetReconstructionConfigRequest_default_instance_;
+class GetReconstructionConfigResponse;
+class GetReconstructionConfigResponseDefaultTypeInternal;
+extern GetReconstructionConfigResponseDefaultTypeInternal _GetReconstructionConfigResponse_default_instance_;
 class GetSparseRequest;
 class GetSparseRequestDefaultTypeInternal;
 extern GetSparseRequestDefaultTypeInternal _GetSparseRequest_default_instance_;
@@ -87,9 +93,6 @@ extern ImageDataDefaultTypeInternal _ImageData_default_instance_;
 class ImageMetaData;
 class ImageMetaDataDefaultTypeInternal;
 extern ImageMetaDataDefaultTypeInternal _ImageMetaData_default_instance_;
-class ImageUploadResponse;
-class ImageUploadResponseDefaultTypeInternal;
-extern ImageUploadResponseDefaultTypeInternal _ImageUploadResponse_default_instance_;
 class NewReconstructionRequest;
 class NewReconstructionRequestDefaultTypeInternal;
 extern NewReconstructionRequestDefaultTypeInternal _NewReconstructionRequest_default_instance_;
@@ -114,12 +117,24 @@ extern ReconstructionDataDefaultTypeInternal _ReconstructionData_default_instanc
 class ReconstructionOBJ;
 class ReconstructionOBJDefaultTypeInternal;
 extern ReconstructionOBJDefaultTypeInternal _ReconstructionOBJ_default_instance_;
-class SessionUploadImageRequest;
-class SessionUploadImageRequestDefaultTypeInternal;
-extern SessionUploadImageRequestDefaultTypeInternal _SessionUploadImageRequest_default_instance_;
-class SessionUploadImageResponse;
-class SessionUploadImageResponseDefaultTypeInternal;
-extern SessionUploadImageResponseDefaultTypeInternal _SessionUploadImageResponse_default_instance_;
+class ReconstructionUploadImageBatchRequest;
+class ReconstructionUploadImageBatchRequestDefaultTypeInternal;
+extern ReconstructionUploadImageBatchRequestDefaultTypeInternal _ReconstructionUploadImageBatchRequest_default_instance_;
+class ReconstructionUploadImageBatchResponse;
+class ReconstructionUploadImageBatchResponseDefaultTypeInternal;
+extern ReconstructionUploadImageBatchResponseDefaultTypeInternal _ReconstructionUploadImageBatchResponse_default_instance_;
+class SessionAddImageRequest;
+class SessionAddImageRequestDefaultTypeInternal;
+extern SessionAddImageRequestDefaultTypeInternal _SessionAddImageRequest_default_instance_;
+class SessionAddImageResponse;
+class SessionAddImageResponseDefaultTypeInternal;
+extern SessionAddImageResponseDefaultTypeInternal _SessionAddImageResponse_default_instance_;
+class SetReconstructionConfigRequest;
+class SetReconstructionConfigRequestDefaultTypeInternal;
+extern SetReconstructionConfigRequestDefaultTypeInternal _SetReconstructionConfigRequest_default_instance_;
+class SetReconstructionConfigResponse;
+class SetReconstructionConfigResponseDefaultTypeInternal;
+extern SetReconstructionConfigResponseDefaultTypeInternal _SetReconstructionConfigResponse_default_instance_;
 class SparsePointCloudData;
 class SparsePointCloudDataDefaultTypeInternal;
 extern SparsePointCloudDataDefaultTypeInternal _SparsePointCloudData_default_instance_;
@@ -138,22 +153,26 @@ extern StopSessionRequestDefaultTypeInternal _StopSessionRequest_default_instanc
 class StopSessionResponse;
 class StopSessionResponseDefaultTypeInternal;
 extern StopSessionResponseDefaultTypeInternal _StopSessionResponse_default_instance_;
-class UploadImageRequest;
-class UploadImageRequestDefaultTypeInternal;
-extern UploadImageRequestDefaultTypeInternal _UploadImageRequest_default_instance_;
+class StoreImageRequest;
+class StoreImageRequestDefaultTypeInternal;
+extern StoreImageRequestDefaultTypeInternal _StoreImageRequest_default_instance_;
+class StoreImageResponse;
+class StoreImageResponseDefaultTypeInternal;
+extern StoreImageResponseDefaultTypeInternal _StoreImageResponse_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::CameraIntrinsics* Arena::CreateMaybeMessage<::CameraIntrinsics>(Arena*);
 template<> ::DeleteReconstructionRequest* Arena::CreateMaybeMessage<::DeleteReconstructionRequest>(Arena*);
 template<> ::DeleteReconstructionResponse* Arena::CreateMaybeMessage<::DeleteReconstructionResponse>(Arena*);
 template<> ::GetOBJRequest* Arena::CreateMaybeMessage<::GetOBJRequest>(Arena*);
 template<> ::GetOBJResponse* Arena::CreateMaybeMessage<::GetOBJResponse>(Arena*);
+template<> ::GetReconstructionConfigRequest* Arena::CreateMaybeMessage<::GetReconstructionConfigRequest>(Arena*);
+template<> ::GetReconstructionConfigResponse* Arena::CreateMaybeMessage<::GetReconstructionConfigResponse>(Arena*);
 template<> ::GetSparseRequest* Arena::CreateMaybeMessage<::GetSparseRequest>(Arena*);
 template<> ::GetSparseResponse* Arena::CreateMaybeMessage<::GetSparseResponse>(Arena*);
 template<> ::HandhsakeRequest* Arena::CreateMaybeMessage<::HandhsakeRequest>(Arena*);
 template<> ::HandshakeResponse* Arena::CreateMaybeMessage<::HandshakeResponse>(Arena*);
 template<> ::ImageData* Arena::CreateMaybeMessage<::ImageData>(Arena*);
 template<> ::ImageMetaData* Arena::CreateMaybeMessage<::ImageMetaData>(Arena*);
-template<> ::ImageUploadResponse* Arena::CreateMaybeMessage<::ImageUploadResponse>(Arena*);
 template<> ::NewReconstructionRequest* Arena::CreateMaybeMessage<::NewReconstructionRequest>(Arena*);
 template<> ::NewReconstructionResponse* Arena::CreateMaybeMessage<::NewReconstructionResponse>(Arena*);
 template<> ::OBJData* Arena::CreateMaybeMessage<::OBJData>(Arena*);
@@ -162,15 +181,20 @@ template<> ::ReconstructRequest* Arena::CreateMaybeMessage<::ReconstructRequest>
 template<> ::ReconstructResponse* Arena::CreateMaybeMessage<::ReconstructResponse>(Arena*);
 template<> ::ReconstructionData* Arena::CreateMaybeMessage<::ReconstructionData>(Arena*);
 template<> ::ReconstructionOBJ* Arena::CreateMaybeMessage<::ReconstructionOBJ>(Arena*);
-template<> ::SessionUploadImageRequest* Arena::CreateMaybeMessage<::SessionUploadImageRequest>(Arena*);
-template<> ::SessionUploadImageResponse* Arena::CreateMaybeMessage<::SessionUploadImageResponse>(Arena*);
+template<> ::ReconstructionUploadImageBatchRequest* Arena::CreateMaybeMessage<::ReconstructionUploadImageBatchRequest>(Arena*);
+template<> ::ReconstructionUploadImageBatchResponse* Arena::CreateMaybeMessage<::ReconstructionUploadImageBatchResponse>(Arena*);
+template<> ::SessionAddImageRequest* Arena::CreateMaybeMessage<::SessionAddImageRequest>(Arena*);
+template<> ::SessionAddImageResponse* Arena::CreateMaybeMessage<::SessionAddImageResponse>(Arena*);
+template<> ::SetReconstructionConfigRequest* Arena::CreateMaybeMessage<::SetReconstructionConfigRequest>(Arena*);
+template<> ::SetReconstructionConfigResponse* Arena::CreateMaybeMessage<::SetReconstructionConfigResponse>(Arena*);
 template<> ::SparsePointCloudData* Arena::CreateMaybeMessage<::SparsePointCloudData>(Arena*);
 template<> ::SparsePointCloudMetaData* Arena::CreateMaybeMessage<::SparsePointCloudMetaData>(Arena*);
 template<> ::StartSessionRequest* Arena::CreateMaybeMessage<::StartSessionRequest>(Arena*);
 template<> ::StartSessionResponse* Arena::CreateMaybeMessage<::StartSessionResponse>(Arena*);
 template<> ::StopSessionRequest* Arena::CreateMaybeMessage<::StopSessionRequest>(Arena*);
 template<> ::StopSessionResponse* Arena::CreateMaybeMessage<::StopSessionResponse>(Arena*);
-template<> ::UploadImageRequest* Arena::CreateMaybeMessage<::UploadImageRequest>(Arena*);
+template<> ::StoreImageRequest* Arena::CreateMaybeMessage<::StoreImageRequest>(Arena*);
+template<> ::StoreImageResponse* Arena::CreateMaybeMessage<::StoreImageResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
@@ -1557,23 +1581,23 @@ class ReconstructionData :
 };
 // -------------------------------------------------------------------
 
-class ImageUploadResponse :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ImageUploadResponse) */ {
+class StoreImageResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:StoreImageResponse) */ {
  public:
-  ImageUploadResponse();
-  virtual ~ImageUploadResponse();
+  StoreImageResponse();
+  virtual ~StoreImageResponse();
 
-  ImageUploadResponse(const ImageUploadResponse& from);
-  ImageUploadResponse(ImageUploadResponse&& from) noexcept
-    : ImageUploadResponse() {
+  StoreImageResponse(const StoreImageResponse& from);
+  StoreImageResponse(StoreImageResponse&& from) noexcept
+    : StoreImageResponse() {
     *this = ::std::move(from);
   }
 
-  inline ImageUploadResponse& operator=(const ImageUploadResponse& from) {
+  inline StoreImageResponse& operator=(const StoreImageResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ImageUploadResponse& operator=(ImageUploadResponse&& from) noexcept {
+  inline StoreImageResponse& operator=(StoreImageResponse&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1591,37 +1615,37 @@ class ImageUploadResponse :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const ImageUploadResponse& default_instance();
+  static const StoreImageResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ImageUploadResponse* internal_default_instance() {
-    return reinterpret_cast<const ImageUploadResponse*>(
-               &_ImageUploadResponse_default_instance_);
+  static inline const StoreImageResponse* internal_default_instance() {
+    return reinterpret_cast<const StoreImageResponse*>(
+               &_StoreImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     7;
 
-  friend void swap(ImageUploadResponse& a, ImageUploadResponse& b) {
+  friend void swap(StoreImageResponse& a, StoreImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ImageUploadResponse* other) {
+  inline void Swap(StoreImageResponse* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ImageUploadResponse* New() const final {
-    return CreateMaybeMessage<ImageUploadResponse>(nullptr);
+  inline StoreImageResponse* New() const final {
+    return CreateMaybeMessage<StoreImageResponse>(nullptr);
   }
 
-  ImageUploadResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ImageUploadResponse>(arena);
+  StoreImageResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StoreImageResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ImageUploadResponse& from);
-  void MergeFrom(const ImageUploadResponse& from);
+  void CopyFrom(const StoreImageResponse& from);
+  void MergeFrom(const StoreImageResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1635,10 +1659,10 @@ class ImageUploadResponse :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ImageUploadResponse* other);
+  void InternalSwap(StoreImageResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ImageUploadResponse";
+    return "StoreImageResponse";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1674,7 +1698,7 @@ class ImageUploadResponse :
   void _internal_set_success(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ImageUploadResponse)
+  // @@protoc_insertion_point(class_scope:StoreImageResponse)
  private:
   class _Internal;
 
@@ -1685,23 +1709,23 @@ class ImageUploadResponse :
 };
 // -------------------------------------------------------------------
 
-class UploadImageRequest :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:UploadImageRequest) */ {
+class StoreImageRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:StoreImageRequest) */ {
  public:
-  UploadImageRequest();
-  virtual ~UploadImageRequest();
+  StoreImageRequest();
+  virtual ~StoreImageRequest();
 
-  UploadImageRequest(const UploadImageRequest& from);
-  UploadImageRequest(UploadImageRequest&& from) noexcept
-    : UploadImageRequest() {
+  StoreImageRequest(const StoreImageRequest& from);
+  StoreImageRequest(StoreImageRequest&& from) noexcept
+    : StoreImageRequest() {
     *this = ::std::move(from);
   }
 
-  inline UploadImageRequest& operator=(const UploadImageRequest& from) {
+  inline StoreImageRequest& operator=(const StoreImageRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline UploadImageRequest& operator=(UploadImageRequest&& from) noexcept {
+  inline StoreImageRequest& operator=(StoreImageRequest&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1719,37 +1743,37 @@ class UploadImageRequest :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const UploadImageRequest& default_instance();
+  static const StoreImageRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const UploadImageRequest* internal_default_instance() {
-    return reinterpret_cast<const UploadImageRequest*>(
-               &_UploadImageRequest_default_instance_);
+  static inline const StoreImageRequest* internal_default_instance() {
+    return reinterpret_cast<const StoreImageRequest*>(
+               &_StoreImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     8;
 
-  friend void swap(UploadImageRequest& a, UploadImageRequest& b) {
+  friend void swap(StoreImageRequest& a, StoreImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(UploadImageRequest* other) {
+  inline void Swap(StoreImageRequest* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline UploadImageRequest* New() const final {
-    return CreateMaybeMessage<UploadImageRequest>(nullptr);
+  inline StoreImageRequest* New() const final {
+    return CreateMaybeMessage<StoreImageRequest>(nullptr);
   }
 
-  UploadImageRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<UploadImageRequest>(arena);
+  StoreImageRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<StoreImageRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const UploadImageRequest& from);
-  void MergeFrom(const UploadImageRequest& from);
+  void CopyFrom(const StoreImageRequest& from);
+  void MergeFrom(const StoreImageRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1763,10 +1787,10 @@ class UploadImageRequest :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(UploadImageRequest* other);
+  void InternalSwap(StoreImageRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "UploadImageRequest";
+    return "StoreImageRequest";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1825,7 +1849,7 @@ class UploadImageRequest :
   ::ImageData* _internal_mutable_image();
   public:
 
-  // @@protoc_insertion_point(class_scope:UploadImageRequest)
+  // @@protoc_insertion_point(class_scope:StoreImageRequest)
  private:
   class _Internal;
 
@@ -4124,23 +4148,23 @@ class StopSessionResponse :
 };
 // -------------------------------------------------------------------
 
-class SessionUploadImageRequest :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SessionUploadImageRequest) */ {
+class SessionAddImageRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SessionAddImageRequest) */ {
  public:
-  SessionUploadImageRequest();
-  virtual ~SessionUploadImageRequest();
+  SessionAddImageRequest();
+  virtual ~SessionAddImageRequest();
 
-  SessionUploadImageRequest(const SessionUploadImageRequest& from);
-  SessionUploadImageRequest(SessionUploadImageRequest&& from) noexcept
-    : SessionUploadImageRequest() {
+  SessionAddImageRequest(const SessionAddImageRequest& from);
+  SessionAddImageRequest(SessionAddImageRequest&& from) noexcept
+    : SessionAddImageRequest() {
     *this = ::std::move(from);
   }
 
-  inline SessionUploadImageRequest& operator=(const SessionUploadImageRequest& from) {
+  inline SessionAddImageRequest& operator=(const SessionAddImageRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SessionUploadImageRequest& operator=(SessionUploadImageRequest&& from) noexcept {
+  inline SessionAddImageRequest& operator=(SessionAddImageRequest&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -4158,37 +4182,37 @@ class SessionUploadImageRequest :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const SessionUploadImageRequest& default_instance();
+  static const SessionAddImageRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SessionUploadImageRequest* internal_default_instance() {
-    return reinterpret_cast<const SessionUploadImageRequest*>(
-               &_SessionUploadImageRequest_default_instance_);
+  static inline const SessionAddImageRequest* internal_default_instance() {
+    return reinterpret_cast<const SessionAddImageRequest*>(
+               &_SessionAddImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     25;
 
-  friend void swap(SessionUploadImageRequest& a, SessionUploadImageRequest& b) {
+  friend void swap(SessionAddImageRequest& a, SessionAddImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SessionUploadImageRequest* other) {
+  inline void Swap(SessionAddImageRequest* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline SessionUploadImageRequest* New() const final {
-    return CreateMaybeMessage<SessionUploadImageRequest>(nullptr);
+  inline SessionAddImageRequest* New() const final {
+    return CreateMaybeMessage<SessionAddImageRequest>(nullptr);
   }
 
-  SessionUploadImageRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<SessionUploadImageRequest>(arena);
+  SessionAddImageRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SessionAddImageRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const SessionUploadImageRequest& from);
-  void MergeFrom(const SessionUploadImageRequest& from);
+  void CopyFrom(const SessionAddImageRequest& from);
+  void MergeFrom(const SessionAddImageRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -4202,10 +4226,10 @@ class SessionUploadImageRequest :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SessionUploadImageRequest* other);
+  void InternalSwap(SessionAddImageRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "SessionUploadImageRequest";
+    return "SessionAddImageRequest";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -4249,50 +4273,50 @@ class SessionUploadImageRequest :
   std::string* _internal_mutable_session_id();
   public:
 
-  // .UploadImageRequest upload_image = 2;
+  // .StoreImageRequest upload_image = 2;
   bool has_upload_image() const;
   private:
   bool _internal_has_upload_image() const;
   public:
   void clear_upload_image();
-  const ::UploadImageRequest& upload_image() const;
-  ::UploadImageRequest* release_upload_image();
-  ::UploadImageRequest* mutable_upload_image();
-  void set_allocated_upload_image(::UploadImageRequest* upload_image);
+  const ::StoreImageRequest& upload_image() const;
+  ::StoreImageRequest* release_upload_image();
+  ::StoreImageRequest* mutable_upload_image();
+  void set_allocated_upload_image(::StoreImageRequest* upload_image);
   private:
-  const ::UploadImageRequest& _internal_upload_image() const;
-  ::UploadImageRequest* _internal_mutable_upload_image();
+  const ::StoreImageRequest& _internal_upload_image() const;
+  ::StoreImageRequest* _internal_mutable_upload_image();
   public:
 
-  // @@protoc_insertion_point(class_scope:SessionUploadImageRequest)
+  // @@protoc_insertion_point(class_scope:SessionAddImageRequest)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_id_;
-  ::UploadImageRequest* upload_image_;
+  ::StoreImageRequest* upload_image_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
 // -------------------------------------------------------------------
 
-class SessionUploadImageResponse :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SessionUploadImageResponse) */ {
+class SessionAddImageResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SessionAddImageResponse) */ {
  public:
-  SessionUploadImageResponse();
-  virtual ~SessionUploadImageResponse();
+  SessionAddImageResponse();
+  virtual ~SessionAddImageResponse();
 
-  SessionUploadImageResponse(const SessionUploadImageResponse& from);
-  SessionUploadImageResponse(SessionUploadImageResponse&& from) noexcept
-    : SessionUploadImageResponse() {
+  SessionAddImageResponse(const SessionAddImageResponse& from);
+  SessionAddImageResponse(SessionAddImageResponse&& from) noexcept
+    : SessionAddImageResponse() {
     *this = ::std::move(from);
   }
 
-  inline SessionUploadImageResponse& operator=(const SessionUploadImageResponse& from) {
+  inline SessionAddImageResponse& operator=(const SessionAddImageResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SessionUploadImageResponse& operator=(SessionUploadImageResponse&& from) noexcept {
+  inline SessionAddImageResponse& operator=(SessionAddImageResponse&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -4310,37 +4334,37 @@ class SessionUploadImageResponse :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const SessionUploadImageResponse& default_instance();
+  static const SessionAddImageResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SessionUploadImageResponse* internal_default_instance() {
-    return reinterpret_cast<const SessionUploadImageResponse*>(
-               &_SessionUploadImageResponse_default_instance_);
+  static inline const SessionAddImageResponse* internal_default_instance() {
+    return reinterpret_cast<const SessionAddImageResponse*>(
+               &_SessionAddImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     26;
 
-  friend void swap(SessionUploadImageResponse& a, SessionUploadImageResponse& b) {
+  friend void swap(SessionAddImageResponse& a, SessionAddImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SessionUploadImageResponse* other) {
+  inline void Swap(SessionAddImageResponse* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline SessionUploadImageResponse* New() const final {
-    return CreateMaybeMessage<SessionUploadImageResponse>(nullptr);
+  inline SessionAddImageResponse* New() const final {
+    return CreateMaybeMessage<SessionAddImageResponse>(nullptr);
   }
 
-  SessionUploadImageResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<SessionUploadImageResponse>(arena);
+  SessionAddImageResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SessionAddImageResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const SessionUploadImageResponse& from);
-  void MergeFrom(const SessionUploadImageResponse& from);
+  void CopyFrom(const SessionAddImageResponse& from);
+  void MergeFrom(const SessionAddImageResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -4354,10 +4378,10 @@ class SessionUploadImageResponse :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SessionUploadImageResponse* other);
+  void InternalSwap(SessionAddImageResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "SessionUploadImageResponse";
+    return "SessionAddImageResponse";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -4381,7 +4405,7 @@ class SessionUploadImageResponse :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:SessionUploadImageResponse)
+  // @@protoc_insertion_point(class_scope:SessionAddImageResponse)
  private:
   class _Internal;
 
@@ -4655,6 +4679,830 @@ class GetSparseResponse :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::SparsePointCloudData* sparse_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetReconstructionConfigRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SetReconstructionConfigRequest) */ {
+ public:
+  SetReconstructionConfigRequest();
+  virtual ~SetReconstructionConfigRequest();
+
+  SetReconstructionConfigRequest(const SetReconstructionConfigRequest& from);
+  SetReconstructionConfigRequest(SetReconstructionConfigRequest&& from) noexcept
+    : SetReconstructionConfigRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SetReconstructionConfigRequest& operator=(const SetReconstructionConfigRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetReconstructionConfigRequest& operator=(SetReconstructionConfigRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SetReconstructionConfigRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SetReconstructionConfigRequest* internal_default_instance() {
+    return reinterpret_cast<const SetReconstructionConfigRequest*>(
+               &_SetReconstructionConfigRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    29;
+
+  friend void swap(SetReconstructionConfigRequest& a, SetReconstructionConfigRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetReconstructionConfigRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SetReconstructionConfigRequest* New() const final {
+    return CreateMaybeMessage<SetReconstructionConfigRequest>(nullptr);
+  }
+
+  SetReconstructionConfigRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SetReconstructionConfigRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SetReconstructionConfigRequest& from);
+  void MergeFrom(const SetReconstructionConfigRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SetReconstructionConfigRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SetReconstructionConfigRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+    kConfigJsonFieldNumber = 2,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // string config_json = 2;
+  void clear_config_json();
+  const std::string& config_json() const;
+  void set_config_json(const std::string& value);
+  void set_config_json(std::string&& value);
+  void set_config_json(const char* value);
+  void set_config_json(const char* value, size_t size);
+  std::string* mutable_config_json();
+  std::string* release_config_json();
+  void set_allocated_config_json(std::string* config_json);
+  private:
+  const std::string& _internal_config_json() const;
+  void _internal_set_config_json(const std::string& value);
+  std::string* _internal_mutable_config_json();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SetReconstructionConfigRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_json_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetReconstructionConfigResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SetReconstructionConfigResponse) */ {
+ public:
+  SetReconstructionConfigResponse();
+  virtual ~SetReconstructionConfigResponse();
+
+  SetReconstructionConfigResponse(const SetReconstructionConfigResponse& from);
+  SetReconstructionConfigResponse(SetReconstructionConfigResponse&& from) noexcept
+    : SetReconstructionConfigResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SetReconstructionConfigResponse& operator=(const SetReconstructionConfigResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetReconstructionConfigResponse& operator=(SetReconstructionConfigResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SetReconstructionConfigResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SetReconstructionConfigResponse* internal_default_instance() {
+    return reinterpret_cast<const SetReconstructionConfigResponse*>(
+               &_SetReconstructionConfigResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    30;
+
+  friend void swap(SetReconstructionConfigResponse& a, SetReconstructionConfigResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetReconstructionConfigResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SetReconstructionConfigResponse* New() const final {
+    return CreateMaybeMessage<SetReconstructionConfigResponse>(nullptr);
+  }
+
+  SetReconstructionConfigResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SetReconstructionConfigResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SetReconstructionConfigResponse& from);
+  void MergeFrom(const SetReconstructionConfigResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SetReconstructionConfigResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SetReconstructionConfigResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSuccessFieldNumber = 1,
+  };
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:SetReconstructionConfigResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetReconstructionConfigRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetReconstructionConfigRequest) */ {
+ public:
+  GetReconstructionConfigRequest();
+  virtual ~GetReconstructionConfigRequest();
+
+  GetReconstructionConfigRequest(const GetReconstructionConfigRequest& from);
+  GetReconstructionConfigRequest(GetReconstructionConfigRequest&& from) noexcept
+    : GetReconstructionConfigRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetReconstructionConfigRequest& operator=(const GetReconstructionConfigRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetReconstructionConfigRequest& operator=(GetReconstructionConfigRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetReconstructionConfigRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetReconstructionConfigRequest* internal_default_instance() {
+    return reinterpret_cast<const GetReconstructionConfigRequest*>(
+               &_GetReconstructionConfigRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    31;
+
+  friend void swap(GetReconstructionConfigRequest& a, GetReconstructionConfigRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetReconstructionConfigRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetReconstructionConfigRequest* New() const final {
+    return CreateMaybeMessage<GetReconstructionConfigRequest>(nullptr);
+  }
+
+  GetReconstructionConfigRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetReconstructionConfigRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetReconstructionConfigRequest& from);
+  void MergeFrom(const GetReconstructionConfigRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetReconstructionConfigRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetReconstructionConfigRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetReconstructionConfigRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetReconstructionConfigResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetReconstructionConfigResponse) */ {
+ public:
+  GetReconstructionConfigResponse();
+  virtual ~GetReconstructionConfigResponse();
+
+  GetReconstructionConfigResponse(const GetReconstructionConfigResponse& from);
+  GetReconstructionConfigResponse(GetReconstructionConfigResponse&& from) noexcept
+    : GetReconstructionConfigResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetReconstructionConfigResponse& operator=(const GetReconstructionConfigResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetReconstructionConfigResponse& operator=(GetReconstructionConfigResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetReconstructionConfigResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetReconstructionConfigResponse* internal_default_instance() {
+    return reinterpret_cast<const GetReconstructionConfigResponse*>(
+               &_GetReconstructionConfigResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    32;
+
+  friend void swap(GetReconstructionConfigResponse& a, GetReconstructionConfigResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetReconstructionConfigResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetReconstructionConfigResponse* New() const final {
+    return CreateMaybeMessage<GetReconstructionConfigResponse>(nullptr);
+  }
+
+  GetReconstructionConfigResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetReconstructionConfigResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetReconstructionConfigResponse& from);
+  void MergeFrom(const GetReconstructionConfigResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetReconstructionConfigResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetReconstructionConfigResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kConfigJsonFieldNumber = 1,
+  };
+  // string config_json = 1;
+  void clear_config_json();
+  const std::string& config_json() const;
+  void set_config_json(const std::string& value);
+  void set_config_json(std::string&& value);
+  void set_config_json(const char* value);
+  void set_config_json(const char* value, size_t size);
+  std::string* mutable_config_json();
+  std::string* release_config_json();
+  void set_allocated_config_json(std::string* config_json);
+  private:
+  const std::string& _internal_config_json() const;
+  void _internal_set_config_json(const std::string& value);
+  std::string* _internal_mutable_config_json();
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetReconstructionConfigResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_json_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ReconstructionUploadImageBatchRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ReconstructionUploadImageBatchRequest) */ {
+ public:
+  ReconstructionUploadImageBatchRequest();
+  virtual ~ReconstructionUploadImageBatchRequest();
+
+  ReconstructionUploadImageBatchRequest(const ReconstructionUploadImageBatchRequest& from);
+  ReconstructionUploadImageBatchRequest(ReconstructionUploadImageBatchRequest&& from) noexcept
+    : ReconstructionUploadImageBatchRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline ReconstructionUploadImageBatchRequest& operator=(const ReconstructionUploadImageBatchRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReconstructionUploadImageBatchRequest& operator=(ReconstructionUploadImageBatchRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ReconstructionUploadImageBatchRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ReconstructionUploadImageBatchRequest* internal_default_instance() {
+    return reinterpret_cast<const ReconstructionUploadImageBatchRequest*>(
+               &_ReconstructionUploadImageBatchRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    33;
+
+  friend void swap(ReconstructionUploadImageBatchRequest& a, ReconstructionUploadImageBatchRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReconstructionUploadImageBatchRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReconstructionUploadImageBatchRequest* New() const final {
+    return CreateMaybeMessage<ReconstructionUploadImageBatchRequest>(nullptr);
+  }
+
+  ReconstructionUploadImageBatchRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReconstructionUploadImageBatchRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ReconstructionUploadImageBatchRequest& from);
+  void MergeFrom(const ReconstructionUploadImageBatchRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReconstructionUploadImageBatchRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ReconstructionUploadImageBatchRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDataFieldNumber = 2,
+    kIdxFieldNumber = 1,
+  };
+  // .ImageData data = 2;
+  bool has_data() const;
+  private:
+  bool _internal_has_data() const;
+  public:
+  void clear_data();
+  const ::ImageData& data() const;
+  ::ImageData* release_data();
+  ::ImageData* mutable_data();
+  void set_allocated_data(::ImageData* data);
+  private:
+  const ::ImageData& _internal_data() const;
+  ::ImageData* _internal_mutable_data();
+  public:
+
+  // int32 idx = 1;
+  void clear_idx();
+  ::PROTOBUF_NAMESPACE_ID::int32 idx() const;
+  void set_idx(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_idx() const;
+  void _internal_set_idx(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ReconstructionUploadImageBatchRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::ImageData* data_;
+  ::PROTOBUF_NAMESPACE_ID::int32 idx_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class ReconstructionUploadImageBatchResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ReconstructionUploadImageBatchResponse) */ {
+ public:
+  ReconstructionUploadImageBatchResponse();
+  virtual ~ReconstructionUploadImageBatchResponse();
+
+  ReconstructionUploadImageBatchResponse(const ReconstructionUploadImageBatchResponse& from);
+  ReconstructionUploadImageBatchResponse(ReconstructionUploadImageBatchResponse&& from) noexcept
+    : ReconstructionUploadImageBatchResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline ReconstructionUploadImageBatchResponse& operator=(const ReconstructionUploadImageBatchResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ReconstructionUploadImageBatchResponse& operator=(ReconstructionUploadImageBatchResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const ReconstructionUploadImageBatchResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const ReconstructionUploadImageBatchResponse* internal_default_instance() {
+    return reinterpret_cast<const ReconstructionUploadImageBatchResponse*>(
+               &_ReconstructionUploadImageBatchResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    34;
+
+  friend void swap(ReconstructionUploadImageBatchResponse& a, ReconstructionUploadImageBatchResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ReconstructionUploadImageBatchResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline ReconstructionUploadImageBatchResponse* New() const final {
+    return CreateMaybeMessage<ReconstructionUploadImageBatchResponse>(nullptr);
+  }
+
+  ReconstructionUploadImageBatchResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ReconstructionUploadImageBatchResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const ReconstructionUploadImageBatchResponse& from);
+  void MergeFrom(const ReconstructionUploadImageBatchResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(ReconstructionUploadImageBatchResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "ReconstructionUploadImageBatchResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kImagesUploadedFieldNumber = 1,
+  };
+  // int32 images_uploaded = 1;
+  void clear_images_uploaded();
+  ::PROTOBUF_NAMESPACE_ID::int32 images_uploaded() const;
+  void set_images_uploaded(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_images_uploaded() const;
+  void _internal_set_images_uploaded(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ReconstructionUploadImageBatchResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::int32 images_uploaded_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
@@ -6569,122 +7417,122 @@ inline void ReconstructionData::set_allocated_matches_path(std::string* matches_
 
 // -------------------------------------------------------------------
 
-// ImageUploadResponse
+// StoreImageResponse
 
 // bool success = 1;
-inline void ImageUploadResponse::clear_success() {
+inline void StoreImageResponse::clear_success() {
   success_ = false;
 }
-inline bool ImageUploadResponse::_internal_success() const {
+inline bool StoreImageResponse::_internal_success() const {
   return success_;
 }
-inline bool ImageUploadResponse::success() const {
-  // @@protoc_insertion_point(field_get:ImageUploadResponse.success)
+inline bool StoreImageResponse::success() const {
+  // @@protoc_insertion_point(field_get:StoreImageResponse.success)
   return _internal_success();
 }
-inline void ImageUploadResponse::_internal_set_success(bool value) {
+inline void StoreImageResponse::_internal_set_success(bool value) {
   
   success_ = value;
 }
-inline void ImageUploadResponse::set_success(bool value) {
+inline void StoreImageResponse::set_success(bool value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:ImageUploadResponse.success)
+  // @@protoc_insertion_point(field_set:StoreImageResponse.success)
 }
 
 // -------------------------------------------------------------------
 
-// UploadImageRequest
+// StoreImageRequest
 
 // string reconstruction_id = 1;
-inline void UploadImageRequest::clear_reconstruction_id() {
+inline void StoreImageRequest::clear_reconstruction_id() {
   reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& UploadImageRequest::reconstruction_id() const {
-  // @@protoc_insertion_point(field_get:UploadImageRequest.reconstruction_id)
+inline const std::string& StoreImageRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:StoreImageRequest.reconstruction_id)
   return _internal_reconstruction_id();
 }
-inline void UploadImageRequest::set_reconstruction_id(const std::string& value) {
+inline void StoreImageRequest::set_reconstruction_id(const std::string& value) {
   _internal_set_reconstruction_id(value);
-  // @@protoc_insertion_point(field_set:UploadImageRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set:StoreImageRequest.reconstruction_id)
 }
-inline std::string* UploadImageRequest::mutable_reconstruction_id() {
-  // @@protoc_insertion_point(field_mutable:UploadImageRequest.reconstruction_id)
+inline std::string* StoreImageRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:StoreImageRequest.reconstruction_id)
   return _internal_mutable_reconstruction_id();
 }
-inline const std::string& UploadImageRequest::_internal_reconstruction_id() const {
+inline const std::string& StoreImageRequest::_internal_reconstruction_id() const {
   return reconstruction_id_.GetNoArena();
 }
-inline void UploadImageRequest::_internal_set_reconstruction_id(const std::string& value) {
+inline void StoreImageRequest::_internal_set_reconstruction_id(const std::string& value) {
   
   reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void UploadImageRequest::set_reconstruction_id(std::string&& value) {
+inline void StoreImageRequest::set_reconstruction_id(std::string&& value) {
   
   reconstruction_id_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:UploadImageRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_rvalue:StoreImageRequest.reconstruction_id)
 }
-inline void UploadImageRequest::set_reconstruction_id(const char* value) {
+inline void StoreImageRequest::set_reconstruction_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:UploadImageRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_char:StoreImageRequest.reconstruction_id)
 }
-inline void UploadImageRequest::set_reconstruction_id(const char* value, size_t size) {
+inline void StoreImageRequest::set_reconstruction_id(const char* value, size_t size) {
   
   reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:UploadImageRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_pointer:StoreImageRequest.reconstruction_id)
 }
-inline std::string* UploadImageRequest::_internal_mutable_reconstruction_id() {
+inline std::string* StoreImageRequest::_internal_mutable_reconstruction_id() {
   
   return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* UploadImageRequest::release_reconstruction_id() {
-  // @@protoc_insertion_point(field_release:UploadImageRequest.reconstruction_id)
+inline std::string* StoreImageRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:StoreImageRequest.reconstruction_id)
   
   return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void UploadImageRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+inline void StoreImageRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
   if (reconstruction_id != nullptr) {
     
   } else {
     
   }
   reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
-  // @@protoc_insertion_point(field_set_allocated:UploadImageRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_allocated:StoreImageRequest.reconstruction_id)
 }
 
 // .ImageData image = 2;
-inline bool UploadImageRequest::_internal_has_image() const {
+inline bool StoreImageRequest::_internal_has_image() const {
   return this != internal_default_instance() && image_ != nullptr;
 }
-inline bool UploadImageRequest::has_image() const {
+inline bool StoreImageRequest::has_image() const {
   return _internal_has_image();
 }
-inline void UploadImageRequest::clear_image() {
+inline void StoreImageRequest::clear_image() {
   if (GetArenaNoVirtual() == nullptr && image_ != nullptr) {
     delete image_;
   }
   image_ = nullptr;
 }
-inline const ::ImageData& UploadImageRequest::_internal_image() const {
+inline const ::ImageData& StoreImageRequest::_internal_image() const {
   const ::ImageData* p = image_;
   return p != nullptr ? *p : *reinterpret_cast<const ::ImageData*>(
       &::_ImageData_default_instance_);
 }
-inline const ::ImageData& UploadImageRequest::image() const {
-  // @@protoc_insertion_point(field_get:UploadImageRequest.image)
+inline const ::ImageData& StoreImageRequest::image() const {
+  // @@protoc_insertion_point(field_get:StoreImageRequest.image)
   return _internal_image();
 }
-inline ::ImageData* UploadImageRequest::release_image() {
-  // @@protoc_insertion_point(field_release:UploadImageRequest.image)
+inline ::ImageData* StoreImageRequest::release_image() {
+  // @@protoc_insertion_point(field_release:StoreImageRequest.image)
   
   ::ImageData* temp = image_;
   image_ = nullptr;
   return temp;
 }
-inline ::ImageData* UploadImageRequest::_internal_mutable_image() {
+inline ::ImageData* StoreImageRequest::_internal_mutable_image() {
   
   if (image_ == nullptr) {
     auto* p = CreateMaybeMessage<::ImageData>(GetArenaNoVirtual());
@@ -6692,11 +7540,11 @@ inline ::ImageData* UploadImageRequest::_internal_mutable_image() {
   }
   return image_;
 }
-inline ::ImageData* UploadImageRequest::mutable_image() {
-  // @@protoc_insertion_point(field_mutable:UploadImageRequest.image)
+inline ::ImageData* StoreImageRequest::mutable_image() {
+  // @@protoc_insertion_point(field_mutable:StoreImageRequest.image)
   return _internal_mutable_image();
 }
-inline void UploadImageRequest::set_allocated_image(::ImageData* image) {
+inline void StoreImageRequest::set_allocated_image(::ImageData* image) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete image_;
@@ -6712,7 +7560,7 @@ inline void UploadImageRequest::set_allocated_image(::ImageData* image) {
     
   }
   image_ = image;
-  // @@protoc_insertion_point(field_set_allocated:UploadImageRequest.image)
+  // @@protoc_insertion_point(field_set_allocated:StoreImageRequest.image)
 }
 
 // -------------------------------------------------------------------
@@ -8061,110 +8909,110 @@ inline void StopSessionResponse::set_allocated_session_id(std::string* session_i
 
 // -------------------------------------------------------------------
 
-// SessionUploadImageRequest
+// SessionAddImageRequest
 
 // string session_id = 1;
-inline void SessionUploadImageRequest::clear_session_id() {
+inline void SessionAddImageRequest::clear_session_id() {
   session_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& SessionUploadImageRequest::session_id() const {
-  // @@protoc_insertion_point(field_get:SessionUploadImageRequest.session_id)
+inline const std::string& SessionAddImageRequest::session_id() const {
+  // @@protoc_insertion_point(field_get:SessionAddImageRequest.session_id)
   return _internal_session_id();
 }
-inline void SessionUploadImageRequest::set_session_id(const std::string& value) {
+inline void SessionAddImageRequest::set_session_id(const std::string& value) {
   _internal_set_session_id(value);
-  // @@protoc_insertion_point(field_set:SessionUploadImageRequest.session_id)
+  // @@protoc_insertion_point(field_set:SessionAddImageRequest.session_id)
 }
-inline std::string* SessionUploadImageRequest::mutable_session_id() {
-  // @@protoc_insertion_point(field_mutable:SessionUploadImageRequest.session_id)
+inline std::string* SessionAddImageRequest::mutable_session_id() {
+  // @@protoc_insertion_point(field_mutable:SessionAddImageRequest.session_id)
   return _internal_mutable_session_id();
 }
-inline const std::string& SessionUploadImageRequest::_internal_session_id() const {
+inline const std::string& SessionAddImageRequest::_internal_session_id() const {
   return session_id_.GetNoArena();
 }
-inline void SessionUploadImageRequest::_internal_set_session_id(const std::string& value) {
+inline void SessionAddImageRequest::_internal_set_session_id(const std::string& value) {
   
   session_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void SessionUploadImageRequest::set_session_id(std::string&& value) {
+inline void SessionAddImageRequest::set_session_id(std::string&& value) {
   
   session_id_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:SessionUploadImageRequest.session_id)
+  // @@protoc_insertion_point(field_set_rvalue:SessionAddImageRequest.session_id)
 }
-inline void SessionUploadImageRequest::set_session_id(const char* value) {
+inline void SessionAddImageRequest::set_session_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   session_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:SessionUploadImageRequest.session_id)
+  // @@protoc_insertion_point(field_set_char:SessionAddImageRequest.session_id)
 }
-inline void SessionUploadImageRequest::set_session_id(const char* value, size_t size) {
+inline void SessionAddImageRequest::set_session_id(const char* value, size_t size) {
   
   session_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:SessionUploadImageRequest.session_id)
+  // @@protoc_insertion_point(field_set_pointer:SessionAddImageRequest.session_id)
 }
-inline std::string* SessionUploadImageRequest::_internal_mutable_session_id() {
+inline std::string* SessionAddImageRequest::_internal_mutable_session_id() {
   
   return session_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* SessionUploadImageRequest::release_session_id() {
-  // @@protoc_insertion_point(field_release:SessionUploadImageRequest.session_id)
+inline std::string* SessionAddImageRequest::release_session_id() {
+  // @@protoc_insertion_point(field_release:SessionAddImageRequest.session_id)
   
   return session_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void SessionUploadImageRequest::set_allocated_session_id(std::string* session_id) {
+inline void SessionAddImageRequest::set_allocated_session_id(std::string* session_id) {
   if (session_id != nullptr) {
     
   } else {
     
   }
   session_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), session_id);
-  // @@protoc_insertion_point(field_set_allocated:SessionUploadImageRequest.session_id)
+  // @@protoc_insertion_point(field_set_allocated:SessionAddImageRequest.session_id)
 }
 
-// .UploadImageRequest upload_image = 2;
-inline bool SessionUploadImageRequest::_internal_has_upload_image() const {
+// .StoreImageRequest upload_image = 2;
+inline bool SessionAddImageRequest::_internal_has_upload_image() const {
   return this != internal_default_instance() && upload_image_ != nullptr;
 }
-inline bool SessionUploadImageRequest::has_upload_image() const {
+inline bool SessionAddImageRequest::has_upload_image() const {
   return _internal_has_upload_image();
 }
-inline void SessionUploadImageRequest::clear_upload_image() {
+inline void SessionAddImageRequest::clear_upload_image() {
   if (GetArenaNoVirtual() == nullptr && upload_image_ != nullptr) {
     delete upload_image_;
   }
   upload_image_ = nullptr;
 }
-inline const ::UploadImageRequest& SessionUploadImageRequest::_internal_upload_image() const {
-  const ::UploadImageRequest* p = upload_image_;
-  return p != nullptr ? *p : *reinterpret_cast<const ::UploadImageRequest*>(
-      &::_UploadImageRequest_default_instance_);
+inline const ::StoreImageRequest& SessionAddImageRequest::_internal_upload_image() const {
+  const ::StoreImageRequest* p = upload_image_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::StoreImageRequest*>(
+      &::_StoreImageRequest_default_instance_);
 }
-inline const ::UploadImageRequest& SessionUploadImageRequest::upload_image() const {
-  // @@protoc_insertion_point(field_get:SessionUploadImageRequest.upload_image)
+inline const ::StoreImageRequest& SessionAddImageRequest::upload_image() const {
+  // @@protoc_insertion_point(field_get:SessionAddImageRequest.upload_image)
   return _internal_upload_image();
 }
-inline ::UploadImageRequest* SessionUploadImageRequest::release_upload_image() {
-  // @@protoc_insertion_point(field_release:SessionUploadImageRequest.upload_image)
+inline ::StoreImageRequest* SessionAddImageRequest::release_upload_image() {
+  // @@protoc_insertion_point(field_release:SessionAddImageRequest.upload_image)
   
-  ::UploadImageRequest* temp = upload_image_;
+  ::StoreImageRequest* temp = upload_image_;
   upload_image_ = nullptr;
   return temp;
 }
-inline ::UploadImageRequest* SessionUploadImageRequest::_internal_mutable_upload_image() {
+inline ::StoreImageRequest* SessionAddImageRequest::_internal_mutable_upload_image() {
   
   if (upload_image_ == nullptr) {
-    auto* p = CreateMaybeMessage<::UploadImageRequest>(GetArenaNoVirtual());
+    auto* p = CreateMaybeMessage<::StoreImageRequest>(GetArenaNoVirtual());
     upload_image_ = p;
   }
   return upload_image_;
 }
-inline ::UploadImageRequest* SessionUploadImageRequest::mutable_upload_image() {
-  // @@protoc_insertion_point(field_mutable:SessionUploadImageRequest.upload_image)
+inline ::StoreImageRequest* SessionAddImageRequest::mutable_upload_image() {
+  // @@protoc_insertion_point(field_mutable:SessionAddImageRequest.upload_image)
   return _internal_mutable_upload_image();
 }
-inline void SessionUploadImageRequest::set_allocated_upload_image(::UploadImageRequest* upload_image) {
+inline void SessionAddImageRequest::set_allocated_upload_image(::StoreImageRequest* upload_image) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == nullptr) {
     delete upload_image_;
@@ -8180,12 +9028,12 @@ inline void SessionUploadImageRequest::set_allocated_upload_image(::UploadImageR
     
   }
   upload_image_ = upload_image;
-  // @@protoc_insertion_point(field_set_allocated:SessionUploadImageRequest.upload_image)
+  // @@protoc_insertion_point(field_set_allocated:SessionAddImageRequest.upload_image)
 }
 
 // -------------------------------------------------------------------
 
-// SessionUploadImageResponse
+// SessionAddImageResponse
 
 // -------------------------------------------------------------------
 
@@ -8315,9 +9163,405 @@ inline void GetSparseResponse::set_allocated_sparse(::SparsePointCloudData* spar
   // @@protoc_insertion_point(field_set_allocated:GetSparseResponse.sparse)
 }
 
+// -------------------------------------------------------------------
+
+// SetReconstructionConfigRequest
+
+// string reconstruction_id = 1;
+inline void SetReconstructionConfigRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetReconstructionConfigRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:SetReconstructionConfigRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void SetReconstructionConfigRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:SetReconstructionConfigRequest.reconstruction_id)
+}
+inline std::string* SetReconstructionConfigRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:SetReconstructionConfigRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& SetReconstructionConfigRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void SetReconstructionConfigRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetReconstructionConfigRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetReconstructionConfigRequest.reconstruction_id)
+}
+inline void SetReconstructionConfigRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetReconstructionConfigRequest.reconstruction_id)
+}
+inline void SetReconstructionConfigRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetReconstructionConfigRequest.reconstruction_id)
+}
+inline std::string* SetReconstructionConfigRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetReconstructionConfigRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:SetReconstructionConfigRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetReconstructionConfigRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:SetReconstructionConfigRequest.reconstruction_id)
+}
+
+// string config_json = 2;
+inline void SetReconstructionConfigRequest::clear_config_json() {
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetReconstructionConfigRequest::config_json() const {
+  // @@protoc_insertion_point(field_get:SetReconstructionConfigRequest.config_json)
+  return _internal_config_json();
+}
+inline void SetReconstructionConfigRequest::set_config_json(const std::string& value) {
+  _internal_set_config_json(value);
+  // @@protoc_insertion_point(field_set:SetReconstructionConfigRequest.config_json)
+}
+inline std::string* SetReconstructionConfigRequest::mutable_config_json() {
+  // @@protoc_insertion_point(field_mutable:SetReconstructionConfigRequest.config_json)
+  return _internal_mutable_config_json();
+}
+inline const std::string& SetReconstructionConfigRequest::_internal_config_json() const {
+  return config_json_.GetNoArena();
+}
+inline void SetReconstructionConfigRequest::_internal_set_config_json(const std::string& value) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetReconstructionConfigRequest::set_config_json(std::string&& value) {
+  
+  config_json_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetReconstructionConfigRequest.config_json)
+}
+inline void SetReconstructionConfigRequest::set_config_json(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetReconstructionConfigRequest.config_json)
+}
+inline void SetReconstructionConfigRequest::set_config_json(const char* value, size_t size) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetReconstructionConfigRequest.config_json)
+}
+inline std::string* SetReconstructionConfigRequest::_internal_mutable_config_json() {
+  
+  return config_json_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetReconstructionConfigRequest::release_config_json() {
+  // @@protoc_insertion_point(field_release:SetReconstructionConfigRequest.config_json)
+  
+  return config_json_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetReconstructionConfigRequest::set_allocated_config_json(std::string* config_json) {
+  if (config_json != nullptr) {
+    
+  } else {
+    
+  }
+  config_json_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), config_json);
+  // @@protoc_insertion_point(field_set_allocated:SetReconstructionConfigRequest.config_json)
+}
+
+// -------------------------------------------------------------------
+
+// SetReconstructionConfigResponse
+
+// bool success = 1;
+inline void SetReconstructionConfigResponse::clear_success() {
+  success_ = false;
+}
+inline bool SetReconstructionConfigResponse::_internal_success() const {
+  return success_;
+}
+inline bool SetReconstructionConfigResponse::success() const {
+  // @@protoc_insertion_point(field_get:SetReconstructionConfigResponse.success)
+  return _internal_success();
+}
+inline void SetReconstructionConfigResponse::_internal_set_success(bool value) {
+  
+  success_ = value;
+}
+inline void SetReconstructionConfigResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:SetReconstructionConfigResponse.success)
+}
+
+// -------------------------------------------------------------------
+
+// GetReconstructionConfigRequest
+
+// string reconstruction_id = 1;
+inline void GetReconstructionConfigRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& GetReconstructionConfigRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:GetReconstructionConfigRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void GetReconstructionConfigRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:GetReconstructionConfigRequest.reconstruction_id)
+}
+inline std::string* GetReconstructionConfigRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:GetReconstructionConfigRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& GetReconstructionConfigRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void GetReconstructionConfigRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void GetReconstructionConfigRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetReconstructionConfigRequest.reconstruction_id)
+}
+inline void GetReconstructionConfigRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetReconstructionConfigRequest.reconstruction_id)
+}
+inline void GetReconstructionConfigRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetReconstructionConfigRequest.reconstruction_id)
+}
+inline std::string* GetReconstructionConfigRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* GetReconstructionConfigRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:GetReconstructionConfigRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetReconstructionConfigRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:GetReconstructionConfigRequest.reconstruction_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetReconstructionConfigResponse
+
+// string config_json = 1;
+inline void GetReconstructionConfigResponse::clear_config_json() {
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& GetReconstructionConfigResponse::config_json() const {
+  // @@protoc_insertion_point(field_get:GetReconstructionConfigResponse.config_json)
+  return _internal_config_json();
+}
+inline void GetReconstructionConfigResponse::set_config_json(const std::string& value) {
+  _internal_set_config_json(value);
+  // @@protoc_insertion_point(field_set:GetReconstructionConfigResponse.config_json)
+}
+inline std::string* GetReconstructionConfigResponse::mutable_config_json() {
+  // @@protoc_insertion_point(field_mutable:GetReconstructionConfigResponse.config_json)
+  return _internal_mutable_config_json();
+}
+inline const std::string& GetReconstructionConfigResponse::_internal_config_json() const {
+  return config_json_.GetNoArena();
+}
+inline void GetReconstructionConfigResponse::_internal_set_config_json(const std::string& value) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void GetReconstructionConfigResponse::set_config_json(std::string&& value) {
+  
+  config_json_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetReconstructionConfigResponse.config_json)
+}
+inline void GetReconstructionConfigResponse::set_config_json(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetReconstructionConfigResponse.config_json)
+}
+inline void GetReconstructionConfigResponse::set_config_json(const char* value, size_t size) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetReconstructionConfigResponse.config_json)
+}
+inline std::string* GetReconstructionConfigResponse::_internal_mutable_config_json() {
+  
+  return config_json_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* GetReconstructionConfigResponse::release_config_json() {
+  // @@protoc_insertion_point(field_release:GetReconstructionConfigResponse.config_json)
+  
+  return config_json_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetReconstructionConfigResponse::set_allocated_config_json(std::string* config_json) {
+  if (config_json != nullptr) {
+    
+  } else {
+    
+  }
+  config_json_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), config_json);
+  // @@protoc_insertion_point(field_set_allocated:GetReconstructionConfigResponse.config_json)
+}
+
+// -------------------------------------------------------------------
+
+// ReconstructionUploadImageBatchRequest
+
+// int32 idx = 1;
+inline void ReconstructionUploadImageBatchRequest::clear_idx() {
+  idx_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ReconstructionUploadImageBatchRequest::_internal_idx() const {
+  return idx_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ReconstructionUploadImageBatchRequest::idx() const {
+  // @@protoc_insertion_point(field_get:ReconstructionUploadImageBatchRequest.idx)
+  return _internal_idx();
+}
+inline void ReconstructionUploadImageBatchRequest::_internal_set_idx(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  idx_ = value;
+}
+inline void ReconstructionUploadImageBatchRequest::set_idx(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_idx(value);
+  // @@protoc_insertion_point(field_set:ReconstructionUploadImageBatchRequest.idx)
+}
+
+// .ImageData data = 2;
+inline bool ReconstructionUploadImageBatchRequest::_internal_has_data() const {
+  return this != internal_default_instance() && data_ != nullptr;
+}
+inline bool ReconstructionUploadImageBatchRequest::has_data() const {
+  return _internal_has_data();
+}
+inline void ReconstructionUploadImageBatchRequest::clear_data() {
+  if (GetArenaNoVirtual() == nullptr && data_ != nullptr) {
+    delete data_;
+  }
+  data_ = nullptr;
+}
+inline const ::ImageData& ReconstructionUploadImageBatchRequest::_internal_data() const {
+  const ::ImageData* p = data_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::ImageData*>(
+      &::_ImageData_default_instance_);
+}
+inline const ::ImageData& ReconstructionUploadImageBatchRequest::data() const {
+  // @@protoc_insertion_point(field_get:ReconstructionUploadImageBatchRequest.data)
+  return _internal_data();
+}
+inline ::ImageData* ReconstructionUploadImageBatchRequest::release_data() {
+  // @@protoc_insertion_point(field_release:ReconstructionUploadImageBatchRequest.data)
+  
+  ::ImageData* temp = data_;
+  data_ = nullptr;
+  return temp;
+}
+inline ::ImageData* ReconstructionUploadImageBatchRequest::_internal_mutable_data() {
+  
+  if (data_ == nullptr) {
+    auto* p = CreateMaybeMessage<::ImageData>(GetArenaNoVirtual());
+    data_ = p;
+  }
+  return data_;
+}
+inline ::ImageData* ReconstructionUploadImageBatchRequest::mutable_data() {
+  // @@protoc_insertion_point(field_mutable:ReconstructionUploadImageBatchRequest.data)
+  return _internal_mutable_data();
+}
+inline void ReconstructionUploadImageBatchRequest::set_allocated_data(::ImageData* data) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == nullptr) {
+    delete data_;
+  }
+  if (data) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena = nullptr;
+    if (message_arena != submessage_arena) {
+      data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, data, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  data_ = data;
+  // @@protoc_insertion_point(field_set_allocated:ReconstructionUploadImageBatchRequest.data)
+}
+
+// -------------------------------------------------------------------
+
+// ReconstructionUploadImageBatchResponse
+
+// int32 images_uploaded = 1;
+inline void ReconstructionUploadImageBatchResponse::clear_images_uploaded() {
+  images_uploaded_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ReconstructionUploadImageBatchResponse::_internal_images_uploaded() const {
+  return images_uploaded_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 ReconstructionUploadImageBatchResponse::images_uploaded() const {
+  // @@protoc_insertion_point(field_get:ReconstructionUploadImageBatchResponse.images_uploaded)
+  return _internal_images_uploaded();
+}
+inline void ReconstructionUploadImageBatchResponse::_internal_set_images_uploaded(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  images_uploaded_ = value;
+}
+inline void ReconstructionUploadImageBatchResponse::set_images_uploaded(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_images_uploaded(value);
+  // @@protoc_insertion_point(field_set:ReconstructionUploadImageBatchResponse.images_uploaded)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

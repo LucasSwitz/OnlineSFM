@@ -21,25 +21,6 @@ typedef struct OpenMVGReconstructionAgentConfig {
     matches_dir = "",
     root_path = "",
     sOutFile = "";
-    
-    /*bool bUpRight = false;
-    std::string sImage_Describer_Method = "SIFT_ANATOMY"; //Using regular SIFT causes memory errors since the describer uses external threads
-    bool bForce = false;
-    std::string sFeaturePreset = "";
-    int iNumThreads = 0;
-    std::string sIntrinsic_refinement_options = "ADJUST_ALL";
-    int i_User_camera_model = openMVG::cameras::EINTRINSIC::PINHOLE_CAMERA_RADIAL3;
-    bool b_use_motion_priors = false;
-    int triangulation_method = static_cast<int>(openMVG::ETriangulationMethod::DEFAULT);
-
-    double dMax_reprojection_error = 4.0;
-    unsigned int ui_max_cache_size = 0;
-
-    std::string sGeometricModel = "f";
-    float fDistRatio = 0.8f;
-    std::string sNearestMatchingMethod = "AUTO";
-    bool bGuided_matching = false;
-    int imax_iteration = 2048;*/
 };
 
 class OpenMVGReconstructionAgent : public ReconstructionAgent{
@@ -50,13 +31,14 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
                                    std::shared_ptr<ConfigurationAdapter> configuration_adapter);
         bool IncrementalSFM(const std::set<std::string>& new_images){}
         bool AddImage(const std::string& image_path);
-        bool GenerateMatches(const std::string& image_path);
+        bool ComputeMatches(const std::set<std::string>& image_pathes);
+        bool ComputeFeatures(const std::set<std::string>& image_id);
         bool IncrementalSFM();
         bool ComputeStructure();
         void Load(const std::string& sfm_data);
         void SetConfig(const OpenMVGReconstructionAgentConfig& config);
     private:
-        openMVG::Pair_Set _GatherMatchesToCompute(const std::string& new_images);
+        openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_image_paths);
         bool _GenerateImageFeatures(const std::string& image_path);
         OpenMVGReconstructionAgentConfig _config;
         std::unique_ptr<openMVG::sfm::SfM_Data> _sfm_data;

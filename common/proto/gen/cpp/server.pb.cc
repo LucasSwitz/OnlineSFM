@@ -21,7 +21,7 @@ extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OBJMetaData_server_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SparsePointCloudData_server_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SparsePointCloudMetaData_server_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_UploadImageRequest_server_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_StoreImageRequest_server_2eproto;
 class ImageMetaDataDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ImageMetaData> _instance;
@@ -50,14 +50,14 @@ class ReconstructionDataDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReconstructionData> _instance;
 } _ReconstructionData_default_instance_;
-class ImageUploadResponseDefaultTypeInternal {
+class StoreImageResponseDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ImageUploadResponse> _instance;
-} _ImageUploadResponse_default_instance_;
-class UploadImageRequestDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StoreImageResponse> _instance;
+} _StoreImageResponse_default_instance_;
+class StoreImageRequestDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<UploadImageRequest> _instance;
-} _UploadImageRequest_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StoreImageRequest> _instance;
+} _StoreImageRequest_default_instance_;
 class NewReconstructionRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<NewReconstructionRequest> _instance;
@@ -122,14 +122,14 @@ class StopSessionResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StopSessionResponse> _instance;
 } _StopSessionResponse_default_instance_;
-class SessionUploadImageRequestDefaultTypeInternal {
+class SessionAddImageRequestDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SessionUploadImageRequest> _instance;
-} _SessionUploadImageRequest_default_instance_;
-class SessionUploadImageResponseDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SessionAddImageRequest> _instance;
+} _SessionAddImageRequest_default_instance_;
+class SessionAddImageResponseDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SessionUploadImageResponse> _instance;
-} _SessionUploadImageResponse_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SessionAddImageResponse> _instance;
+} _SessionAddImageResponse_default_instance_;
 class GetSparseRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetSparseRequest> _instance;
@@ -138,6 +138,30 @@ class GetSparseResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetSparseResponse> _instance;
 } _GetSparseResponse_default_instance_;
+class SetReconstructionConfigRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SetReconstructionConfigRequest> _instance;
+} _SetReconstructionConfigRequest_default_instance_;
+class SetReconstructionConfigResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SetReconstructionConfigResponse> _instance;
+} _SetReconstructionConfigResponse_default_instance_;
+class GetReconstructionConfigRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetReconstructionConfigRequest> _instance;
+} _GetReconstructionConfigRequest_default_instance_;
+class GetReconstructionConfigResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetReconstructionConfigResponse> _instance;
+} _GetReconstructionConfigResponse_default_instance_;
+class ReconstructionUploadImageBatchRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReconstructionUploadImageBatchRequest> _instance;
+} _ReconstructionUploadImageBatchRequest_default_instance_;
+class ReconstructionUploadImageBatchResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReconstructionUploadImageBatchResponse> _instance;
+} _ReconstructionUploadImageBatchResponse_default_instance_;
 static void InitDefaultsscc_info_CameraIntrinsics_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -208,6 +232,34 @@ static void InitDefaultsscc_info_GetOBJResponse_server_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_GetOBJResponse_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_GetOBJResponse_server_2eproto}, {
       &scc_info_OBJData_server_2eproto.base,}};
+
+static void InitDefaultsscc_info_GetReconstructionConfigRequest_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_GetReconstructionConfigRequest_default_instance_;
+    new (ptr) ::GetReconstructionConfigRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::GetReconstructionConfigRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_GetReconstructionConfigRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_GetReconstructionConfigRequest_server_2eproto}, {}};
+
+static void InitDefaultsscc_info_GetReconstructionConfigResponse_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_GetReconstructionConfigResponse_default_instance_;
+    new (ptr) ::GetReconstructionConfigResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::GetReconstructionConfigResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_GetReconstructionConfigResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_GetReconstructionConfigResponse_server_2eproto}, {}};
 
 static void InitDefaultsscc_info_GetSparseRequest_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -295,20 +347,6 @@ static void InitDefaultsscc_info_ImageMetaData_server_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ImageMetaData_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ImageMetaData_server_2eproto}, {}};
-
-static void InitDefaultsscc_info_ImageUploadResponse_server_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::_ImageUploadResponse_default_instance_;
-    new (ptr) ::ImageUploadResponse();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::ImageUploadResponse::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ImageUploadResponse_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ImageUploadResponse_server_2eproto}, {}};
 
 static void InitDefaultsscc_info_NewReconstructionRequest_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -423,34 +461,91 @@ static void InitDefaultsscc_info_ReconstructionOBJ_server_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReconstructionOBJ_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReconstructionOBJ_server_2eproto}, {}};
 
-static void InitDefaultsscc_info_SessionUploadImageRequest_server_2eproto() {
+static void InitDefaultsscc_info_ReconstructionUploadImageBatchRequest_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_SessionUploadImageRequest_default_instance_;
-    new (ptr) ::SessionUploadImageRequest();
+    void* ptr = &::_ReconstructionUploadImageBatchRequest_default_instance_;
+    new (ptr) ::ReconstructionUploadImageBatchRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::SessionUploadImageRequest::InitAsDefaultInstance();
+  ::ReconstructionUploadImageBatchRequest::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SessionUploadImageRequest_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_SessionUploadImageRequest_server_2eproto}, {
-      &scc_info_UploadImageRequest_server_2eproto.base,}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ReconstructionUploadImageBatchRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ReconstructionUploadImageBatchRequest_server_2eproto}, {
+      &scc_info_ImageData_server_2eproto.base,}};
 
-static void InitDefaultsscc_info_SessionUploadImageResponse_server_2eproto() {
+static void InitDefaultsscc_info_ReconstructionUploadImageBatchResponse_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_SessionUploadImageResponse_default_instance_;
-    new (ptr) ::SessionUploadImageResponse();
+    void* ptr = &::_ReconstructionUploadImageBatchResponse_default_instance_;
+    new (ptr) ::ReconstructionUploadImageBatchResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::SessionUploadImageResponse::InitAsDefaultInstance();
+  ::ReconstructionUploadImageBatchResponse::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SessionUploadImageResponse_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SessionUploadImageResponse_server_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReconstructionUploadImageBatchResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReconstructionUploadImageBatchResponse_server_2eproto}, {}};
+
+static void InitDefaultsscc_info_SessionAddImageRequest_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_SessionAddImageRequest_default_instance_;
+    new (ptr) ::SessionAddImageRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::SessionAddImageRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SessionAddImageRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_SessionAddImageRequest_server_2eproto}, {
+      &scc_info_StoreImageRequest_server_2eproto.base,}};
+
+static void InitDefaultsscc_info_SessionAddImageResponse_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_SessionAddImageResponse_default_instance_;
+    new (ptr) ::SessionAddImageResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::SessionAddImageResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SessionAddImageResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SessionAddImageResponse_server_2eproto}, {}};
+
+static void InitDefaultsscc_info_SetReconstructionConfigRequest_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_SetReconstructionConfigRequest_default_instance_;
+    new (ptr) ::SetReconstructionConfigRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::SetReconstructionConfigRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SetReconstructionConfigRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SetReconstructionConfigRequest_server_2eproto}, {}};
+
+static void InitDefaultsscc_info_SetReconstructionConfigResponse_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_SetReconstructionConfigResponse_default_instance_;
+    new (ptr) ::SetReconstructionConfigResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::SetReconstructionConfigResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SetReconstructionConfigResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SetReconstructionConfigResponse_server_2eproto}, {}};
 
 static void InitDefaultsscc_info_SparsePointCloudData_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -537,22 +632,36 @@ static void InitDefaultsscc_info_StopSessionResponse_server_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_StopSessionResponse_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_StopSessionResponse_server_2eproto}, {}};
 
-static void InitDefaultsscc_info_UploadImageRequest_server_2eproto() {
+static void InitDefaultsscc_info_StoreImageRequest_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_UploadImageRequest_default_instance_;
-    new (ptr) ::UploadImageRequest();
+    void* ptr = &::_StoreImageRequest_default_instance_;
+    new (ptr) ::StoreImageRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::UploadImageRequest::InitAsDefaultInstance();
+  ::StoreImageRequest::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_UploadImageRequest_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_UploadImageRequest_server_2eproto}, {
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_StoreImageRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_StoreImageRequest_server_2eproto}, {
       &scc_info_ImageData_server_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_server_2eproto[29];
+static void InitDefaultsscc_info_StoreImageResponse_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_StoreImageResponse_default_instance_;
+    new (ptr) ::StoreImageResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::StoreImageResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_StoreImageResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_StoreImageResponse_server_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_server_2eproto[35];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_server_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_server_2eproto = nullptr;
 
@@ -624,18 +733,18 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, features_path_),
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, matches_path_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::ImageUploadResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::StoreImageResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::ImageUploadResponse, success_),
+  PROTOBUF_FIELD_OFFSET(::StoreImageResponse, success_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::UploadImageRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::StoreImageRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::UploadImageRequest, reconstruction_id_),
-  PROTOBUF_FIELD_OFFSET(::UploadImageRequest, image_),
+  PROTOBUF_FIELD_OFFSET(::StoreImageRequest, reconstruction_id_),
+  PROTOBUF_FIELD_OFFSET(::StoreImageRequest, image_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::NewReconstructionRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -743,14 +852,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::StopSessionResponse, session_id_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::SessionUploadImageRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::SessionAddImageRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::SessionUploadImageRequest, session_id_),
-  PROTOBUF_FIELD_OFFSET(::SessionUploadImageRequest, upload_image_),
+  PROTOBUF_FIELD_OFFSET(::SessionAddImageRequest, session_id_),
+  PROTOBUF_FIELD_OFFSET(::SessionAddImageRequest, upload_image_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::SessionUploadImageResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::SessionAddImageResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
@@ -766,6 +875,44 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::GetSparseResponse, sparse_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, reconstruction_id_),
+  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, config_json_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigResponse, success_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::GetReconstructionConfigRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::GetReconstructionConfigRequest, reconstruction_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::GetReconstructionConfigResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::GetReconstructionConfigResponse, config_json_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageBatchRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageBatchRequest, idx_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageBatchRequest, data_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageBatchResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageBatchResponse, images_uploaded_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::ImageMetaData)},
@@ -775,8 +922,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 32, -1, sizeof(::OBJMetaData)},
   { 42, -1, sizeof(::OBJData)},
   { 51, -1, sizeof(::ReconstructionData)},
-  { 66, -1, sizeof(::ImageUploadResponse)},
-  { 72, -1, sizeof(::UploadImageRequest)},
+  { 66, -1, sizeof(::StoreImageResponse)},
+  { 72, -1, sizeof(::StoreImageRequest)},
   { 79, -1, sizeof(::NewReconstructionRequest)},
   { 84, -1, sizeof(::NewReconstructionResponse)},
   { 90, -1, sizeof(::ReconstructRequest)},
@@ -793,10 +940,16 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 166, -1, sizeof(::StartSessionResponse)},
   { 173, -1, sizeof(::StopSessionRequest)},
   { 179, -1, sizeof(::StopSessionResponse)},
-  { 185, -1, sizeof(::SessionUploadImageRequest)},
-  { 192, -1, sizeof(::SessionUploadImageResponse)},
+  { 185, -1, sizeof(::SessionAddImageRequest)},
+  { 192, -1, sizeof(::SessionAddImageResponse)},
   { 197, -1, sizeof(::GetSparseRequest)},
   { 203, -1, sizeof(::GetSparseResponse)},
+  { 209, -1, sizeof(::SetReconstructionConfigRequest)},
+  { 216, -1, sizeof(::SetReconstructionConfigResponse)},
+  { 222, -1, sizeof(::GetReconstructionConfigRequest)},
+  { 228, -1, sizeof(::GetReconstructionConfigResponse)},
+  { 234, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
+  { 241, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -807,8 +960,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_OBJMetaData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_OBJData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionData_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ImageUploadResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_UploadImageRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StoreImageResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StoreImageRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_NewReconstructionRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_NewReconstructionResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructRequest_default_instance_),
@@ -825,10 +978,16 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StartSessionResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StopSessionRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StopSessionResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SessionUploadImageRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SessionUploadImageResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SessionAddImageRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SessionAddImageResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetSparseRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetSparseResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SetReconstructionConfigRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SetReconstructionConfigResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetReconstructionConfigRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetReconstructionConfigResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionUploadImageBatchRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionUploadImageBatchResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -850,72 +1009,90 @@ const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "images\030\003 \003(\t\022\035\n\025sparse_reconstruction\030\004 "
   "\001(\t\022\013\n\003obj\030\005 \001(\t\022\023\n\013images_path\030\006 \001(\t\022\020\n"
   "\010sfm_path\030\007 \001(\t\022\020\n\010mvs_path\030\010 \001(\t\022\025\n\rfea"
-  "tures_path\030\t \001(\t\022\024\n\014matches_path\030\n \001(\t\"&"
-  "\n\023ImageUploadResponse\022\017\n\007success\030\001 \001(\010\"J"
-  "\n\022UploadImageRequest\022\031\n\021reconstruction_i"
-  "d\030\001 \001(\t\022\031\n\005image\030\002 \001(\0132\n.ImageData\"\032\n\030Ne"
-  "wReconstructionRequest\"6\n\031NewReconstruct"
-  "ionResponse\022\031\n\021reconstruction_id\030\001 \001(\t\"/"
-  "\n\022ReconstructRequest\022\031\n\021reconstruction_i"
-  "d\030\001 \001(\t\"*\n\rGetOBJRequest\022\031\n\021reconstructi"
-  "on_id\030\001 \001(\t\"8\n\016GetOBJResponse\022\017\n\007success"
-  "\030\001 \001(\010\022\025\n\003obj\030\002 \001(\0132\010.OBJData\"9\n\023Reconst"
-  "ructResponse\022\017\n\007success\030\001 \001(\010\022\021\n\terror_m"
-  "sg\030\002 \001(\t\" \n\021ReconstructionOBJ\022\013\n\003obj\030\001 \001"
-  "(\014\")\n\033DeleteReconstructionRequest\022\n\n\002id\030"
-  "\001 \001(\t\";\n\034DeleteReconstructionResponse\022\017\n"
-  "\007success\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n\020CameraInt"
-  "rinsics\022\r\n\005model\030\001 \001(\t\022\r\n\005maker\030\002 \001(\t\022\025\n"
-  "\rnumeric_model\030\003 \001(\t\022\023\n\013sensor_size\030\004 \001("
-  "\002\022\022\n\nfocus_mode\030\005 \001(\t\022\035\n\025horizontal_view"
-  "_angle\030\006 \001(\002\022\024\n\014jpeg_quality\030\007 \001(\005\"T\n\020Ha"
-  "ndhsakeRequest\022\022\n\nidentifier\030\001 \001(\t\022,\n\021ca"
-  "mera_intrinsics\030\002 \001(\0132\021.CameraIntrinsics"
-  "\"$\n\021HandshakeResponse\022\017\n\007success\030\001 \001(\010\"0"
-  "\n\023StartSessionRequest\022\031\n\021reconstruction_"
-  "id\030\001 \001(\t\"E\n\024StartSessionResponse\022\031\n\021reco"
-  "nstruction_id\030\001 \001(\t\022\022\n\nsession_id\030\002 \001(\t\""
-  "(\n\022StopSessionRequest\022\022\n\nsession_id\030\001 \001("
-  "\t\")\n\023StopSessionResponse\022\022\n\nsession_id\030\001"
-  " \001(\t\"Z\n\031SessionUploadImageRequest\022\022\n\nses"
-  "sion_id\030\001 \001(\t\022)\n\014upload_image\030\002 \001(\0132\023.Up"
-  "loadImageRequest\"\034\n\032SessionUploadImageRe"
-  "sponse\"-\n\020GetSparseRequest\022\031\n\021reconstruc"
-  "tion_id\030\001 \001(\t\":\n\021GetSparseResponse\022%\n\006sp"
-  "arse\030\001 \001(\0132\025.SparsePointCloudData2\221\005\n\025Re"
-  "constructionService\0224\n\tHandshake\022\021.Handh"
-  "sakeRequest\032\022.HandshakeResponse\"\000\022<\n\013Upl"
-  "oadImage\022\023.UploadImageRequest\032\024.ImageUpl"
-  "oadResponse\"\000(\001\0228\n\013Reconstruct\022\023.Reconst"
-  "ructRequest\032\024.ReconstructResponse\022+\n\006Get"
-  "OBJ\022\016.GetOBJRequest\032\017.GetOBJResponse0\001\0224"
-  "\n\tGetSparse\022\021.GetSparseRequest\032\022.GetSpar"
-  "seResponse0\001\022J\n\021NewReconstruction\022\031.NewR"
-  "econstructionRequest\032\032.NewReconstruction"
-  "Response\022S\n\024DeleteReconstruction\022\034.Delet"
-  "eReconstructionRequest\032\035.DeleteReconstru"
-  "ctionResponse\022;\n\014StartSession\022\024.StartSes"
-  "sionRequest\032\025.StartSessionResponse\0228\n\013St"
-  "opSession\022\023.StopSessionRequest\032\024.StopSes"
-  "sionResponse\022O\n\022SessionUploadImage\022\032.Ses"
-  "sionUploadImageRequest\032\033.SessionUploadIm"
-  "ageResponse(\001b\006proto3"
+  "tures_path\030\t \001(\t\022\024\n\014matches_path\030\n \001(\t\"%"
+  "\n\022StoreImageResponse\022\017\n\007success\030\001 \001(\010\"I\n"
+  "\021StoreImageRequest\022\031\n\021reconstruction_id\030"
+  "\001 \001(\t\022\031\n\005image\030\002 \001(\0132\n.ImageData\"\032\n\030NewR"
+  "econstructionRequest\"6\n\031NewReconstructio"
+  "nResponse\022\031\n\021reconstruction_id\030\001 \001(\t\"/\n\022"
+  "ReconstructRequest\022\031\n\021reconstruction_id\030"
+  "\001 \001(\t\"*\n\rGetOBJRequest\022\031\n\021reconstruction"
+  "_id\030\001 \001(\t\"8\n\016GetOBJResponse\022\017\n\007success\030\001"
+  " \001(\010\022\025\n\003obj\030\002 \001(\0132\010.OBJData\"9\n\023Reconstru"
+  "ctResponse\022\017\n\007success\030\001 \001(\010\022\021\n\terror_msg"
+  "\030\002 \001(\t\" \n\021ReconstructionOBJ\022\013\n\003obj\030\001 \001(\014"
+  "\")\n\033DeleteReconstructionRequest\022\n\n\002id\030\001 "
+  "\001(\t\";\n\034DeleteReconstructionResponse\022\017\n\007s"
+  "uccess\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n\020CameraIntri"
+  "nsics\022\r\n\005model\030\001 \001(\t\022\r\n\005maker\030\002 \001(\t\022\025\n\rn"
+  "umeric_model\030\003 \001(\t\022\023\n\013sensor_size\030\004 \001(\002\022"
+  "\022\n\nfocus_mode\030\005 \001(\t\022\035\n\025horizontal_view_a"
+  "ngle\030\006 \001(\002\022\024\n\014jpeg_quality\030\007 \001(\005\"T\n\020Hand"
+  "hsakeRequest\022\022\n\nidentifier\030\001 \001(\t\022,\n\021came"
+  "ra_intrinsics\030\002 \001(\0132\021.CameraIntrinsics\"$"
+  "\n\021HandshakeResponse\022\017\n\007success\030\001 \001(\010\"0\n\023"
+  "StartSessionRequest\022\031\n\021reconstruction_id"
+  "\030\001 \001(\t\"E\n\024StartSessionResponse\022\031\n\021recons"
+  "truction_id\030\001 \001(\t\022\022\n\nsession_id\030\002 \001(\t\"(\n"
+  "\022StopSessionRequest\022\022\n\nsession_id\030\001 \001(\t\""
+  ")\n\023StopSessionResponse\022\022\n\nsession_id\030\001 \001"
+  "(\t\"V\n\026SessionAddImageRequest\022\022\n\nsession_"
+  "id\030\001 \001(\t\022(\n\014upload_image\030\002 \001(\0132\022.StoreIm"
+  "ageRequest\"\031\n\027SessionAddImageResponse\"-\n"
+  "\020GetSparseRequest\022\031\n\021reconstruction_id\030\001"
+  " \001(\t\":\n\021GetSparseResponse\022%\n\006sparse\030\001 \001("
+  "\0132\025.SparsePointCloudData\"P\n\036SetReconstru"
+  "ctionConfigRequest\022\031\n\021reconstruction_id\030"
+  "\001 \001(\t\022\023\n\013config_json\030\002 \001(\t\"2\n\037SetReconst"
+  "ructionConfigResponse\022\017\n\007success\030\001 \001(\010\";"
+  "\n\036GetReconstructionConfigRequest\022\031\n\021reco"
+  "nstruction_id\030\001 \001(\t\"6\n\037GetReconstruction"
+  "ConfigResponse\022\023\n\013config_json\030\001 \001(\t\"N\n%R"
+  "econstructionUploadImageBatchRequest\022\013\n\003"
+  "idx\030\001 \001(\005\022\030\n\004data\030\002 \001(\0132\n.ImageData\"A\n&R"
+  "econstructionUploadImageBatchResponse\022\027\n"
+  "\017images_uploaded\030\001 \001(\0052\266\007\n\025Reconstructio"
+  "nService\0224\n\tHandshake\022\021.HandhsakeRequest"
+  "\032\022.HandshakeResponse\"\000\0229\n\nStoreImage\022\022.S"
+  "toreImageRequest\032\023.StoreImageResponse\"\000("
+  "\001\0228\n\013Reconstruct\022\023.ReconstructRequest\032\024."
+  "ReconstructResponse\022+\n\006GetOBJ\022\016.GetOBJRe"
+  "quest\032\017.GetOBJResponse0\001\0224\n\tGetSparse\022\021."
+  "GetSparseRequest\032\022.GetSparseResponse0\001\022J"
+  "\n\021NewReconstruction\022\031.NewReconstructionR"
+  "equest\032\032.NewReconstructionResponse\022S\n\024De"
+  "leteReconstruction\022\034.DeleteReconstructio"
+  "nRequest\032\035.DeleteReconstructionResponse\022"
+  ";\n\014StartSession\022\024.StartSessionRequest\032\025."
+  "StartSessionResponse\0228\n\013StopSession\022\023.St"
+  "opSessionRequest\032\024.StopSessionResponse\022F"
+  "\n\017SessionAddImage\022\027.SessionAddImageReque"
+  "st\032\030.SessionAddImageResponse(\001\022\\\n\027SetRec"
+  "onstructionConfig\022\037.SetReconstructionCon"
+  "figRequest\032 .SetReconstructionConfigResp"
+  "onse\022\\\n\027GetReconstructionConfig\022\037.GetRec"
+  "onstructionConfigRequest\032 .GetReconstruc"
+  "tionConfigResponse\022s\n\036ReconstructionUplo"
+  "adImageBatch\022&.ReconstructionUploadImage"
+  "BatchRequest\032\'.ReconstructionUploadImage"
+  "BatchResponse(\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_server_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_server_2eproto_sccs[29] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_server_2eproto_sccs[35] = {
   &scc_info_CameraIntrinsics_server_2eproto.base,
   &scc_info_DeleteReconstructionRequest_server_2eproto.base,
   &scc_info_DeleteReconstructionResponse_server_2eproto.base,
   &scc_info_GetOBJRequest_server_2eproto.base,
   &scc_info_GetOBJResponse_server_2eproto.base,
+  &scc_info_GetReconstructionConfigRequest_server_2eproto.base,
+  &scc_info_GetReconstructionConfigResponse_server_2eproto.base,
   &scc_info_GetSparseRequest_server_2eproto.base,
   &scc_info_GetSparseResponse_server_2eproto.base,
   &scc_info_HandhsakeRequest_server_2eproto.base,
   &scc_info_HandshakeResponse_server_2eproto.base,
   &scc_info_ImageData_server_2eproto.base,
   &scc_info_ImageMetaData_server_2eproto.base,
-  &scc_info_ImageUploadResponse_server_2eproto.base,
   &scc_info_NewReconstructionRequest_server_2eproto.base,
   &scc_info_NewReconstructionResponse_server_2eproto.base,
   &scc_info_OBJData_server_2eproto.base,
@@ -924,23 +1101,28 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
   &scc_info_ReconstructResponse_server_2eproto.base,
   &scc_info_ReconstructionData_server_2eproto.base,
   &scc_info_ReconstructionOBJ_server_2eproto.base,
-  &scc_info_SessionUploadImageRequest_server_2eproto.base,
-  &scc_info_SessionUploadImageResponse_server_2eproto.base,
+  &scc_info_ReconstructionUploadImageBatchRequest_server_2eproto.base,
+  &scc_info_ReconstructionUploadImageBatchResponse_server_2eproto.base,
+  &scc_info_SessionAddImageRequest_server_2eproto.base,
+  &scc_info_SessionAddImageResponse_server_2eproto.base,
+  &scc_info_SetReconstructionConfigRequest_server_2eproto.base,
+  &scc_info_SetReconstructionConfigResponse_server_2eproto.base,
   &scc_info_SparsePointCloudData_server_2eproto.base,
   &scc_info_SparsePointCloudMetaData_server_2eproto.base,
   &scc_info_StartSessionRequest_server_2eproto.base,
   &scc_info_StartSessionResponse_server_2eproto.base,
   &scc_info_StopSessionRequest_server_2eproto.base,
   &scc_info_StopSessionResponse_server_2eproto.base,
-  &scc_info_UploadImageRequest_server_2eproto.base,
+  &scc_info_StoreImageRequest_server_2eproto.base,
+  &scc_info_StoreImageResponse_server_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_server_2eproto_once;
 static bool descriptor_table_server_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_server_2eproto = {
-  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 2701,
-  &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 29, 0,
+  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 3383,
+  &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 35, 0,
   schemas, file_default_instances, TableStruct_server_2eproto::offsets,
-  file_level_metadata_server_2eproto, 29, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
+  file_level_metadata_server_2eproto, 35, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -3264,48 +3446,48 @@ void ReconstructionData::InternalSwap(ReconstructionData* other) {
 
 // ===================================================================
 
-void ImageUploadResponse::InitAsDefaultInstance() {
+void StoreImageResponse::InitAsDefaultInstance() {
 }
-class ImageUploadResponse::_Internal {
+class StoreImageResponse::_Internal {
  public:
 };
 
-ImageUploadResponse::ImageUploadResponse()
+StoreImageResponse::StoreImageResponse()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ImageUploadResponse)
+  // @@protoc_insertion_point(constructor:StoreImageResponse)
 }
-ImageUploadResponse::ImageUploadResponse(const ImageUploadResponse& from)
+StoreImageResponse::StoreImageResponse(const StoreImageResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   success_ = from.success_;
-  // @@protoc_insertion_point(copy_constructor:ImageUploadResponse)
+  // @@protoc_insertion_point(copy_constructor:StoreImageResponse)
 }
 
-void ImageUploadResponse::SharedCtor() {
+void StoreImageResponse::SharedCtor() {
   success_ = false;
 }
 
-ImageUploadResponse::~ImageUploadResponse() {
-  // @@protoc_insertion_point(destructor:ImageUploadResponse)
+StoreImageResponse::~StoreImageResponse() {
+  // @@protoc_insertion_point(destructor:StoreImageResponse)
   SharedDtor();
 }
 
-void ImageUploadResponse::SharedDtor() {
+void StoreImageResponse::SharedDtor() {
 }
 
-void ImageUploadResponse::SetCachedSize(int size) const {
+void StoreImageResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ImageUploadResponse& ImageUploadResponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ImageUploadResponse_server_2eproto.base);
+const StoreImageResponse& StoreImageResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_StoreImageResponse_server_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void ImageUploadResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:ImageUploadResponse)
+void StoreImageResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:StoreImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3314,7 +3496,7 @@ void ImageUploadResponse::Clear() {
   _internal_metadata_.Clear();
 }
 
-const char* ImageUploadResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StoreImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -3348,9 +3530,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* ImageUploadResponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* StoreImageResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ImageUploadResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:StoreImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3364,12 +3546,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:ImageUploadResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:StoreImageResponse)
   return target;
 }
 
-size_t ImageUploadResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:ImageUploadResponse)
+size_t StoreImageResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:StoreImageResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -3390,23 +3572,23 @@ size_t ImageUploadResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void ImageUploadResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:ImageUploadResponse)
+void StoreImageResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:StoreImageResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const ImageUploadResponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ImageUploadResponse>(
+  const StoreImageResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StoreImageResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ImageUploadResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:StoreImageResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:ImageUploadResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:StoreImageResponse)
     MergeFrom(*source);
   }
 }
 
-void ImageUploadResponse::MergeFrom(const ImageUploadResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:ImageUploadResponse)
+void StoreImageResponse::MergeFrom(const StoreImageResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:StoreImageResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -3417,56 +3599,56 @@ void ImageUploadResponse::MergeFrom(const ImageUploadResponse& from) {
   }
 }
 
-void ImageUploadResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:ImageUploadResponse)
+void StoreImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:StoreImageResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void ImageUploadResponse::CopyFrom(const ImageUploadResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:ImageUploadResponse)
+void StoreImageResponse::CopyFrom(const StoreImageResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:StoreImageResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool ImageUploadResponse::IsInitialized() const {
+bool StoreImageResponse::IsInitialized() const {
   return true;
 }
 
-void ImageUploadResponse::InternalSwap(ImageUploadResponse* other) {
+void StoreImageResponse::InternalSwap(StoreImageResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   swap(success_, other->success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata ImageUploadResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata StoreImageResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void UploadImageRequest::InitAsDefaultInstance() {
-  ::_UploadImageRequest_default_instance_._instance.get_mutable()->image_ = const_cast< ::ImageData*>(
+void StoreImageRequest::InitAsDefaultInstance() {
+  ::_StoreImageRequest_default_instance_._instance.get_mutable()->image_ = const_cast< ::ImageData*>(
       ::ImageData::internal_default_instance());
 }
-class UploadImageRequest::_Internal {
+class StoreImageRequest::_Internal {
  public:
-  static const ::ImageData& image(const UploadImageRequest* msg);
+  static const ::ImageData& image(const StoreImageRequest* msg);
 };
 
 const ::ImageData&
-UploadImageRequest::_Internal::image(const UploadImageRequest* msg) {
+StoreImageRequest::_Internal::image(const StoreImageRequest* msg) {
   return *msg->image_;
 }
-UploadImageRequest::UploadImageRequest()
+StoreImageRequest::StoreImageRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:UploadImageRequest)
+  // @@protoc_insertion_point(constructor:StoreImageRequest)
 }
-UploadImageRequest::UploadImageRequest(const UploadImageRequest& from)
+StoreImageRequest::StoreImageRequest(const StoreImageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
@@ -3479,36 +3661,36 @@ UploadImageRequest::UploadImageRequest(const UploadImageRequest& from)
   } else {
     image_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:UploadImageRequest)
+  // @@protoc_insertion_point(copy_constructor:StoreImageRequest)
 }
 
-void UploadImageRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_UploadImageRequest_server_2eproto.base);
+void StoreImageRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_StoreImageRequest_server_2eproto.base);
   reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_ = nullptr;
 }
 
-UploadImageRequest::~UploadImageRequest() {
-  // @@protoc_insertion_point(destructor:UploadImageRequest)
+StoreImageRequest::~StoreImageRequest() {
+  // @@protoc_insertion_point(destructor:StoreImageRequest)
   SharedDtor();
 }
 
-void UploadImageRequest::SharedDtor() {
+void StoreImageRequest::SharedDtor() {
   reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete image_;
 }
 
-void UploadImageRequest::SetCachedSize(int size) const {
+void StoreImageRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const UploadImageRequest& UploadImageRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_UploadImageRequest_server_2eproto.base);
+const StoreImageRequest& StoreImageRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_StoreImageRequest_server_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void UploadImageRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:UploadImageRequest)
+void StoreImageRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:StoreImageRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3521,7 +3703,7 @@ void UploadImageRequest::Clear() {
   _internal_metadata_.Clear();
 }
 
-const char* UploadImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StoreImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -3533,7 +3715,7 @@ const char* UploadImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_reconstruction_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "UploadImageRequest.reconstruction_id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "StoreImageRequest.reconstruction_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -3564,9 +3746,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* UploadImageRequest::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* StoreImageRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:UploadImageRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:StoreImageRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3575,7 +3757,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "UploadImageRequest.reconstruction_id");
+      "StoreImageRequest.reconstruction_id");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_reconstruction_id(), target);
   }
@@ -3592,12 +3774,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:UploadImageRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:StoreImageRequest)
   return target;
 }
 
-size_t UploadImageRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:UploadImageRequest)
+size_t StoreImageRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:StoreImageRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -3627,23 +3809,23 @@ size_t UploadImageRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void UploadImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:UploadImageRequest)
+void StoreImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:StoreImageRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  const UploadImageRequest* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<UploadImageRequest>(
+  const StoreImageRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StoreImageRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:UploadImageRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:StoreImageRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:UploadImageRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:StoreImageRequest)
     MergeFrom(*source);
   }
 }
 
-void UploadImageRequest::MergeFrom(const UploadImageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:UploadImageRequest)
+void StoreImageRequest::MergeFrom(const StoreImageRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:StoreImageRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -3658,25 +3840,25 @@ void UploadImageRequest::MergeFrom(const UploadImageRequest& from) {
   }
 }
 
-void UploadImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:UploadImageRequest)
+void StoreImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:StoreImageRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void UploadImageRequest::CopyFrom(const UploadImageRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:UploadImageRequest)
+void StoreImageRequest::CopyFrom(const StoreImageRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:StoreImageRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool UploadImageRequest::IsInitialized() const {
+bool StoreImageRequest::IsInitialized() const {
   return true;
 }
 
-void UploadImageRequest::InternalSwap(UploadImageRequest* other) {
+void StoreImageRequest::InternalSwap(StoreImageRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
@@ -3684,7 +3866,7 @@ void UploadImageRequest::InternalSwap(UploadImageRequest* other) {
   swap(image_, other->image_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata UploadImageRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata StoreImageRequest::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -7168,25 +7350,25 @@ void StopSessionResponse::InternalSwap(StopSessionResponse* other) {
 
 // ===================================================================
 
-void SessionUploadImageRequest::InitAsDefaultInstance() {
-  ::_SessionUploadImageRequest_default_instance_._instance.get_mutable()->upload_image_ = const_cast< ::UploadImageRequest*>(
-      ::UploadImageRequest::internal_default_instance());
+void SessionAddImageRequest::InitAsDefaultInstance() {
+  ::_SessionAddImageRequest_default_instance_._instance.get_mutable()->upload_image_ = const_cast< ::StoreImageRequest*>(
+      ::StoreImageRequest::internal_default_instance());
 }
-class SessionUploadImageRequest::_Internal {
+class SessionAddImageRequest::_Internal {
  public:
-  static const ::UploadImageRequest& upload_image(const SessionUploadImageRequest* msg);
+  static const ::StoreImageRequest& upload_image(const SessionAddImageRequest* msg);
 };
 
-const ::UploadImageRequest&
-SessionUploadImageRequest::_Internal::upload_image(const SessionUploadImageRequest* msg) {
+const ::StoreImageRequest&
+SessionAddImageRequest::_Internal::upload_image(const SessionAddImageRequest* msg) {
   return *msg->upload_image_;
 }
-SessionUploadImageRequest::SessionUploadImageRequest()
+SessionAddImageRequest::SessionAddImageRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:SessionUploadImageRequest)
+  // @@protoc_insertion_point(constructor:SessionAddImageRequest)
 }
-SessionUploadImageRequest::SessionUploadImageRequest(const SessionUploadImageRequest& from)
+SessionAddImageRequest::SessionAddImageRequest(const SessionAddImageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
@@ -7195,40 +7377,40 @@ SessionUploadImageRequest::SessionUploadImageRequest(const SessionUploadImageReq
     session_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.session_id_);
   }
   if (from._internal_has_upload_image()) {
-    upload_image_ = new ::UploadImageRequest(*from.upload_image_);
+    upload_image_ = new ::StoreImageRequest(*from.upload_image_);
   } else {
     upload_image_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:SessionUploadImageRequest)
+  // @@protoc_insertion_point(copy_constructor:SessionAddImageRequest)
 }
 
-void SessionUploadImageRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SessionUploadImageRequest_server_2eproto.base);
+void SessionAddImageRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SessionAddImageRequest_server_2eproto.base);
   session_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   upload_image_ = nullptr;
 }
 
-SessionUploadImageRequest::~SessionUploadImageRequest() {
-  // @@protoc_insertion_point(destructor:SessionUploadImageRequest)
+SessionAddImageRequest::~SessionAddImageRequest() {
+  // @@protoc_insertion_point(destructor:SessionAddImageRequest)
   SharedDtor();
 }
 
-void SessionUploadImageRequest::SharedDtor() {
+void SessionAddImageRequest::SharedDtor() {
   session_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete upload_image_;
 }
 
-void SessionUploadImageRequest::SetCachedSize(int size) const {
+void SessionAddImageRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const SessionUploadImageRequest& SessionUploadImageRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SessionUploadImageRequest_server_2eproto.base);
+const SessionAddImageRequest& SessionAddImageRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SessionAddImageRequest_server_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void SessionUploadImageRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:SessionUploadImageRequest)
+void SessionAddImageRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:SessionAddImageRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -7241,7 +7423,7 @@ void SessionUploadImageRequest::Clear() {
   _internal_metadata_.Clear();
 }
 
-const char* SessionUploadImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SessionAddImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -7253,11 +7435,11 @@ const char* SessionUploadImageRequest::_InternalParse(const char* ptr, ::PROTOBU
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_session_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SessionUploadImageRequest.session_id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SessionAddImageRequest.session_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .UploadImageRequest upload_image = 2;
+      // .StoreImageRequest upload_image = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_upload_image(), ptr);
@@ -7284,9 +7466,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SessionUploadImageRequest::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* SessionAddImageRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:SessionUploadImageRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:SessionAddImageRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7295,12 +7477,12 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_session_id().data(), static_cast<int>(this->_internal_session_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "SessionUploadImageRequest.session_id");
+      "SessionAddImageRequest.session_id");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_session_id(), target);
   }
 
-  // .UploadImageRequest upload_image = 2;
+  // .StoreImageRequest upload_image = 2;
   if (this->has_upload_image()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -7312,12 +7494,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:SessionUploadImageRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:SessionAddImageRequest)
   return target;
 }
 
-size_t SessionUploadImageRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:SessionUploadImageRequest)
+size_t SessionAddImageRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:SessionAddImageRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -7331,7 +7513,7 @@ size_t SessionUploadImageRequest::ByteSizeLong() const {
         this->_internal_session_id());
   }
 
-  // .UploadImageRequest upload_image = 2;
+  // .StoreImageRequest upload_image = 2;
   if (this->has_upload_image()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -7347,23 +7529,23 @@ size_t SessionUploadImageRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void SessionUploadImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:SessionUploadImageRequest)
+void SessionAddImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:SessionAddImageRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  const SessionUploadImageRequest* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SessionUploadImageRequest>(
+  const SessionAddImageRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SessionAddImageRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SessionUploadImageRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SessionAddImageRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:SessionUploadImageRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:SessionAddImageRequest)
     MergeFrom(*source);
   }
 }
 
-void SessionUploadImageRequest::MergeFrom(const SessionUploadImageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:SessionUploadImageRequest)
+void SessionAddImageRequest::MergeFrom(const SessionAddImageRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:SessionAddImageRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -7374,29 +7556,29 @@ void SessionUploadImageRequest::MergeFrom(const SessionUploadImageRequest& from)
     session_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.session_id_);
   }
   if (from.has_upload_image()) {
-    _internal_mutable_upload_image()->::UploadImageRequest::MergeFrom(from._internal_upload_image());
+    _internal_mutable_upload_image()->::StoreImageRequest::MergeFrom(from._internal_upload_image());
   }
 }
 
-void SessionUploadImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:SessionUploadImageRequest)
+void SessionAddImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:SessionAddImageRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SessionUploadImageRequest::CopyFrom(const SessionUploadImageRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:SessionUploadImageRequest)
+void SessionAddImageRequest::CopyFrom(const SessionAddImageRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:SessionAddImageRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SessionUploadImageRequest::IsInitialized() const {
+bool SessionAddImageRequest::IsInitialized() const {
   return true;
 }
 
-void SessionUploadImageRequest::InternalSwap(SessionUploadImageRequest* other) {
+void SessionAddImageRequest::InternalSwap(SessionAddImageRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   session_id_.Swap(&other->session_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
@@ -7404,53 +7586,53 @@ void SessionUploadImageRequest::InternalSwap(SessionUploadImageRequest* other) {
   swap(upload_image_, other->upload_image_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SessionUploadImageRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SessionAddImageRequest::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void SessionUploadImageResponse::InitAsDefaultInstance() {
+void SessionAddImageResponse::InitAsDefaultInstance() {
 }
-class SessionUploadImageResponse::_Internal {
+class SessionAddImageResponse::_Internal {
  public:
 };
 
-SessionUploadImageResponse::SessionUploadImageResponse()
+SessionAddImageResponse::SessionAddImageResponse()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:SessionUploadImageResponse)
+  // @@protoc_insertion_point(constructor:SessionAddImageResponse)
 }
-SessionUploadImageResponse::SessionUploadImageResponse(const SessionUploadImageResponse& from)
+SessionAddImageResponse::SessionAddImageResponse(const SessionAddImageResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:SessionUploadImageResponse)
+  // @@protoc_insertion_point(copy_constructor:SessionAddImageResponse)
 }
 
-void SessionUploadImageResponse::SharedCtor() {
+void SessionAddImageResponse::SharedCtor() {
 }
 
-SessionUploadImageResponse::~SessionUploadImageResponse() {
-  // @@protoc_insertion_point(destructor:SessionUploadImageResponse)
+SessionAddImageResponse::~SessionAddImageResponse() {
+  // @@protoc_insertion_point(destructor:SessionAddImageResponse)
   SharedDtor();
 }
 
-void SessionUploadImageResponse::SharedDtor() {
+void SessionAddImageResponse::SharedDtor() {
 }
 
-void SessionUploadImageResponse::SetCachedSize(int size) const {
+void SessionAddImageResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const SessionUploadImageResponse& SessionUploadImageResponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SessionUploadImageResponse_server_2eproto.base);
+const SessionAddImageResponse& SessionAddImageResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SessionAddImageResponse_server_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void SessionUploadImageResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:SessionUploadImageResponse)
+void SessionAddImageResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:SessionAddImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -7458,7 +7640,7 @@ void SessionUploadImageResponse::Clear() {
   _internal_metadata_.Clear();
 }
 
-const char* SessionUploadImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SessionAddImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -7480,9 +7662,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* SessionUploadImageResponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* SessionAddImageResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:SessionUploadImageResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:SessionAddImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -7490,12 +7672,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:SessionUploadImageResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:SessionAddImageResponse)
   return target;
 }
 
-size_t SessionUploadImageResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:SessionUploadImageResponse)
+size_t SessionAddImageResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:SessionAddImageResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -7511,23 +7693,23 @@ size_t SessionUploadImageResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void SessionUploadImageResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:SessionUploadImageResponse)
+void SessionAddImageResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:SessionAddImageResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const SessionUploadImageResponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SessionUploadImageResponse>(
+  const SessionAddImageResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SessionAddImageResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SessionUploadImageResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SessionAddImageResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:SessionUploadImageResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:SessionAddImageResponse)
     MergeFrom(*source);
   }
 }
 
-void SessionUploadImageResponse::MergeFrom(const SessionUploadImageResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:SessionUploadImageResponse)
+void SessionAddImageResponse::MergeFrom(const SessionAddImageResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:SessionAddImageResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -7535,30 +7717,30 @@ void SessionUploadImageResponse::MergeFrom(const SessionUploadImageResponse& fro
 
 }
 
-void SessionUploadImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:SessionUploadImageResponse)
+void SessionAddImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:SessionAddImageResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void SessionUploadImageResponse::CopyFrom(const SessionUploadImageResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:SessionUploadImageResponse)
+void SessionAddImageResponse::CopyFrom(const SessionAddImageResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:SessionAddImageResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SessionUploadImageResponse::IsInitialized() const {
+bool SessionAddImageResponse::IsInitialized() const {
   return true;
 }
 
-void SessionUploadImageResponse::InternalSwap(SessionUploadImageResponse* other) {
+void SessionAddImageResponse::InternalSwap(SessionAddImageResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata SessionUploadImageResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SessionAddImageResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -7966,6 +8148,1244 @@ void GetSparseResponse::InternalSwap(GetSparseResponse* other) {
 }
 
 
+// ===================================================================
+
+void SetReconstructionConfigRequest::InitAsDefaultInstance() {
+}
+class SetReconstructionConfigRequest::_Internal {
+ public:
+};
+
+SetReconstructionConfigRequest::SetReconstructionConfigRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:SetReconstructionConfigRequest)
+}
+SetReconstructionConfigRequest::SetReconstructionConfigRequest(const SetReconstructionConfigRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_config_json().empty()) {
+    config_json_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_json_);
+  }
+  // @@protoc_insertion_point(copy_constructor:SetReconstructionConfigRequest)
+}
+
+void SetReconstructionConfigRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SetReconstructionConfigRequest_server_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+SetReconstructionConfigRequest::~SetReconstructionConfigRequest() {
+  // @@protoc_insertion_point(destructor:SetReconstructionConfigRequest)
+  SharedDtor();
+}
+
+void SetReconstructionConfigRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  config_json_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void SetReconstructionConfigRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const SetReconstructionConfigRequest& SetReconstructionConfigRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SetReconstructionConfigRequest_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void SetReconstructionConfigRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:SetReconstructionConfigRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* SetReconstructionConfigRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SetReconstructionConfigRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string config_json = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_config_json();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SetReconstructionConfigRequest.config_json"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* SetReconstructionConfigRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:SetReconstructionConfigRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "SetReconstructionConfigRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  // string config_json = 2;
+  if (this->config_json().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_config_json().data(), static_cast<int>(this->_internal_config_json().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "SetReconstructionConfigRequest.config_json");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_config_json(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:SetReconstructionConfigRequest)
+  return target;
+}
+
+size_t SetReconstructionConfigRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:SetReconstructionConfigRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  // string config_json = 2;
+  if (this->config_json().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_config_json());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SetReconstructionConfigRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:SetReconstructionConfigRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SetReconstructionConfigRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SetReconstructionConfigRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SetReconstructionConfigRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:SetReconstructionConfigRequest)
+    MergeFrom(*source);
+  }
+}
+
+void SetReconstructionConfigRequest::MergeFrom(const SetReconstructionConfigRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:SetReconstructionConfigRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  if (from.config_json().size() > 0) {
+
+    config_json_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_json_);
+  }
+}
+
+void SetReconstructionConfigRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:SetReconstructionConfigRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SetReconstructionConfigRequest::CopyFrom(const SetReconstructionConfigRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:SetReconstructionConfigRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SetReconstructionConfigRequest::IsInitialized() const {
+  return true;
+}
+
+void SetReconstructionConfigRequest::InternalSwap(SetReconstructionConfigRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  config_json_.Swap(&other->config_json_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SetReconstructionConfigRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void SetReconstructionConfigResponse::InitAsDefaultInstance() {
+}
+class SetReconstructionConfigResponse::_Internal {
+ public:
+};
+
+SetReconstructionConfigResponse::SetReconstructionConfigResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:SetReconstructionConfigResponse)
+}
+SetReconstructionConfigResponse::SetReconstructionConfigResponse(const SetReconstructionConfigResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:SetReconstructionConfigResponse)
+}
+
+void SetReconstructionConfigResponse::SharedCtor() {
+  success_ = false;
+}
+
+SetReconstructionConfigResponse::~SetReconstructionConfigResponse() {
+  // @@protoc_insertion_point(destructor:SetReconstructionConfigResponse)
+  SharedDtor();
+}
+
+void SetReconstructionConfigResponse::SharedDtor() {
+}
+
+void SetReconstructionConfigResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const SetReconstructionConfigResponse& SetReconstructionConfigResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SetReconstructionConfigResponse_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void SetReconstructionConfigResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:SetReconstructionConfigResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  success_ = false;
+  _internal_metadata_.Clear();
+}
+
+const char* SetReconstructionConfigResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* SetReconstructionConfigResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:SetReconstructionConfigResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:SetReconstructionConfigResponse)
+  return target;
+}
+
+size_t SetReconstructionConfigResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:SetReconstructionConfigResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SetReconstructionConfigResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:SetReconstructionConfigResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const SetReconstructionConfigResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SetReconstructionConfigResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SetReconstructionConfigResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:SetReconstructionConfigResponse)
+    MergeFrom(*source);
+  }
+}
+
+void SetReconstructionConfigResponse::MergeFrom(const SetReconstructionConfigResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:SetReconstructionConfigResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
+}
+
+void SetReconstructionConfigResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:SetReconstructionConfigResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void SetReconstructionConfigResponse::CopyFrom(const SetReconstructionConfigResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:SetReconstructionConfigResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SetReconstructionConfigResponse::IsInitialized() const {
+  return true;
+}
+
+void SetReconstructionConfigResponse::InternalSwap(SetReconstructionConfigResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(success_, other->success_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SetReconstructionConfigResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void GetReconstructionConfigRequest::InitAsDefaultInstance() {
+}
+class GetReconstructionConfigRequest::_Internal {
+ public:
+};
+
+GetReconstructionConfigRequest::GetReconstructionConfigRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:GetReconstructionConfigRequest)
+}
+GetReconstructionConfigRequest::GetReconstructionConfigRequest(const GetReconstructionConfigRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  // @@protoc_insertion_point(copy_constructor:GetReconstructionConfigRequest)
+}
+
+void GetReconstructionConfigRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_GetReconstructionConfigRequest_server_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+GetReconstructionConfigRequest::~GetReconstructionConfigRequest() {
+  // @@protoc_insertion_point(destructor:GetReconstructionConfigRequest)
+  SharedDtor();
+}
+
+void GetReconstructionConfigRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetReconstructionConfigRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const GetReconstructionConfigRequest& GetReconstructionConfigRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_GetReconstructionConfigRequest_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void GetReconstructionConfigRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:GetReconstructionConfigRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* GetReconstructionConfigRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "GetReconstructionConfigRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* GetReconstructionConfigRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:GetReconstructionConfigRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "GetReconstructionConfigRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:GetReconstructionConfigRequest)
+  return target;
+}
+
+size_t GetReconstructionConfigRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:GetReconstructionConfigRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetReconstructionConfigRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:GetReconstructionConfigRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetReconstructionConfigRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<GetReconstructionConfigRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:GetReconstructionConfigRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:GetReconstructionConfigRequest)
+    MergeFrom(*source);
+  }
+}
+
+void GetReconstructionConfigRequest::MergeFrom(const GetReconstructionConfigRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:GetReconstructionConfigRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+}
+
+void GetReconstructionConfigRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:GetReconstructionConfigRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetReconstructionConfigRequest::CopyFrom(const GetReconstructionConfigRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:GetReconstructionConfigRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetReconstructionConfigRequest::IsInitialized() const {
+  return true;
+}
+
+void GetReconstructionConfigRequest::InternalSwap(GetReconstructionConfigRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetReconstructionConfigRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void GetReconstructionConfigResponse::InitAsDefaultInstance() {
+}
+class GetReconstructionConfigResponse::_Internal {
+ public:
+};
+
+GetReconstructionConfigResponse::GetReconstructionConfigResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:GetReconstructionConfigResponse)
+}
+GetReconstructionConfigResponse::GetReconstructionConfigResponse(const GetReconstructionConfigResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_config_json().empty()) {
+    config_json_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_json_);
+  }
+  // @@protoc_insertion_point(copy_constructor:GetReconstructionConfigResponse)
+}
+
+void GetReconstructionConfigResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_GetReconstructionConfigResponse_server_2eproto.base);
+  config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+GetReconstructionConfigResponse::~GetReconstructionConfigResponse() {
+  // @@protoc_insertion_point(destructor:GetReconstructionConfigResponse)
+  SharedDtor();
+}
+
+void GetReconstructionConfigResponse::SharedDtor() {
+  config_json_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetReconstructionConfigResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const GetReconstructionConfigResponse& GetReconstructionConfigResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_GetReconstructionConfigResponse_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void GetReconstructionConfigResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:GetReconstructionConfigResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* GetReconstructionConfigResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string config_json = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_config_json();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "GetReconstructionConfigResponse.config_json"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* GetReconstructionConfigResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:GetReconstructionConfigResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string config_json = 1;
+  if (this->config_json().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_config_json().data(), static_cast<int>(this->_internal_config_json().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "GetReconstructionConfigResponse.config_json");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_config_json(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:GetReconstructionConfigResponse)
+  return target;
+}
+
+size_t GetReconstructionConfigResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:GetReconstructionConfigResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string config_json = 1;
+  if (this->config_json().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_config_json());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetReconstructionConfigResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:GetReconstructionConfigResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const GetReconstructionConfigResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<GetReconstructionConfigResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:GetReconstructionConfigResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:GetReconstructionConfigResponse)
+    MergeFrom(*source);
+  }
+}
+
+void GetReconstructionConfigResponse::MergeFrom(const GetReconstructionConfigResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:GetReconstructionConfigResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.config_json().size() > 0) {
+
+    config_json_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_json_);
+  }
+}
+
+void GetReconstructionConfigResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:GetReconstructionConfigResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void GetReconstructionConfigResponse::CopyFrom(const GetReconstructionConfigResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:GetReconstructionConfigResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetReconstructionConfigResponse::IsInitialized() const {
+  return true;
+}
+
+void GetReconstructionConfigResponse::InternalSwap(GetReconstructionConfigResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  config_json_.Swap(&other->config_json_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetReconstructionConfigResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void ReconstructionUploadImageBatchRequest::InitAsDefaultInstance() {
+  ::_ReconstructionUploadImageBatchRequest_default_instance_._instance.get_mutable()->data_ = const_cast< ::ImageData*>(
+      ::ImageData::internal_default_instance());
+}
+class ReconstructionUploadImageBatchRequest::_Internal {
+ public:
+  static const ::ImageData& data(const ReconstructionUploadImageBatchRequest* msg);
+};
+
+const ::ImageData&
+ReconstructionUploadImageBatchRequest::_Internal::data(const ReconstructionUploadImageBatchRequest* msg) {
+  return *msg->data_;
+}
+ReconstructionUploadImageBatchRequest::ReconstructionUploadImageBatchRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ReconstructionUploadImageBatchRequest)
+}
+ReconstructionUploadImageBatchRequest::ReconstructionUploadImageBatchRequest(const ReconstructionUploadImageBatchRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from._internal_has_data()) {
+    data_ = new ::ImageData(*from.data_);
+  } else {
+    data_ = nullptr;
+  }
+  idx_ = from.idx_;
+  // @@protoc_insertion_point(copy_constructor:ReconstructionUploadImageBatchRequest)
+}
+
+void ReconstructionUploadImageBatchRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReconstructionUploadImageBatchRequest_server_2eproto.base);
+  ::memset(&data_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&idx_) -
+      reinterpret_cast<char*>(&data_)) + sizeof(idx_));
+}
+
+ReconstructionUploadImageBatchRequest::~ReconstructionUploadImageBatchRequest() {
+  // @@protoc_insertion_point(destructor:ReconstructionUploadImageBatchRequest)
+  SharedDtor();
+}
+
+void ReconstructionUploadImageBatchRequest::SharedDtor() {
+  if (this != internal_default_instance()) delete data_;
+}
+
+void ReconstructionUploadImageBatchRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ReconstructionUploadImageBatchRequest& ReconstructionUploadImageBatchRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReconstructionUploadImageBatchRequest_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ReconstructionUploadImageBatchRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:ReconstructionUploadImageBatchRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaNoVirtual() == nullptr && data_ != nullptr) {
+    delete data_;
+  }
+  data_ = nullptr;
+  idx_ = 0;
+  _internal_metadata_.Clear();
+}
+
+const char* ReconstructionUploadImageBatchRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int32 idx = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          idx_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .ImageData data = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_data(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ReconstructionUploadImageBatchRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ReconstructionUploadImageBatchRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 idx = 1;
+  if (this->idx() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_idx(), target);
+  }
+
+  // .ImageData data = 2;
+  if (this->has_data()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        2, _Internal::data(this), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ReconstructionUploadImageBatchRequest)
+  return target;
+}
+
+size_t ReconstructionUploadImageBatchRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ReconstructionUploadImageBatchRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .ImageData data = 2;
+  if (this->has_data()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *data_);
+  }
+
+  // int32 idx = 1;
+  if (this->idx() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_idx());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReconstructionUploadImageBatchRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ReconstructionUploadImageBatchRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ReconstructionUploadImageBatchRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReconstructionUploadImageBatchRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ReconstructionUploadImageBatchRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ReconstructionUploadImageBatchRequest)
+    MergeFrom(*source);
+  }
+}
+
+void ReconstructionUploadImageBatchRequest::MergeFrom(const ReconstructionUploadImageBatchRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ReconstructionUploadImageBatchRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.has_data()) {
+    _internal_mutable_data()->::ImageData::MergeFrom(from._internal_data());
+  }
+  if (from.idx() != 0) {
+    _internal_set_idx(from._internal_idx());
+  }
+}
+
+void ReconstructionUploadImageBatchRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ReconstructionUploadImageBatchRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ReconstructionUploadImageBatchRequest::CopyFrom(const ReconstructionUploadImageBatchRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ReconstructionUploadImageBatchRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReconstructionUploadImageBatchRequest::IsInitialized() const {
+  return true;
+}
+
+void ReconstructionUploadImageBatchRequest::InternalSwap(ReconstructionUploadImageBatchRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(data_, other->data_);
+  swap(idx_, other->idx_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ReconstructionUploadImageBatchRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void ReconstructionUploadImageBatchResponse::InitAsDefaultInstance() {
+}
+class ReconstructionUploadImageBatchResponse::_Internal {
+ public:
+};
+
+ReconstructionUploadImageBatchResponse::ReconstructionUploadImageBatchResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ReconstructionUploadImageBatchResponse)
+}
+ReconstructionUploadImageBatchResponse::ReconstructionUploadImageBatchResponse(const ReconstructionUploadImageBatchResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  images_uploaded_ = from.images_uploaded_;
+  // @@protoc_insertion_point(copy_constructor:ReconstructionUploadImageBatchResponse)
+}
+
+void ReconstructionUploadImageBatchResponse::SharedCtor() {
+  images_uploaded_ = 0;
+}
+
+ReconstructionUploadImageBatchResponse::~ReconstructionUploadImageBatchResponse() {
+  // @@protoc_insertion_point(destructor:ReconstructionUploadImageBatchResponse)
+  SharedDtor();
+}
+
+void ReconstructionUploadImageBatchResponse::SharedDtor() {
+}
+
+void ReconstructionUploadImageBatchResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ReconstructionUploadImageBatchResponse& ReconstructionUploadImageBatchResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReconstructionUploadImageBatchResponse_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ReconstructionUploadImageBatchResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:ReconstructionUploadImageBatchResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  images_uploaded_ = 0;
+  _internal_metadata_.Clear();
+}
+
+const char* ReconstructionUploadImageBatchResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // int32 images_uploaded = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          images_uploaded_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ReconstructionUploadImageBatchResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ReconstructionUploadImageBatchResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 images_uploaded = 1;
+  if (this->images_uploaded() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_images_uploaded(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ReconstructionUploadImageBatchResponse)
+  return target;
+}
+
+size_t ReconstructionUploadImageBatchResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ReconstructionUploadImageBatchResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 images_uploaded = 1;
+  if (this->images_uploaded() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_images_uploaded());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReconstructionUploadImageBatchResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ReconstructionUploadImageBatchResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ReconstructionUploadImageBatchResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReconstructionUploadImageBatchResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ReconstructionUploadImageBatchResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ReconstructionUploadImageBatchResponse)
+    MergeFrom(*source);
+  }
+}
+
+void ReconstructionUploadImageBatchResponse::MergeFrom(const ReconstructionUploadImageBatchResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ReconstructionUploadImageBatchResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.images_uploaded() != 0) {
+    _internal_set_images_uploaded(from._internal_images_uploaded());
+  }
+}
+
+void ReconstructionUploadImageBatchResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ReconstructionUploadImageBatchResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ReconstructionUploadImageBatchResponse::CopyFrom(const ReconstructionUploadImageBatchResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ReconstructionUploadImageBatchResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReconstructionUploadImageBatchResponse::IsInitialized() const {
+  return true;
+}
+
+void ReconstructionUploadImageBatchResponse::InternalSwap(ReconstructionUploadImageBatchResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(images_uploaded_, other->images_uploaded_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ReconstructionUploadImageBatchResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::ImageMetaData* Arena::CreateMaybeMessage< ::ImageMetaData >(Arena* arena) {
@@ -7989,11 +9409,11 @@ template<> PROTOBUF_NOINLINE ::OBJData* Arena::CreateMaybeMessage< ::OBJData >(A
 template<> PROTOBUF_NOINLINE ::ReconstructionData* Arena::CreateMaybeMessage< ::ReconstructionData >(Arena* arena) {
   return Arena::CreateInternal< ::ReconstructionData >(arena);
 }
-template<> PROTOBUF_NOINLINE ::ImageUploadResponse* Arena::CreateMaybeMessage< ::ImageUploadResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::ImageUploadResponse >(arena);
+template<> PROTOBUF_NOINLINE ::StoreImageResponse* Arena::CreateMaybeMessage< ::StoreImageResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::StoreImageResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::UploadImageRequest* Arena::CreateMaybeMessage< ::UploadImageRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::UploadImageRequest >(arena);
+template<> PROTOBUF_NOINLINE ::StoreImageRequest* Arena::CreateMaybeMessage< ::StoreImageRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::StoreImageRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::NewReconstructionRequest* Arena::CreateMaybeMessage< ::NewReconstructionRequest >(Arena* arena) {
   return Arena::CreateInternal< ::NewReconstructionRequest >(arena);
@@ -8043,17 +9463,35 @@ template<> PROTOBUF_NOINLINE ::StopSessionRequest* Arena::CreateMaybeMessage< ::
 template<> PROTOBUF_NOINLINE ::StopSessionResponse* Arena::CreateMaybeMessage< ::StopSessionResponse >(Arena* arena) {
   return Arena::CreateInternal< ::StopSessionResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::SessionUploadImageRequest* Arena::CreateMaybeMessage< ::SessionUploadImageRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::SessionUploadImageRequest >(arena);
+template<> PROTOBUF_NOINLINE ::SessionAddImageRequest* Arena::CreateMaybeMessage< ::SessionAddImageRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::SessionAddImageRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::SessionUploadImageResponse* Arena::CreateMaybeMessage< ::SessionUploadImageResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::SessionUploadImageResponse >(arena);
+template<> PROTOBUF_NOINLINE ::SessionAddImageResponse* Arena::CreateMaybeMessage< ::SessionAddImageResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::SessionAddImageResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::GetSparseRequest* Arena::CreateMaybeMessage< ::GetSparseRequest >(Arena* arena) {
   return Arena::CreateInternal< ::GetSparseRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::GetSparseResponse* Arena::CreateMaybeMessage< ::GetSparseResponse >(Arena* arena) {
   return Arena::CreateInternal< ::GetSparseResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::SetReconstructionConfigRequest* Arena::CreateMaybeMessage< ::SetReconstructionConfigRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::SetReconstructionConfigRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::SetReconstructionConfigResponse* Arena::CreateMaybeMessage< ::SetReconstructionConfigResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::SetReconstructionConfigResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::GetReconstructionConfigRequest* Arena::CreateMaybeMessage< ::GetReconstructionConfigRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::GetReconstructionConfigRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::GetReconstructionConfigResponse* Arena::CreateMaybeMessage< ::GetReconstructionConfigResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::GetReconstructionConfigResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ReconstructionUploadImageBatchRequest* Arena::CreateMaybeMessage< ::ReconstructionUploadImageBatchRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::ReconstructionUploadImageBatchRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ReconstructionUploadImageBatchResponse* Arena::CreateMaybeMessage< ::ReconstructionUploadImageBatchResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::ReconstructionUploadImageBatchResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

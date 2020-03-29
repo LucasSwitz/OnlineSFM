@@ -3,17 +3,17 @@ project(ReconstructionServer CXX)
 set(CMAKE_BUILD_TYPE DEBUG)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)  
 include_directories(common/proto/gen/cpp 
-                    src 
-                    /home/gumbo00/OnlineSFM/depends/openMVG/src 
-                    depends/CTPL 
+                    src
+                    /usr/local/include/openMVG_dependencies
                     /usr/local/include/mongocxx/v_noabi
                     /usr/local/include/libmongoc-1.0
+                    /usr/local/include/openMVG
                     /usr/local/include/bsoncxx/v_noabi
                     /usr/local/include/libbson-1.0)
 find_package(Protobuf REQUIRED)
 find_package(Boost COMPONENTS filesystem REQUIRED)
 find_package(glog REQUIRED)
-find_package(gRPC CONFIG REQUIRED)
+find_package(gRPC REQUIRED)
 find_package(OpenMVG REQUIRED)
 file(GLOB SERVER_SOURCES
     src/server/*.cpp

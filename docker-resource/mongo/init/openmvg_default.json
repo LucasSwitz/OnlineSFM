@@ -1,0 +1,17 @@
+{
+    "configuration":"openmvg",
+    "brute_force": false,
+    "feature_preset": "",
+    "num_threads" : 0,
+    "intrinsic_refinement_options": "ADJUST_ALL",
+    "user_camera_model" : 3,
+    "use_motion_priors" : false,
+    "triangulation_method" : 3,
+    "max_reprojection_error" : 4.0,
+    "ui_max_cache_size" : 0,
+    "geometric_model": "f",
+    "dist_ratio": 0.8,
+    "nearest_matching_method" : "AUTO",
+    "guided_matching" : false,
+    "max_iterations": 2048
+}

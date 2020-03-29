@@ -63,6 +63,8 @@ class Reconstruction {
                        CameraIntrinsicsStorage* intrinsics_storages,
                        SFMBacklogCounter* session_backlog);
         ~Reconstruction();
+        void ComputeFeatures(const std::set<std::string>& images);
+        void ComputeMatches(const std::set<std::string>& images);
         void AddImage(const std::string& image_id);
         std::string StoreImage(ImageData& image);
         bool Reconstruct();

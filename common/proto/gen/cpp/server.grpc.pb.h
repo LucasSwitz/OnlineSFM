@@ -41,14 +41,14 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HandshakeResponse>> PrepareAsyncHandshake(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::HandshakeResponse>>(PrepareAsyncHandshakeRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientWriterInterface< ::UploadImageRequest>> UploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response) {
-      return std::unique_ptr< ::grpc::ClientWriterInterface< ::UploadImageRequest>>(UploadImageRaw(context, response));
+    std::unique_ptr< ::grpc::ClientWriterInterface< ::StoreImageRequest>> StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response) {
+      return std::unique_ptr< ::grpc::ClientWriterInterface< ::StoreImageRequest>>(StoreImageRaw(context, response));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::UploadImageRequest>> AsyncUploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::UploadImageRequest>>(AsyncUploadImageRaw(context, response, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::StoreImageRequest>> AsyncStoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::StoreImageRequest>>(AsyncStoreImageRaw(context, response, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::UploadImageRequest>> PrepareAsyncUploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::UploadImageRequest>>(PrepareAsyncUploadImageRaw(context, response, cq));
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::StoreImageRequest>> PrepareAsyncStoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::StoreImageRequest>>(PrepareAsyncStoreImageRaw(context, response, cq));
     }
     virtual ::grpc::Status Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::ReconstructResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ReconstructResponse>> AsyncReconstruct(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) {
@@ -103,14 +103,37 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::StopSessionResponse>> PrepareAsyncStopSession(::grpc::ClientContext* context, const ::StopSessionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::StopSessionResponse>>(PrepareAsyncStopSessionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientWriterInterface< ::SessionUploadImageRequest>> SessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response) {
-      return std::unique_ptr< ::grpc::ClientWriterInterface< ::SessionUploadImageRequest>>(SessionUploadImageRaw(context, response));
+    std::unique_ptr< ::grpc::ClientWriterInterface< ::SessionAddImageRequest>> SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response) {
+      return std::unique_ptr< ::grpc::ClientWriterInterface< ::SessionAddImageRequest>>(SessionAddImageRaw(context, response));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionUploadImageRequest>> AsyncSessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionUploadImageRequest>>(AsyncSessionUploadImageRaw(context, response, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>> AsyncSessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>>(AsyncSessionAddImageRaw(context, response, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionUploadImageRequest>> PrepareAsyncSessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionUploadImageRequest>>(PrepareAsyncSessionUploadImageRaw(context, response, cq));
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>> PrepareAsyncSessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>>(PrepareAsyncSessionAddImageRaw(context, response, cq));
+    }
+    virtual ::grpc::Status SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::SetReconstructionConfigResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>> AsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>>(AsyncSetReconstructionConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>> PrepareAsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>>(PrepareAsyncSetReconstructionConfigRaw(context, request, cq));
+    }
+    virtual ::grpc::Status GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::GetReconstructionConfigResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>> AsyncGetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>>(AsyncGetReconstructionConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>> PrepareAsyncGetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>>(PrepareAsyncGetReconstructionConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientWriterInterface< ::ReconstructionUploadImageBatchRequest>> ReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response) {
+      return std::unique_ptr< ::grpc::ClientWriterInterface< ::ReconstructionUploadImageBatchRequest>>(ReconstructionUploadImageBatchRaw(context, response));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>> AsyncReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>>(AsyncReconstructionUploadImageBatchRaw(context, response, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>> PrepareAsyncReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>>(PrepareAsyncReconstructionUploadImageBatchRaw(context, response, cq));
     }
     class experimental_async_interface {
      public:
@@ -128,9 +151,9 @@ class ReconstructionService final {
       virtual void Handshake(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::HandshakeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void UploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::ClientWriteReactor< ::UploadImageRequest>* reactor) = 0;
+      virtual void StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::ClientWriteReactor< ::StoreImageRequest>* reactor) = 0;
       #else
-      virtual void UploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::experimental::ClientWriteReactor< ::UploadImageRequest>* reactor) = 0;
+      virtual void StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::StoreImageRequest>* reactor) = 0;
       #endif
       virtual void Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest* request, ::ReconstructResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Reconstruct(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ReconstructResponse* response, std::function<void(::grpc::Status)>) = 0;
@@ -203,9 +226,38 @@ class ReconstructionService final {
       virtual void StopSession(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::StopSessionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void SessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::ClientWriteReactor< ::SessionUploadImageRequest>* reactor) = 0;
+      virtual void SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::ClientWriteReactor< ::SessionAddImageRequest>* reactor) = 0;
       #else
-      virtual void SessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::SessionUploadImageRequest>* reactor) = 0;
+      virtual void SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::SessionAddImageRequest>* reactor) = 0;
+      #endif
+      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::ClientWriteReactor< ::ReconstructionUploadImageBatchRequest>* reactor) = 0;
+      #else
+      virtual void ReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::experimental::ClientWriteReactor< ::ReconstructionUploadImageBatchRequest>* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -218,9 +270,9 @@ class ReconstructionService final {
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::HandshakeResponse>* AsyncHandshakeRaw(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::HandshakeResponse>* PrepareAsyncHandshakeRaw(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientWriterInterface< ::UploadImageRequest>* UploadImageRaw(::grpc::ClientContext* context, ::ImageUploadResponse* response) = 0;
-    virtual ::grpc::ClientAsyncWriterInterface< ::UploadImageRequest>* AsyncUploadImageRaw(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncWriterInterface< ::UploadImageRequest>* PrepareAsyncUploadImageRaw(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientWriterInterface< ::StoreImageRequest>* StoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::StoreImageRequest>* AsyncStoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::StoreImageRequest>* PrepareAsyncStoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ReconstructResponse>* AsyncReconstructRaw(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ReconstructResponse>* PrepareAsyncReconstructRaw(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientReaderInterface< ::GetOBJResponse>* GetOBJRaw(::grpc::ClientContext* context, const ::GetOBJRequest& request) = 0;
@@ -237,9 +289,16 @@ class ReconstructionService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::StartSessionResponse>* PrepareAsyncStartSessionRaw(::grpc::ClientContext* context, const ::StartSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::StopSessionResponse>* AsyncStopSessionRaw(::grpc::ClientContext* context, const ::StopSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::StopSessionResponse>* PrepareAsyncStopSessionRaw(::grpc::ClientContext* context, const ::StopSessionRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientWriterInterface< ::SessionUploadImageRequest>* SessionUploadImageRaw(::grpc::ClientContext* context, ::SessionUploadImageResponse* response) = 0;
-    virtual ::grpc::ClientAsyncWriterInterface< ::SessionUploadImageRequest>* AsyncSessionUploadImageRaw(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
-    virtual ::grpc::ClientAsyncWriterInterface< ::SessionUploadImageRequest>* PrepareAsyncSessionUploadImageRaw(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientWriterInterface< ::SessionAddImageRequest>* SessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>* AsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>* PrepareAsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>* AsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>* PrepareAsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>* AsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>* PrepareAsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientWriterInterface< ::ReconstructionUploadImageBatchRequest>* ReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>* AsyncReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>* PrepareAsyncReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -251,14 +310,14 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HandshakeResponse>> PrepareAsyncHandshake(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::HandshakeResponse>>(PrepareAsyncHandshakeRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientWriter< ::UploadImageRequest>> UploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response) {
-      return std::unique_ptr< ::grpc::ClientWriter< ::UploadImageRequest>>(UploadImageRaw(context, response));
+    std::unique_ptr< ::grpc::ClientWriter< ::StoreImageRequest>> StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response) {
+      return std::unique_ptr< ::grpc::ClientWriter< ::StoreImageRequest>>(StoreImageRaw(context, response));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriter< ::UploadImageRequest>> AsyncUploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::UploadImageRequest>>(AsyncUploadImageRaw(context, response, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::StoreImageRequest>> AsyncStoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::StoreImageRequest>>(AsyncStoreImageRaw(context, response, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriter< ::UploadImageRequest>> PrepareAsyncUploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::UploadImageRequest>>(PrepareAsyncUploadImageRaw(context, response, cq));
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::StoreImageRequest>> PrepareAsyncStoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::StoreImageRequest>>(PrepareAsyncStoreImageRaw(context, response, cq));
     }
     ::grpc::Status Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::ReconstructResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ReconstructResponse>> AsyncReconstruct(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) {
@@ -313,14 +372,37 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::StopSessionResponse>> PrepareAsyncStopSession(::grpc::ClientContext* context, const ::StopSessionRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::StopSessionResponse>>(PrepareAsyncStopSessionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientWriter< ::SessionUploadImageRequest>> SessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response) {
-      return std::unique_ptr< ::grpc::ClientWriter< ::SessionUploadImageRequest>>(SessionUploadImageRaw(context, response));
+    std::unique_ptr< ::grpc::ClientWriter< ::SessionAddImageRequest>> SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response) {
+      return std::unique_ptr< ::grpc::ClientWriter< ::SessionAddImageRequest>>(SessionAddImageRaw(context, response));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionUploadImageRequest>> AsyncSessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionUploadImageRequest>>(AsyncSessionUploadImageRaw(context, response, cq, tag));
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>> AsyncSessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>>(AsyncSessionAddImageRaw(context, response, cq, tag));
     }
-    std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionUploadImageRequest>> PrepareAsyncSessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionUploadImageRequest>>(PrepareAsyncSessionUploadImageRaw(context, response, cq));
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>> PrepareAsyncSessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>>(PrepareAsyncSessionAddImageRaw(context, response, cq));
+    }
+    ::grpc::Status SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::SetReconstructionConfigResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>> AsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>>(AsyncSetReconstructionConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>> PrepareAsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>>(PrepareAsyncSetReconstructionConfigRaw(context, request, cq));
+    }
+    ::grpc::Status GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::GetReconstructionConfigResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>> AsyncGetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>>(AsyncGetReconstructionConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>> PrepareAsyncGetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>>(PrepareAsyncGetReconstructionConfigRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientWriter< ::ReconstructionUploadImageBatchRequest>> ReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response) {
+      return std::unique_ptr< ::grpc::ClientWriter< ::ReconstructionUploadImageBatchRequest>>(ReconstructionUploadImageBatchRaw(context, response));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>> AsyncReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>>(AsyncReconstructionUploadImageBatchRaw(context, response, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>> PrepareAsyncReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>>(PrepareAsyncReconstructionUploadImageBatchRaw(context, response, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -338,9 +420,9 @@ class ReconstructionService final {
       void Handshake(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::HandshakeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void UploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::ClientWriteReactor< ::UploadImageRequest>* reactor) override;
+      void StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::ClientWriteReactor< ::StoreImageRequest>* reactor) override;
       #else
-      void UploadImage(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::experimental::ClientWriteReactor< ::UploadImageRequest>* reactor) override;
+      void StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::StoreImageRequest>* reactor) override;
       #endif
       void Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest* request, ::ReconstructResponse* response, std::function<void(::grpc::Status)>) override;
       void Reconstruct(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ReconstructResponse* response, std::function<void(::grpc::Status)>) override;
@@ -413,9 +495,38 @@ class ReconstructionService final {
       void StopSession(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::StopSessionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void SessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::ClientWriteReactor< ::SessionUploadImageRequest>* reactor) override;
+      void SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::ClientWriteReactor< ::SessionAddImageRequest>* reactor) override;
       #else
-      void SessionUploadImage(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::SessionUploadImageRequest>* reactor) override;
+      void SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::SessionAddImageRequest>* reactor) override;
+      #endif
+      void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
+      void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::ClientWriteReactor< ::ReconstructionUploadImageBatchRequest>* reactor) override;
+      #else
+      void ReconstructionUploadImageBatch(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::experimental::ClientWriteReactor< ::ReconstructionUploadImageBatchRequest>* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -430,9 +541,9 @@ class ReconstructionService final {
     class experimental_async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::HandshakeResponse>* AsyncHandshakeRaw(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::HandshakeResponse>* PrepareAsyncHandshakeRaw(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientWriter< ::UploadImageRequest>* UploadImageRaw(::grpc::ClientContext* context, ::ImageUploadResponse* response) override;
-    ::grpc::ClientAsyncWriter< ::UploadImageRequest>* AsyncUploadImageRaw(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
-    ::grpc::ClientAsyncWriter< ::UploadImageRequest>* PrepareAsyncUploadImageRaw(::grpc::ClientContext* context, ::ImageUploadResponse* response, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientWriter< ::StoreImageRequest>* StoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response) override;
+    ::grpc::ClientAsyncWriter< ::StoreImageRequest>* AsyncStoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncWriter< ::StoreImageRequest>* PrepareAsyncStoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ReconstructResponse>* AsyncReconstructRaw(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ReconstructResponse>* PrepareAsyncReconstructRaw(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientReader< ::GetOBJResponse>* GetOBJRaw(::grpc::ClientContext* context, const ::GetOBJRequest& request) override;
@@ -449,11 +560,18 @@ class ReconstructionService final {
     ::grpc::ClientAsyncResponseReader< ::StartSessionResponse>* PrepareAsyncStartSessionRaw(::grpc::ClientContext* context, const ::StartSessionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::StopSessionResponse>* AsyncStopSessionRaw(::grpc::ClientContext* context, const ::StopSessionRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::StopSessionResponse>* PrepareAsyncStopSessionRaw(::grpc::ClientContext* context, const ::StopSessionRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientWriter< ::SessionUploadImageRequest>* SessionUploadImageRaw(::grpc::ClientContext* context, ::SessionUploadImageResponse* response) override;
-    ::grpc::ClientAsyncWriter< ::SessionUploadImageRequest>* AsyncSessionUploadImageRaw(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
-    ::grpc::ClientAsyncWriter< ::SessionUploadImageRequest>* PrepareAsyncSessionUploadImageRaw(::grpc::ClientContext* context, ::SessionUploadImageResponse* response, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientWriter< ::SessionAddImageRequest>* SessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response) override;
+    ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>* AsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>* PrepareAsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>* AsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>* PrepareAsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>* AsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>* PrepareAsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientWriter< ::ReconstructionUploadImageBatchRequest>* ReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response) override;
+    ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>* AsyncReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>* PrepareAsyncReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Handshake_;
-    const ::grpc::internal::RpcMethod rpcmethod_UploadImage_;
+    const ::grpc::internal::RpcMethod rpcmethod_StoreImage_;
     const ::grpc::internal::RpcMethod rpcmethod_Reconstruct_;
     const ::grpc::internal::RpcMethod rpcmethod_GetOBJ_;
     const ::grpc::internal::RpcMethod rpcmethod_GetSparse_;
@@ -461,7 +579,10 @@ class ReconstructionService final {
     const ::grpc::internal::RpcMethod rpcmethod_DeleteReconstruction_;
     const ::grpc::internal::RpcMethod rpcmethod_StartSession_;
     const ::grpc::internal::RpcMethod rpcmethod_StopSession_;
-    const ::grpc::internal::RpcMethod rpcmethod_SessionUploadImage_;
+    const ::grpc::internal::RpcMethod rpcmethod_SessionAddImage_;
+    const ::grpc::internal::RpcMethod rpcmethod_SetReconstructionConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetReconstructionConfig_;
+    const ::grpc::internal::RpcMethod rpcmethod_ReconstructionUploadImageBatch_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -470,7 +591,7 @@ class ReconstructionService final {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Handshake(::grpc::ServerContext* context, const ::HandhsakeRequest* request, ::HandshakeResponse* response);
-    virtual ::grpc::Status UploadImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::UploadImageRequest>* reader, ::ImageUploadResponse* response);
+    virtual ::grpc::Status StoreImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::StoreImageRequest>* reader, ::StoreImageResponse* response);
     virtual ::grpc::Status Reconstruct(::grpc::ServerContext* context, const ::ReconstructRequest* request, ::ReconstructResponse* response);
     virtual ::grpc::Status GetOBJ(::grpc::ServerContext* context, const ::GetOBJRequest* request, ::grpc::ServerWriter< ::GetOBJResponse>* writer);
     virtual ::grpc::Status GetSparse(::grpc::ServerContext* context, const ::GetSparseRequest* request, ::grpc::ServerWriter< ::GetSparseResponse>* writer);
@@ -478,7 +599,10 @@ class ReconstructionService final {
     virtual ::grpc::Status DeleteReconstruction(::grpc::ServerContext* context, const ::DeleteReconstructionRequest* request, ::DeleteReconstructionResponse* response);
     virtual ::grpc::Status StartSession(::grpc::ServerContext* context, const ::StartSessionRequest* request, ::StartSessionResponse* response);
     virtual ::grpc::Status StopSession(::grpc::ServerContext* context, const ::StopSessionRequest* request, ::StopSessionResponse* response);
-    virtual ::grpc::Status SessionUploadImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::SessionUploadImageRequest>* reader, ::SessionUploadImageResponse* response);
+    virtual ::grpc::Status SessionAddImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::SessionAddImageRequest>* reader, ::SessionAddImageResponse* response);
+    virtual ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response);
+    virtual ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response);
+    virtual ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* reader, ::ReconstructionUploadImageBatchResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Handshake : public BaseClass {
@@ -501,22 +625,22 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_UploadImage : public BaseClass {
+  class WithAsyncMethod_StoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_UploadImage() {
+    WithAsyncMethod_StoreImage() {
       ::grpc::Service::MarkMethodAsync(1);
     }
-    ~WithAsyncMethod_UploadImage() override {
+    ~WithAsyncMethod_StoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::UploadImageRequest>* /*reader*/, ::ImageUploadResponse* /*response*/) override {
+    ::grpc::Status StoreImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::StoreImageRequest>* /*reader*/, ::StoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestUploadImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::ImageUploadResponse, ::UploadImageRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestStoreImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::StoreImageResponse, ::StoreImageRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncClientStreaming(1, context, reader, new_call_cq, notification_cq, tag);
     }
   };
@@ -661,26 +785,86 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_SessionUploadImage : public BaseClass {
+  class WithAsyncMethod_SessionAddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_SessionUploadImage() {
+    WithAsyncMethod_SessionAddImage() {
       ::grpc::Service::MarkMethodAsync(9);
     }
-    ~WithAsyncMethod_SessionUploadImage() override {
+    ~WithAsyncMethod_SessionAddImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SessionUploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionUploadImageRequest>* /*reader*/, ::SessionUploadImageResponse* /*response*/) override {
+    ::grpc::Status SessionAddImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionAddImageRequest>* /*reader*/, ::SessionAddImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSessionUploadImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::SessionUploadImageResponse, ::SessionUploadImageRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestSessionAddImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::SessionAddImageResponse, ::SessionAddImageRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncClientStreaming(9, context, reader, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Handshake<WithAsyncMethod_UploadImage<WithAsyncMethod_Reconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionUploadImage<Service > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_SetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SetReconstructionConfig() {
+      ::grpc::Service::MarkMethodAsync(10);
+    }
+    ~WithAsyncMethod_SetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetReconstructionConfig(::grpc::ServerContext* context, ::SetReconstructionConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::SetReconstructionConfigResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_GetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetReconstructionConfig() {
+      ::grpc::Service::MarkMethodAsync(11);
+    }
+    ~WithAsyncMethod_GetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetReconstructionConfig(::grpc::ServerContext* context, ::GetReconstructionConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::GetReconstructionConfigResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ReconstructionUploadImageBatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ReconstructionUploadImageBatch() {
+      ::grpc::Service::MarkMethodAsync(12);
+    }
+    ~WithAsyncMethod_ReconstructionUploadImageBatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* /*reader*/, ::ReconstructionUploadImageBatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::ReconstructionUploadImageBatchResponse, ::ReconstructionUploadImageBatchRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncClientStreaming(12, context, reader, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Handshake<WithAsyncMethod_StoreImage<WithAsyncMethod_Reconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_SetReconstructionConfig<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_ReconstructionUploadImageBatch<Service > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Handshake : public BaseClass {
    private:
@@ -729,40 +913,40 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_UploadImage : public BaseClass {
+  class ExperimentalWithCallbackMethod_StoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_UploadImage() {
+    ExperimentalWithCallbackMethod_StoreImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(1,
-          new ::grpc_impl::internal::CallbackClientStreamingHandler< ::UploadImageRequest, ::ImageUploadResponse>(
+          new ::grpc_impl::internal::CallbackClientStreamingHandler< ::StoreImageRequest, ::StoreImageResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, ::ImageUploadResponse* response) { return this->UploadImage(context, response); }));
+                     context, ::StoreImageResponse* response) { return this->StoreImage(context, response); }));
     }
-    ~ExperimentalWithCallbackMethod_UploadImage() override {
+    ~ExperimentalWithCallbackMethod_StoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::UploadImageRequest>* /*reader*/, ::ImageUploadResponse* /*response*/) override {
+    ::grpc::Status StoreImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::StoreImageRequest>* /*reader*/, ::StoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerReadReactor< ::UploadImageRequest>* UploadImage(
-      ::grpc::CallbackServerContext* /*context*/, ::ImageUploadResponse* /*response*/)
+    virtual ::grpc::ServerReadReactor< ::StoreImageRequest>* StoreImage(
+      ::grpc::CallbackServerContext* /*context*/, ::StoreImageResponse* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerReadReactor< ::UploadImageRequest>* UploadImage(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::ImageUploadResponse* /*response*/)
+    virtual ::grpc::experimental::ServerReadReactor< ::StoreImageRequest>* StoreImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, ::StoreImageResponse* /*response*/)
     #endif
       { return nullptr; }
   };
@@ -1078,48 +1262,180 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SessionUploadImage : public BaseClass {
+  class ExperimentalWithCallbackMethod_SessionAddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_SessionUploadImage() {
+    ExperimentalWithCallbackMethod_SessionAddImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(9,
-          new ::grpc_impl::internal::CallbackClientStreamingHandler< ::SessionUploadImageRequest, ::SessionUploadImageResponse>(
+          new ::grpc_impl::internal::CallbackClientStreamingHandler< ::SessionAddImageRequest, ::SessionAddImageResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, ::SessionUploadImageResponse* response) { return this->SessionUploadImage(context, response); }));
+                     context, ::SessionAddImageResponse* response) { return this->SessionAddImage(context, response); }));
     }
-    ~ExperimentalWithCallbackMethod_SessionUploadImage() override {
+    ~ExperimentalWithCallbackMethod_SessionAddImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SessionUploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionUploadImageRequest>* /*reader*/, ::SessionUploadImageResponse* /*response*/) override {
+    ::grpc::Status SessionAddImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionAddImageRequest>* /*reader*/, ::SessionAddImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerReadReactor< ::SessionUploadImageRequest>* SessionUploadImage(
-      ::grpc::CallbackServerContext* /*context*/, ::SessionUploadImageResponse* /*response*/)
+    virtual ::grpc::ServerReadReactor< ::SessionAddImageRequest>* SessionAddImage(
+      ::grpc::CallbackServerContext* /*context*/, ::SessionAddImageResponse* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerReadReactor< ::SessionUploadImageRequest>* SessionUploadImage(
-      ::grpc::experimental::CallbackServerContext* /*context*/, ::SessionUploadImageResponse* /*response*/)
+    virtual ::grpc::experimental::ServerReadReactor< ::SessionAddImageRequest>* SessionAddImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, ::SessionAddImageResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_SetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_SetReconstructionConfig() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(10,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response) { return this->SetReconstructionConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_SetReconstructionConfig(
+        ::grpc::experimental::MessageAllocator< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_SetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetReconstructionConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetReconstructionConfig(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_GetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_GetReconstructionConfig() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(11,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response) { return this->GetReconstructionConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_GetReconstructionConfig(
+        ::grpc::experimental::MessageAllocator< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_GetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* GetReconstructionConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* GetReconstructionConfig(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(12,
+          new ::grpc_impl::internal::CallbackClientStreamingHandler< ::ReconstructionUploadImageBatchRequest, ::ReconstructionUploadImageBatchResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, ::ReconstructionUploadImageBatchResponse* response) { return this->ReconstructionUploadImageBatch(context, response); }));
+    }
+    ~ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* /*reader*/, ::ReconstructionUploadImageBatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerReadReactor< ::ReconstructionUploadImageBatchRequest>* ReconstructionUploadImageBatch(
+      ::grpc::CallbackServerContext* /*context*/, ::ReconstructionUploadImageBatchResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerReadReactor< ::ReconstructionUploadImageBatchRequest>* ReconstructionUploadImageBatch(
+      ::grpc::experimental::CallbackServerContext* /*context*/, ::ReconstructionUploadImageBatchResponse* /*response*/)
     #endif
       { return nullptr; }
   };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_UploadImage<ExperimentalWithCallbackMethod_Reconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionUploadImage<Service > > > > > > > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_Reconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<Service > > > > > > > > > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_UploadImage<ExperimentalWithCallbackMethod_Reconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionUploadImage<Service > > > > > > > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_Reconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<Service > > > > > > > > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Handshake : public BaseClass {
    private:
@@ -1138,18 +1454,18 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_UploadImage : public BaseClass {
+  class WithGenericMethod_StoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_UploadImage() {
+    WithGenericMethod_StoreImage() {
       ::grpc::Service::MarkMethodGeneric(1);
     }
-    ~WithGenericMethod_UploadImage() override {
+    ~WithGenericMethod_StoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::UploadImageRequest>* /*reader*/, ::ImageUploadResponse* /*response*/) override {
+    ::grpc::Status StoreImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::StoreImageRequest>* /*reader*/, ::StoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1274,18 +1590,69 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_SessionUploadImage : public BaseClass {
+  class WithGenericMethod_SessionAddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_SessionUploadImage() {
+    WithGenericMethod_SessionAddImage() {
       ::grpc::Service::MarkMethodGeneric(9);
     }
-    ~WithGenericMethod_SessionUploadImage() override {
+    ~WithGenericMethod_SessionAddImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SessionUploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionUploadImageRequest>* /*reader*/, ::SessionUploadImageResponse* /*response*/) override {
+    ::grpc::Status SessionAddImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionAddImageRequest>* /*reader*/, ::SessionAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SetReconstructionConfig() {
+      ::grpc::Service::MarkMethodGeneric(10);
+    }
+    ~WithGenericMethod_SetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetReconstructionConfig() {
+      ::grpc::Service::MarkMethodGeneric(11);
+    }
+    ~WithGenericMethod_GetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ReconstructionUploadImageBatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ReconstructionUploadImageBatch() {
+      ::grpc::Service::MarkMethodGeneric(12);
+    }
+    ~WithGenericMethod_ReconstructionUploadImageBatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* /*reader*/, ::ReconstructionUploadImageBatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1311,22 +1678,22 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithRawMethod_UploadImage : public BaseClass {
+  class WithRawMethod_StoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_UploadImage() {
+    WithRawMethod_StoreImage() {
       ::grpc::Service::MarkMethodRaw(1);
     }
-    ~WithRawMethod_UploadImage() override {
+    ~WithRawMethod_StoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::UploadImageRequest>* /*reader*/, ::ImageUploadResponse* /*response*/) override {
+    ::grpc::Status StoreImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::StoreImageRequest>* /*reader*/, ::StoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestUploadImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestStoreImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncClientStreaming(1, context, reader, new_call_cq, notification_cq, tag);
     }
   };
@@ -1471,23 +1838,83 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithRawMethod_SessionUploadImage : public BaseClass {
+  class WithRawMethod_SessionAddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_SessionUploadImage() {
+    WithRawMethod_SessionAddImage() {
       ::grpc::Service::MarkMethodRaw(9);
     }
-    ~WithRawMethod_SessionUploadImage() override {
+    ~WithRawMethod_SessionAddImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SessionUploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionUploadImageRequest>* /*reader*/, ::SessionUploadImageResponse* /*response*/) override {
+    ::grpc::Status SessionAddImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionAddImageRequest>* /*reader*/, ::SessionAddImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestSessionUploadImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestSessionAddImage(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncClientStreaming(9, context, reader, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SetReconstructionConfig() {
+      ::grpc::Service::MarkMethodRaw(10);
+    }
+    ~WithRawMethod_SetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetReconstructionConfig() {
+      ::grpc::Service::MarkMethodRaw(11);
+    }
+    ~WithRawMethod_GetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ReconstructionUploadImageBatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ReconstructionUploadImageBatch() {
+      ::grpc::Service::MarkMethodRaw(12);
+    }
+    ~WithRawMethod_ReconstructionUploadImageBatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* /*reader*/, ::ReconstructionUploadImageBatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncClientStreaming(12, context, reader, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1529,11 +1956,11 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_UploadImage : public BaseClass {
+  class ExperimentalWithRawCallbackMethod_StoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_UploadImage() {
+    ExperimentalWithRawCallbackMethod_StoreImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
@@ -1547,21 +1974,21 @@ class ReconstructionService final {
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, ::grpc::ByteBuffer* response) { return this->UploadImage(context, response); }));
+                     context, ::grpc::ByteBuffer* response) { return this->StoreImage(context, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_UploadImage() override {
+    ~ExperimentalWithRawCallbackMethod_StoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::UploadImageRequest>* /*reader*/, ::ImageUploadResponse* /*response*/) override {
+    ::grpc::Status StoreImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::StoreImageRequest>* /*reader*/, ::StoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* UploadImage(
+    virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* StoreImage(
       ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* UploadImage(
+    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* StoreImage(
       ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
     #endif
       { return nullptr; }
@@ -1833,11 +2260,11 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SessionUploadImage : public BaseClass {
+  class ExperimentalWithRawCallbackMethod_SessionAddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_SessionUploadImage() {
+    ExperimentalWithRawCallbackMethod_SessionAddImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
@@ -1851,21 +2278,135 @@ class ReconstructionService final {
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, ::grpc::ByteBuffer* response) { return this->SessionUploadImage(context, response); }));
+                     context, ::grpc::ByteBuffer* response) { return this->SessionAddImage(context, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_SessionUploadImage() override {
+    ~ExperimentalWithRawCallbackMethod_SessionAddImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SessionUploadImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionUploadImageRequest>* /*reader*/, ::SessionUploadImageResponse* /*response*/) override {
+    ::grpc::Status SessionAddImage(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::SessionAddImageRequest>* /*reader*/, ::SessionAddImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* SessionUploadImage(
+    virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* SessionAddImage(
       ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* SessionUploadImage(
+    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* SessionAddImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_SetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_SetReconstructionConfig() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(10,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetReconstructionConfig(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_SetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetReconstructionConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetReconstructionConfig(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_GetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_GetReconstructionConfig() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(11,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetReconstructionConfig(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_GetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* GetReconstructionConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* GetReconstructionConfig(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_ReconstructionUploadImageBatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_ReconstructionUploadImageBatch() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(12,
+          new ::grpc_impl::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, ::grpc::ByteBuffer* response) { return this->ReconstructionUploadImageBatch(context, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_ReconstructionUploadImageBatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* /*context*/, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* /*reader*/, ::ReconstructionUploadImageBatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerReadReactor< ::grpc::ByteBuffer>* ReconstructionUploadImageBatch(
+      ::grpc::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerReadReactor< ::grpc::ByteBuffer>* ReconstructionUploadImageBatch(
       ::grpc::experimental::CallbackServerContext* /*context*/, ::grpc::ByteBuffer* /*response*/)
     #endif
       { return nullptr; }
@@ -1990,7 +2531,47 @@ class ReconstructionService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedStopSession(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::StopSessionRequest,::StopSessionResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_Reconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<Service > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SetReconstructionConfig() {
+      ::grpc::Service::MarkMethodStreamed(10,
+        new ::grpc::internal::StreamedUnaryHandler< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>(std::bind(&WithStreamedUnaryMethod_SetReconstructionConfig<BaseClass>::StreamedSetReconstructionConfig, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_SetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::SetReconstructionConfigRequest,::SetReconstructionConfigResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetReconstructionConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetReconstructionConfig() {
+      ::grpc::Service::MarkMethodStreamed(11,
+        new ::grpc::internal::StreamedUnaryHandler< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>(std::bind(&WithStreamedUnaryMethod_GetReconstructionConfig<BaseClass>::StreamedGetReconstructionConfig, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_GetReconstructionConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::GetReconstructionConfigRequest* /*request*/, ::GetReconstructionConfigResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GetReconstructionConfigRequest,::GetReconstructionConfigResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_Reconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<Service > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_GetOBJ : public BaseClass {
    private:
@@ -2032,7 +2613,7 @@ class ReconstructionService final {
     virtual ::grpc::Status StreamedGetSparse(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::GetSparseRequest,::GetSparseResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<Service > > SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_Reconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<Service > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_Reconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<Service > > > > > > > > > > StreamedService;
 };
 
 

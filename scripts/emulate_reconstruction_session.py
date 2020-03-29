@@ -26,6 +26,7 @@ def do_upload(client, reconstruction_id, session_id, dataset_path):
         with open(image_path, "rb") as image:
             meta = ImageMetaData(reconstruction=reconstruction_id, format=os.path.splitext(image_path)[1][1:])
             image_bytes = image.read()
+            print(len(image_bytes))
             chunked = []
             for i in range(0, len(image_bytes), CHUNK_SIZE):
                 chunked.append(SessionUploadImageRequest(session_id= session_id, 
