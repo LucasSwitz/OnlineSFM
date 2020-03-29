@@ -47,7 +47,7 @@ struct TableStruct_server_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[35]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[37]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -93,6 +93,12 @@ extern ImageDataDefaultTypeInternal _ImageData_default_instance_;
 class ImageMetaData;
 class ImageMetaDataDefaultTypeInternal;
 extern ImageMetaDataDefaultTypeInternal _ImageMetaData_default_instance_;
+class MVSRequest;
+class MVSRequestDefaultTypeInternal;
+extern MVSRequestDefaultTypeInternal _MVSRequest_default_instance_;
+class MVSResponse;
+class MVSResponseDefaultTypeInternal;
+extern MVSResponseDefaultTypeInternal _MVSResponse_default_instance_;
 class NewReconstructionRequest;
 class NewReconstructionRequestDefaultTypeInternal;
 extern NewReconstructionRequestDefaultTypeInternal _NewReconstructionRequest_default_instance_;
@@ -105,12 +111,6 @@ extern OBJDataDefaultTypeInternal _OBJData_default_instance_;
 class OBJMetaData;
 class OBJMetaDataDefaultTypeInternal;
 extern OBJMetaDataDefaultTypeInternal _OBJMetaData_default_instance_;
-class ReconstructRequest;
-class ReconstructRequestDefaultTypeInternal;
-extern ReconstructRequestDefaultTypeInternal _ReconstructRequest_default_instance_;
-class ReconstructResponse;
-class ReconstructResponseDefaultTypeInternal;
-extern ReconstructResponseDefaultTypeInternal _ReconstructResponse_default_instance_;
 class ReconstructionData;
 class ReconstructionDataDefaultTypeInternal;
 extern ReconstructionDataDefaultTypeInternal _ReconstructionData_default_instance_;
@@ -141,6 +141,12 @@ extern SparsePointCloudDataDefaultTypeInternal _SparsePointCloudData_default_ins
 class SparsePointCloudMetaData;
 class SparsePointCloudMetaDataDefaultTypeInternal;
 extern SparsePointCloudMetaDataDefaultTypeInternal _SparsePointCloudMetaData_default_instance_;
+class SparseReconstructRequest;
+class SparseReconstructRequestDefaultTypeInternal;
+extern SparseReconstructRequestDefaultTypeInternal _SparseReconstructRequest_default_instance_;
+class SparseReconstructResponse;
+class SparseReconstructResponseDefaultTypeInternal;
+extern SparseReconstructResponseDefaultTypeInternal _SparseReconstructResponse_default_instance_;
 class StartSessionRequest;
 class StartSessionRequestDefaultTypeInternal;
 extern StartSessionRequestDefaultTypeInternal _StartSessionRequest_default_instance_;
@@ -173,12 +179,12 @@ template<> ::HandhsakeRequest* Arena::CreateMaybeMessage<::HandhsakeRequest>(Are
 template<> ::HandshakeResponse* Arena::CreateMaybeMessage<::HandshakeResponse>(Arena*);
 template<> ::ImageData* Arena::CreateMaybeMessage<::ImageData>(Arena*);
 template<> ::ImageMetaData* Arena::CreateMaybeMessage<::ImageMetaData>(Arena*);
+template<> ::MVSRequest* Arena::CreateMaybeMessage<::MVSRequest>(Arena*);
+template<> ::MVSResponse* Arena::CreateMaybeMessage<::MVSResponse>(Arena*);
 template<> ::NewReconstructionRequest* Arena::CreateMaybeMessage<::NewReconstructionRequest>(Arena*);
 template<> ::NewReconstructionResponse* Arena::CreateMaybeMessage<::NewReconstructionResponse>(Arena*);
 template<> ::OBJData* Arena::CreateMaybeMessage<::OBJData>(Arena*);
 template<> ::OBJMetaData* Arena::CreateMaybeMessage<::OBJMetaData>(Arena*);
-template<> ::ReconstructRequest* Arena::CreateMaybeMessage<::ReconstructRequest>(Arena*);
-template<> ::ReconstructResponse* Arena::CreateMaybeMessage<::ReconstructResponse>(Arena*);
 template<> ::ReconstructionData* Arena::CreateMaybeMessage<::ReconstructionData>(Arena*);
 template<> ::ReconstructionOBJ* Arena::CreateMaybeMessage<::ReconstructionOBJ>(Arena*);
 template<> ::ReconstructionUploadImageBatchRequest* Arena::CreateMaybeMessage<::ReconstructionUploadImageBatchRequest>(Arena*);
@@ -189,6 +195,8 @@ template<> ::SetReconstructionConfigRequest* Arena::CreateMaybeMessage<::SetReco
 template<> ::SetReconstructionConfigResponse* Arena::CreateMaybeMessage<::SetReconstructionConfigResponse>(Arena*);
 template<> ::SparsePointCloudData* Arena::CreateMaybeMessage<::SparsePointCloudData>(Arena*);
 template<> ::SparsePointCloudMetaData* Arena::CreateMaybeMessage<::SparsePointCloudMetaData>(Arena*);
+template<> ::SparseReconstructRequest* Arena::CreateMaybeMessage<::SparseReconstructRequest>(Arena*);
+template<> ::SparseReconstructResponse* Arena::CreateMaybeMessage<::SparseReconstructResponse>(Arena*);
 template<> ::StartSessionRequest* Arena::CreateMaybeMessage<::StartSessionRequest>(Arena*);
 template<> ::StartSessionResponse* Arena::CreateMaybeMessage<::StartSessionResponse>(Arena*);
 template<> ::StopSessionRequest* Arena::CreateMaybeMessage<::StopSessionRequest>(Arena*);
@@ -2111,23 +2119,23 @@ class NewReconstructionResponse :
 };
 // -------------------------------------------------------------------
 
-class ReconstructRequest :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ReconstructRequest) */ {
+class SparseReconstructRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SparseReconstructRequest) */ {
  public:
-  ReconstructRequest();
-  virtual ~ReconstructRequest();
+  SparseReconstructRequest();
+  virtual ~SparseReconstructRequest();
 
-  ReconstructRequest(const ReconstructRequest& from);
-  ReconstructRequest(ReconstructRequest&& from) noexcept
-    : ReconstructRequest() {
+  SparseReconstructRequest(const SparseReconstructRequest& from);
+  SparseReconstructRequest(SparseReconstructRequest&& from) noexcept
+    : SparseReconstructRequest() {
     *this = ::std::move(from);
   }
 
-  inline ReconstructRequest& operator=(const ReconstructRequest& from) {
+  inline SparseReconstructRequest& operator=(const SparseReconstructRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ReconstructRequest& operator=(ReconstructRequest&& from) noexcept {
+  inline SparseReconstructRequest& operator=(SparseReconstructRequest&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2145,37 +2153,37 @@ class ReconstructRequest :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const ReconstructRequest& default_instance();
+  static const SparseReconstructRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ReconstructRequest* internal_default_instance() {
-    return reinterpret_cast<const ReconstructRequest*>(
-               &_ReconstructRequest_default_instance_);
+  static inline const SparseReconstructRequest* internal_default_instance() {
+    return reinterpret_cast<const SparseReconstructRequest*>(
+               &_SparseReconstructRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     11;
 
-  friend void swap(ReconstructRequest& a, ReconstructRequest& b) {
+  friend void swap(SparseReconstructRequest& a, SparseReconstructRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReconstructRequest* other) {
+  inline void Swap(SparseReconstructRequest* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ReconstructRequest* New() const final {
-    return CreateMaybeMessage<ReconstructRequest>(nullptr);
+  inline SparseReconstructRequest* New() const final {
+    return CreateMaybeMessage<SparseReconstructRequest>(nullptr);
   }
 
-  ReconstructRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ReconstructRequest>(arena);
+  SparseReconstructRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SparseReconstructRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ReconstructRequest& from);
-  void MergeFrom(const ReconstructRequest& from);
+  void CopyFrom(const SparseReconstructRequest& from);
+  void MergeFrom(const SparseReconstructRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2189,10 +2197,10 @@ class ReconstructRequest :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ReconstructRequest* other);
+  void InternalSwap(SparseReconstructRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ReconstructRequest";
+    return "SparseReconstructRequest";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -2235,7 +2243,7 @@ class ReconstructRequest :
   std::string* _internal_mutable_reconstruction_id();
   public:
 
-  // @@protoc_insertion_point(class_scope:ReconstructRequest)
+  // @@protoc_insertion_point(class_scope:SparseReconstructRequest)
  private:
   class _Internal;
 
@@ -2526,23 +2534,23 @@ class GetOBJResponse :
 };
 // -------------------------------------------------------------------
 
-class ReconstructResponse :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ReconstructResponse) */ {
+class SparseReconstructResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SparseReconstructResponse) */ {
  public:
-  ReconstructResponse();
-  virtual ~ReconstructResponse();
+  SparseReconstructResponse();
+  virtual ~SparseReconstructResponse();
 
-  ReconstructResponse(const ReconstructResponse& from);
-  ReconstructResponse(ReconstructResponse&& from) noexcept
-    : ReconstructResponse() {
+  SparseReconstructResponse(const SparseReconstructResponse& from);
+  SparseReconstructResponse(SparseReconstructResponse&& from) noexcept
+    : SparseReconstructResponse() {
     *this = ::std::move(from);
   }
 
-  inline ReconstructResponse& operator=(const ReconstructResponse& from) {
+  inline SparseReconstructResponse& operator=(const SparseReconstructResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ReconstructResponse& operator=(ReconstructResponse&& from) noexcept {
+  inline SparseReconstructResponse& operator=(SparseReconstructResponse&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2560,37 +2568,37 @@ class ReconstructResponse :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const ReconstructResponse& default_instance();
+  static const SparseReconstructResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ReconstructResponse* internal_default_instance() {
-    return reinterpret_cast<const ReconstructResponse*>(
-               &_ReconstructResponse_default_instance_);
+  static inline const SparseReconstructResponse* internal_default_instance() {
+    return reinterpret_cast<const SparseReconstructResponse*>(
+               &_SparseReconstructResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     14;
 
-  friend void swap(ReconstructResponse& a, ReconstructResponse& b) {
+  friend void swap(SparseReconstructResponse& a, SparseReconstructResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(ReconstructResponse* other) {
+  inline void Swap(SparseReconstructResponse* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ReconstructResponse* New() const final {
-    return CreateMaybeMessage<ReconstructResponse>(nullptr);
+  inline SparseReconstructResponse* New() const final {
+    return CreateMaybeMessage<SparseReconstructResponse>(nullptr);
   }
 
-  ReconstructResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ReconstructResponse>(arena);
+  SparseReconstructResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SparseReconstructResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ReconstructResponse& from);
-  void MergeFrom(const ReconstructResponse& from);
+  void CopyFrom(const SparseReconstructResponse& from);
+  void MergeFrom(const SparseReconstructResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2604,10 +2612,10 @@ class ReconstructResponse :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ReconstructResponse* other);
+  void InternalSwap(SparseReconstructResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ReconstructResponse";
+    return "SparseReconstructResponse";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -2660,7 +2668,7 @@ class ReconstructResponse :
   void _internal_set_success(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ReconstructResponse)
+  // @@protoc_insertion_point(class_scope:SparseReconstructResponse)
  private:
   class _Internal;
 
@@ -5506,6 +5514,269 @@ class ReconstructionUploadImageBatchResponse :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
+// -------------------------------------------------------------------
+
+class MVSRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:MVSRequest) */ {
+ public:
+  MVSRequest();
+  virtual ~MVSRequest();
+
+  MVSRequest(const MVSRequest& from);
+  MVSRequest(MVSRequest&& from) noexcept
+    : MVSRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline MVSRequest& operator=(const MVSRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MVSRequest& operator=(MVSRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const MVSRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const MVSRequest* internal_default_instance() {
+    return reinterpret_cast<const MVSRequest*>(
+               &_MVSRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    35;
+
+  friend void swap(MVSRequest& a, MVSRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(MVSRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline MVSRequest* New() const final {
+    return CreateMaybeMessage<MVSRequest>(nullptr);
+  }
+
+  MVSRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<MVSRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const MVSRequest& from);
+  void MergeFrom(const MVSRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(MVSRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "MVSRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:MVSRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class MVSResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:MVSResponse) */ {
+ public:
+  MVSResponse();
+  virtual ~MVSResponse();
+
+  MVSResponse(const MVSResponse& from);
+  MVSResponse(MVSResponse&& from) noexcept
+    : MVSResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline MVSResponse& operator=(const MVSResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MVSResponse& operator=(MVSResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const MVSResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const MVSResponse* internal_default_instance() {
+    return reinterpret_cast<const MVSResponse*>(
+               &_MVSResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    36;
+
+  friend void swap(MVSResponse& a, MVSResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(MVSResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline MVSResponse* New() const final {
+    return CreateMaybeMessage<MVSResponse>(nullptr);
+  }
+
+  MVSResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<MVSResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const MVSResponse& from);
+  void MergeFrom(const MVSResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(MVSResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "MVSResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSuccessFieldNumber = 1,
+  };
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:MVSResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
 // ===================================================================
 
 
@@ -7633,66 +7904,66 @@ inline void NewReconstructionResponse::set_allocated_reconstruction_id(std::stri
 
 // -------------------------------------------------------------------
 
-// ReconstructRequest
+// SparseReconstructRequest
 
 // string reconstruction_id = 1;
-inline void ReconstructRequest::clear_reconstruction_id() {
+inline void SparseReconstructRequest::clear_reconstruction_id() {
   reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& ReconstructRequest::reconstruction_id() const {
-  // @@protoc_insertion_point(field_get:ReconstructRequest.reconstruction_id)
+inline const std::string& SparseReconstructRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:SparseReconstructRequest.reconstruction_id)
   return _internal_reconstruction_id();
 }
-inline void ReconstructRequest::set_reconstruction_id(const std::string& value) {
+inline void SparseReconstructRequest::set_reconstruction_id(const std::string& value) {
   _internal_set_reconstruction_id(value);
-  // @@protoc_insertion_point(field_set:ReconstructRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set:SparseReconstructRequest.reconstruction_id)
 }
-inline std::string* ReconstructRequest::mutable_reconstruction_id() {
-  // @@protoc_insertion_point(field_mutable:ReconstructRequest.reconstruction_id)
+inline std::string* SparseReconstructRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:SparseReconstructRequest.reconstruction_id)
   return _internal_mutable_reconstruction_id();
 }
-inline const std::string& ReconstructRequest::_internal_reconstruction_id() const {
+inline const std::string& SparseReconstructRequest::_internal_reconstruction_id() const {
   return reconstruction_id_.GetNoArena();
 }
-inline void ReconstructRequest::_internal_set_reconstruction_id(const std::string& value) {
+inline void SparseReconstructRequest::_internal_set_reconstruction_id(const std::string& value) {
   
   reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void ReconstructRequest::set_reconstruction_id(std::string&& value) {
+inline void SparseReconstructRequest::set_reconstruction_id(std::string&& value) {
   
   reconstruction_id_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ReconstructRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_rvalue:SparseReconstructRequest.reconstruction_id)
 }
-inline void ReconstructRequest::set_reconstruction_id(const char* value) {
+inline void SparseReconstructRequest::set_reconstruction_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ReconstructRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_char:SparseReconstructRequest.reconstruction_id)
 }
-inline void ReconstructRequest::set_reconstruction_id(const char* value, size_t size) {
+inline void SparseReconstructRequest::set_reconstruction_id(const char* value, size_t size) {
   
   reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ReconstructRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_pointer:SparseReconstructRequest.reconstruction_id)
 }
-inline std::string* ReconstructRequest::_internal_mutable_reconstruction_id() {
+inline std::string* SparseReconstructRequest::_internal_mutable_reconstruction_id() {
   
   return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* ReconstructRequest::release_reconstruction_id() {
-  // @@protoc_insertion_point(field_release:ReconstructRequest.reconstruction_id)
+inline std::string* SparseReconstructRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:SparseReconstructRequest.reconstruction_id)
   
   return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+inline void SparseReconstructRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
   if (reconstruction_id != nullptr) {
     
   } else {
     
   }
   reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
-  // @@protoc_insertion_point(field_set_allocated:ReconstructRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_allocated:SparseReconstructRequest.reconstruction_id)
 }
 
 // -------------------------------------------------------------------
@@ -7845,86 +8116,86 @@ inline void GetOBJResponse::set_allocated_obj(::OBJData* obj) {
 
 // -------------------------------------------------------------------
 
-// ReconstructResponse
+// SparseReconstructResponse
 
 // bool success = 1;
-inline void ReconstructResponse::clear_success() {
+inline void SparseReconstructResponse::clear_success() {
   success_ = false;
 }
-inline bool ReconstructResponse::_internal_success() const {
+inline bool SparseReconstructResponse::_internal_success() const {
   return success_;
 }
-inline bool ReconstructResponse::success() const {
-  // @@protoc_insertion_point(field_get:ReconstructResponse.success)
+inline bool SparseReconstructResponse::success() const {
+  // @@protoc_insertion_point(field_get:SparseReconstructResponse.success)
   return _internal_success();
 }
-inline void ReconstructResponse::_internal_set_success(bool value) {
+inline void SparseReconstructResponse::_internal_set_success(bool value) {
   
   success_ = value;
 }
-inline void ReconstructResponse::set_success(bool value) {
+inline void SparseReconstructResponse::set_success(bool value) {
   _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:ReconstructResponse.success)
+  // @@protoc_insertion_point(field_set:SparseReconstructResponse.success)
 }
 
 // string error_msg = 2;
-inline void ReconstructResponse::clear_error_msg() {
+inline void SparseReconstructResponse::clear_error_msg() {
   error_msg_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& ReconstructResponse::error_msg() const {
-  // @@protoc_insertion_point(field_get:ReconstructResponse.error_msg)
+inline const std::string& SparseReconstructResponse::error_msg() const {
+  // @@protoc_insertion_point(field_get:SparseReconstructResponse.error_msg)
   return _internal_error_msg();
 }
-inline void ReconstructResponse::set_error_msg(const std::string& value) {
+inline void SparseReconstructResponse::set_error_msg(const std::string& value) {
   _internal_set_error_msg(value);
-  // @@protoc_insertion_point(field_set:ReconstructResponse.error_msg)
+  // @@protoc_insertion_point(field_set:SparseReconstructResponse.error_msg)
 }
-inline std::string* ReconstructResponse::mutable_error_msg() {
-  // @@protoc_insertion_point(field_mutable:ReconstructResponse.error_msg)
+inline std::string* SparseReconstructResponse::mutable_error_msg() {
+  // @@protoc_insertion_point(field_mutable:SparseReconstructResponse.error_msg)
   return _internal_mutable_error_msg();
 }
-inline const std::string& ReconstructResponse::_internal_error_msg() const {
+inline const std::string& SparseReconstructResponse::_internal_error_msg() const {
   return error_msg_.GetNoArena();
 }
-inline void ReconstructResponse::_internal_set_error_msg(const std::string& value) {
+inline void SparseReconstructResponse::_internal_set_error_msg(const std::string& value) {
   
   error_msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void ReconstructResponse::set_error_msg(std::string&& value) {
+inline void SparseReconstructResponse::set_error_msg(std::string&& value) {
   
   error_msg_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ReconstructResponse.error_msg)
+  // @@protoc_insertion_point(field_set_rvalue:SparseReconstructResponse.error_msg)
 }
-inline void ReconstructResponse::set_error_msg(const char* value) {
+inline void SparseReconstructResponse::set_error_msg(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   error_msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ReconstructResponse.error_msg)
+  // @@protoc_insertion_point(field_set_char:SparseReconstructResponse.error_msg)
 }
-inline void ReconstructResponse::set_error_msg(const char* value, size_t size) {
+inline void SparseReconstructResponse::set_error_msg(const char* value, size_t size) {
   
   error_msg_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ReconstructResponse.error_msg)
+  // @@protoc_insertion_point(field_set_pointer:SparseReconstructResponse.error_msg)
 }
-inline std::string* ReconstructResponse::_internal_mutable_error_msg() {
+inline std::string* SparseReconstructResponse::_internal_mutable_error_msg() {
   
   return error_msg_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* ReconstructResponse::release_error_msg() {
-  // @@protoc_insertion_point(field_release:ReconstructResponse.error_msg)
+inline std::string* SparseReconstructResponse::release_error_msg() {
+  // @@protoc_insertion_point(field_release:SparseReconstructResponse.error_msg)
   
   return error_msg_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ReconstructResponse::set_allocated_error_msg(std::string* error_msg) {
+inline void SparseReconstructResponse::set_allocated_error_msg(std::string* error_msg) {
   if (error_msg != nullptr) {
     
   } else {
     
   }
   error_msg_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), error_msg);
-  // @@protoc_insertion_point(field_set_allocated:ReconstructResponse.error_msg)
+  // @@protoc_insertion_point(field_set_allocated:SparseReconstructResponse.error_msg)
 }
 
 // -------------------------------------------------------------------
@@ -9547,9 +9818,101 @@ inline void ReconstructionUploadImageBatchResponse::set_images_uploaded(::PROTOB
   // @@protoc_insertion_point(field_set:ReconstructionUploadImageBatchResponse.images_uploaded)
 }
 
+// -------------------------------------------------------------------
+
+// MVSRequest
+
+// string reconstruction_id = 1;
+inline void MVSRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& MVSRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:MVSRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void MVSRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:MVSRequest.reconstruction_id)
+}
+inline std::string* MVSRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:MVSRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& MVSRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void MVSRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void MVSRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:MVSRequest.reconstruction_id)
+}
+inline void MVSRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:MVSRequest.reconstruction_id)
+}
+inline void MVSRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:MVSRequest.reconstruction_id)
+}
+inline std::string* MVSRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* MVSRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:MVSRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void MVSRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:MVSRequest.reconstruction_id)
+}
+
+// -------------------------------------------------------------------
+
+// MVSResponse
+
+// bool success = 1;
+inline void MVSResponse::clear_success() {
+  success_ = false;
+}
+inline bool MVSResponse::_internal_success() const {
+  return success_;
+}
+inline bool MVSResponse::success() const {
+  // @@protoc_insertion_point(field_get:MVSResponse.success)
+  return _internal_success();
+}
+inline void MVSResponse::_internal_set_success(bool value) {
+  
+  success_ = value;
+}
+inline void MVSResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:MVSResponse.success)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

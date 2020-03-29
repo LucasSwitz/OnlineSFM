@@ -24,10 +24,10 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.StoreImageRequest.SerializeToString,
         response_deserializer=server__pb2.StoreImageResponse.FromString,
         )
-    self.Reconstruct = channel.unary_unary(
-        '/ReconstructionService/Reconstruct',
-        request_serializer=server__pb2.ReconstructRequest.SerializeToString,
-        response_deserializer=server__pb2.ReconstructResponse.FromString,
+    self.SparseReconstruct = channel.unary_unary(
+        '/ReconstructionService/SparseReconstruct',
+        request_serializer=server__pb2.SparseReconstructRequest.SerializeToString,
+        response_deserializer=server__pb2.SparseReconstructResponse.FromString,
         )
     self.GetOBJ = channel.unary_stream(
         '/ReconstructionService/GetOBJ',
@@ -79,6 +79,11 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.ReconstructionUploadImageBatchRequest.SerializeToString,
         response_deserializer=server__pb2.ReconstructionUploadImageBatchResponse.FromString,
         )
+    self.MVS = channel.unary_unary(
+        '/ReconstructionService/MVS',
+        request_serializer=server__pb2.MVSRequest.SerializeToString,
+        response_deserializer=server__pb2.MVSResponse.FromString,
+        )
 
 
 class ReconstructionServiceServicer(object):
@@ -99,7 +104,7 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def Reconstruct(self, request, context):
+  def SparseReconstruct(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -176,6 +181,13 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def MVS(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ReconstructionServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -189,10 +201,10 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           request_deserializer=server__pb2.StoreImageRequest.FromString,
           response_serializer=server__pb2.StoreImageResponse.SerializeToString,
       ),
-      'Reconstruct': grpc.unary_unary_rpc_method_handler(
-          servicer.Reconstruct,
-          request_deserializer=server__pb2.ReconstructRequest.FromString,
-          response_serializer=server__pb2.ReconstructResponse.SerializeToString,
+      'SparseReconstruct': grpc.unary_unary_rpc_method_handler(
+          servicer.SparseReconstruct,
+          request_deserializer=server__pb2.SparseReconstructRequest.FromString,
+          response_serializer=server__pb2.SparseReconstructResponse.SerializeToString,
       ),
       'GetOBJ': grpc.unary_stream_rpc_method_handler(
           servicer.GetOBJ,
@@ -243,6 +255,11 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           servicer.ReconstructionUploadImageBatch,
           request_deserializer=server__pb2.ReconstructionUploadImageBatchRequest.FromString,
           response_serializer=server__pb2.ReconstructionUploadImageBatchResponse.SerializeToString,
+      ),
+      'MVS': grpc.unary_unary_rpc_method_handler(
+          servicer.MVS,
+          request_deserializer=server__pb2.MVSRequest.FromString,
+          response_serializer=server__pb2.MVSResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

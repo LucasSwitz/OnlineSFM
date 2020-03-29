@@ -15,34 +15,34 @@
 
 Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
     return new Reconstruction(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
-                                                               CONFIG_GET_STRING("sql.user"), 
-                                                               CONFIG_GET_STRING("sql.password"), 
-                                                               CONFIG_GET_STRING("sql.db"), 
-                                                               CONFIG_GET_STRING("sql.reconstruction_table")), 
-                                  new SQLImageStorage(new FileSystemImageDataStorage(),
-                                                      CONFIG_GET_STRING("sql.address"), 
-                                                      CONFIG_GET_STRING("sql.user"), 
-                                                      CONFIG_GET_STRING("sql.password"), 
-                                                      CONFIG_GET_STRING("sql.db"), 
-                                                      CONFIG_GET_STRING("sql.views_table")), 
-                                  new SQLSparseStorage(CONFIG_GET_STRING("sql.address"), 
-                                                       CONFIG_GET_STRING("sql.user"), 
-                                                       CONFIG_GET_STRING("sql.password"), 
-                                                       CONFIG_GET_STRING("sql.db"), 
-                                                       CONFIG_GET_STRING("sql.sparse_table")), 
-                                  new SQLOBJStorage(CONFIG_GET_STRING("sql.address"), 
+                                                            CONFIG_GET_STRING("sql.user"), 
+                                                            CONFIG_GET_STRING("sql.password"), 
+                                                            CONFIG_GET_STRING("sql.db"), 
+                                                            CONFIG_GET_STRING("sql.reconstruction_table")), 
+                                new SQLImageStorage(new FileSystemImageDataStorage(),
+                                                    CONFIG_GET_STRING("sql.address"), 
+                                                    CONFIG_GET_STRING("sql.user"), 
+                                                    CONFIG_GET_STRING("sql.password"), 
+                                                    CONFIG_GET_STRING("sql.db"), 
+                                                    CONFIG_GET_STRING("sql.views_table")), 
+                                new SQLSparseStorage(CONFIG_GET_STRING("sql.address"), 
+                                                    CONFIG_GET_STRING("sql.user"), 
+                                                    CONFIG_GET_STRING("sql.password"), 
+                                                    CONFIG_GET_STRING("sql.db"), 
+                                                    CONFIG_GET_STRING("sql.sparse_table")), 
+                                new SQLOBJStorage(CONFIG_GET_STRING("sql.address"), 
                                                     CONFIG_GET_STRING("sql.user"), 
                                                     CONFIG_GET_STRING("sql.password"),
                                                     CONFIG_GET_STRING("sql.db"), 
                                                     CONFIG_GET_STRING("sql.obj_table")),
-                                  new SQLCameraIntrinsicsStorage(CONFIG_GET_STRING("sql.address"), 
+                                new SQLCameraIntrinsicsStorage(CONFIG_GET_STRING("sql.address"), 
                                                     CONFIG_GET_STRING("sql.user"), 
                                                     CONFIG_GET_STRING("sql.password"),
                                                     CONFIG_GET_STRING("sql.db"), 
                                                     CONFIG_GET_STRING("sql.intrinsics_table")),
-                                  new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
-                                                      CONFIG_GET_STRING("redis.user"),
-                                                      CONFIG_GET_STRING("redis.password")));
+                                new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
+                                                    CONFIG_GET_STRING("redis.user"),
+                                                    CONFIG_GET_STRING("redis.password")));
 }
 
 void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
@@ -180,7 +180,7 @@ bool Reconstruction::HasReconstructedOnce(){
     return !this->_sparse_storage->GetMetaByReconstruction(this->_id).reconstruction().compare(this->_id);
 }
 
-void Reconstruction::SetupMVS(){
+void Reconstruction::_SetupMVS(){
     if(this->_running_mvs) return;
     SparsePointCloudMetaData spc_data = this->_sparse_storage->GetMetaByReconstruction(this->_id);
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
@@ -191,14 +191,20 @@ void Reconstruction::SetupMVS(){
     this->_working_mvs_dir = mvs_dir;
 }
 
-void Reconstruction::MVS(){
+bool Reconstruction::MVS(bool block){
     if(!this->_running_mvs){
         this->_running_mvs = true;
-        this->_mvs_thread = new std::thread(&Reconstruction::_MVS, this);    
+        if(!block){
+            this->_mvs_thread = new std::thread(&Reconstruction::_MVS, this);    
+            return true;
+        }else{
+            return this->_MVS();
+        }
     }
 }
 
-void Reconstruction::_MVS(){
+bool Reconstruction::_MVS(){
+    this->_SetupMVS();
     OpenMVSStrategy mvs;
     std::vector<OBJMetaData> old =  this->_obj_storage->GetAll(this->_id);
     OBJMetaData obj_meta;
@@ -212,8 +218,10 @@ void Reconstruction::_MVS(){
         this->_obj_storage->Store(obj_meta);
         LOG(INFO) << "MVS Finished successfully for " << this->_id;
         _ExportWorkingMVS();
+        return true;
     }else{
         LOG(ERROR) << "MVS Failed for " << this->_id;
+        return false;
     }
     this->_running_mvs = false;
 }
@@ -222,7 +230,7 @@ void Reconstruction::_MVS(){
 #include "openMVG/sfm/sfm_data.hpp"
 #include "openMVG/sfm/sfm_data_io.hpp"
 
-bool Reconstruction::Reconstruct(){
+bool Reconstruction::SparseReconstruct(){
     LOG(INFO) << "Doing Reconstruct for " << this->_id;
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     std::string reconstruction_reconstruction_dir = reconstruction_dir + "/SFM";

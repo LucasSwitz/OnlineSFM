@@ -25,6 +25,7 @@ TODO: Create move constructors
 */
 class Image {
     public:
+        Image() = default;
         Image(const std::string& id, ImageStorageAdapter* storage_adapter);
         ImageData Data();
         void Delete();
@@ -35,6 +36,7 @@ class Image {
 
 class SparseReconstruction {
     public:
+        SparseReconstruction() = default;
         SparseReconstruction(const std::string& id, SparseStorageAdapter* storage_adapter);
         SparsePointCloudData Data(); 
         void Delete();
@@ -45,6 +47,7 @@ class SparseReconstruction {
 
 class OBJ{
     public:
+        OBJ() = default;
         OBJ(const std::string& id, OBJStorageAdapter* storage_adapter);
         OBJData Data();
         void Delete();
@@ -67,9 +70,8 @@ class Reconstruction {
         void ComputeMatches(const std::set<std::string>& images);
         void AddImage(const std::string& image_id);
         std::string StoreImage(ImageData& image);
-        bool Reconstruct();
-        void SetupMVS();
-        void MVS();
+        bool SparseReconstruct();
+        bool MVS(bool block = false);
         bool Reconstruct(const std::set<std::string>& new_images);
         bool HasReconstructedOnce();
         std::vector<Image> GetImages();
@@ -92,6 +94,7 @@ class Reconstruction {
         OpenMVGReconstructionAgent reconstruction_agent;
         ReconstructionData _data;
         SFMBacklogCounter* _session_backlog = nullptr;
-        void _MVS();
+        void _SetupMVS();
+        bool _MVS();
         void _ExportWorkingMVS();
 };

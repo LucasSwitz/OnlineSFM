@@ -35,7 +35,7 @@ target_link_libraries(server
                       mongocxx 
                       bsoncxx 
                       ${Protobuf_LIBRARIES} 
-                      ${GLOG_LIBRARIES} 
+                      glog::glog
                       vlsift 
                       gRPC::grpc++ 
                       mysqlcppconn Boost::filesystem 
@@ -59,6 +59,6 @@ target_link_libraries(server
 
 add_executable(upload_intrinsics_tool ${UPLOAD_INTRINISICS_SOURCES})
 set_property(TARGET upload_intrinsics_tool PROPERTY CXX_STANDARD 14)
-target_link_libraries(upload_intrinsics_tool gRPC::grpc++ ${GLOG_LIBRARIES} ${Protobuf_LIBRARIES} mysqlcppconn stlplus3 redis++ hiredis
+target_link_libraries(upload_intrinsics_tool gRPC::grpc++ ${GLOG_LIBRARIES} ${Protobuf_LIBRARIES} mysqlcppconn redis++ hiredis
     OpenMVG::openMVG_exif
 )

@@ -7,6 +7,6 @@ build: src/*
 	mkdir -p build; \
 	cd build; \
 	cmake ..; \
-	make
+	make server
 docker: src/*
 	docker image build . --tag rserver

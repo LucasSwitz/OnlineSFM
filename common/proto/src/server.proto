@@ -69,7 +69,7 @@ message NewReconstructionResponse {
     string reconstruction_id = 1;
 };
 
-message ReconstructRequest{
+message SparseReconstructRequest{
     string reconstruction_id = 1;
 }
 
@@ -82,7 +82,7 @@ message GetOBJResponse {
     OBJData obj = 2;
 };
 
-message ReconstructResponse {
+message SparseReconstructResponse {
     bool success = 1;
     string error_msg = 2;
 }
@@ -179,10 +179,18 @@ message ReconstructionUploadImageBatchResponse{
     int32 images_uploaded =  1;
 }
 
+message MVSRequest{
+    string reconstruction_id = 1;
+}
+
+message MVSResponse {
+    bool success = 1;
+}
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
     rpc StoreImage(stream StoreImageRequest) returns (StoreImageResponse){};
-    rpc Reconstruct(ReconstructRequest) returns (ReconstructResponse);
+    rpc SparseReconstruct(SparseReconstructRequest) returns (SparseReconstructResponse);
     rpc GetOBJ(GetOBJRequest) returns (stream GetOBJResponse);
     rpc GetSparse(GetSparseRequest) returns (stream GetSparseResponse);
     rpc NewReconstruction(NewReconstructionRequest) returns (NewReconstructionResponse);
@@ -193,4 +201,5 @@ service ReconstructionService {
     rpc SetReconstructionConfig(SetReconstructionConfigRequest) returns (SetReconstructionConfigResponse);
     rpc GetReconstructionConfig(GetReconstructionConfigRequest) returns (GetReconstructionConfigResponse);
     rpc ReconstructionUploadImageBatch(stream ReconstructionUploadImageBatchRequest) returns (ReconstructionUploadImageBatchResponse);
+    rpc MVS(MVSRequest) returns (MVSResponse);
 }

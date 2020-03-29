@@ -1,0 +1,12 @@
+./install_apt_depends.sh
+./install_boost.sh
+./install_ctpl.sh
+./install_glog.sh
+./install_grpc.sh
+./install_hiredis.sh
+./install_libmongodbc.sh
+./install_libmongodb.sh
+./install_mvg.sh
+./install_mvs.sh
+./install_protobuf.sh
+./install_redis++.sh

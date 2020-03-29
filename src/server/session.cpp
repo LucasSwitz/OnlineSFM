@@ -38,7 +38,7 @@ void Session::_Run(){
 
         if(this->_session_backlog->CheckCounter(this->_reconstruction_id) > 0){
             LOG(INFO) << "New matches avilable. Running SFM.... " << this->_reconstruction_id;
-            if(reconstruction->Reconstruct()){
+            if(reconstruction->SparseReconstruct()){
                 LOG(INFO) << "Relocalized and ran SFM. Starting MVS for " << this->_reconstruction_id;
                 if(!reconstruction->IsRunningMVS()){
                     //reconstruction->SetupMVS();

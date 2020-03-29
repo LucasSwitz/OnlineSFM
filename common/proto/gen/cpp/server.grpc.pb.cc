@@ -23,7 +23,7 @@
 static const char* ReconstructionService_method_names[] = {
   "/ReconstructionService/Handshake",
   "/ReconstructionService/StoreImage",
-  "/ReconstructionService/Reconstruct",
+  "/ReconstructionService/SparseReconstruct",
   "/ReconstructionService/GetOBJ",
   "/ReconstructionService/GetSparse",
   "/ReconstructionService/NewReconstruction",
@@ -34,6 +34,7 @@ static const char* ReconstructionService_method_names[] = {
   "/ReconstructionService/SetReconstructionConfig",
   "/ReconstructionService/GetReconstructionConfig",
   "/ReconstructionService/ReconstructionUploadImageBatch",
+  "/ReconstructionService/MVS",
 };
 
 std::unique_ptr< ReconstructionService::Stub> ReconstructionService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -45,7 +46,7 @@ std::unique_ptr< ReconstructionService::Stub> ReconstructionService::NewStub(con
 ReconstructionService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Handshake_(ReconstructionService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_StoreImage_(ReconstructionService_method_names[1], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
-  , rpcmethod_Reconstruct_(ReconstructionService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SparseReconstruct_(ReconstructionService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetOBJ_(ReconstructionService_method_names[3], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
   , rpcmethod_GetSparse_(ReconstructionService_method_names[4], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
   , rpcmethod_NewReconstruction_(ReconstructionService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
@@ -56,6 +57,7 @@ ReconstructionService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterfac
   , rpcmethod_SetReconstructionConfig_(ReconstructionService_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetReconstructionConfig_(ReconstructionService_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ReconstructionUploadImageBatch_(ReconstructionService_method_names[12], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+  , rpcmethod_MVS_(ReconstructionService_method_names[13], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ReconstructionService::Stub::Handshake(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::HandshakeResponse* response) {
@@ -102,32 +104,32 @@ void ReconstructionService::Stub::experimental_async::StoreImage(::grpc::ClientC
   return ::grpc_impl::internal::ClientAsyncWriterFactory< ::StoreImageRequest>::Create(channel_.get(), cq, rpcmethod_StoreImage_, context, response, false, nullptr);
 }
 
-::grpc::Status ReconstructionService::Stub::Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::ReconstructResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Reconstruct_, context, request, response);
+::grpc::Status ReconstructionService::Stub::SparseReconstruct(::grpc::ClientContext* context, const ::SparseReconstructRequest& request, ::SparseReconstructResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SparseReconstruct_, context, request, response);
 }
 
-void ReconstructionService::Stub::experimental_async::Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest* request, ::ReconstructResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Reconstruct_, context, request, response, std::move(f));
+void ReconstructionService::Stub::experimental_async::SparseReconstruct(::grpc::ClientContext* context, const ::SparseReconstructRequest* request, ::SparseReconstructResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SparseReconstruct_, context, request, response, std::move(f));
 }
 
-void ReconstructionService::Stub::experimental_async::Reconstruct(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ReconstructResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Reconstruct_, context, request, response, std::move(f));
+void ReconstructionService::Stub::experimental_async::SparseReconstruct(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SparseReconstructResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SparseReconstruct_, context, request, response, std::move(f));
 }
 
-void ReconstructionService::Stub::experimental_async::Reconstruct(::grpc::ClientContext* context, const ::ReconstructRequest* request, ::ReconstructResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Reconstruct_, context, request, response, reactor);
+void ReconstructionService::Stub::experimental_async::SparseReconstruct(::grpc::ClientContext* context, const ::SparseReconstructRequest* request, ::SparseReconstructResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SparseReconstruct_, context, request, response, reactor);
 }
 
-void ReconstructionService::Stub::experimental_async::Reconstruct(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ReconstructResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_Reconstruct_, context, request, response, reactor);
+void ReconstructionService::Stub::experimental_async::SparseReconstruct(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SparseReconstructResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SparseReconstruct_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::ReconstructResponse>* ReconstructionService::Stub::AsyncReconstructRaw(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ReconstructResponse>::Create(channel_.get(), cq, rpcmethod_Reconstruct_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::SparseReconstructResponse>* ReconstructionService::Stub::AsyncSparseReconstructRaw(::grpc::ClientContext* context, const ::SparseReconstructRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::SparseReconstructResponse>::Create(channel_.get(), cq, rpcmethod_SparseReconstruct_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::ReconstructResponse>* ReconstructionService::Stub::PrepareAsyncReconstructRaw(::grpc::ClientContext* context, const ::ReconstructRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ReconstructResponse>::Create(channel_.get(), cq, rpcmethod_Reconstruct_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::SparseReconstructResponse>* ReconstructionService::Stub::PrepareAsyncSparseReconstructRaw(::grpc::ClientContext* context, const ::SparseReconstructRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::SparseReconstructResponse>::Create(channel_.get(), cq, rpcmethod_SparseReconstruct_, context, request, false);
 }
 
 ::grpc::ClientReader< ::GetOBJResponse>* ReconstructionService::Stub::GetOBJRaw(::grpc::ClientContext* context, const ::GetOBJRequest& request) {
@@ -362,6 +364,34 @@ void ReconstructionService::Stub::experimental_async::ReconstructionUploadImageB
   return ::grpc_impl::internal::ClientAsyncWriterFactory< ::ReconstructionUploadImageBatchRequest>::Create(channel_.get(), cq, rpcmethod_ReconstructionUploadImageBatch_, context, response, false, nullptr);
 }
 
+::grpc::Status ReconstructionService::Stub::MVS(::grpc::ClientContext* context, const ::MVSRequest& request, ::MVSResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_MVS_, context, request, response);
+}
+
+void ReconstructionService::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::MVSRequest* request, ::MVSResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::MVSResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::MVSRequest* request, ::MVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, reactor);
+}
+
+void ReconstructionService::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::MVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::MVSResponse>* ReconstructionService::Stub::AsyncMVSRaw(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::MVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::MVSResponse>* ReconstructionService::Stub::PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::MVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, false);
+}
+
 ReconstructionService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ReconstructionService_method_names[0],
@@ -376,8 +406,8 @@ ReconstructionService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ReconstructionService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::ReconstructRequest, ::ReconstructResponse>(
-          std::mem_fn(&ReconstructionService::Service::Reconstruct), this)));
+      new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::SparseReconstructRequest, ::SparseReconstructResponse>(
+          std::mem_fn(&ReconstructionService::Service::SparseReconstruct), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ReconstructionService_method_names[3],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
@@ -428,6 +458,11 @@ ReconstructionService::Service::Service() {
       ::grpc::internal::RpcMethod::CLIENT_STREAMING,
       new ::grpc::internal::ClientStreamingHandler< ReconstructionService::Service, ::ReconstructionUploadImageBatchRequest, ::ReconstructionUploadImageBatchResponse>(
           std::mem_fn(&ReconstructionService::Service::ReconstructionUploadImageBatch), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ReconstructionService_method_names[13],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::MVSRequest, ::MVSResponse>(
+          std::mem_fn(&ReconstructionService::Service::MVS), this)));
 }
 
 ReconstructionService::Service::~Service() {
@@ -447,7 +482,7 @@ ReconstructionService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status ReconstructionService::Service::Reconstruct(::grpc::ServerContext* context, const ::ReconstructRequest* request, ::ReconstructResponse* response) {
+::grpc::Status ReconstructionService::Service::SparseReconstruct(::grpc::ServerContext* context, const ::SparseReconstructRequest* request, ::SparseReconstructResponse* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -520,6 +555,13 @@ ReconstructionService::Service::~Service() {
 ::grpc::Status ReconstructionService::Service::ReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* reader, ::ReconstructionUploadImageBatchResponse* response) {
   (void) context;
   (void) reader;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ReconstructionService::Service::MVS(::grpc::ServerContext* context, const ::MVSRequest* request, ::MVSResponse* response) {
+  (void) context;
+  (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }

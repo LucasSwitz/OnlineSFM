@@ -65,8 +65,12 @@ class ReconstructionServer : public ReconstructionService::Service {
             new_reconstruction.set_matches_path(matches_dir);
             response->set_reconstruction_id(new_reconstruction.id());
             
-            ReconstructionFetcher rf;
-            rf.Store(new_reconstruction);
+            try {
+                ReconstructionFetcher rf;
+                rf.Store(new_reconstruction);
+            } catch(std::exception& e){
+                LOG(ERROR) << e.what();
+            }
 
             LOG(INFO) << "Made new reconstruction " << uuid;
             return Status::OK;
@@ -82,24 +86,46 @@ class ReconstructionServer : public ReconstructionService::Service {
             while(stream->Read(&request)){
                 final_image.mutable_data()->append(request.image().data());  
             }
-            ReconstructionFetcher rf;
-            Reconstruction* reconstruction = rf.Fetch(final_image.metadata().reconstruction());
-
-            LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
-
-            reconstruction->StoreImage(final_image);
-            delete reconstruction;
+            
+            try{
+                ReconstructionFetcher rf;
+                Reconstruction* reconstruction = rf.Fetch(final_image.metadata().reconstruction());
+                LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
+                reconstruction->StoreImage(final_image);
+                delete reconstruction;
+            } catch(std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
+                
             return Status::OK;
         }
 
-        Status Reconstruct(ServerContext* context, 
-                           const ReconstructRequest* request, 
-                           ReconstructResponse* response){
+        Status SparseReconstruct(ServerContext* context, 
+                                 const SparseReconstructRequest* request, 
+                                 SparseReconstructResponse* response){
             ReconstructionFetcher rf;
-            Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
-            //response->set_success(reconstruction->Reconstruct());
-            delete reconstruction;
+            try {
+                Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
+                response->set_success(reconstruction->SparseReconstruct());
+                delete reconstruction;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+            }
             return Status::OK;
+        }
+
+        Status MVS(ServerContext* context, 
+                   const MVSRequest* request, 
+                   MVSResponse* response){
+            ReconstructionFetcher rf;
+            try {
+                Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
+                response->set_success(reconstruction->MVS(true));
+                delete reconstruction;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+            }
         }
 
         Status GetOBJ(ServerContext* context, 
@@ -107,8 +133,17 @@ class ReconstructionServer : public ReconstructionService::Service {
                       ServerWriter<GetOBJResponse>* writer){
             LOG(INFO) << "Getting OBJ for " << request->reconstruction_id();
             ReconstructionFetcher rf;
-            Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
-            OBJ obj = reconstruction->GetOBJ();
+            Reconstruction* reconstruction = nullptr;
+            OBJ obj;
+            try {
+                reconstruction = rf.Fetch(request->reconstruction_id());
+                obj = reconstruction->GetOBJ();
+       
+            } catch(const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
+
             OBJData full_data = obj.Data();
 
             for(int i = 0; i < full_data.obj_data().size(); i+=OBJ_CHUNK_SIZE){
@@ -149,13 +184,18 @@ class ReconstructionServer : public ReconstructionService::Service {
         Status DeleteReconstruction(ServerContext* context, 
                                     const DeleteReconstructionRequest* request, 
                                     DeleteReconstructionResponse* response){
-            ReconstructionFetcher fetcher;
-            Reconstruction* reconstruction = fetcher.Fetch(request->id());
-            reconstruction->Delete();
-            response->set_id(request->id());
-            response->set_success(true);
-            delete reconstruction;
-            return Status::OK;
+            try{
+                ReconstructionFetcher fetcher;
+                Reconstruction* reconstruction = fetcher.Fetch(request->id());
+                reconstruction->Delete();
+                response->set_id(request->id());
+                response->set_success(true);
+                delete reconstruction;
+                return Status::OK;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
         };
 
         Status StartSession(ServerContext* context, 
@@ -201,16 +241,21 @@ class ReconstructionServer : public ReconstructionService::Service {
                 final_image.mutable_data()->append(upload_image_request.image().data());  
             }
             LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
-            this->thread_pool.push([final_image](int id) mutable{
-                    ReconstructionFetcher rf;
-                    Reconstruction* reconstruction = rf.Fetch(final_image.metadata().reconstruction());
-                    std::string image_uuid = reconstruction->StoreImage(final_image);
-                    reconstruction->ComputeFeatures({final_image.metadata().path()});
-                    reconstruction->AddImage(final_image.metadata().id());
-                    reconstruction->ComputeMatches({final_image.metadata().path()});
-                    delete reconstruction;
-            });
-            return Status::OK;
+            try {
+                this->thread_pool.push([final_image](int id) mutable{
+                        ReconstructionFetcher rf;
+                        Reconstruction* reconstruction = rf.Fetch(final_image.metadata().reconstruction());
+                        std::string image_uuid = reconstruction->StoreImage(final_image);
+                        reconstruction->ComputeFeatures({final_image.metadata().path()});
+                        reconstruction->AddImage(final_image.metadata().id());
+                        reconstruction->ComputeMatches({final_image.metadata().path()});
+                        delete reconstruction;
+                });
+                return Status::OK;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
         }
 
         Status GetSparse(ServerContext* context, 
