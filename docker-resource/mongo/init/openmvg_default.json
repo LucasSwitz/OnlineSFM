@@ -2,6 +2,8 @@
     "configuration":"openmvg",
     "brute_force": false,
     "feature_preset": "",
+    "up_right" : false,
+    "image_describer_method" : "SIFT_ANATOMY",
     "num_threads" : 0,
     "intrinsic_refinement_options": "ADJUST_ALL",
     "user_camera_model" : 3,

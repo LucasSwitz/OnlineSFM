@@ -6,11 +6,11 @@ FileSystemImageDataStorage::FileSystemImageDataStorage() : FileSystemStorer(CONF
 }
 
 int FileSystemImageDataStorage::Get(const std::string& path, std::vector<char>& buf){
-    return this->Get(path, buf);
+    return FileSystemStorer::Read(path, buf);
 }
 
 std::string FileSystemImageDataStorage::Store(const ImageData& img, const std::string& path){
-    this->Store(img, path);
+    return FileSystemStorer::Store(img, path);
 }
 
 void FileSystemImageDataStorage::Delete(const std::string& path){

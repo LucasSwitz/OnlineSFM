@@ -123,8 +123,10 @@ class ReconstructionServer : public ReconstructionService::Service {
                 Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
                 response->set_success(reconstruction->MVS(true));
                 delete reconstruction;
+                return Status::OK;
             } catch (const std::exception& e){
                 LOG(ERROR) << e.what();
+                return Status::CANCELLED;
             }
         }
 
@@ -311,6 +313,36 @@ class ReconstructionServer : public ReconstructionService::Service {
             delete reconstruction;
             return Status::OK;
        }
+
+        Status SetAgentConfigFields(ServerContext* context, 
+                                    const SetAgentConfigFieldsRequest* request, 
+                                    SetAgentConfigFieldsResponse* response){
+            try {
+                ReconstructionFetcher rf;
+                Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
+                reconstruction->SetAgentConfigFields(request->agent_name(), request->config_json());
+                delete reconstruction;
+                return Status::OK;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
+        }
+
+        Status SetReconstructionConfigFields(ServerContext* context, 
+                                             const SetReconstructionConfigFieldsRequest* request, 
+                                             SetReconstructionConfigFieldsResponse* response){
+             try {
+                ReconstructionFetcher rf;
+                Reconstruction* reconstruction = rf.Fetch(request->reconstruction_id());
+                reconstruction->SetConfigFields(request->config_json());
+                delete reconstruction;
+                return Status::OK;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
+        }
 
     private:
         std::unordered_map<std::string, Session*> _sessions;

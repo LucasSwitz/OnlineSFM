@@ -47,7 +47,7 @@ struct TableStruct_server_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[37]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[41]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -129,6 +129,18 @@ extern SessionAddImageRequestDefaultTypeInternal _SessionAddImageRequest_default
 class SessionAddImageResponse;
 class SessionAddImageResponseDefaultTypeInternal;
 extern SessionAddImageResponseDefaultTypeInternal _SessionAddImageResponse_default_instance_;
+class SetAgentConfigFieldsRequest;
+class SetAgentConfigFieldsRequestDefaultTypeInternal;
+extern SetAgentConfigFieldsRequestDefaultTypeInternal _SetAgentConfigFieldsRequest_default_instance_;
+class SetAgentConfigFieldsResponse;
+class SetAgentConfigFieldsResponseDefaultTypeInternal;
+extern SetAgentConfigFieldsResponseDefaultTypeInternal _SetAgentConfigFieldsResponse_default_instance_;
+class SetReconstructionConfigFieldsRequest;
+class SetReconstructionConfigFieldsRequestDefaultTypeInternal;
+extern SetReconstructionConfigFieldsRequestDefaultTypeInternal _SetReconstructionConfigFieldsRequest_default_instance_;
+class SetReconstructionConfigFieldsResponse;
+class SetReconstructionConfigFieldsResponseDefaultTypeInternal;
+extern SetReconstructionConfigFieldsResponseDefaultTypeInternal _SetReconstructionConfigFieldsResponse_default_instance_;
 class SetReconstructionConfigRequest;
 class SetReconstructionConfigRequestDefaultTypeInternal;
 extern SetReconstructionConfigRequestDefaultTypeInternal _SetReconstructionConfigRequest_default_instance_;
@@ -191,6 +203,10 @@ template<> ::ReconstructionUploadImageBatchRequest* Arena::CreateMaybeMessage<::
 template<> ::ReconstructionUploadImageBatchResponse* Arena::CreateMaybeMessage<::ReconstructionUploadImageBatchResponse>(Arena*);
 template<> ::SessionAddImageRequest* Arena::CreateMaybeMessage<::SessionAddImageRequest>(Arena*);
 template<> ::SessionAddImageResponse* Arena::CreateMaybeMessage<::SessionAddImageResponse>(Arena*);
+template<> ::SetAgentConfigFieldsRequest* Arena::CreateMaybeMessage<::SetAgentConfigFieldsRequest>(Arena*);
+template<> ::SetAgentConfigFieldsResponse* Arena::CreateMaybeMessage<::SetAgentConfigFieldsResponse>(Arena*);
+template<> ::SetReconstructionConfigFieldsRequest* Arena::CreateMaybeMessage<::SetReconstructionConfigFieldsRequest>(Arena*);
+template<> ::SetReconstructionConfigFieldsResponse* Arena::CreateMaybeMessage<::SetReconstructionConfigFieldsResponse>(Arena*);
 template<> ::SetReconstructionConfigRequest* Arena::CreateMaybeMessage<::SetReconstructionConfigRequest>(Arena*);
 template<> ::SetReconstructionConfigResponse* Arena::CreateMaybeMessage<::SetReconstructionConfigResponse>(Arena*);
 template<> ::SparsePointCloudData* Arena::CreateMaybeMessage<::SparsePointCloudData>(Arena*);
@@ -4799,7 +4815,8 @@ class SetReconstructionConfigRequest :
 
   enum : int {
     kReconstructionIdFieldNumber = 1,
-    kConfigJsonFieldNumber = 2,
+    kConfigNameFieldNumber = 2,
+    kConfigJsonFieldNumber = 3,
   };
   // string reconstruction_id = 1;
   void clear_reconstruction_id();
@@ -4817,7 +4834,23 @@ class SetReconstructionConfigRequest :
   std::string* _internal_mutable_reconstruction_id();
   public:
 
-  // string config_json = 2;
+  // string config_name = 2;
+  void clear_config_name();
+  const std::string& config_name() const;
+  void set_config_name(const std::string& value);
+  void set_config_name(std::string&& value);
+  void set_config_name(const char* value);
+  void set_config_name(const char* value, size_t size);
+  std::string* mutable_config_name();
+  std::string* release_config_name();
+  void set_allocated_config_name(std::string* config_name);
+  private:
+  const std::string& _internal_config_name() const;
+  void _internal_set_config_name(const std::string& value);
+  std::string* _internal_mutable_config_name();
+  public:
+
+  // string config_json = 3;
   void clear_config_json();
   const std::string& config_json() const;
   void set_config_json(const std::string& value);
@@ -4839,6 +4872,7 @@ class SetReconstructionConfigRequest :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_json_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
@@ -5774,6 +5808,560 @@ class MVSResponse :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetAgentConfigFieldsRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SetAgentConfigFieldsRequest) */ {
+ public:
+  SetAgentConfigFieldsRequest();
+  virtual ~SetAgentConfigFieldsRequest();
+
+  SetAgentConfigFieldsRequest(const SetAgentConfigFieldsRequest& from);
+  SetAgentConfigFieldsRequest(SetAgentConfigFieldsRequest&& from) noexcept
+    : SetAgentConfigFieldsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SetAgentConfigFieldsRequest& operator=(const SetAgentConfigFieldsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetAgentConfigFieldsRequest& operator=(SetAgentConfigFieldsRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SetAgentConfigFieldsRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SetAgentConfigFieldsRequest* internal_default_instance() {
+    return reinterpret_cast<const SetAgentConfigFieldsRequest*>(
+               &_SetAgentConfigFieldsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    37;
+
+  friend void swap(SetAgentConfigFieldsRequest& a, SetAgentConfigFieldsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetAgentConfigFieldsRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SetAgentConfigFieldsRequest* New() const final {
+    return CreateMaybeMessage<SetAgentConfigFieldsRequest>(nullptr);
+  }
+
+  SetAgentConfigFieldsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SetAgentConfigFieldsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SetAgentConfigFieldsRequest& from);
+  void MergeFrom(const SetAgentConfigFieldsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SetAgentConfigFieldsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SetAgentConfigFieldsRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+    kAgentNameFieldNumber = 2,
+    kConfigJsonFieldNumber = 3,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // string agent_name = 2;
+  void clear_agent_name();
+  const std::string& agent_name() const;
+  void set_agent_name(const std::string& value);
+  void set_agent_name(std::string&& value);
+  void set_agent_name(const char* value);
+  void set_agent_name(const char* value, size_t size);
+  std::string* mutable_agent_name();
+  std::string* release_agent_name();
+  void set_allocated_agent_name(std::string* agent_name);
+  private:
+  const std::string& _internal_agent_name() const;
+  void _internal_set_agent_name(const std::string& value);
+  std::string* _internal_mutable_agent_name();
+  public:
+
+  // string config_json = 3;
+  void clear_config_json();
+  const std::string& config_json() const;
+  void set_config_json(const std::string& value);
+  void set_config_json(std::string&& value);
+  void set_config_json(const char* value);
+  void set_config_json(const char* value, size_t size);
+  std::string* mutable_config_json();
+  std::string* release_config_json();
+  void set_allocated_config_json(std::string* config_json);
+  private:
+  const std::string& _internal_config_json() const;
+  void _internal_set_config_json(const std::string& value);
+  std::string* _internal_mutable_config_json();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SetAgentConfigFieldsRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr agent_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_json_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetAgentConfigFieldsResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SetAgentConfigFieldsResponse) */ {
+ public:
+  SetAgentConfigFieldsResponse();
+  virtual ~SetAgentConfigFieldsResponse();
+
+  SetAgentConfigFieldsResponse(const SetAgentConfigFieldsResponse& from);
+  SetAgentConfigFieldsResponse(SetAgentConfigFieldsResponse&& from) noexcept
+    : SetAgentConfigFieldsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SetAgentConfigFieldsResponse& operator=(const SetAgentConfigFieldsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetAgentConfigFieldsResponse& operator=(SetAgentConfigFieldsResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SetAgentConfigFieldsResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SetAgentConfigFieldsResponse* internal_default_instance() {
+    return reinterpret_cast<const SetAgentConfigFieldsResponse*>(
+               &_SetAgentConfigFieldsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    38;
+
+  friend void swap(SetAgentConfigFieldsResponse& a, SetAgentConfigFieldsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetAgentConfigFieldsResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SetAgentConfigFieldsResponse* New() const final {
+    return CreateMaybeMessage<SetAgentConfigFieldsResponse>(nullptr);
+  }
+
+  SetAgentConfigFieldsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SetAgentConfigFieldsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SetAgentConfigFieldsResponse& from);
+  void MergeFrom(const SetAgentConfigFieldsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SetAgentConfigFieldsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SetAgentConfigFieldsResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:SetAgentConfigFieldsResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetReconstructionConfigFieldsRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SetReconstructionConfigFieldsRequest) */ {
+ public:
+  SetReconstructionConfigFieldsRequest();
+  virtual ~SetReconstructionConfigFieldsRequest();
+
+  SetReconstructionConfigFieldsRequest(const SetReconstructionConfigFieldsRequest& from);
+  SetReconstructionConfigFieldsRequest(SetReconstructionConfigFieldsRequest&& from) noexcept
+    : SetReconstructionConfigFieldsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SetReconstructionConfigFieldsRequest& operator=(const SetReconstructionConfigFieldsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetReconstructionConfigFieldsRequest& operator=(SetReconstructionConfigFieldsRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SetReconstructionConfigFieldsRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SetReconstructionConfigFieldsRequest* internal_default_instance() {
+    return reinterpret_cast<const SetReconstructionConfigFieldsRequest*>(
+               &_SetReconstructionConfigFieldsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    39;
+
+  friend void swap(SetReconstructionConfigFieldsRequest& a, SetReconstructionConfigFieldsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetReconstructionConfigFieldsRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SetReconstructionConfigFieldsRequest* New() const final {
+    return CreateMaybeMessage<SetReconstructionConfigFieldsRequest>(nullptr);
+  }
+
+  SetReconstructionConfigFieldsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SetReconstructionConfigFieldsRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SetReconstructionConfigFieldsRequest& from);
+  void MergeFrom(const SetReconstructionConfigFieldsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SetReconstructionConfigFieldsRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SetReconstructionConfigFieldsRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+    kConfigJsonFieldNumber = 2,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // string config_json = 2;
+  void clear_config_json();
+  const std::string& config_json() const;
+  void set_config_json(const std::string& value);
+  void set_config_json(std::string&& value);
+  void set_config_json(const char* value);
+  void set_config_json(const char* value, size_t size);
+  std::string* mutable_config_json();
+  std::string* release_config_json();
+  void set_allocated_config_json(std::string* config_json);
+  private:
+  const std::string& _internal_config_json() const;
+  void _internal_set_config_json(const std::string& value);
+  std::string* _internal_mutable_config_json();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SetReconstructionConfigFieldsRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_json_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SetReconstructionConfigFieldsResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SetReconstructionConfigFieldsResponse) */ {
+ public:
+  SetReconstructionConfigFieldsResponse();
+  virtual ~SetReconstructionConfigFieldsResponse();
+
+  SetReconstructionConfigFieldsResponse(const SetReconstructionConfigFieldsResponse& from);
+  SetReconstructionConfigFieldsResponse(SetReconstructionConfigFieldsResponse&& from) noexcept
+    : SetReconstructionConfigFieldsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SetReconstructionConfigFieldsResponse& operator=(const SetReconstructionConfigFieldsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SetReconstructionConfigFieldsResponse& operator=(SetReconstructionConfigFieldsResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SetReconstructionConfigFieldsResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SetReconstructionConfigFieldsResponse* internal_default_instance() {
+    return reinterpret_cast<const SetReconstructionConfigFieldsResponse*>(
+               &_SetReconstructionConfigFieldsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    40;
+
+  friend void swap(SetReconstructionConfigFieldsResponse& a, SetReconstructionConfigFieldsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SetReconstructionConfigFieldsResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SetReconstructionConfigFieldsResponse* New() const final {
+    return CreateMaybeMessage<SetReconstructionConfigFieldsResponse>(nullptr);
+  }
+
+  SetReconstructionConfigFieldsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SetReconstructionConfigFieldsResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SetReconstructionConfigFieldsResponse& from);
+  void MergeFrom(const SetReconstructionConfigFieldsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SetReconstructionConfigFieldsResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SetReconstructionConfigFieldsResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:SetReconstructionConfigFieldsResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
@@ -9498,7 +10086,67 @@ inline void SetReconstructionConfigRequest::set_allocated_reconstruction_id(std:
   // @@protoc_insertion_point(field_set_allocated:SetReconstructionConfigRequest.reconstruction_id)
 }
 
-// string config_json = 2;
+// string config_name = 2;
+inline void SetReconstructionConfigRequest::clear_config_name() {
+  config_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetReconstructionConfigRequest::config_name() const {
+  // @@protoc_insertion_point(field_get:SetReconstructionConfigRequest.config_name)
+  return _internal_config_name();
+}
+inline void SetReconstructionConfigRequest::set_config_name(const std::string& value) {
+  _internal_set_config_name(value);
+  // @@protoc_insertion_point(field_set:SetReconstructionConfigRequest.config_name)
+}
+inline std::string* SetReconstructionConfigRequest::mutable_config_name() {
+  // @@protoc_insertion_point(field_mutable:SetReconstructionConfigRequest.config_name)
+  return _internal_mutable_config_name();
+}
+inline const std::string& SetReconstructionConfigRequest::_internal_config_name() const {
+  return config_name_.GetNoArena();
+}
+inline void SetReconstructionConfigRequest::_internal_set_config_name(const std::string& value) {
+  
+  config_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetReconstructionConfigRequest::set_config_name(std::string&& value) {
+  
+  config_name_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetReconstructionConfigRequest.config_name)
+}
+inline void SetReconstructionConfigRequest::set_config_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  config_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetReconstructionConfigRequest.config_name)
+}
+inline void SetReconstructionConfigRequest::set_config_name(const char* value, size_t size) {
+  
+  config_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetReconstructionConfigRequest.config_name)
+}
+inline std::string* SetReconstructionConfigRequest::_internal_mutable_config_name() {
+  
+  return config_name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetReconstructionConfigRequest::release_config_name() {
+  // @@protoc_insertion_point(field_release:SetReconstructionConfigRequest.config_name)
+  
+  return config_name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetReconstructionConfigRequest::set_allocated_config_name(std::string* config_name) {
+  if (config_name != nullptr) {
+    
+  } else {
+    
+  }
+  config_name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), config_name);
+  // @@protoc_insertion_point(field_set_allocated:SetReconstructionConfigRequest.config_name)
+}
+
+// string config_json = 3;
 inline void SetReconstructionConfigRequest::clear_config_json() {
   config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
@@ -9906,9 +10554,333 @@ inline void MVSResponse::set_success(bool value) {
   // @@protoc_insertion_point(field_set:MVSResponse.success)
 }
 
+// -------------------------------------------------------------------
+
+// SetAgentConfigFieldsRequest
+
+// string reconstruction_id = 1;
+inline void SetAgentConfigFieldsRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetAgentConfigFieldsRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:SetAgentConfigFieldsRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void SetAgentConfigFieldsRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:SetAgentConfigFieldsRequest.reconstruction_id)
+}
+inline std::string* SetAgentConfigFieldsRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:SetAgentConfigFieldsRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& SetAgentConfigFieldsRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void SetAgentConfigFieldsRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetAgentConfigFieldsRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetAgentConfigFieldsRequest.reconstruction_id)
+}
+inline void SetAgentConfigFieldsRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetAgentConfigFieldsRequest.reconstruction_id)
+}
+inline void SetAgentConfigFieldsRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetAgentConfigFieldsRequest.reconstruction_id)
+}
+inline std::string* SetAgentConfigFieldsRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetAgentConfigFieldsRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:SetAgentConfigFieldsRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetAgentConfigFieldsRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:SetAgentConfigFieldsRequest.reconstruction_id)
+}
+
+// string agent_name = 2;
+inline void SetAgentConfigFieldsRequest::clear_agent_name() {
+  agent_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetAgentConfigFieldsRequest::agent_name() const {
+  // @@protoc_insertion_point(field_get:SetAgentConfigFieldsRequest.agent_name)
+  return _internal_agent_name();
+}
+inline void SetAgentConfigFieldsRequest::set_agent_name(const std::string& value) {
+  _internal_set_agent_name(value);
+  // @@protoc_insertion_point(field_set:SetAgentConfigFieldsRequest.agent_name)
+}
+inline std::string* SetAgentConfigFieldsRequest::mutable_agent_name() {
+  // @@protoc_insertion_point(field_mutable:SetAgentConfigFieldsRequest.agent_name)
+  return _internal_mutable_agent_name();
+}
+inline const std::string& SetAgentConfigFieldsRequest::_internal_agent_name() const {
+  return agent_name_.GetNoArena();
+}
+inline void SetAgentConfigFieldsRequest::_internal_set_agent_name(const std::string& value) {
+  
+  agent_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetAgentConfigFieldsRequest::set_agent_name(std::string&& value) {
+  
+  agent_name_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetAgentConfigFieldsRequest.agent_name)
+}
+inline void SetAgentConfigFieldsRequest::set_agent_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  agent_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetAgentConfigFieldsRequest.agent_name)
+}
+inline void SetAgentConfigFieldsRequest::set_agent_name(const char* value, size_t size) {
+  
+  agent_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetAgentConfigFieldsRequest.agent_name)
+}
+inline std::string* SetAgentConfigFieldsRequest::_internal_mutable_agent_name() {
+  
+  return agent_name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetAgentConfigFieldsRequest::release_agent_name() {
+  // @@protoc_insertion_point(field_release:SetAgentConfigFieldsRequest.agent_name)
+  
+  return agent_name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetAgentConfigFieldsRequest::set_allocated_agent_name(std::string* agent_name) {
+  if (agent_name != nullptr) {
+    
+  } else {
+    
+  }
+  agent_name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), agent_name);
+  // @@protoc_insertion_point(field_set_allocated:SetAgentConfigFieldsRequest.agent_name)
+}
+
+// string config_json = 3;
+inline void SetAgentConfigFieldsRequest::clear_config_json() {
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetAgentConfigFieldsRequest::config_json() const {
+  // @@protoc_insertion_point(field_get:SetAgentConfigFieldsRequest.config_json)
+  return _internal_config_json();
+}
+inline void SetAgentConfigFieldsRequest::set_config_json(const std::string& value) {
+  _internal_set_config_json(value);
+  // @@protoc_insertion_point(field_set:SetAgentConfigFieldsRequest.config_json)
+}
+inline std::string* SetAgentConfigFieldsRequest::mutable_config_json() {
+  // @@protoc_insertion_point(field_mutable:SetAgentConfigFieldsRequest.config_json)
+  return _internal_mutable_config_json();
+}
+inline const std::string& SetAgentConfigFieldsRequest::_internal_config_json() const {
+  return config_json_.GetNoArena();
+}
+inline void SetAgentConfigFieldsRequest::_internal_set_config_json(const std::string& value) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetAgentConfigFieldsRequest::set_config_json(std::string&& value) {
+  
+  config_json_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetAgentConfigFieldsRequest.config_json)
+}
+inline void SetAgentConfigFieldsRequest::set_config_json(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetAgentConfigFieldsRequest.config_json)
+}
+inline void SetAgentConfigFieldsRequest::set_config_json(const char* value, size_t size) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetAgentConfigFieldsRequest.config_json)
+}
+inline std::string* SetAgentConfigFieldsRequest::_internal_mutable_config_json() {
+  
+  return config_json_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetAgentConfigFieldsRequest::release_config_json() {
+  // @@protoc_insertion_point(field_release:SetAgentConfigFieldsRequest.config_json)
+  
+  return config_json_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetAgentConfigFieldsRequest::set_allocated_config_json(std::string* config_json) {
+  if (config_json != nullptr) {
+    
+  } else {
+    
+  }
+  config_json_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), config_json);
+  // @@protoc_insertion_point(field_set_allocated:SetAgentConfigFieldsRequest.config_json)
+}
+
+// -------------------------------------------------------------------
+
+// SetAgentConfigFieldsResponse
+
+// -------------------------------------------------------------------
+
+// SetReconstructionConfigFieldsRequest
+
+// string reconstruction_id = 1;
+inline void SetReconstructionConfigFieldsRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetReconstructionConfigFieldsRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:SetReconstructionConfigFieldsRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void SetReconstructionConfigFieldsRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:SetReconstructionConfigFieldsRequest.reconstruction_id)
+}
+inline std::string* SetReconstructionConfigFieldsRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:SetReconstructionConfigFieldsRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& SetReconstructionConfigFieldsRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void SetReconstructionConfigFieldsRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetReconstructionConfigFieldsRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetReconstructionConfigFieldsRequest.reconstruction_id)
+}
+inline void SetReconstructionConfigFieldsRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetReconstructionConfigFieldsRequest.reconstruction_id)
+}
+inline void SetReconstructionConfigFieldsRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetReconstructionConfigFieldsRequest.reconstruction_id)
+}
+inline std::string* SetReconstructionConfigFieldsRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetReconstructionConfigFieldsRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:SetReconstructionConfigFieldsRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetReconstructionConfigFieldsRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:SetReconstructionConfigFieldsRequest.reconstruction_id)
+}
+
+// string config_json = 2;
+inline void SetReconstructionConfigFieldsRequest::clear_config_json() {
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& SetReconstructionConfigFieldsRequest::config_json() const {
+  // @@protoc_insertion_point(field_get:SetReconstructionConfigFieldsRequest.config_json)
+  return _internal_config_json();
+}
+inline void SetReconstructionConfigFieldsRequest::set_config_json(const std::string& value) {
+  _internal_set_config_json(value);
+  // @@protoc_insertion_point(field_set:SetReconstructionConfigFieldsRequest.config_json)
+}
+inline std::string* SetReconstructionConfigFieldsRequest::mutable_config_json() {
+  // @@protoc_insertion_point(field_mutable:SetReconstructionConfigFieldsRequest.config_json)
+  return _internal_mutable_config_json();
+}
+inline const std::string& SetReconstructionConfigFieldsRequest::_internal_config_json() const {
+  return config_json_.GetNoArena();
+}
+inline void SetReconstructionConfigFieldsRequest::_internal_set_config_json(const std::string& value) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void SetReconstructionConfigFieldsRequest::set_config_json(std::string&& value) {
+  
+  config_json_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:SetReconstructionConfigFieldsRequest.config_json)
+}
+inline void SetReconstructionConfigFieldsRequest::set_config_json(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:SetReconstructionConfigFieldsRequest.config_json)
+}
+inline void SetReconstructionConfigFieldsRequest::set_config_json(const char* value, size_t size) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:SetReconstructionConfigFieldsRequest.config_json)
+}
+inline std::string* SetReconstructionConfigFieldsRequest::_internal_mutable_config_json() {
+  
+  return config_json_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* SetReconstructionConfigFieldsRequest::release_config_json() {
+  // @@protoc_insertion_point(field_release:SetReconstructionConfigFieldsRequest.config_json)
+  
+  return config_json_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void SetReconstructionConfigFieldsRequest::set_allocated_config_json(std::string* config_json) {
+  if (config_json != nullptr) {
+    
+  } else {
+    
+  }
+  config_json_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), config_json);
+  // @@protoc_insertion_point(field_set_allocated:SetReconstructionConfigFieldsRequest.config_json)
+}
+
+// -------------------------------------------------------------------
+
+// SetReconstructionConfigFieldsResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

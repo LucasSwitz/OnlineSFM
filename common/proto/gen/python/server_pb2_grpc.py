@@ -84,6 +84,16 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.MVSRequest.SerializeToString,
         response_deserializer=server__pb2.MVSResponse.FromString,
         )
+    self.SetAgentConfigFields = channel.unary_unary(
+        '/ReconstructionService/SetAgentConfigFields',
+        request_serializer=server__pb2.SetAgentConfigFieldsRequest.SerializeToString,
+        response_deserializer=server__pb2.SetAgentConfigFieldsResponse.FromString,
+        )
+    self.SetReconstructionConfigFields = channel.unary_unary(
+        '/ReconstructionService/SetReconstructionConfigFields',
+        request_serializer=server__pb2.SetReconstructionConfigFieldsRequest.SerializeToString,
+        response_deserializer=server__pb2.SetReconstructionConfigFieldsResponse.FromString,
+        )
 
 
 class ReconstructionServiceServicer(object):
@@ -188,6 +198,20 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def SetAgentConfigFields(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def SetReconstructionConfigFields(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ReconstructionServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -260,6 +284,16 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           servicer.MVS,
           request_deserializer=server__pb2.MVSRequest.FromString,
           response_serializer=server__pb2.MVSResponse.SerializeToString,
+      ),
+      'SetAgentConfigFields': grpc.unary_unary_rpc_method_handler(
+          servicer.SetAgentConfigFields,
+          request_deserializer=server__pb2.SetAgentConfigFieldsRequest.FromString,
+          response_serializer=server__pb2.SetAgentConfigFieldsResponse.SerializeToString,
+      ),
+      'SetReconstructionConfigFields': grpc.unary_unary_rpc_method_handler(
+          servicer.SetReconstructionConfigFields,
+          request_deserializer=server__pb2.SetReconstructionConfigFieldsRequest.FromString,
+          response_serializer=server__pb2.SetReconstructionConfigFieldsResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

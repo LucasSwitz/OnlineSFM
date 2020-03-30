@@ -1,9 +1,3 @@
-#Redis
-git clone https://github.com/redis/hiredis.git
-cd hiredis
-make
-make install
-
 #Prepare and empty machine for building:
 apt-get update -qq -y && apt-get install -qq -y
 apt-get -y install build-essential git mercurial cmake libpng-dev libjpeg-dev libtiff-dev libglu1-mesa-dev libxmu-dev libxi-dev

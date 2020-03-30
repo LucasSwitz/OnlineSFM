@@ -55,8 +55,9 @@ void SQLStorage::IssueUpdate(const std::string& u,
         con->setSchema(this->_db);
         this->IssueUpdate(u, con, modifier);
         delete con;
-    }catch(sql::SQLException e){
+    }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
+        throw;
     }
 }
 
@@ -70,8 +71,9 @@ void SQLStorage::IssueUpdate(const std::string& u,
         modifier(stmt);
         stmt->execute();   
         delete stmt;
-    }catch(sql::SQLException e){
+    }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
+        throw;
     }
 }
 

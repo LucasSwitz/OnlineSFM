@@ -17,30 +17,34 @@ class MongoDBConfigurationContainer : public ConfigurationContainer{
         long get_long(const std::string& key);
         bool get_bool(const std::string& key);
         double get_double(const std::string& key);
+        void patch(const std::string& json);
         std::string jsonify();
     private:
         bsoncxx::document::value _document;
 };
 
-
 class MongoDBConfigurationAdapter : public ConfigurationAdapter {
     public:
         MongoDBConfigurationAdapter(const std::string& uri, 
                                     const std::string& db_name, 
-                                    const std::string& collection_name,
-                                    const std::string& default_collection_name);
-        ConfigurationContainerPtr Get(const std::string& reconstruction_id, const std::string& configuration_name);
+                                    const std::string& agents_collection_name,
+                                    const std::string& default_agents_collection_name,
+                                    const std::string& recontructions_collection_name);
+        ConfigurationContainerPtr GetAgentConfig(const std::string& reconstruction_id, const std::string& configuration_name);
         ConfigurationContainerPtr GetDefault(const std::string& configuration_name);
-        ConfigurationContainerPtr GetOrDefault(const std::string& reconstruction_id, 
+        ConfigurationContainerPtr GetReconstructionConfig(const std::string& reconstruction_id);
+        void SetReconstructionConfig(const std::string& reconstruction_id, const std::string& json);
+        ConfigurationContainerPtr GetAgentConfigOrDefault(const std::string& reconstruction_id, 
                                               const std::string& configuration_name, 
                                               ConfigurationContainerPtr def) override;
-        void Set(const std::string& reconstruction_id, 
+        void SetAgentConfig(const std::string& reconstruction_id, 
                                          const std::string& configuration_name, 
-                                         ConfigurationContainerPtr config);
+                                         const std::string& config_json);
     private:
         static mongocxx::instance instance;
         mongocxx::client _mongodb_client;
         mongocxx::database _db;
-        std::string _collection_name;
-        std::string _default_collection_name;
+        std::string _agents_collection;
+        std::string _reconstruction_configs_collection;
+        std::string _default_agents_collection;
 };

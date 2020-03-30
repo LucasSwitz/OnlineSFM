@@ -56,6 +56,16 @@ class OBJ{
         OBJStorageAdapter* _storage_adapter;
 };
 
+
+class DefaultReconstructionConfig : public ConfigurationContainer{
+    std::string get_string(const std::string& key);
+    int get_int(const std::string& key);
+    bool get_bool(const std::string& key);
+    double get_double(const std::string& key);
+    void patch(const std::string& json);
+    std::string jsonify();
+};
+
 class Reconstruction {
     public:
         Reconstruction(const std::string& id,
@@ -64,7 +74,8 @@ class Reconstruction {
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
                        CameraIntrinsicsStorage* intrinsics_storages,
-                       SFMBacklogCounter* session_backlog);
+                       SFMBacklogCounter* session_backlog,
+                       std::shared_ptr<ConfigurationAdapter> config_adapter);
         ~Reconstruction();
         void ComputeFeatures(const std::set<std::string>& images);
         void ComputeMatches(const std::set<std::string>& images);
@@ -81,6 +92,8 @@ class Reconstruction {
         void Delete();
         bool IsRunningMVS();
         const ReconstructionData& Data();
+        void SetAgentConfigFields(const std::string& agent_name, const std::string& config_json);
+        void SetConfigFields( const std::string& config_json);
     private:
         std::string _id;
         bool _running_mvs = false;
@@ -91,6 +104,7 @@ class Reconstruction {
         OBJStorageAdapter* _obj_storage = nullptr;
         SparseStorageAdapter* _sparse_storage = nullptr;
         CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
+        std::shared_ptr<ConfigurationAdapter> _config_adapter = nullptr;
         OpenMVGReconstructionAgent reconstruction_agent;
         ReconstructionData _data;
         SFMBacklogCounter* _session_backlog = nullptr;

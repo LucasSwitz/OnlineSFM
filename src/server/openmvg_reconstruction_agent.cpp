@@ -331,7 +331,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
     std::cerr << "\nIt is an invalid output directory" << std::endl;
     return false;
   }
-  ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
     nullptr
@@ -518,7 +518,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_paths){
   // Update our SFM data to get all the images to match with
   LOG(INFO) << "Generating matches for " << new_image_paths.size() << " new images";
-  ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
     nullptr
@@ -748,7 +748,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
 }
 
 bool OpenMVGReconstructionAgent::IncrementalSFM(){
-  ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
     nullptr
@@ -835,7 +835,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
 }
 
 bool OpenMVGReconstructionAgent::ComputeStructure(){
-   ConfigurationContainerPtr config = this->_configuration_adapter->GetOrDefault(
+   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
     nullptr

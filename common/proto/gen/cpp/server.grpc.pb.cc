@@ -35,6 +35,8 @@ static const char* ReconstructionService_method_names[] = {
   "/ReconstructionService/GetReconstructionConfig",
   "/ReconstructionService/ReconstructionUploadImageBatch",
   "/ReconstructionService/MVS",
+  "/ReconstructionService/SetAgentConfigFields",
+  "/ReconstructionService/SetReconstructionConfigFields",
 };
 
 std::unique_ptr< ReconstructionService::Stub> ReconstructionService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -58,6 +60,8 @@ ReconstructionService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterfac
   , rpcmethod_GetReconstructionConfig_(ReconstructionService_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ReconstructionUploadImageBatch_(ReconstructionService_method_names[12], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
   , rpcmethod_MVS_(ReconstructionService_method_names[13], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetAgentConfigFields_(ReconstructionService_method_names[14], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetReconstructionConfigFields_(ReconstructionService_method_names[15], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ReconstructionService::Stub::Handshake(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::HandshakeResponse* response) {
@@ -392,6 +396,62 @@ void ReconstructionService::Stub::experimental_async::MVS(::grpc::ClientContext*
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::MVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, false);
 }
 
+::grpc::Status ReconstructionService::Stub::SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::SetAgentConfigFieldsResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetAgentConfigFields_, context, request, response);
+}
+
+void ReconstructionService::Stub::experimental_async::SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetAgentConfigFields_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetAgentConfigFields_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SetAgentConfigFields_, context, request, response, reactor);
+}
+
+void ReconstructionService::Stub::experimental_async::SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SetAgentConfigFields_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>* ReconstructionService::Stub::AsyncSetAgentConfigFieldsRaw(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::SetAgentConfigFieldsResponse>::Create(channel_.get(), cq, rpcmethod_SetAgentConfigFields_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>* ReconstructionService::Stub::PrepareAsyncSetAgentConfigFieldsRaw(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::SetAgentConfigFieldsResponse>::Create(channel_.get(), cq, rpcmethod_SetAgentConfigFields_, context, request, false);
+}
+
+::grpc::Status ReconstructionService::Stub::SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::SetReconstructionConfigFieldsResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetReconstructionConfigFields_, context, request, response);
+}
+
+void ReconstructionService::Stub::experimental_async::SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetReconstructionConfigFields_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetReconstructionConfigFields_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SetReconstructionConfigFields_, context, request, response, reactor);
+}
+
+void ReconstructionService::Stub::experimental_async::SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_SetReconstructionConfigFields_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>* ReconstructionService::Stub::AsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::SetReconstructionConfigFieldsResponse>::Create(channel_.get(), cq, rpcmethod_SetReconstructionConfigFields_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>* ReconstructionService::Stub::PrepareAsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::SetReconstructionConfigFieldsResponse>::Create(channel_.get(), cq, rpcmethod_SetReconstructionConfigFields_, context, request, false);
+}
+
 ReconstructionService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ReconstructionService_method_names[0],
@@ -463,6 +523,16 @@ ReconstructionService::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::MVSRequest, ::MVSResponse>(
           std::mem_fn(&ReconstructionService::Service::MVS), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ReconstructionService_method_names[14],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>(
+          std::mem_fn(&ReconstructionService::Service::SetAgentConfigFields), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ReconstructionService_method_names[15],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>(
+          std::mem_fn(&ReconstructionService::Service::SetReconstructionConfigFields), this)));
 }
 
 ReconstructionService::Service::~Service() {
@@ -560,6 +630,20 @@ ReconstructionService::Service::~Service() {
 }
 
 ::grpc::Status ReconstructionService::Service::MVS(::grpc::ServerContext* context, const ::MVSRequest* request, ::MVSResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ReconstructionService::Service::SetAgentConfigFields(::grpc::ServerContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ReconstructionService::Service::SetReconstructionConfigFields(::grpc::ServerContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response) {
   (void) context;
   (void) request;
   (void) response;

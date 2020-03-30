@@ -155,7 +155,8 @@ message GetSparseResponse {
 
 message SetReconstructionConfigRequest {
     string reconstruction_id = 1;
-    string config_json = 2; 
+    string config_name = 2;
+    string config_json = 3; 
 };
 
 message SetReconstructionConfigResponse {
@@ -187,6 +188,27 @@ message MVSResponse {
     bool success = 1;
 }
 
+
+message SetAgentConfigFieldsRequest {
+    string reconstruction_id = 1;
+    string agent_name = 2;
+    string config_json = 3;
+};
+
+message SetAgentConfigFieldsResponse {
+
+};
+
+message SetReconstructionConfigFieldsRequest {
+    string reconstruction_id = 1;
+    string config_json = 2;
+};
+
+message SetReconstructionConfigFieldsResponse {
+    
+};
+
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
     rpc StoreImage(stream StoreImageRequest) returns (StoreImageResponse){};
@@ -202,4 +224,6 @@ service ReconstructionService {
     rpc GetReconstructionConfig(GetReconstructionConfigRequest) returns (GetReconstructionConfigResponse);
     rpc ReconstructionUploadImageBatch(stream ReconstructionUploadImageBatchRequest) returns (ReconstructionUploadImageBatchResponse);
     rpc MVS(MVSRequest) returns (MVSResponse);
+    rpc SetAgentConfigFields(SetAgentConfigFieldsRequest) returns (SetAgentConfigFieldsResponse);
+    rpc SetReconstructionConfigFields(SetReconstructionConfigFieldsRequest) returns (SetReconstructionConfigFieldsResponse);
 }

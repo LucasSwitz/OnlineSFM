@@ -14,35 +14,44 @@
 #include <thread>
 
 Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
-    return new Reconstruction(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
-                                                            CONFIG_GET_STRING("sql.user"), 
-                                                            CONFIG_GET_STRING("sql.password"), 
-                                                            CONFIG_GET_STRING("sql.db"), 
-                                                            CONFIG_GET_STRING("sql.reconstruction_table")), 
-                                new SQLImageStorage(new FileSystemImageDataStorage(),
-                                                    CONFIG_GET_STRING("sql.address"), 
-                                                    CONFIG_GET_STRING("sql.user"), 
-                                                    CONFIG_GET_STRING("sql.password"), 
-                                                    CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.views_table")), 
-                                new SQLSparseStorage(CONFIG_GET_STRING("sql.address"), 
-                                                    CONFIG_GET_STRING("sql.user"), 
-                                                    CONFIG_GET_STRING("sql.password"), 
-                                                    CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.sparse_table")), 
-                                new SQLOBJStorage(CONFIG_GET_STRING("sql.address"), 
-                                                    CONFIG_GET_STRING("sql.user"), 
-                                                    CONFIG_GET_STRING("sql.password"),
-                                                    CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.obj_table")),
-                                new SQLCameraIntrinsicsStorage(CONFIG_GET_STRING("sql.address"), 
-                                                    CONFIG_GET_STRING("sql.user"), 
-                                                    CONFIG_GET_STRING("sql.password"),
-                                                    CONFIG_GET_STRING("sql.db"), 
-                                                    CONFIG_GET_STRING("sql.intrinsics_table")),
-                                new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
-                                                    CONFIG_GET_STRING("redis.user"),
-                                                    CONFIG_GET_STRING("redis.password")));
+    try{
+        return new Reconstruction(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
+                                                                CONFIG_GET_STRING("sql.user"), 
+                                                                CONFIG_GET_STRING("sql.password"), 
+                                                                CONFIG_GET_STRING("sql.db"), 
+                                                                CONFIG_GET_STRING("sql.reconstruction_table")), 
+                                    new SQLImageStorage(new FileSystemImageDataStorage(),
+                                                        CONFIG_GET_STRING("sql.address"), 
+                                                        CONFIG_GET_STRING("sql.user"), 
+                                                        CONFIG_GET_STRING("sql.password"), 
+                                                        CONFIG_GET_STRING("sql.db"), 
+                                                        CONFIG_GET_STRING("sql.views_table")), 
+                                    new SQLSparseStorage(CONFIG_GET_STRING("sql.address"), 
+                                                        CONFIG_GET_STRING("sql.user"), 
+                                                        CONFIG_GET_STRING("sql.password"), 
+                                                        CONFIG_GET_STRING("sql.db"), 
+                                                        CONFIG_GET_STRING("sql.sparse_table")), 
+                                    new SQLOBJStorage(CONFIG_GET_STRING("sql.address"), 
+                                                        CONFIG_GET_STRING("sql.user"), 
+                                                        CONFIG_GET_STRING("sql.password"),
+                                                        CONFIG_GET_STRING("sql.db"), 
+                                                        CONFIG_GET_STRING("sql.obj_table")),
+                                    new SQLCameraIntrinsicsStorage(CONFIG_GET_STRING("sql.address"), 
+                                                        CONFIG_GET_STRING("sql.user"), 
+                                                        CONFIG_GET_STRING("sql.password"),
+                                                        CONFIG_GET_STRING("sql.db"), 
+                                                        CONFIG_GET_STRING("sql.intrinsics_table")),
+                                    new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
+                                                        CONFIG_GET_STRING("redis.user"),
+                                                        CONFIG_GET_STRING("redis.password")),
+                                    std::make_shared<MongoDBConfigurationAdapter>(CONFIG_GET_STRING("mongodb.uri"),
+                                                    CONFIG_GET_STRING("mongodb.db"),
+                                                    CONFIG_GET_STRING("mongodb.agents_collection"),
+                                                    CONFIG_GET_STRING("mongodb.default_agents_collection"),
+                                                    CONFIG_GET_STRING("mongodb.reconstructions_collections")));
+    }catch(const std::exception& e){
+        throw;
+    }
 }
 
 void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
@@ -60,7 +69,8 @@ Reconstruction::Reconstruction(const std::string& id,
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
                        CameraIntrinsicsStorage* intrinsics_storage,
-                       SFMBacklogCounter* backlog_monitor) : 
+                       SFMBacklogCounter* backlog_monitor,
+                       std::shared_ptr<ConfigurationAdapter> config_adapter) : 
     _id(id), 
     _reconstruction_storage(reconstruction_storage),
     _image_storage(image_storage), 
@@ -68,6 +78,7 @@ Reconstruction::Reconstruction(const std::string& id,
     _sparse_storage(sparse_storage),
     _intrinsics_storage(intrinsics_storage),
     _session_backlog(backlog_monitor),
+    _config_adapter(config_adapter),
     reconstruction_agent(id,
                         _intrinsics_storage, 
                         new SQLOpenMVGStorage(CONFIG_GET_STRING("sql.address"),
@@ -79,10 +90,7 @@ Reconstruction::Reconstruction(const std::string& id,
                                             CONFIG_GET_STRING("sql.openmvg_matches_table"),
                                             CONFIG_GET_STRING("sql.openmvg_meta_table"),
                                             CONFIG_GET_STRING("sql.openmvg_poses_table")),
-                        std::make_shared<MongoDBConfigurationAdapter>(CONFIG_GET_STRING("mongodb.uri"),
-                                                                      CONFIG_GET_STRING("mongodb.db"),
-                                                                      CONFIG_GET_STRING("mongodb.configurations_collection"),
-                                                                      CONFIG_GET_STRING("mongodb.default_configurations_collection"))){
+                                            config_adapter){
     this->_data = this->_reconstruction_storage->Get(this->_id);
     OpenMVGReconstructionAgentConfig config;
     config.features_dir = this->_data.features_path();
@@ -181,7 +189,6 @@ bool Reconstruction::HasReconstructedOnce(){
 }
 
 void Reconstruction::_SetupMVS(){
-    if(this->_running_mvs) return;
     SparsePointCloudMetaData spc_data = this->_sparse_storage->GetMetaByReconstruction(this->_id);
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     std::string mvs_dir = reconstruction_dir + "/working_MVS";
@@ -193,6 +200,7 @@ void Reconstruction::_SetupMVS(){
 
 bool Reconstruction::MVS(bool block){
     if(!this->_running_mvs){
+        this->_SetupMVS();
         this->_running_mvs = true;
         if(!block){
             this->_mvs_thread = new std::thread(&Reconstruction::_MVS, this);    
@@ -204,7 +212,6 @@ bool Reconstruction::MVS(bool block){
 }
 
 bool Reconstruction::_MVS(){
-    this->_SetupMVS();
     OpenMVSStrategy mvs;
     std::vector<OBJMetaData> old =  this->_obj_storage->GetAll(this->_id);
     OBJMetaData obj_meta;
@@ -307,4 +314,40 @@ void Reconstruction::ComputeMatches(const std::set<std::string>& images){
         paths.insert(this->_image_storage->GetMeta(image_id).path());
     });
     this->reconstruction_agent.ComputeMatches(paths);
+}
+
+void Reconstruction::SetAgentConfigFields(const std::string& agent_name, const std::string& config_json){
+   auto config = this->_config_adapter->GetAgentConfigOrDefault(this->_id, agent_name, nullptr);
+   config->patch(config_json);
+   this->_config_adapter->SetAgentConfig(this->_id, agent_name, std::move(config));
+}
+
+void Reconstruction::SetConfigFields(const std::string& config_json){
+    auto config = this->_config_adapter->GetReconstructionConfigOrDefault(this->_id, std::make_unique<DefaultReconstructionConfig>());
+    config->patch(config_json);
+    this->_config_adapter->SetReconstructionConfig(this->_id, std::move(config));
+}
+
+std::string DefaultReconstructionConfig::get_string(const std::string& key){
+    return "";
+}
+
+int DefaultReconstructionConfig::get_int(const std::string& key){
+    return 0;
+}
+
+bool DefaultReconstructionConfig::get_bool(const std::string& key){
+    return false;
+}
+
+double DefaultReconstructionConfig::get_double(const std::string& key){
+    return 0.0;
+}
+
+void DefaultReconstructionConfig::patch(const std::string& json){
+
+}
+
+std::string DefaultReconstructionConfig::jsonify(){
+    return "{}";
 }

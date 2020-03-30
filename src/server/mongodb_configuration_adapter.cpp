@@ -68,28 +68,44 @@ std::string MongoDBConfigurationContainer::jsonify(){
     }
 }
 
+void MongoDBConfigurationContainer::patch(const std::string& json){
+    auto new_bson = bsoncxx::from_json(json);
+    auto doc = document{};
+    for(auto it =  this->_document.view().begin(); it != this->_document.view().end(); it++){
+        if(new_bson.view().find(it->key()) == new_bson.view().end()){
+            doc << it->key() << it->get_value();
+        }
+    }
+    for(auto it = new_bson.view().begin(); it != new_bson.view().end(); it++){
+        doc << it->key() << it->get_value();
+    }
+    doc << finalize;
+    this->_document = bsoncxx::document::value(doc.view());
+}
+
 MongoDBConfigurationAdapter::MongoDBConfigurationAdapter(const std::string& uri, 
                                     const std::string& db_name, 
-                                    const std::string& collection_name,
-                                    const std::string& default_collection_name) : _mongodb_client(mongocxx::uri(uri)),
-                                                                          _collection_name(collection_name),
-                                                                          _default_collection_name(default_collection_name){
+                                    const std::string& agents_collection_name,
+                                    const std::string& default_agents_collection_name,
+                                    const std::string& reconstructions_collection_name) : _mongodb_client(mongocxx::uri(uri)),
+                                                                          _agents_collection(agents_collection_name),
+                                                                          _reconstruction_configs_collection(reconstructions_collection_name),
+                                                                          _default_agents_collection(default_agents_collection_name){
     this->_db = this->_mongodb_client[db_name];
 }
 
-ConfigurationContainerPtr MongoDBConfigurationAdapter::Get(const std::string& reconstruction_id, const std::string& configuration_name){
-    collection col = this->_db[this->_collection_name];
+ConfigurationContainerPtr MongoDBConfigurationAdapter::GetAgentConfig(const std::string& reconstruction_id, const std::string& configuration_name){
+    collection col = this->_db[this->_agents_collection];
     bsoncxx::stdx::optional<bsoncxx::document::value> maybe_result =
         col.find_one(document{} << RECONSTRUCTION_ID_KEY << reconstruction_id << finalize);
-    if(maybe_result){
-        bsoncxx::document::view v = maybe_result->view();
+    if(maybe_result && maybe_result->view()[CONFIRUATIONS_KEY][configuration_name]){
         return std::make_unique<MongoDBConfigurationContainer>(bsoncxx::document::value((maybe_result->view()[CONFIRUATIONS_KEY][configuration_name].get_document().value)));
     }
     return nullptr;
 }
 
 ConfigurationContainerPtr MongoDBConfigurationAdapter::GetDefault(const std::string& configuration_name){
-    collection col = this->_db[this->_default_collection_name];
+    collection col = this->_db[this->_default_agents_collection];
     bsoncxx::stdx::optional<bsoncxx::document::value> maybe_result =
         col.find_one(document{} << DEFAULT_CONFIGURATION_NAME_KEY << configuration_name << finalize);
     if(maybe_result){
@@ -99,18 +115,35 @@ ConfigurationContainerPtr MongoDBConfigurationAdapter::GetDefault(const std::str
     return nullptr;
 }
 
-ConfigurationContainerPtr MongoDBConfigurationAdapter::GetOrDefault(const std::string& reconstruction_id, 
+ConfigurationContainerPtr MongoDBConfigurationAdapter::GetAgentConfigOrDefault(const std::string& reconstruction_id, 
                                               const std::string& configuration_name, 
                                               ConfigurationContainerPtr def){
     ConfigurationContainerPtr config = nullptr;
-    if((config = this->Get(reconstruction_id, configuration_name)) || (config = this->GetDefault(configuration_name))){
+    if((config = this->GetAgentConfig(reconstruction_id, configuration_name)) || (config = this->GetDefault(configuration_name))){
         return config;
     }
     return def;
 }
 
-void MongoDBConfigurationAdapter::Set(const std::string& reconstruction_id, const std::string& configuration_name, ConfigurationContainerPtr config){
-    collection configs = this->_db[this->_collection_name];
-    bsoncxx::v_noabi::document::value config_value = bsoncxx::from_json(config->jsonify());
+void MongoDBConfigurationAdapter::SetAgentConfig(const std::string& reconstruction_id, const std::string& configuration_name, const std::string& config_json){
+    collection configs = this->_db[this->_agents_collection];
+    bsoncxx::v_noabi::document::value config_value = bsoncxx::from_json(config_json);
+    configs.insert_one(bsoncxx::document::view_or_value(config_value));
+}
+
+
+ConfigurationContainerPtr MongoDBConfigurationAdapter::GetReconstructionConfig(const std::string& reconstruction_id){
+    collection col = this->_db[this->_reconstruction_configs_collection];
+    bsoncxx::stdx::optional<bsoncxx::document::value> maybe_result =
+        col.find_one(document{} << RECONSTRUCTION_ID_KEY << reconstruction_id << finalize);
+    if(maybe_result){
+        return std::make_unique<MongoDBConfigurationContainer>(bsoncxx::document::value((maybe_result->view())));
+    }
+    return nullptr;
+}
+
+void MongoDBConfigurationAdapter::SetReconstructionConfig(const std::string& reconstruction_id, const std::string& json){
+    collection configs = this->_db[this->_reconstruction_configs_collection];
+    bsoncxx::v_noabi::document::value config_value = bsoncxx::from_json(json);
     configs.insert_one(bsoncxx::document::view_or_value(config_value));
 }

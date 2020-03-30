@@ -25,12 +25,17 @@ SQLImageStorage::SQLImageStorage(ImageDataStorage* data_storage,
 
 ImageMetaData SQLImageStorage::GetMeta(const std::string& image_id){
     LOG(INFO) << "Retrieving Image " << image_id;
+    ImageMetaData image;
     sql::ResultSet* res = this->IssueQuery(SQL_GET_IMAGE(this->_table), 
         [this, image_id](sql::PreparedStatement *stmt){
             stmt->setString(1, image_id);
     });
 
-    ImageMetaData image;
+    if(!res){
+        LOG(ERROR) << "Failed to retrieve metadata for image " << image_id;
+        return image;
+    }
+
     if(res->next()){
         image.set_id(res->getString("ID"));
         image.set_reconstruction(res->getString("RECONSTRUCTION_ID"));
@@ -67,10 +72,10 @@ std::vector<ImageMetaData> SQLImageStorage::GetAll(std::string reconstruction_id
 int SQLImageStorage::Store(const ImageData& image_data){
     LOG(INFO) << "Storing image " << image_data.metadata().id() << " for reconstruction " << image_data.metadata().reconstruction();
     // Store to filesystem
-    std::string path = this->_data_storage->Store(image_data, 
-                                                  image_data.metadata().reconstruction() + 
-                                                  "/images" + 
-                                                  image_data.metadata().id() + "." + image_data.metadata().format());
+    std::string rel_path = image_data.metadata().reconstruction() + 
+                                                  "/images/" + 
+                                                  image_data.metadata().id() + "." + image_data.metadata().format();
+    std::string path = this->_data_storage->Store(image_data, rel_path);
 
     // Store to DB
     this->IssueUpdate(SQL_INSERT_IMAGE(this->_table), 

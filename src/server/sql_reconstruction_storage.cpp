@@ -35,10 +35,15 @@ void SQLReconstructionStorage::Store(const ReconstructionData& data){
 }
 
 ReconstructionData SQLReconstructionStorage::Get(const std::string& id){
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_RECONSTRUCTION(this->_table), 
-        [id](sql::PreparedStatement *stmt){
-            stmt->setString(1, id);
-    });
+    sql::ResultSet* res;
+    try{
+        res = this->IssueQuery(SQL_GET_RECONSTRUCTION(this->_table), 
+            [id](sql::PreparedStatement *stmt){
+                stmt->setString(1, id);
+        });
+    }catch(const std::exception& e){
+        throw;
+    }
     ReconstructionData reconstruction_data;
     if(!res){
         LOG(ERROR) << "Failed to get reconstruction data for " << id;

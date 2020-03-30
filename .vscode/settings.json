@@ -1,5 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
+    "ignore"
     "files.associations": {
         "iostream": "cpp",
         "cctype": "cpp",

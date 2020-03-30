@@ -142,6 +142,20 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::MVSResponse>> PrepareAsyncMVS(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::MVSResponse>>(PrepareAsyncMVSRaw(context, request, cq));
     }
+    virtual ::grpc::Status SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::SetAgentConfigFieldsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetAgentConfigFieldsResponse>> AsyncSetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetAgentConfigFieldsResponse>>(AsyncSetAgentConfigFieldsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetAgentConfigFieldsResponse>> PrepareAsyncSetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetAgentConfigFieldsResponse>>(PrepareAsyncSetAgentConfigFieldsRaw(context, request, cq));
+    }
+    virtual ::grpc::Status SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::SetReconstructionConfigFieldsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>> AsyncSetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>>(AsyncSetReconstructionConfigFieldsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>> PrepareAsyncSetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>>(PrepareAsyncSetReconstructionConfigFieldsRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -278,6 +292,30 @@ class ReconstructionService final {
       #else
       virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::MVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     typedef class experimental_async_interface async_interface;
@@ -320,6 +358,10 @@ class ReconstructionService final {
     virtual ::grpc::ClientAsyncWriterInterface< ::ReconstructionUploadImageBatchRequest>* PrepareAsyncReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::MVSResponse>* AsyncMVSRaw(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::MVSResponse>* PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetAgentConfigFieldsResponse>* AsyncSetAgentConfigFieldsRaw(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetAgentConfigFieldsResponse>* PrepareAsyncSetAgentConfigFieldsRaw(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>* AsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>* PrepareAsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -431,6 +473,20 @@ class ReconstructionService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::MVSResponse>> PrepareAsyncMVS(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::MVSResponse>>(PrepareAsyncMVSRaw(context, request, cq));
+    }
+    ::grpc::Status SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::SetAgentConfigFieldsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>> AsyncSetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>>(AsyncSetAgentConfigFieldsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>> PrepareAsyncSetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>>(PrepareAsyncSetAgentConfigFieldsRaw(context, request, cq));
+    }
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::SetReconstructionConfigFieldsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>> AsyncSetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>>(AsyncSetReconstructionConfigFieldsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>> PrepareAsyncSetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>>(PrepareAsyncSetReconstructionConfigFieldsRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -568,6 +624,30 @@ class ReconstructionService final {
       #else
       void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::MVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, std::function<void(::grpc::Status)>) override;
+      void SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetAgentConfigFields(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetAgentConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetAgentConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, std::function<void(::grpc::Status)>) override;
+      void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void SetReconstructionConfigFields(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigFieldsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -612,6 +692,10 @@ class ReconstructionService final {
     ::grpc::ClientAsyncWriter< ::ReconstructionUploadImageBatchRequest>* PrepareAsyncReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::MVSResponse>* AsyncMVSRaw(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::MVSResponse>* PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::MVSRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>* AsyncSetAgentConfigFieldsRaw(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SetAgentConfigFieldsResponse>* PrepareAsyncSetAgentConfigFieldsRaw(::grpc::ClientContext* context, const ::SetAgentConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>* AsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>* PrepareAsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Handshake_;
     const ::grpc::internal::RpcMethod rpcmethod_StoreImage_;
     const ::grpc::internal::RpcMethod rpcmethod_SparseReconstruct_;
@@ -626,6 +710,8 @@ class ReconstructionService final {
     const ::grpc::internal::RpcMethod rpcmethod_GetReconstructionConfig_;
     const ::grpc::internal::RpcMethod rpcmethod_ReconstructionUploadImageBatch_;
     const ::grpc::internal::RpcMethod rpcmethod_MVS_;
+    const ::grpc::internal::RpcMethod rpcmethod_SetAgentConfigFields_;
+    const ::grpc::internal::RpcMethod rpcmethod_SetReconstructionConfigFields_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -647,6 +733,8 @@ class ReconstructionService final {
     virtual ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response);
     virtual ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* reader, ::ReconstructionUploadImageBatchResponse* response);
     virtual ::grpc::Status MVS(::grpc::ServerContext* context, const ::MVSRequest* request, ::MVSResponse* response);
+    virtual ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response);
+    virtual ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Handshake : public BaseClass {
@@ -928,7 +1016,47 @@ class ReconstructionService final {
       ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Handshake<WithAsyncMethod_StoreImage<WithAsyncMethod_SparseReconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_SetReconstructionConfig<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_ReconstructionUploadImageBatch<WithAsyncMethod_MVS<Service > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_SetAgentConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SetAgentConfigFields() {
+      ::grpc::Service::MarkMethodAsync(14);
+    }
+    ~WithAsyncMethod_SetAgentConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetAgentConfigFields(::grpc::ServerContext* context, ::SetAgentConfigFieldsRequest* request, ::grpc::ServerAsyncResponseWriter< ::SetAgentConfigFieldsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_SetReconstructionConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_SetReconstructionConfigFields() {
+      ::grpc::Service::MarkMethodAsync(15);
+    }
+    ~WithAsyncMethod_SetReconstructionConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetReconstructionConfigFields(::grpc::ServerContext* context, ::SetReconstructionConfigFieldsRequest* request, ::grpc::ServerAsyncResponseWriter< ::SetReconstructionConfigFieldsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Handshake<WithAsyncMethod_StoreImage<WithAsyncMethod_SparseReconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_SetReconstructionConfig<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_ReconstructionUploadImageBatch<WithAsyncMethod_MVS<WithAsyncMethod_SetAgentConfigFields<WithAsyncMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Handshake : public BaseClass {
    private:
@@ -1542,11 +1670,105 @@ class ReconstructionService final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_SetAgentConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_SetAgentConfigFields() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(14,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response) { return this->SetAgentConfigFields(context, request, response); }));}
+    void SetMessageAllocatorFor_SetAgentConfigFields(
+        ::grpc::experimental::MessageAllocator< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_SetAgentConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetAgentConfigFields(
+      ::grpc::CallbackServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetAgentConfigFields(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_SetReconstructionConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_SetReconstructionConfigFields() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(15,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response) { return this->SetReconstructionConfigFields(context, request, response); }));}
+    void SetMessageAllocatorFor_SetReconstructionConfigFields(
+        ::grpc::experimental::MessageAllocator< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(15);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_SetReconstructionConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetReconstructionConfigFields(
+      ::grpc::CallbackServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetReconstructionConfigFields(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<Service > > > > > > > > > > > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<Service > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Handshake : public BaseClass {
    private:
@@ -1781,6 +2003,40 @@ class ReconstructionService final {
     }
     // disable synchronous version of this method
     ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::MVSRequest* /*request*/, ::MVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SetAgentConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SetAgentConfigFields() {
+      ::grpc::Service::MarkMethodGeneric(14);
+    }
+    ~WithGenericMethod_SetAgentConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_SetReconstructionConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_SetReconstructionConfigFields() {
+      ::grpc::Service::MarkMethodGeneric(15);
+    }
+    ~WithGenericMethod_SetReconstructionConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2063,6 +2319,46 @@ class ReconstructionService final {
     }
     void RequestMVS(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SetAgentConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SetAgentConfigFields() {
+      ::grpc::Service::MarkMethodRaw(14);
+    }
+    ~WithRawMethod_SetAgentConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetAgentConfigFields(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_SetReconstructionConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_SetReconstructionConfigFields() {
+      ::grpc::Service::MarkMethodRaw(15);
+    }
+    ~WithRawMethod_SetReconstructionConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestSetReconstructionConfigFields(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2598,6 +2894,82 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_SetAgentConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_SetAgentConfigFields() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(14,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetAgentConfigFields(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_SetAgentConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetAgentConfigFields(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetAgentConfigFields(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_SetReconstructionConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_SetReconstructionConfigFields() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(15,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetReconstructionConfigFields(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_SetReconstructionConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* SetReconstructionConfigFields(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* SetReconstructionConfigFields(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Handshake : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -2777,7 +3149,47 @@ class ReconstructionService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedMVS(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::MVSRequest,::MVSResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<Service > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SetAgentConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SetAgentConfigFields() {
+      ::grpc::Service::MarkMethodStreamed(14,
+        new ::grpc::internal::StreamedUnaryHandler< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>(std::bind(&WithStreamedUnaryMethod_SetAgentConfigFields<BaseClass>::StreamedSetAgentConfigFields, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_SetAgentConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* /*context*/, const ::SetAgentConfigFieldsRequest* /*request*/, ::SetAgentConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSetAgentConfigFields(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::SetAgentConfigFieldsRequest,::SetAgentConfigFieldsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_SetReconstructionConfigFields : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_SetReconstructionConfigFields() {
+      ::grpc::Service::MarkMethodStreamed(15,
+        new ::grpc::internal::StreamedUnaryHandler< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>(std::bind(&WithStreamedUnaryMethod_SetReconstructionConfigFields<BaseClass>::StreamedSetReconstructionConfigFields, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_SetReconstructionConfigFields() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigFieldsRequest* /*request*/, ::SetReconstructionConfigFieldsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedSetReconstructionConfigFields(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::SetReconstructionConfigFieldsRequest,::SetReconstructionConfigFieldsResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_GetOBJ : public BaseClass {
    private:
@@ -2819,7 +3231,7 @@ class ReconstructionService final {
     virtual ::grpc::Status StreamedGetSparse(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::GetSparseRequest,::GetSparseResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<Service > > SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<Service > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > StreamedService;
 };
 
 
