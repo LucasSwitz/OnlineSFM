@@ -5,7 +5,8 @@ from server_pb2 import (ImageData,
                         NewReconstructionRequest, 
                         MVSRequest, 
                         SparseReconstructRequest,
-                        SetReconstructionConfigRequest)
+                        SetAgentConfigFieldsRequest,
+                        SetReconstructionConfigFieldsRequest)
 from server_pb2_grpc import ReconstructionServiceStub
 import sys
 import random
@@ -45,7 +46,13 @@ class OnlineSFMReconstruction:
         self._client.MVS(MVSRequest(reconstruction_id=self._id))
 
     def set_configuration(self, config):
-        self._client.SetReconstructionConfig(SetReconstructionConfigRequest(self._id, config))
+        self._client.SetReconstructionConfigFields(SetReconstructionConfigFieldsRequest(reconstruction_id=self._id, 
+                                                                                        config_json=config))
+
+    def set_agent_configuration(self, agent, config):
+        self._client.SetAgentConfigFields(SetAgentConfigFieldsRequest(reconstruction_id=self._id, 
+                                                                      agent_name=agent, 
+                                                                      config_json=config))
 
 class OnlineSFMClient:
     def __init__(self, server_addr):

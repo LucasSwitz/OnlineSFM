@@ -8,7 +8,7 @@
     "sql" : {
         "address" : "tcp://127.0.0.1:3306",
         "user" :  "root",
-        "password" : "D1ct10n@ry_W0rd!",
+        "password" : "password",
         "db" : "reconstruction",
         "views_table" : "VIEWS",
         "reconstruction_table": "RECONSTRUCTIONS",

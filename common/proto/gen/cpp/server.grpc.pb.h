@@ -112,13 +112,6 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>> PrepareAsyncSessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>>(PrepareAsyncSessionAddImageRaw(context, response, cq));
     }
-    virtual ::grpc::Status SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::SetReconstructionConfigResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>> AsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>>(AsyncSetReconstructionConfigRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>> PrepareAsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>>(PrepareAsyncSetReconstructionConfigRaw(context, request, cq));
-    }
     virtual ::grpc::Status GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::GetReconstructionConfigResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>> AsyncGetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>>(AsyncGetReconstructionConfigRaw(context, request, cq));
@@ -251,18 +244,6 @@ class ReconstructionService final {
       #else
       virtual void SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::SessionAddImageRequest>* reactor) = 0;
       #endif
-      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -349,8 +330,6 @@ class ReconstructionService final {
     virtual ::grpc::ClientWriterInterface< ::SessionAddImageRequest>* SessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response) = 0;
     virtual ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>* AsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) = 0;
     virtual ::grpc::ClientAsyncWriterInterface< ::SessionAddImageRequest>* PrepareAsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>* AsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigResponse>* PrepareAsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>* AsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetReconstructionConfigResponse>* PrepareAsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientWriterInterface< ::ReconstructionUploadImageBatchRequest>* ReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response) = 0;
@@ -443,13 +422,6 @@ class ReconstructionService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>> PrepareAsyncSessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>>(PrepareAsyncSessionAddImageRaw(context, response, cq));
-    }
-    ::grpc::Status SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::SetReconstructionConfigResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>> AsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>>(AsyncSetReconstructionConfigRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>> PrepareAsyncSetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>>(PrepareAsyncSetReconstructionConfigRaw(context, request, cq));
     }
     ::grpc::Status GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::GetReconstructionConfigResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>> AsyncGetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) {
@@ -583,18 +555,6 @@ class ReconstructionService final {
       #else
       void SessionAddImage(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::SessionAddImageRequest>* reactor) override;
       #endif
-      void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
-      void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetReconstructionConfig(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void SetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::SetReconstructionConfigResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void GetReconstructionConfig(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
       void GetReconstructionConfig(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetReconstructionConfigResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -683,8 +643,6 @@ class ReconstructionService final {
     ::grpc::ClientWriter< ::SessionAddImageRequest>* SessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response) override;
     ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>* AsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) override;
     ::grpc::ClientAsyncWriter< ::SessionAddImageRequest>* PrepareAsyncSessionAddImageRaw(::grpc::ClientContext* context, ::SessionAddImageResponse* response, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>* AsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigResponse>* PrepareAsyncSetReconstructionConfigRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>* AsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetReconstructionConfigResponse>* PrepareAsyncGetReconstructionConfigRaw(::grpc::ClientContext* context, const ::GetReconstructionConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientWriter< ::ReconstructionUploadImageBatchRequest>* ReconstructionUploadImageBatchRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageBatchResponse* response) override;
@@ -706,7 +664,6 @@ class ReconstructionService final {
     const ::grpc::internal::RpcMethod rpcmethod_StartSession_;
     const ::grpc::internal::RpcMethod rpcmethod_StopSession_;
     const ::grpc::internal::RpcMethod rpcmethod_SessionAddImage_;
-    const ::grpc::internal::RpcMethod rpcmethod_SetReconstructionConfig_;
     const ::grpc::internal::RpcMethod rpcmethod_GetReconstructionConfig_;
     const ::grpc::internal::RpcMethod rpcmethod_ReconstructionUploadImageBatch_;
     const ::grpc::internal::RpcMethod rpcmethod_MVS_;
@@ -729,7 +686,6 @@ class ReconstructionService final {
     virtual ::grpc::Status StartSession(::grpc::ServerContext* context, const ::StartSessionRequest* request, ::StartSessionResponse* response);
     virtual ::grpc::Status StopSession(::grpc::ServerContext* context, const ::StopSessionRequest* request, ::StopSessionResponse* response);
     virtual ::grpc::Status SessionAddImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::SessionAddImageRequest>* reader, ::SessionAddImageResponse* response);
-    virtual ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response);
     virtual ::grpc::Status GetReconstructionConfig(::grpc::ServerContext* context, const ::GetReconstructionConfigRequest* request, ::GetReconstructionConfigResponse* response);
     virtual ::grpc::Status ReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerReader< ::ReconstructionUploadImageBatchRequest>* reader, ::ReconstructionUploadImageBatchResponse* response);
     virtual ::grpc::Status MVS(::grpc::ServerContext* context, const ::MVSRequest* request, ::MVSResponse* response);
@@ -937,32 +893,12 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_SetReconstructionConfig : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithAsyncMethod_SetReconstructionConfig() {
-      ::grpc::Service::MarkMethodAsync(10);
-    }
-    ~WithAsyncMethod_SetReconstructionConfig() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestSetReconstructionConfig(::grpc::ServerContext* context, ::SetReconstructionConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::SetReconstructionConfigResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
   class WithAsyncMethod_GetReconstructionConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetReconstructionConfig() {
-      ::grpc::Service::MarkMethodAsync(11);
+      ::grpc::Service::MarkMethodAsync(10);
     }
     ~WithAsyncMethod_GetReconstructionConfig() override {
       BaseClassMustBeDerivedFromService(this);
@@ -973,7 +909,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetReconstructionConfig(::grpc::ServerContext* context, ::GetReconstructionConfigRequest* request, ::grpc::ServerAsyncResponseWriter< ::GetReconstructionConfigResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -982,7 +918,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ReconstructionUploadImageBatch() {
-      ::grpc::Service::MarkMethodAsync(12);
+      ::grpc::Service::MarkMethodAsync(11);
     }
     ~WithAsyncMethod_ReconstructionUploadImageBatch() override {
       BaseClassMustBeDerivedFromService(this);
@@ -993,7 +929,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::ReconstructionUploadImageBatchResponse, ::ReconstructionUploadImageBatchRequest>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncClientStreaming(12, context, reader, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncClientStreaming(11, context, reader, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1002,7 +938,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_MVS() {
-      ::grpc::Service::MarkMethodAsync(13);
+      ::grpc::Service::MarkMethodAsync(12);
     }
     ~WithAsyncMethod_MVS() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1013,7 +949,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestMVS(::grpc::ServerContext* context, ::MVSRequest* request, ::grpc::ServerAsyncResponseWriter< ::MVSResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1022,7 +958,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetAgentConfigFields() {
-      ::grpc::Service::MarkMethodAsync(14);
+      ::grpc::Service::MarkMethodAsync(13);
     }
     ~WithAsyncMethod_SetAgentConfigFields() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1033,7 +969,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetAgentConfigFields(::grpc::ServerContext* context, ::SetAgentConfigFieldsRequest* request, ::grpc::ServerAsyncResponseWriter< ::SetAgentConfigFieldsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1042,7 +978,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetReconstructionConfigFields() {
-      ::grpc::Service::MarkMethodAsync(15);
+      ::grpc::Service::MarkMethodAsync(14);
     }
     ~WithAsyncMethod_SetReconstructionConfigFields() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1053,10 +989,10 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetReconstructionConfigFields(::grpc::ServerContext* context, ::SetReconstructionConfigFieldsRequest* request, ::grpc::ServerAsyncResponseWriter< ::SetReconstructionConfigFieldsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Handshake<WithAsyncMethod_StoreImage<WithAsyncMethod_SparseReconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_SetReconstructionConfig<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_ReconstructionUploadImageBatch<WithAsyncMethod_MVS<WithAsyncMethod_SetAgentConfigFields<WithAsyncMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_Handshake<WithAsyncMethod_StoreImage<WithAsyncMethod_SparseReconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_ReconstructionUploadImageBatch<WithAsyncMethod_MVS<WithAsyncMethod_SetAgentConfigFields<WithAsyncMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Handshake : public BaseClass {
    private:
@@ -1492,53 +1428,6 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_SetReconstructionConfig : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    ExperimentalWithCallbackMethod_SetReconstructionConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(10,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>(
-            [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::SetReconstructionConfigRequest* request, ::SetReconstructionConfigResponse* response) { return this->SetReconstructionConfig(context, request, response); }));}
-    void SetMessageAllocatorFor_SetReconstructionConfig(
-        ::grpc::experimental::MessageAllocator< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
-    #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>*>(handler)
-              ->SetMessageAllocator(allocator);
-    }
-    ~ExperimentalWithCallbackMethod_SetReconstructionConfig() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* SetReconstructionConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetReconstructionConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/)
-    #endif
-      { return nullptr; }
-  };
-  template <class BaseClass>
   class ExperimentalWithCallbackMethod_GetReconstructionConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -1549,7 +1438,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(11,
+        MarkMethodCallback(10,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1561,9 +1450,9 @@ class ReconstructionService final {
     void SetMessageAllocatorFor_GetReconstructionConfig(
         ::grpc::experimental::MessageAllocator< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(11);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(10);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -1596,7 +1485,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(12,
+        MarkMethodCallback(11,
           new ::grpc_impl::internal::CallbackClientStreamingHandler< ::ReconstructionUploadImageBatchRequest, ::ReconstructionUploadImageBatchResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1634,7 +1523,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(13,
+        MarkMethodCallback(12,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::MVSRequest, ::MVSResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1646,9 +1535,9 @@ class ReconstructionService final {
     void SetMessageAllocatorFor_MVS(
         ::grpc::experimental::MessageAllocator< ::MVSRequest, ::MVSResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(12);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::MVSRequest, ::MVSResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -1681,7 +1570,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(14,
+        MarkMethodCallback(13,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1693,9 +1582,9 @@ class ReconstructionService final {
     void SetMessageAllocatorFor_SetAgentConfigFields(
         ::grpc::experimental::MessageAllocator< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(13);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -1728,7 +1617,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(15,
+        MarkMethodCallback(14,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1740,9 +1629,9 @@ class ReconstructionService final {
     void SetMessageAllocatorFor_SetReconstructionConfigFields(
         ::grpc::experimental::MessageAllocator< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(15);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(14);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -1765,10 +1654,10 @@ class ReconstructionService final {
       { return nullptr; }
   };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_SetReconstructionConfig<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_StoreImage<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Handshake : public BaseClass {
    private:
@@ -1940,29 +1829,12 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_SetReconstructionConfig : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithGenericMethod_SetReconstructionConfig() {
-      ::grpc::Service::MarkMethodGeneric(10);
-    }
-    ~WithGenericMethod_SetReconstructionConfig() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
   class WithGenericMethod_GetReconstructionConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetReconstructionConfig() {
-      ::grpc::Service::MarkMethodGeneric(11);
+      ::grpc::Service::MarkMethodGeneric(10);
     }
     ~WithGenericMethod_GetReconstructionConfig() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1979,7 +1851,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ReconstructionUploadImageBatch() {
-      ::grpc::Service::MarkMethodGeneric(12);
+      ::grpc::Service::MarkMethodGeneric(11);
     }
     ~WithGenericMethod_ReconstructionUploadImageBatch() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1996,7 +1868,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_MVS() {
-      ::grpc::Service::MarkMethodGeneric(13);
+      ::grpc::Service::MarkMethodGeneric(12);
     }
     ~WithGenericMethod_MVS() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2013,7 +1885,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetAgentConfigFields() {
-      ::grpc::Service::MarkMethodGeneric(14);
+      ::grpc::Service::MarkMethodGeneric(13);
     }
     ~WithGenericMethod_SetAgentConfigFields() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2030,7 +1902,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetReconstructionConfigFields() {
-      ::grpc::Service::MarkMethodGeneric(15);
+      ::grpc::Service::MarkMethodGeneric(14);
     }
     ~WithGenericMethod_SetReconstructionConfigFields() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2242,32 +2114,12 @@ class ReconstructionService final {
     }
   };
   template <class BaseClass>
-  class WithRawMethod_SetReconstructionConfig : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithRawMethod_SetReconstructionConfig() {
-      ::grpc::Service::MarkMethodRaw(10);
-    }
-    ~WithRawMethod_SetReconstructionConfig() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestSetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
   class WithRawMethod_GetReconstructionConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetReconstructionConfig() {
-      ::grpc::Service::MarkMethodRaw(11);
+      ::grpc::Service::MarkMethodRaw(10);
     }
     ~WithRawMethod_GetReconstructionConfig() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2278,7 +2130,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(11, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(10, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2287,7 +2139,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ReconstructionUploadImageBatch() {
-      ::grpc::Service::MarkMethodRaw(12);
+      ::grpc::Service::MarkMethodRaw(11);
     }
     ~WithRawMethod_ReconstructionUploadImageBatch() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2298,7 +2150,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestReconstructionUploadImageBatch(::grpc::ServerContext* context, ::grpc::ServerAsyncReader< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* reader, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncClientStreaming(12, context, reader, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncClientStreaming(11, context, reader, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2307,7 +2159,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_MVS() {
-      ::grpc::Service::MarkMethodRaw(13);
+      ::grpc::Service::MarkMethodRaw(12);
     }
     ~WithRawMethod_MVS() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2318,7 +2170,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestMVS(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(12, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2327,7 +2179,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetAgentConfigFields() {
-      ::grpc::Service::MarkMethodRaw(14);
+      ::grpc::Service::MarkMethodRaw(13);
     }
     ~WithRawMethod_SetAgentConfigFields() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2338,7 +2190,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetAgentConfigFields(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(13, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2347,7 +2199,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetReconstructionConfigFields() {
-      ::grpc::Service::MarkMethodRaw(15);
+      ::grpc::Service::MarkMethodRaw(14);
     }
     ~WithRawMethod_SetReconstructionConfigFields() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2358,7 +2210,7 @@ class ReconstructionService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSetReconstructionConfigFields(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(15, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(14, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2742,44 +2594,6 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_SetReconstructionConfig : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    ExperimentalWithRawCallbackMethod_SetReconstructionConfig() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(10,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-            [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetReconstructionConfig(context, request, response); }));
-    }
-    ~ExperimentalWithRawCallbackMethod_SetReconstructionConfig() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* SetReconstructionConfig(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* SetReconstructionConfig(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
-  };
-  template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_GetReconstructionConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -2790,7 +2604,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(11,
+        MarkMethodRawCallback(10,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -2828,7 +2642,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(12,
+        MarkMethodRawCallback(11,
           new ::grpc_impl::internal::CallbackClientStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -2866,7 +2680,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(13,
+        MarkMethodRawCallback(12,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -2904,7 +2718,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(14,
+        MarkMethodRawCallback(13,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -2942,7 +2756,7 @@ class ReconstructionService final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(15,
+        MarkMethodRawCallback(14,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -3090,32 +2904,12 @@ class ReconstructionService final {
     virtual ::grpc::Status StreamedStopSession(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::StopSessionRequest,::StopSessionResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_SetReconstructionConfig : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithStreamedUnaryMethod_SetReconstructionConfig() {
-      ::grpc::Service::MarkMethodStreamed(10,
-        new ::grpc::internal::StreamedUnaryHandler< ::SetReconstructionConfigRequest, ::SetReconstructionConfigResponse>(std::bind(&WithStreamedUnaryMethod_SetReconstructionConfig<BaseClass>::StreamedSetReconstructionConfig, this, std::placeholders::_1, std::placeholders::_2)));
-    }
-    ~WithStreamedUnaryMethod_SetReconstructionConfig() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable regular version of this method
-    ::grpc::Status SetReconstructionConfig(::grpc::ServerContext* /*context*/, const ::SetReconstructionConfigRequest* /*request*/, ::SetReconstructionConfigResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedSetReconstructionConfig(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::SetReconstructionConfigRequest,::SetReconstructionConfigResponse>* server_unary_streamer) = 0;
-  };
-  template <class BaseClass>
   class WithStreamedUnaryMethod_GetReconstructionConfig : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetReconstructionConfig() {
-      ::grpc::Service::MarkMethodStreamed(11,
+      ::grpc::Service::MarkMethodStreamed(10,
         new ::grpc::internal::StreamedUnaryHandler< ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>(std::bind(&WithStreamedUnaryMethod_GetReconstructionConfig<BaseClass>::StreamedGetReconstructionConfig, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_GetReconstructionConfig() override {
@@ -3135,7 +2929,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_MVS() {
-      ::grpc::Service::MarkMethodStreamed(13,
+      ::grpc::Service::MarkMethodStreamed(12,
         new ::grpc::internal::StreamedUnaryHandler< ::MVSRequest, ::MVSResponse>(std::bind(&WithStreamedUnaryMethod_MVS<BaseClass>::StreamedMVS, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_MVS() override {
@@ -3155,7 +2949,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetAgentConfigFields() {
-      ::grpc::Service::MarkMethodStreamed(14,
+      ::grpc::Service::MarkMethodStreamed(13,
         new ::grpc::internal::StreamedUnaryHandler< ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>(std::bind(&WithStreamedUnaryMethod_SetAgentConfigFields<BaseClass>::StreamedSetAgentConfigFields, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_SetAgentConfigFields() override {
@@ -3175,7 +2969,7 @@ class ReconstructionService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetReconstructionConfigFields() {
-      ::grpc::Service::MarkMethodStreamed(15,
+      ::grpc::Service::MarkMethodStreamed(14,
         new ::grpc::internal::StreamedUnaryHandler< ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>(std::bind(&WithStreamedUnaryMethod_SetReconstructionConfigFields<BaseClass>::StreamedSetReconstructionConfigFields, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_SetReconstructionConfigFields() override {
@@ -3189,7 +2983,7 @@ class ReconstructionService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedSetReconstructionConfigFields(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::SetReconstructionConfigFieldsRequest,::SetReconstructionConfigFieldsResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<Service > > > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_GetOBJ : public BaseClass {
    private:
@@ -3231,7 +3025,7 @@ class ReconstructionService final {
     virtual ::grpc::Status StreamedGetSparse(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::GetSparseRequest,::GetSparseResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<Service > > SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_SetReconstructionConfig<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_SparseReconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<Service > > > > > > > > > > > > StreamedService;
 };
 
 

@@ -1,4 +1,5 @@
-apt-get install -y build-essential autoconf libtool pkg-config libssl-dev libc-ares-dev
+apt-get install -y build-essential autoconf libtool pkg-config libssl-dev libc-ares-dev python3-pip
+python3 -m pip install grpcio_tools
 
 git clone -b lts_2020_02_25 https://github.com/abseil/abseil-cpp.git
 cd abseil-cpp

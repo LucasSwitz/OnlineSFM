@@ -138,14 +138,6 @@ class GetSparseResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetSparseResponse> _instance;
 } _GetSparseResponse_default_instance_;
-class SetReconstructionConfigRequestDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SetReconstructionConfigRequest> _instance;
-} _SetReconstructionConfigRequest_default_instance_;
-class SetReconstructionConfigResponseDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<SetReconstructionConfigResponse> _instance;
-} _SetReconstructionConfigResponse_default_instance_;
 class GetReconstructionConfigRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetReconstructionConfigRequest> _instance;
@@ -599,34 +591,6 @@ static void InitDefaultsscc_info_SetReconstructionConfigFieldsResponse_server_2e
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SetReconstructionConfigFieldsResponse_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SetReconstructionConfigFieldsResponse_server_2eproto}, {}};
 
-static void InitDefaultsscc_info_SetReconstructionConfigRequest_server_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::_SetReconstructionConfigRequest_default_instance_;
-    new (ptr) ::SetReconstructionConfigRequest();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::SetReconstructionConfigRequest::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SetReconstructionConfigRequest_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SetReconstructionConfigRequest_server_2eproto}, {}};
-
-static void InitDefaultsscc_info_SetReconstructionConfigResponse_server_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::_SetReconstructionConfigResponse_default_instance_;
-    new (ptr) ::SetReconstructionConfigResponse();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::SetReconstructionConfigResponse::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SetReconstructionConfigResponse_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_SetReconstructionConfigResponse_server_2eproto}, {}};
-
 static void InitDefaultsscc_info_SparsePointCloudData_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -769,7 +733,7 @@ static void InitDefaultsscc_info_StoreImageResponse_server_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_StoreImageResponse_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_StoreImageResponse_server_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_server_2eproto[41];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_server_2eproto[39];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_server_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_server_2eproto = nullptr;
 
@@ -984,20 +948,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::GetSparseResponse, sparse_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, reconstruction_id_),
-  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, config_name_),
-  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigRequest, config_json_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigResponse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::SetReconstructionConfigResponse, success_),
-  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::GetReconstructionConfigRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -1090,18 +1040,16 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 192, -1, sizeof(::SessionAddImageResponse)},
   { 197, -1, sizeof(::GetSparseRequest)},
   { 203, -1, sizeof(::GetSparseResponse)},
-  { 209, -1, sizeof(::SetReconstructionConfigRequest)},
-  { 217, -1, sizeof(::SetReconstructionConfigResponse)},
-  { 223, -1, sizeof(::GetReconstructionConfigRequest)},
-  { 229, -1, sizeof(::GetReconstructionConfigResponse)},
-  { 235, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
-  { 242, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
-  { 248, -1, sizeof(::MVSRequest)},
-  { 254, -1, sizeof(::MVSResponse)},
-  { 260, -1, sizeof(::SetAgentConfigFieldsRequest)},
-  { 268, -1, sizeof(::SetAgentConfigFieldsResponse)},
-  { 273, -1, sizeof(::SetReconstructionConfigFieldsRequest)},
-  { 280, -1, sizeof(::SetReconstructionConfigFieldsResponse)},
+  { 209, -1, sizeof(::GetReconstructionConfigRequest)},
+  { 215, -1, sizeof(::GetReconstructionConfigResponse)},
+  { 221, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
+  { 228, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
+  { 234, -1, sizeof(::MVSRequest)},
+  { 240, -1, sizeof(::MVSResponse)},
+  { 246, -1, sizeof(::SetAgentConfigFieldsRequest)},
+  { 254, -1, sizeof(::SetAgentConfigFieldsResponse)},
+  { 259, -1, sizeof(::SetReconstructionConfigFieldsRequest)},
+  { 266, -1, sizeof(::SetReconstructionConfigFieldsResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1134,8 +1082,6 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SessionAddImageResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetSparseRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetSparseResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SetReconstructionConfigRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SetReconstructionConfigResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetReconstructionConfigRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetReconstructionConfigResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionUploadImageBatchRequest_default_instance_),
@@ -1199,60 +1145,54 @@ const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "(\0132\022.StoreImageRequest\"\031\n\027SessionAddImag"
   "eResponse\"-\n\020GetSparseRequest\022\031\n\021reconst"
   "ruction_id\030\001 \001(\t\":\n\021GetSparseResponse\022%\n"
-  "\006sparse\030\001 \001(\0132\025.SparsePointCloudData\"e\n\036"
-  "SetReconstructionConfigRequest\022\031\n\021recons"
-  "truction_id\030\001 \001(\t\022\023\n\013config_name\030\002 \001(\t\022\023"
-  "\n\013config_json\030\003 \001(\t\"2\n\037SetReconstruction"
-  "ConfigResponse\022\017\n\007success\030\001 \001(\010\";\n\036GetRe"
-  "constructionConfigRequest\022\031\n\021reconstruct"
-  "ion_id\030\001 \001(\t\"6\n\037GetReconstructionConfigR"
-  "esponse\022\023\n\013config_json\030\001 \001(\t\"N\n%Reconstr"
-  "uctionUploadImageBatchRequest\022\013\n\003idx\030\001 \001"
-  "(\005\022\030\n\004data\030\002 \001(\0132\n.ImageData\"A\n&Reconstr"
-  "uctionUploadImageBatchResponse\022\027\n\017images"
-  "_uploaded\030\001 \001(\005\"\'\n\nMVSRequest\022\031\n\021reconst"
-  "ruction_id\030\001 \001(\t\"\036\n\013MVSResponse\022\017\n\007succe"
-  "ss\030\001 \001(\010\"a\n\033SetAgentConfigFieldsRequest\022"
-  "\031\n\021reconstruction_id\030\001 \001(\t\022\022\n\nagent_name"
-  "\030\002 \001(\t\022\023\n\013config_json\030\003 \001(\t\"\036\n\034SetAgentC"
-  "onfigFieldsResponse\"V\n$SetReconstruction"
-  "ConfigFieldsRequest\022\031\n\021reconstruction_id"
-  "\030\001 \001(\t\022\023\n\013config_json\030\002 \001(\t\"\'\n%SetRecons"
-  "tructionConfigFieldsResponse2\257\t\n\025Reconst"
-  "ructionService\0224\n\tHandshake\022\021.HandhsakeR"
-  "equest\032\022.HandshakeResponse\"\000\0229\n\nStoreIma"
-  "ge\022\022.StoreImageRequest\032\023.StoreImageRespo"
-  "nse\"\000(\001\022J\n\021SparseReconstruct\022\031.SparseRec"
-  "onstructRequest\032\032.SparseReconstructRespo"
-  "nse\022+\n\006GetOBJ\022\016.GetOBJRequest\032\017.GetOBJRe"
-  "sponse0\001\0224\n\tGetSparse\022\021.GetSparseRequest"
-  "\032\022.GetSparseResponse0\001\022J\n\021NewReconstruct"
-  "ion\022\031.NewReconstructionRequest\032\032.NewReco"
-  "nstructionResponse\022S\n\024DeleteReconstructi"
-  "on\022\034.DeleteReconstructionRequest\032\035.Delet"
-  "eReconstructionResponse\022;\n\014StartSession\022"
-  "\024.StartSessionRequest\032\025.StartSessionResp"
-  "onse\0228\n\013StopSession\022\023.StopSessionRequest"
-  "\032\024.StopSessionResponse\022F\n\017SessionAddImag"
-  "e\022\027.SessionAddImageRequest\032\030.SessionAddI"
-  "mageResponse(\001\022\\\n\027SetReconstructionConfi"
-  "g\022\037.SetReconstructionConfigRequest\032 .Set"
-  "ReconstructionConfigResponse\022\\\n\027GetRecon"
-  "structionConfig\022\037.GetReconstructionConfi"
-  "gRequest\032 .GetReconstructionConfigRespon"
-  "se\022s\n\036ReconstructionUploadImageBatch\022&.R"
-  "econstructionUploadImageBatchRequest\032\'.R"
-  "econstructionUploadImageBatchResponse(\001\022"
-  " \n\003MVS\022\013.MVSRequest\032\014.MVSResponse\022S\n\024Set"
-  "AgentConfigFields\022\034.SetAgentConfigFields"
-  "Request\032\035.SetAgentConfigFieldsResponse\022n"
-  "\n\035SetReconstructionConfigFields\022%.SetRec"
-  "onstructionConfigFieldsRequest\032&.SetReco"
-  "nstructionConfigFieldsResponseb\006proto3"
+  "\006sparse\030\001 \001(\0132\025.SparsePointCloudData\";\n\036"
+  "GetReconstructionConfigRequest\022\031\n\021recons"
+  "truction_id\030\001 \001(\t\"6\n\037GetReconstructionCo"
+  "nfigResponse\022\023\n\013config_json\030\001 \001(\t\"N\n%Rec"
+  "onstructionUploadImageBatchRequest\022\013\n\003id"
+  "x\030\001 \001(\005\022\030\n\004data\030\002 \001(\0132\n.ImageData\"A\n&Rec"
+  "onstructionUploadImageBatchResponse\022\027\n\017i"
+  "mages_uploaded\030\001 \001(\005\"\'\n\nMVSRequest\022\031\n\021re"
+  "construction_id\030\001 \001(\t\"\036\n\013MVSResponse\022\017\n\007"
+  "success\030\001 \001(\010\"a\n\033SetAgentConfigFieldsReq"
+  "uest\022\031\n\021reconstruction_id\030\001 \001(\t\022\022\n\nagent"
+  "_name\030\002 \001(\t\022\023\n\013config_json\030\003 \001(\t\"\036\n\034SetA"
+  "gentConfigFieldsResponse\"V\n$SetReconstru"
+  "ctionConfigFieldsRequest\022\031\n\021reconstructi"
+  "on_id\030\001 \001(\t\022\023\n\013config_json\030\002 \001(\t\"\'\n%SetR"
+  "econstructionConfigFieldsResponse2\321\010\n\025Re"
+  "constructionService\0224\n\tHandshake\022\021.Handh"
+  "sakeRequest\032\022.HandshakeResponse\"\000\0229\n\nSto"
+  "reImage\022\022.StoreImageRequest\032\023.StoreImage"
+  "Response\"\000(\001\022J\n\021SparseReconstruct\022\031.Spar"
+  "seReconstructRequest\032\032.SparseReconstruct"
+  "Response\022+\n\006GetOBJ\022\016.GetOBJRequest\032\017.Get"
+  "OBJResponse0\001\0224\n\tGetSparse\022\021.GetSparseRe"
+  "quest\032\022.GetSparseResponse0\001\022J\n\021NewRecons"
+  "truction\022\031.NewReconstructionRequest\032\032.Ne"
+  "wReconstructionResponse\022S\n\024DeleteReconst"
+  "ruction\022\034.DeleteReconstructionRequest\032\035."
+  "DeleteReconstructionResponse\022;\n\014StartSes"
+  "sion\022\024.StartSessionRequest\032\025.StartSessio"
+  "nResponse\0228\n\013StopSession\022\023.StopSessionRe"
+  "quest\032\024.StopSessionResponse\022F\n\017SessionAd"
+  "dImage\022\027.SessionAddImageRequest\032\030.Sessio"
+  "nAddImageResponse(\001\022\\\n\027GetReconstruction"
+  "Config\022\037.GetReconstructionConfigRequest\032"
+  " .GetReconstructionConfigResponse\022s\n\036Rec"
+  "onstructionUploadImageBatch\022&.Reconstruc"
+  "tionUploadImageBatchRequest\032\'.Reconstruc"
+  "tionUploadImageBatchResponse(\001\022 \n\003MVS\022\013."
+  "MVSRequest\032\014.MVSResponse\022S\n\024SetAgentConf"
+  "igFields\022\034.SetAgentConfigFieldsRequest\032\035"
+  ".SetAgentConfigFieldsResponse\022n\n\035SetReco"
+  "nstructionConfigFields\022%.SetReconstructi"
+  "onConfigFieldsRequest\032&.SetReconstructio"
+  "nConfigFieldsResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_server_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_server_2eproto_sccs[41] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_server_2eproto_sccs[39] = {
   &scc_info_CameraIntrinsics_server_2eproto.base,
   &scc_info_DeleteReconstructionRequest_server_2eproto.base,
   &scc_info_DeleteReconstructionResponse_server_2eproto.base,
@@ -1282,8 +1222,6 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
   &scc_info_SetAgentConfigFieldsResponse_server_2eproto.base,
   &scc_info_SetReconstructionConfigFieldsRequest_server_2eproto.base,
   &scc_info_SetReconstructionConfigFieldsResponse_server_2eproto.base,
-  &scc_info_SetReconstructionConfigRequest_server_2eproto.base,
-  &scc_info_SetReconstructionConfigResponse_server_2eproto.base,
   &scc_info_SparsePointCloudData_server_2eproto.base,
   &scc_info_SparsePointCloudMetaData_server_2eproto.base,
   &scc_info_SparseReconstructRequest_server_2eproto.base,
@@ -1298,10 +1236,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_server_2eproto_once;
 static bool descriptor_table_server_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_server_2eproto = {
-  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 3998,
-  &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 41, 0,
+  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 3749,
+  &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 39, 0,
   schemas, file_default_instances, TableStruct_server_2eproto::offsets,
-  file_level_metadata_server_2eproto, 41, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
+  file_level_metadata_server_2eproto, 39, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -8329,467 +8267,6 @@ void GetSparseResponse::InternalSwap(GetSparseResponse* other) {
 
 // ===================================================================
 
-void SetReconstructionConfigRequest::InitAsDefaultInstance() {
-}
-class SetReconstructionConfigRequest::_Internal {
- public:
-};
-
-SetReconstructionConfigRequest::SetReconstructionConfigRequest()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:SetReconstructionConfigRequest)
-}
-SetReconstructionConfigRequest::SetReconstructionConfigRequest(const SetReconstructionConfigRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_reconstruction_id().empty()) {
-    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
-  }
-  config_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_config_name().empty()) {
-    config_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_name_);
-  }
-  config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_config_json().empty()) {
-    config_json_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_json_);
-  }
-  // @@protoc_insertion_point(copy_constructor:SetReconstructionConfigRequest)
-}
-
-void SetReconstructionConfigRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_SetReconstructionConfigRequest_server_2eproto.base);
-  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  config_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-SetReconstructionConfigRequest::~SetReconstructionConfigRequest() {
-  // @@protoc_insertion_point(destructor:SetReconstructionConfigRequest)
-  SharedDtor();
-}
-
-void SetReconstructionConfigRequest::SharedDtor() {
-  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  config_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  config_json_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void SetReconstructionConfigRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const SetReconstructionConfigRequest& SetReconstructionConfigRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SetReconstructionConfigRequest_server_2eproto.base);
-  return *internal_default_instance();
-}
-
-
-void SetReconstructionConfigRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:SetReconstructionConfigRequest)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  config_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  _internal_metadata_.Clear();
-}
-
-const char* SetReconstructionConfigRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // string reconstruction_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_reconstruction_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SetReconstructionConfigRequest.reconstruction_id"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string config_name = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_config_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SetReconstructionConfigRequest.config_name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string config_json = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_config_json();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "SetReconstructionConfigRequest.config_json"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* SetReconstructionConfigRequest::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:SetReconstructionConfigRequest)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string reconstruction_id = 1;
-  if (this->reconstruction_id().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "SetReconstructionConfigRequest.reconstruction_id");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_reconstruction_id(), target);
-  }
-
-  // string config_name = 2;
-  if (this->config_name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_config_name().data(), static_cast<int>(this->_internal_config_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "SetReconstructionConfigRequest.config_name");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_config_name(), target);
-  }
-
-  // string config_json = 3;
-  if (this->config_json().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_config_json().data(), static_cast<int>(this->_internal_config_json().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "SetReconstructionConfigRequest.config_json");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_config_json(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:SetReconstructionConfigRequest)
-  return target;
-}
-
-size_t SetReconstructionConfigRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:SetReconstructionConfigRequest)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // string reconstruction_id = 1;
-  if (this->reconstruction_id().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_reconstruction_id());
-  }
-
-  // string config_name = 2;
-  if (this->config_name().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_config_name());
-  }
-
-  // string config_json = 3;
-  if (this->config_json().size() > 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_config_json());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void SetReconstructionConfigRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:SetReconstructionConfigRequest)
-  GOOGLE_DCHECK_NE(&from, this);
-  const SetReconstructionConfigRequest* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SetReconstructionConfigRequest>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SetReconstructionConfigRequest)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:SetReconstructionConfigRequest)
-    MergeFrom(*source);
-  }
-}
-
-void SetReconstructionConfigRequest::MergeFrom(const SetReconstructionConfigRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:SetReconstructionConfigRequest)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.reconstruction_id().size() > 0) {
-
-    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
-  }
-  if (from.config_name().size() > 0) {
-
-    config_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_name_);
-  }
-  if (from.config_json().size() > 0) {
-
-    config_json_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.config_json_);
-  }
-}
-
-void SetReconstructionConfigRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:SetReconstructionConfigRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void SetReconstructionConfigRequest::CopyFrom(const SetReconstructionConfigRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:SetReconstructionConfigRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SetReconstructionConfigRequest::IsInitialized() const {
-  return true;
-}
-
-void SetReconstructionConfigRequest::InternalSwap(SetReconstructionConfigRequest* other) {
-  using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  config_name_.Swap(&other->config_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  config_json_.Swap(&other->config_json_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata SetReconstructionConfigRequest::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-
-// ===================================================================
-
-void SetReconstructionConfigResponse::InitAsDefaultInstance() {
-}
-class SetReconstructionConfigResponse::_Internal {
- public:
-};
-
-SetReconstructionConfigResponse::SetReconstructionConfigResponse()
-  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:SetReconstructionConfigResponse)
-}
-SetReconstructionConfigResponse::SetReconstructionConfigResponse(const SetReconstructionConfigResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
-  // @@protoc_insertion_point(copy_constructor:SetReconstructionConfigResponse)
-}
-
-void SetReconstructionConfigResponse::SharedCtor() {
-  success_ = false;
-}
-
-SetReconstructionConfigResponse::~SetReconstructionConfigResponse() {
-  // @@protoc_insertion_point(destructor:SetReconstructionConfigResponse)
-  SharedDtor();
-}
-
-void SetReconstructionConfigResponse::SharedDtor() {
-}
-
-void SetReconstructionConfigResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const SetReconstructionConfigResponse& SetReconstructionConfigResponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_SetReconstructionConfigResponse_server_2eproto.base);
-  return *internal_default_instance();
-}
-
-
-void SetReconstructionConfigResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:SetReconstructionConfigResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  success_ = false;
-  _internal_metadata_.Clear();
-}
-
-const char* SetReconstructionConfigResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
-    switch (tag >> 3) {
-      // bool success = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* SetReconstructionConfigResponse::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:SetReconstructionConfigResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:SetReconstructionConfigResponse)
-  return target;
-}
-
-size_t SetReconstructionConfigResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:SetReconstructionConfigResponse)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void SetReconstructionConfigResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:SetReconstructionConfigResponse)
-  GOOGLE_DCHECK_NE(&from, this);
-  const SetReconstructionConfigResponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<SetReconstructionConfigResponse>(
-          &from);
-  if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:SetReconstructionConfigResponse)
-    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:SetReconstructionConfigResponse)
-    MergeFrom(*source);
-  }
-}
-
-void SetReconstructionConfigResponse::MergeFrom(const SetReconstructionConfigResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:SetReconstructionConfigResponse)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.success() != 0) {
-    _internal_set_success(from._internal_success());
-  }
-}
-
-void SetReconstructionConfigResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:SetReconstructionConfigResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void SetReconstructionConfigResponse::CopyFrom(const SetReconstructionConfigResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:SetReconstructionConfigResponse)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SetReconstructionConfigResponse::IsInitialized() const {
-  return true;
-}
-
-void SetReconstructionConfigResponse::InternalSwap(SetReconstructionConfigResponse* other) {
-  using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(success_, other->success_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata SetReconstructionConfigResponse::GetMetadata() const {
-  return GetMetadataStatic();
-}
-
-
-// ===================================================================
-
 void GetReconstructionConfigRequest::InitAsDefaultInstance() {
 }
 class GetReconstructionConfigRequest::_Internal {
@@ -10898,12 +10375,6 @@ template<> PROTOBUF_NOINLINE ::GetSparseRequest* Arena::CreateMaybeMessage< ::Ge
 }
 template<> PROTOBUF_NOINLINE ::GetSparseResponse* Arena::CreateMaybeMessage< ::GetSparseResponse >(Arena* arena) {
   return Arena::CreateInternal< ::GetSparseResponse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::SetReconstructionConfigRequest* Arena::CreateMaybeMessage< ::SetReconstructionConfigRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::SetReconstructionConfigRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::SetReconstructionConfigResponse* Arena::CreateMaybeMessage< ::SetReconstructionConfigResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::SetReconstructionConfigResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::GetReconstructionConfigRequest* Arena::CreateMaybeMessage< ::GetReconstructionConfigRequest >(Arena* arena) {
   return Arena::CreateInternal< ::GetReconstructionConfigRequest >(arena);

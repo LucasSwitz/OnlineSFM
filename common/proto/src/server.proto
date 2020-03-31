@@ -153,16 +153,6 @@ message GetSparseResponse {
     SparsePointCloudData sparse = 1;
 };
 
-message SetReconstructionConfigRequest {
-    string reconstruction_id = 1;
-    string config_name = 2;
-    string config_json = 3; 
-};
-
-message SetReconstructionConfigResponse {
-    bool success = 1;
-};
-
 message GetReconstructionConfigRequest {
     string reconstruction_id = 1;
 };
@@ -220,7 +210,6 @@ service ReconstructionService {
     rpc StartSession(StartSessionRequest) returns (StartSessionResponse);
     rpc StopSession(StopSessionRequest) returns (StopSessionResponse);
     rpc SessionAddImage(stream SessionAddImageRequest) returns (SessionAddImageResponse);
-    rpc SetReconstructionConfig(SetReconstructionConfigRequest) returns (SetReconstructionConfigResponse);
     rpc GetReconstructionConfig(GetReconstructionConfigRequest) returns (GetReconstructionConfigResponse);
     rpc ReconstructionUploadImageBatch(stream ReconstructionUploadImageBatchRequest) returns (ReconstructionUploadImageBatchResponse);
     rpc MVS(MVSRequest) returns (MVSResponse);

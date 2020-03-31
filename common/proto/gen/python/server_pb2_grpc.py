@@ -64,11 +64,6 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.SessionAddImageRequest.SerializeToString,
         response_deserializer=server__pb2.SessionAddImageResponse.FromString,
         )
-    self.SetReconstructionConfig = channel.unary_unary(
-        '/ReconstructionService/SetReconstructionConfig',
-        request_serializer=server__pb2.SetReconstructionConfigRequest.SerializeToString,
-        response_deserializer=server__pb2.SetReconstructionConfigResponse.FromString,
-        )
     self.GetReconstructionConfig = channel.unary_unary(
         '/ReconstructionService/GetReconstructionConfig',
         request_serializer=server__pb2.GetReconstructionConfigRequest.SerializeToString,
@@ -170,13 +165,6 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def SetReconstructionConfig(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
   def GetReconstructionConfig(self, request, context):
     # missing associated documentation comment in .proto file
     pass
@@ -264,11 +252,6 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           servicer.SessionAddImage,
           request_deserializer=server__pb2.SessionAddImageRequest.FromString,
           response_serializer=server__pb2.SessionAddImageResponse.SerializeToString,
-      ),
-      'SetReconstructionConfig': grpc.unary_unary_rpc_method_handler(
-          servicer.SetReconstructionConfig,
-          request_deserializer=server__pb2.SetReconstructionConfigRequest.FromString,
-          response_serializer=server__pb2.SetReconstructionConfigResponse.SerializeToString,
       ),
       'GetReconstructionConfig': grpc.unary_unary_rpc_method_handler(
           servicer.GetReconstructionConfig,
