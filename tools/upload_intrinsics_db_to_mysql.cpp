@@ -26,7 +26,7 @@ int main(int argc, char** argv){
     }
     for(Datasheet d : vec_database){
         CameraIntrinsics intrinsic;
-        std::cout << "Uploading " << d.model_;
+        std::cout << "Uploading " << d.model_ << std::endl;
         intrinsic.set_model(d.model_);
         intrinsic.set_sensor_size(d.sensorSize_);
         intrinsics_storage.Store(intrinsic);

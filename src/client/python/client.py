@@ -6,11 +6,16 @@ from server_pb2 import (ImageData,
                         MVSRequest, 
                         SparseReconstructRequest,
                         SetAgentConfigFieldsRequest,
-                        SetReconstructionConfigFieldsRequest)
+                        SetReconstructionConfigFieldsRequest,
+                        GetSparseRequest,
+                        SparsePointCloudData,
+                        GetReconstructionConfigRequest,
+                        GetAgentConfigRequest)
 from server_pb2_grpc import ReconstructionServiceStub
 import sys
 import random
 import string
+import json
 from glob import glob
 import os
 
@@ -42,6 +47,14 @@ class OnlineSFMReconstruction:
     def do_sparse_reconstruction(self):
         self._client.SparseReconstruct(SparseReconstructRequest(reconstruction_id=self._id))
 
+    def get_sparse_reconstruction(self):
+        sparse_response = self._client.GetSparse(GetSparseRequest(reconstruction_id=self._id))
+        sparse_final = SparsePointCloudData()
+        for sparse in sparse_response:
+            sparse_final.metadata.CopyFrom(sparse.sparse.metadata)
+            sparse_final.data += sparse.sparse.data
+        return sparse_final
+
     def do_mvs(self):
         self._client.MVS(MVSRequest(reconstruction_id=self._id))
 
@@ -52,7 +65,18 @@ class OnlineSFMReconstruction:
     def set_agent_configuration(self, agent, config):
         self._client.SetAgentConfigFields(SetAgentConfigFieldsRequest(reconstruction_id=self._id, 
                                                                       agent_name=agent, 
-                                                                      config_json=config))
+                                                                      config_json=json.dumps(config)))
+
+    def get_active_agent_config(self):
+        rresp = self._client.GetReconstructionConfig(GetReconstructionConfigRequest(reconstruction_id=self._id))
+        config = json.loads(rresp.config_json)
+        agent_name = config["reconstruction_agent"]
+        return self.get_agent_config(agent_name)
+
+
+    def get_agent_config(self, agent_name):
+        aresp = self._client.GetAgentConfig(GetAgentConfigRequest(reconstruction_id=self._id, agent_name=agent_name))
+        return json.loads(aresp.config_json)
 
 class OnlineSFMClient:
     def __init__(self, server_addr):
@@ -63,7 +87,7 @@ class OnlineSFMClient:
         pass
 
     def make_reconstruction(self):
-        reconstruction_id = self._client.NewReconstruction(NewReconstructionRequest())
+        reconstruction_id = self._client.NewReconstruction(NewReconstructionRequest()).reconstruction_id
         return OnlineSFMReconstruction(self._client, reconstruction_id)
 
     def make_session(self, reconstruction_id):

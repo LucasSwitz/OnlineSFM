@@ -24,7 +24,7 @@ void Session::Start(){
 void Session::_Run(){
     this->_running = true;
     ReconstructionFetcher rf;
-    Reconstruction * reconstruction = rf.Fetch(this->_reconstruction_id);
+    auto reconstruction = rf.Fetch(this->_reconstruction_id);
     std::set<std::string>* unconstructed_images = new std::set<std::string>();
     while(this->_running){
         if(this->_blocked_reconstruction){

@@ -13,9 +13,9 @@
 #include "image_filesystem_storer.h"
 #include <thread>
 
-Reconstruction* ReconstructionFetcher::Fetch(const std::string& id){
+std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& id){
     try{
-        return new Reconstruction(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
+        return std::make_shared<Reconstruction>(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
                                                                 CONFIG_GET_STRING("sql.user"), 
                                                                 CONFIG_GET_STRING("sql.password"), 
                                                                 CONFIG_GET_STRING("sql.db"), 
@@ -319,6 +319,7 @@ void Reconstruction::ComputeMatches(const std::set<std::string>& images){
 void Reconstruction::SetAgentConfigFields(const std::string& agent_name, const std::string& config_json){
    auto config = this->_config_adapter->GetAgentConfigOrDefault(this->_id, agent_name, nullptr);
    config->patch(config_json);
+   std::string j = config->jsonify();
    this->_config_adapter->SetAgentConfig(this->_id, agent_name, std::move(config));
 }
 
@@ -328,7 +329,18 @@ void Reconstruction::SetConfigFields(const std::string& config_json){
     this->_config_adapter->SetReconstructionConfig(this->_id, std::move(config));
 }
 
+ConfigurationContainerPtr Reconstruction::GetConfig(){
+    return this->_config_adapter->GetReconstructionConfigOrDefault(this->_id, std::make_unique<DefaultReconstructionConfig>());
+}
+
+ConfigurationContainerPtr Reconstruction::GetAgentConfig(const std::string& agent_name){
+    return this->_config_adapter->GetAgentConfigOrDefault(this->_id, agent_name, nullptr);
+}
+
 std::string DefaultReconstructionConfig::get_string(const std::string& key){
+    if(key.compare("reconstruction_agent") == 0){
+        return "openmvg";
+    }
     return "";
 }
 
@@ -349,5 +361,5 @@ void DefaultReconstructionConfig::patch(const std::string& json){
 }
 
 std::string DefaultReconstructionConfig::jsonify(){
-    return "{}";
+    return "{\"reconstruction_agent\":\"openmvg\"}";
 }

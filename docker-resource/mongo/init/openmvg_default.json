@@ -1,5 +1,5 @@
 {
-    "configuration":"openmvg",
+    "agent_name":"openmvg",
     "brute_force": false,
     "feature_preset": "",
     "up_right" : false,

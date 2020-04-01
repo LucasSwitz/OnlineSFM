@@ -69,6 +69,11 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.GetReconstructionConfigRequest.SerializeToString,
         response_deserializer=server__pb2.GetReconstructionConfigResponse.FromString,
         )
+    self.GetAgentConfig = channel.unary_unary(
+        '/ReconstructionService/GetAgentConfig',
+        request_serializer=server__pb2.GetAgentConfigRequest.SerializeToString,
+        response_deserializer=server__pb2.GetAgentCOnfigResponse.FromString,
+        )
     self.ReconstructionUploadImageBatch = channel.stream_unary(
         '/ReconstructionService/ReconstructionUploadImageBatch',
         request_serializer=server__pb2.ReconstructionUploadImageBatchRequest.SerializeToString,
@@ -172,6 +177,13 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def GetAgentConfig(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def ReconstructionUploadImageBatch(self, request_iterator, context):
     # missing associated documentation comment in .proto file
     pass
@@ -257,6 +269,11 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           servicer.GetReconstructionConfig,
           request_deserializer=server__pb2.GetReconstructionConfigRequest.FromString,
           response_serializer=server__pb2.GetReconstructionConfigResponse.SerializeToString,
+      ),
+      'GetAgentConfig': grpc.unary_unary_rpc_method_handler(
+          servicer.GetAgentConfig,
+          request_deserializer=server__pb2.GetAgentConfigRequest.FromString,
+          response_serializer=server__pb2.GetAgentCOnfigResponse.SerializeToString,
       ),
       'ReconstructionUploadImageBatch': grpc.stream_unary_rpc_method_handler(
           servicer.ReconstructionUploadImageBatch,

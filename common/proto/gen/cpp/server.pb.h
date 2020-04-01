@@ -47,7 +47,7 @@ struct TableStruct_server_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[39]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[41]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -63,6 +63,12 @@ extern DeleteReconstructionRequestDefaultTypeInternal _DeleteReconstructionReque
 class DeleteReconstructionResponse;
 class DeleteReconstructionResponseDefaultTypeInternal;
 extern DeleteReconstructionResponseDefaultTypeInternal _DeleteReconstructionResponse_default_instance_;
+class GetAgentCOnfigResponse;
+class GetAgentCOnfigResponseDefaultTypeInternal;
+extern GetAgentCOnfigResponseDefaultTypeInternal _GetAgentCOnfigResponse_default_instance_;
+class GetAgentConfigRequest;
+class GetAgentConfigRequestDefaultTypeInternal;
+extern GetAgentConfigRequestDefaultTypeInternal _GetAgentConfigRequest_default_instance_;
 class GetOBJRequest;
 class GetOBJRequestDefaultTypeInternal;
 extern GetOBJRequestDefaultTypeInternal _GetOBJRequest_default_instance_;
@@ -175,6 +181,8 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::CameraIntrinsics* Arena::CreateMaybeMessage<::CameraIntrinsics>(Arena*);
 template<> ::DeleteReconstructionRequest* Arena::CreateMaybeMessage<::DeleteReconstructionRequest>(Arena*);
 template<> ::DeleteReconstructionResponse* Arena::CreateMaybeMessage<::DeleteReconstructionResponse>(Arena*);
+template<> ::GetAgentCOnfigResponse* Arena::CreateMaybeMessage<::GetAgentCOnfigResponse>(Arena*);
+template<> ::GetAgentConfigRequest* Arena::CreateMaybeMessage<::GetAgentConfigRequest>(Arena*);
 template<> ::GetOBJRequest* Arena::CreateMaybeMessage<::GetOBJRequest>(Arena*);
 template<> ::GetOBJResponse* Arena::CreateMaybeMessage<::GetOBJResponse>(Arena*);
 template<> ::GetReconstructionConfigRequest* Arena::CreateMaybeMessage<::GetReconstructionConfigRequest>(Arena*);
@@ -6058,6 +6066,294 @@ class SetReconstructionConfigFieldsResponse :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetAgentConfigRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetAgentConfigRequest) */ {
+ public:
+  GetAgentConfigRequest();
+  virtual ~GetAgentConfigRequest();
+
+  GetAgentConfigRequest(const GetAgentConfigRequest& from);
+  GetAgentConfigRequest(GetAgentConfigRequest&& from) noexcept
+    : GetAgentConfigRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAgentConfigRequest& operator=(const GetAgentConfigRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAgentConfigRequest& operator=(GetAgentConfigRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetAgentConfigRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetAgentConfigRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAgentConfigRequest*>(
+               &_GetAgentConfigRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    39;
+
+  friend void swap(GetAgentConfigRequest& a, GetAgentConfigRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetAgentConfigRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetAgentConfigRequest* New() const final {
+    return CreateMaybeMessage<GetAgentConfigRequest>(nullptr);
+  }
+
+  GetAgentConfigRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetAgentConfigRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetAgentConfigRequest& from);
+  void MergeFrom(const GetAgentConfigRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetAgentConfigRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetAgentConfigRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+    kAgentNameFieldNumber = 2,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // string agent_name = 2;
+  void clear_agent_name();
+  const std::string& agent_name() const;
+  void set_agent_name(const std::string& value);
+  void set_agent_name(std::string&& value);
+  void set_agent_name(const char* value);
+  void set_agent_name(const char* value, size_t size);
+  std::string* mutable_agent_name();
+  std::string* release_agent_name();
+  void set_allocated_agent_name(std::string* agent_name);
+  private:
+  const std::string& _internal_agent_name() const;
+  void _internal_set_agent_name(const std::string& value);
+  std::string* _internal_mutable_agent_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetAgentConfigRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr agent_name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetAgentCOnfigResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetAgentCOnfigResponse) */ {
+ public:
+  GetAgentCOnfigResponse();
+  virtual ~GetAgentCOnfigResponse();
+
+  GetAgentCOnfigResponse(const GetAgentCOnfigResponse& from);
+  GetAgentCOnfigResponse(GetAgentCOnfigResponse&& from) noexcept
+    : GetAgentCOnfigResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAgentCOnfigResponse& operator=(const GetAgentCOnfigResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAgentCOnfigResponse& operator=(GetAgentCOnfigResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetAgentCOnfigResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetAgentCOnfigResponse* internal_default_instance() {
+    return reinterpret_cast<const GetAgentCOnfigResponse*>(
+               &_GetAgentCOnfigResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    40;
+
+  friend void swap(GetAgentCOnfigResponse& a, GetAgentCOnfigResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetAgentCOnfigResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetAgentCOnfigResponse* New() const final {
+    return CreateMaybeMessage<GetAgentCOnfigResponse>(nullptr);
+  }
+
+  GetAgentCOnfigResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetAgentCOnfigResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetAgentCOnfigResponse& from);
+  void MergeFrom(const GetAgentCOnfigResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetAgentCOnfigResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetAgentCOnfigResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kConfigJsonFieldNumber = 1,
+  };
+  // string config_json = 1;
+  void clear_config_json();
+  const std::string& config_json() const;
+  void set_config_json(const std::string& value);
+  void set_config_json(std::string&& value);
+  void set_config_json(const char* value);
+  void set_config_json(const char* value, size_t size);
+  std::string* mutable_config_json();
+  std::string* release_config_json();
+  void set_allocated_config_json(std::string* config_json);
+  private:
+  const std::string& _internal_config_json() const;
+  void _internal_set_config_json(const std::string& value);
+  std::string* _internal_mutable_config_json();
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetAgentCOnfigResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr config_json_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
 // ===================================================================
 
 
@@ -10355,9 +10651,201 @@ inline void SetReconstructionConfigFieldsRequest::set_allocated_config_json(std:
 
 // SetReconstructionConfigFieldsResponse
 
+// -------------------------------------------------------------------
+
+// GetAgentConfigRequest
+
+// string reconstruction_id = 1;
+inline void GetAgentConfigRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& GetAgentConfigRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:GetAgentConfigRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void GetAgentConfigRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:GetAgentConfigRequest.reconstruction_id)
+}
+inline std::string* GetAgentConfigRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:GetAgentConfigRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& GetAgentConfigRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void GetAgentConfigRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void GetAgentConfigRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetAgentConfigRequest.reconstruction_id)
+}
+inline void GetAgentConfigRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetAgentConfigRequest.reconstruction_id)
+}
+inline void GetAgentConfigRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetAgentConfigRequest.reconstruction_id)
+}
+inline std::string* GetAgentConfigRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* GetAgentConfigRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:GetAgentConfigRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetAgentConfigRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:GetAgentConfigRequest.reconstruction_id)
+}
+
+// string agent_name = 2;
+inline void GetAgentConfigRequest::clear_agent_name() {
+  agent_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& GetAgentConfigRequest::agent_name() const {
+  // @@protoc_insertion_point(field_get:GetAgentConfigRequest.agent_name)
+  return _internal_agent_name();
+}
+inline void GetAgentConfigRequest::set_agent_name(const std::string& value) {
+  _internal_set_agent_name(value);
+  // @@protoc_insertion_point(field_set:GetAgentConfigRequest.agent_name)
+}
+inline std::string* GetAgentConfigRequest::mutable_agent_name() {
+  // @@protoc_insertion_point(field_mutable:GetAgentConfigRequest.agent_name)
+  return _internal_mutable_agent_name();
+}
+inline const std::string& GetAgentConfigRequest::_internal_agent_name() const {
+  return agent_name_.GetNoArena();
+}
+inline void GetAgentConfigRequest::_internal_set_agent_name(const std::string& value) {
+  
+  agent_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void GetAgentConfigRequest::set_agent_name(std::string&& value) {
+  
+  agent_name_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetAgentConfigRequest.agent_name)
+}
+inline void GetAgentConfigRequest::set_agent_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  agent_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetAgentConfigRequest.agent_name)
+}
+inline void GetAgentConfigRequest::set_agent_name(const char* value, size_t size) {
+  
+  agent_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetAgentConfigRequest.agent_name)
+}
+inline std::string* GetAgentConfigRequest::_internal_mutable_agent_name() {
+  
+  return agent_name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* GetAgentConfigRequest::release_agent_name() {
+  // @@protoc_insertion_point(field_release:GetAgentConfigRequest.agent_name)
+  
+  return agent_name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetAgentConfigRequest::set_allocated_agent_name(std::string* agent_name) {
+  if (agent_name != nullptr) {
+    
+  } else {
+    
+  }
+  agent_name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), agent_name);
+  // @@protoc_insertion_point(field_set_allocated:GetAgentConfigRequest.agent_name)
+}
+
+// -------------------------------------------------------------------
+
+// GetAgentCOnfigResponse
+
+// string config_json = 1;
+inline void GetAgentCOnfigResponse::clear_config_json() {
+  config_json_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& GetAgentCOnfigResponse::config_json() const {
+  // @@protoc_insertion_point(field_get:GetAgentCOnfigResponse.config_json)
+  return _internal_config_json();
+}
+inline void GetAgentCOnfigResponse::set_config_json(const std::string& value) {
+  _internal_set_config_json(value);
+  // @@protoc_insertion_point(field_set:GetAgentCOnfigResponse.config_json)
+}
+inline std::string* GetAgentCOnfigResponse::mutable_config_json() {
+  // @@protoc_insertion_point(field_mutable:GetAgentCOnfigResponse.config_json)
+  return _internal_mutable_config_json();
+}
+inline const std::string& GetAgentCOnfigResponse::_internal_config_json() const {
+  return config_json_.GetNoArena();
+}
+inline void GetAgentCOnfigResponse::_internal_set_config_json(const std::string& value) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void GetAgentCOnfigResponse::set_config_json(std::string&& value) {
+  
+  config_json_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetAgentCOnfigResponse.config_json)
+}
+inline void GetAgentCOnfigResponse::set_config_json(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetAgentCOnfigResponse.config_json)
+}
+inline void GetAgentCOnfigResponse::set_config_json(const char* value, size_t size) {
+  
+  config_json_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetAgentCOnfigResponse.config_json)
+}
+inline std::string* GetAgentCOnfigResponse::_internal_mutable_config_json() {
+  
+  return config_json_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* GetAgentCOnfigResponse::release_config_json() {
+  // @@protoc_insertion_point(field_release:GetAgentCOnfigResponse.config_json)
+  
+  return config_json_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetAgentCOnfigResponse::set_allocated_config_json(std::string* config_json) {
+  if (config_json != nullptr) {
+    
+  } else {
+    
+  }
+  config_json_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), config_json);
+  // @@protoc_insertion_point(field_set_allocated:GetAgentCOnfigResponse.config_json)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

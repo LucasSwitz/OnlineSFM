@@ -433,8 +433,10 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
     Image<unsigned char> imageGray;
     // Use a boolean to track if we must stop feature extraction
     std::atomic<bool> preemptive_exit(false);
+#define OPENMVG_USE_OPENMP
 #ifdef OPENMVG_USE_OPENMP
     const unsigned int nb_max_thread = omp_get_max_threads();
+    int iNumThreads = config->get_int("num_threads");
 
     if (iNumThreads > 0) {
         omp_set_num_threads(iNumThreads);
@@ -444,7 +446,10 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
     #pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
 #endif
-    for(std::string image_path : image_paths){
+    for(int i = 0; i < image_paths.size(); ++i){
+      std::set<std::string>::const_iterator iter_paths = image_paths.begin();
+      std::advance(iter_paths, i);
+      std::string image_path = *iter_paths;
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
       const std::string
       sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
@@ -457,7 +462,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
               !stlplus::file_exists(sDesc)))
       {
           if (!ReadImage(image_path.c_str(), &imageGray))
-              return false;
+              continue;
 
           Image<unsigned char> * mask = nullptr; // The mask is null by default
 
@@ -477,7 +482,6 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
                   std::cerr << "Invalid mask: " << mask_filename_local << std::endl
                               << "Stopping feature extraction." << std::endl;
                   preemptive_exit = true;
-                  return false;
               }
               // Use the local mask only if it fits the current image size
               if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
@@ -493,7 +497,6 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
                   std::cerr << "Invalid mask: " << mask__filename_global << std::endl
                           << "Stopping feature extraction." << std::endl;
                   preemptive_exit = true;
-                  return false;
               }
               // Use the global mask only if it fits the current image size
               if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
@@ -507,12 +510,11 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
               std::cerr << "Cannot save regions for images: " << image_path << std::endl
                       << "Stopping feature extraction." << std::endl;
               preemptive_exit = true;
-              return false;
           }
       }
     }
+    return !preemptive_exit;
   }
-  return true;
 }
 
 bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_paths){
@@ -756,7 +758,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   std::string sIntrinsic_refinement_options = config->get_string("intrinsic_refinement_options");
   int i_User_camera_model = config->get_int("user_camera_model");
   bool b_use_motion_priors = config->get_bool("use_motion_priors");
-  int triangulation_method = config->get_int("trangulation_method");
+  int triangulation_method = config->get_int("triangulation_method");
 
   const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);

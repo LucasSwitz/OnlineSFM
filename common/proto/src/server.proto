@@ -198,6 +198,15 @@ message SetReconstructionConfigFieldsResponse {
     
 };
 
+message GetAgentConfigRequest {
+    string reconstruction_id = 1;
+    string agent_name = 2;
+};
+
+message GetAgentCOnfigResponse {
+    string config_json = 1;
+};  
+
 
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
@@ -211,6 +220,7 @@ service ReconstructionService {
     rpc StopSession(StopSessionRequest) returns (StopSessionResponse);
     rpc SessionAddImage(stream SessionAddImageRequest) returns (SessionAddImageResponse);
     rpc GetReconstructionConfig(GetReconstructionConfigRequest) returns (GetReconstructionConfigResponse);
+    rpc GetAgentConfig(GetAgentConfigRequest) returns (GetAgentCOnfigResponse);
     rpc ReconstructionUploadImageBatch(stream ReconstructionUploadImageBatchRequest) returns (ReconstructionUploadImageBatchResponse);
     rpc MVS(MVSRequest) returns (MVSResponse);
     rpc SetAgentConfigFields(SetAgentConfigFieldsRequest) returns (SetAgentConfigFieldsResponse);

@@ -10,12 +10,13 @@
 #include "openmvg_reconstruction_agent.h"
 #include "camera_intrinsics_storage.h"
 #include "sfm_backlog_counter.h"
+#include <memory>
 
 class Reconstruction;
 
 class ReconstructionFetcher {
     public:
-        Reconstruction* Fetch(const std::string& id);
+        std::shared_ptr<Reconstruction> Fetch(const std::string& id);
         void Store(const ReconstructionData& reconstruction);
 };
 
@@ -94,6 +95,8 @@ class Reconstruction {
         const ReconstructionData& Data();
         void SetAgentConfigFields(const std::string& agent_name, const std::string& config_json);
         void SetConfigFields( const std::string& config_json);
+        ConfigurationContainerPtr GetConfig();
+        ConfigurationContainerPtr GetAgentConfig(const std::string& agent_name);
     private:
         std::string _id;
         bool _running_mvs = false;

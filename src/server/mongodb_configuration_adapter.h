@@ -11,7 +11,7 @@
 
 class MongoDBConfigurationContainer : public ConfigurationContainer{
     public:
-        MongoDBConfigurationContainer(bsoncxx::document::value document) : _document(document){};
+        MongoDBConfigurationContainer(bsoncxx::document::value document);
         std::string get_string(const std::string& key);
         int get_int(const std::string& key);
         long get_long(const std::string& key);
