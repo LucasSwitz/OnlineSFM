@@ -29,6 +29,17 @@ class OnlineSFMReconstruction:
         self._client = client
         self._id = id
 
+    def upload_image(self, image_path):
+        with open(image_path, "rb") as image:
+                meta = ImageMetaData(reconstruction=self._id, format=os.path.splitext(image_path)[1][1:])
+                image_bytes = image.read()
+                chunked = []
+                for i in range(0, len(image_bytes), CHUNK_SIZE):
+                    chunked.append(ReconstructionUploadImageBatchRequest(idx = 0, 
+                                                                         data = ImageData(metadata=meta, 
+                                                                                          data=image_bytes[i:i+CHUNK_SIZE])))
+                self._client.ReconstructionUploadImageBatch(iter(chunked))
+
     def upload_directory(self, directory_path):
         files = glob(directory_path+"/*")
         img_idx = 0

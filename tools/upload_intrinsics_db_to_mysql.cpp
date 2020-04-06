@@ -1,6 +1,6 @@
 
 #include <string>
-#include "server/sql_camera_intrinsics_storage.h"
+#include "sql_camera_intrinsics_storage.h"
 #include "openMVG/exif/sensor_width_database/ParseDatabase.hpp"
 
 /**

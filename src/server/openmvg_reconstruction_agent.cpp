@@ -165,11 +165,15 @@ std::pair<bool, Vec3> checkGPS
 OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& reconstruction_id, 
                                                        CameraIntrinsicsStorage* intrinsics_storage,
                                                        OpenMVGStorageAdapter* openmvg_storage,
-                                                       std::shared_ptr<ConfigurationAdapter> configuration_adapter):
+                                                       std::shared_ptr<ConfigurationAdapter> configuration_adapter,
+                                                       std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> descriptor_storage,
+                                                       std::shared_ptr<ImageStorageAdapter> image_storage):
                                                                                   _reconstruction_id(reconstruction_id), 
                                                                                   _intrinsics_storage(intrinsics_storage),
                                                                                   _openmvg_storage(openmvg_storage),
-                                                                                  _configuration_adapter(configuration_adapter){
+                                                                                  _configuration_adapter(configuration_adapter),
+                                                                                  _descriptor_storage(descriptor_storage),
+                                                                                  _image_storage(image_storage){
   
   
 }
@@ -325,8 +329,8 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
   return true;
 }
 
-bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_paths){
-  LOG(INFO) << "Computing features for " << image_paths.size() << " new images";
+bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_ids){
+  LOG(INFO) << "Computing features for " << image_ids.size() << " new images";
   if (this->_config.features_dir.empty())  {
     std::cerr << "\nIt is an invalid output directory" << std::endl;
     return false;
@@ -446,10 +450,11 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
     #pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
 #endif
-    for(int i = 0; i < image_paths.size(); ++i){
-      std::set<std::string>::const_iterator iter_paths = image_paths.begin();
-      std::advance(iter_paths, i);
-      std::string image_path = *iter_paths;
+    for(int i = 0; i < image_ids.size(); ++i){
+      std::set<std::string>::const_iterator iter_ids = image_ids.begin();
+      std::advance(iter_ids, i);
+      std::string image_id = *iter_ids;
+      std::string image_path = this->_image_storage->GetMeta(image_id).path();
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
       const std::string
       sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
@@ -504,8 +509,18 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
               }
           }
 
-          // Compute features and descriptors and export them to files
+          // Compute features and descriptors and export them to files and now sql. TODO: Remove file storage.
           auto regions = image_describer->Describe(imageGray, mask);
+          auto desc_raw = regions->DescriptorRawData();
+          SIFT_Vector descs(regions->RegionCount());
+          for(int i = 0; i < regions->RegionCount(); i++){
+              Descriptor<unsigned char, 128> descriptor;
+              memcpy(&descriptor, desc_raw + (i*sizeof(Descriptor<unsigned char, 128>)), sizeof(Descriptor<unsigned char, 128>));
+              descs[i] = descriptor;
+          }
+          LOG(INFO) << "Storing " << descs.size() << " computed features for " << image_id;
+          this->_descriptor_storage->StoreAll(image_id, descs);
+
           if (regions && !image_describer->Save(regions.get(), sFeat, sDesc)) {
               std::cerr << "Cannot save regions for images: " << image_path << std::endl
                       << "Stopping feature extraction." << std::endl;

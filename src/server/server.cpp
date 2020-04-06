@@ -299,6 +299,9 @@ class ReconstructionServer : public ReconstructionService::Service {
                         final_image.mutable_data()->append(request.data().data());  
                     }
                 }
+                // insert last image
+                new_image_ids.insert(reconstruction->StoreImage(final_image));
+
                 reconstruction->ComputeFeatures(new_image_ids);
                 std::for_each(new_image_ids.begin(), 
                             new_image_ids.end(), 

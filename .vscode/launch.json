@@ -4,6 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+
         {
             "name": "server",
             "type": "cppdbg",
@@ -12,6 +14,48 @@
             "args": ["/home/gumbo00/OnlineSFM/build/config.json"],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "build index",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/gumbo00/OnlineSFM/build/build_index",
+            "args": ["/home/gumbo00/OnlineSFM/datasets/ImageDataset_SceauxCastle-master/images"],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "indexing server",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/gumbo00/OnlineSFM/build/indexing_server",
+            "args": ["config.json", "index.bin"],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}/build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

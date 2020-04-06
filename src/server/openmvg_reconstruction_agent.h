@@ -14,6 +14,10 @@
 #include "camera_intrinsics_storage.h"
 
 #include "configuration_adapter.h"
+#include "descriptor_storage.h"
+#include "image_storage.h"
+
+#include "types.h"
 
 typedef struct OpenMVGReconstructionAgentConfig {
     std::string features_dir = "",
@@ -28,7 +32,9 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         OpenMVGReconstructionAgent(const std::string& reconstruction_id, 
                                    CameraIntrinsicsStorage* intrinsics_storage, 
                                    OpenMVGStorageAdapter* openmvg_storage,
-                                   std::shared_ptr<ConfigurationAdapter> configuration_adapter);
+                                   std::shared_ptr<ConfigurationAdapter> configuration_adapter,
+                                   std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> descriptor_storage,
+                                   std::shared_ptr<ImageStorageAdapter> image_storage);
         bool IncrementalSFM(const std::set<std::string>& new_images){}
         bool AddImage(const std::string& image_path);
         bool ComputeMatches(const std::set<std::string>& image_pathes);
@@ -43,6 +49,8 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         OpenMVGReconstructionAgentConfig _config;
         std::unique_ptr<openMVG::sfm::SfM_Data> _sfm_data;
         std::shared_ptr<ConfigurationAdapter> _configuration_adapter;
+        std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> _descriptor_storage;
+        std::shared_ptr<ImageStorageAdapter> _image_storage;
         CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
         OpenMVGStorageAdapter* _openmvg_storage = nullptr;
         std::string _reconstruction_id;

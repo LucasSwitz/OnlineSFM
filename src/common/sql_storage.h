@@ -24,11 +24,13 @@ class SQLStorage {
         void Execute(const std::string& e, std::function<void(sql::PreparedStatement *stmt)> modifier);
         void Execute(const std::string& ex, sql::Connection* con, std::function<void(sql::PreparedStatement *stmt)> modifier);
         void Transaction(std::function<void(sql::Connection *con)> t);
+        virtual ~SQLStorage();
     private:
         std::string _db;
         std::string _address;
         std::string _user;
         std::string _pass;
         sql::Driver* _driver;
+        sql::Connection* _con;
 
 };

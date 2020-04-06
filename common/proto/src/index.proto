@@ -1,0 +1,35 @@
+syntax="proto3";
+
+message IndexWord {
+    bytes word = 1;
+};
+
+message IndexImageRequest {
+    string image_id = 1;
+}
+
+message IndexImageResponse {
+
+};
+
+message GetBagOfWordsRequest {
+    string image_id = 1;
+};
+
+message GetBagOfWordsResponse {
+    repeated IndexWord words = 1;
+}
+
+message FindAllRequest{
+    repeated IndexWord words = 1;
+};
+
+message FindAllResponse {
+    repeated string image_ids = 1;
+}
+
+service VisualIndexingService {
+   rpc IndexImage(IndexImageRequest) returns (IndexImageResponse);
+   rpc GetBagOfWords(GetBagOfWordsRequest) returns (GetBagOfWordsResponse);
+   rpc FindAll(FindAllRequest) returns (FindAllResponse);
+};

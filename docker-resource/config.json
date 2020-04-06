@@ -19,7 +19,9 @@
         "openmvg_views_table" : "OPENMVG_VIEWS",
         "openmvg_matches_table" : "OPENMVG_MATCHES",
         "openmvg_meta_table" : "OPENMVG_META",
-        "openmvg_poses_table" : "OPENMVG_POSES"
+        "openmvg_poses_table" : "OPENMVG_POSES",
+        "descriptors_table" : "IMAGE_DESCRIPTORS",
+        "words_table" : "IMAGE_WORDS"
     },
     "redis" : {
         "address" : "tcp://127.0.0.1:6379",

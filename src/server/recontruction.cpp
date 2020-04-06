@@ -12,6 +12,7 @@
 #include "mongodb_configuration_adapter.h"
 #include "image_filesystem_storer.h"
 #include <thread>
+#include "index_helpers.h"
 
 std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& id){
     try{
@@ -20,7 +21,7 @@ std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& 
                                                                 CONFIG_GET_STRING("sql.password"), 
                                                                 CONFIG_GET_STRING("sql.db"), 
                                                                 CONFIG_GET_STRING("sql.reconstruction_table")), 
-                                    new SQLImageStorage(new FileSystemImageDataStorage(),
+                                    std::make_shared<SQLImageStorage>(new FileSystemImageDataStorage(),
                                                         CONFIG_GET_STRING("sql.address"), 
                                                         CONFIG_GET_STRING("sql.user"), 
                                                         CONFIG_GET_STRING("sql.password"), 
@@ -63,9 +64,10 @@ void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
 }
 
 #include "sql_openmvg_storage.h"
+#include "sql_descriptor_storage.h"
 Reconstruction::Reconstruction(const std::string& id,
                        ReconstructionStorageAdapter* reconstruction_storage,
-                       ImageStorageAdapter* image_storage,
+                       std::shared_ptr<ImageStorageAdapter> image_storage,
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
                        CameraIntrinsicsStorage* intrinsics_storage,
@@ -90,7 +92,13 @@ Reconstruction::Reconstruction(const std::string& id,
                                             CONFIG_GET_STRING("sql.openmvg_matches_table"),
                                             CONFIG_GET_STRING("sql.openmvg_meta_table"),
                                             CONFIG_GET_STRING("sql.openmvg_poses_table")),
-                                            config_adapter){
+                                            config_adapter,
+                        std::make_shared<SQLDescriptorStorage>(CONFIG_GET_STRING("sql.address"),
+                                            CONFIG_GET_STRING("sql.user"), 
+                                            CONFIG_GET_STRING("sql.password"),
+                                            CONFIG_GET_STRING("sql.db"),
+                                            CONFIG_GET_STRING("sql.descriptors_table")),
+                                            image_storage){
     this->_data = this->_reconstruction_storage->Get(this->_id);
     OpenMVGReconstructionAgentConfig config;
     config.features_dir = this->_data.features_path();
@@ -141,7 +149,8 @@ void Reconstruction::Delete(){
     this->_reconstruction_storage->Delete(this->_id);
 }
 
-Image::Image(const std::string& id, ImageStorageAdapter* img_storage) : _id(id), _storage_adapter(img_storage){
+Image::Image(const std::string& id, std::shared_ptr<ImageStorageAdapter> img_storage) : _id(id), 
+                                                                                        _storage_adapter(img_storage){
     
 }
 
@@ -273,6 +282,17 @@ void Reconstruction::AddImage(const std::string& image_id){
     ImageMetaData img_meta = this->_image_storage->GetMeta(image_id);
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     LOG(INFO) << "Adding image: " << image_id;
+
+    auto indexing_client = GetIndexingClient(CONFIG_GET_STRING("index.address"));
+    
+    //TODO: Wrap this shit
+    IndexImageRequest req;
+    req.set_image_id(image_id);
+    IndexImageResponse resp;
+    grpc::ClientContext context;
+    LOG(INFO) << "Indexing image: " << image_id;
+    indexing_client->IndexImage(&context, req, &resp);
+
     if(!reconstruction_agent.AddImage(img_meta.path())){
         LOG(ERROR) << "Failed to add image " << image_id;
     }else{
@@ -300,12 +320,7 @@ bool Reconstruction::IsRunningMVS(){
 }
 
 void Reconstruction::ComputeFeatures(const std::set<std::string>& images){
-    std::set<std::string> paths;
-    std::for_each(images.begin(), images.end(), [this, &paths] (const std::string& image_id) mutable {
-        std::string path = this->_image_storage->GetMeta(image_id).path();
-        paths.insert(path);
-    });
-    this->reconstruction_agent.ComputeFeatures(paths);
+    this->reconstruction_agent.ComputeFeatures(images);
 }
 
 void Reconstruction::ComputeMatches(const std::set<std::string>& images){

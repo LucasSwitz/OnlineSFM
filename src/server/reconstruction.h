@@ -27,12 +27,12 @@ TODO: Create move constructors
 class Image {
     public:
         Image() = default;
-        Image(const std::string& id, ImageStorageAdapter* storage_adapter);
+        Image(const std::string& id, std::shared_ptr<ImageStorageAdapter> storage_adapter);
         ImageData Data();
         void Delete();
     private:
         std::string _id;
-        ImageStorageAdapter* _storage_adapter;
+        std::shared_ptr<ImageStorageAdapter> _storage_adapter;
 };
 
 class SparseReconstruction {
@@ -71,7 +71,7 @@ class Reconstruction {
     public:
         Reconstruction(const std::string& id,
                        ReconstructionStorageAdapter* reconstruction_staroage,
-                       ImageStorageAdapter* image_storage,
+                       std::shared_ptr<ImageStorageAdapter> image_storage,
                        SparseStorageAdapter* sparse_storage,
                        OBJStorageAdapter* obj_storage,
                        CameraIntrinsicsStorage* intrinsics_storages,
@@ -103,7 +103,7 @@ class Reconstruction {
         std::thread* _mvs_thread = nullptr;
         std::string _working_mvs_dir;
         ReconstructionStorageAdapter* _reconstruction_storage = nullptr;
-        ImageStorageAdapter* _image_storage = nullptr;
+        std::shared_ptr<ImageStorageAdapter> _image_storage = nullptr;
         OBJStorageAdapter* _obj_storage = nullptr;
         SparseStorageAdapter* _sparse_storage = nullptr;
         CameraIntrinsicsStorage* _intrinsics_storage = nullptr;

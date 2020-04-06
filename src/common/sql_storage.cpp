@@ -12,17 +12,15 @@ SQLStorage::SQLStorage(const std::string& address,
                                                              _pass(pass),
                                                              _db(db){
     this->_driver = get_driver_instance();
+    this->_con = this->_driver->connect(this->_address, this->_user, this->_pass);
+    this->_con->setSchema(this->_db);
 };
 
 sql::ResultSet* SQLStorage::IssueQuery(const std::string& q, 
                                        std::function<void(sql::PreparedStatement *stmt)> modifier){
-    sql::Connection* con;
     sql::ResultSet* res;
     try{
-        con = this->_driver->connect(this->_address, this->_user, this->_pass);
-        con->setSchema(this->_db);
-        res = this->IssueQuery(q, con, modifier);
-        delete con;
+        res = this->IssueQuery(q, this->_con, modifier);
         return res;
     }catch(sql::SQLException e){
         LOG(ERROR) << "SQL Error: "<< e.what() << e.getSQLStateCStr() << " " << e.getErrorCode();
@@ -36,7 +34,7 @@ sql::ResultSet* SQLStorage::IssueQuery(const std::string& q,
     sql::PreparedStatement *stmt;
     sql::ResultSet* res;
     try{
-        stmt = con->prepareStatement(q);
+        stmt = this->_con->prepareStatement(q);
         modifier(stmt);
         res =  stmt->executeQuery();   
         delete stmt;
@@ -46,15 +44,12 @@ sql::ResultSet* SQLStorage::IssueQuery(const std::string& q,
         return nullptr;
     }
 }
+#include "util.h"
 
 void SQLStorage::IssueUpdate(const std::string& u, 
                              std::function<void(sql::PreparedStatement *stmt)> modifier){
-    sql::Connection* con;
     try{
-        con = this->_driver->connect(this->_address, this->_user, this->_pass);
-        con->setSchema(this->_db);
-        this->IssueUpdate(u, con, modifier);
-        delete con;
+        this->IssueUpdate(u, this->_con, modifier);
     }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
         throw;
@@ -66,8 +61,7 @@ void SQLStorage::IssueUpdate(const std::string& u,
                              std::function<void(sql::PreparedStatement *stmt)> modifier){
     sql::PreparedStatement *stmt;
     try{
-        con->setSchema(this->_db);
-        stmt = con->prepareStatement(u);
+        stmt = this->_con->prepareStatement(u);
         modifier(stmt);
         stmt->execute();   
         delete stmt;
@@ -79,12 +73,8 @@ void SQLStorage::IssueUpdate(const std::string& u,
 
 
 void SQLStorage::Execute(const std::string& ex, std::function<void(sql::PreparedStatement *stmt)> modifier){
-    sql::Connection* con;
     try{
-        con = this->_driver->connect(this->_address, this->_user, this->_pass);
-        con->setSchema(this->_db);
-        Execute(ex, con, modifier);
-        delete con;
+        Execute(ex, this->_con, modifier);
     }catch(sql::SQLException e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
     }
@@ -103,15 +93,15 @@ void SQLStorage::Execute(const std::string& ex, sql::Connection* con, std::funct
 }
 
 void SQLStorage::Transaction(std::function<void(sql::Connection *con)> t){
-    sql::Connection* con;
     try{
-        con = this->_driver->connect(this->_address, this->_user, this->_pass);
-        con->setSchema(this->_db);
-        con->setAutoCommit(false);
-        t(con);
-        con->commit();
-        delete con;
+        this->_con->setAutoCommit(false);
+        t(this->_con);
+        this->_con->commit();
     }catch(sql::SQLException e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
     }
+}
+
+SQLStorage::~SQLStorage(){
+    delete this->_con;
 }
