@@ -20,16 +20,17 @@ message GetBagOfWordsResponse {
     repeated IndexWord words = 1;
 }
 
-message FindAllRequest{
-    repeated IndexWord words = 1;
+message ClosestNRequest{
+    string image_id = 1;
+    uint32 N = 2;
 };
 
-message FindAllResponse {
+message ClosestNResponse {
     repeated string image_ids = 1;
 }
 
 service VisualIndexingService {
    rpc IndexImage(IndexImageRequest) returns (IndexImageResponse);
    rpc GetBagOfWords(GetBagOfWordsRequest) returns (GetBagOfWordsResponse);
-   rpc FindAll(FindAllRequest) returns (FindAllResponse);
+   rpc ClosestN(ClosestNRequest) returns (ClosestNResponse);
 };

@@ -80,6 +80,8 @@
 #include "openMVG/image/image_io.hpp"
 #include "openMVG/numeric/eigen_alias_definition.hpp"
 
+#include "index_helpers.h"
+
 
 #include <fstream>
 #include <memory>
@@ -88,6 +90,8 @@
 #include <iostream>
 #include <memory>
 #include <string>
+
+#include "config.h"
 
 using namespace openMVG;
 using namespace openMVG::cameras;
@@ -189,7 +193,8 @@ void OpenMVGReconstructionAgent::SetConfig(const OpenMVGReconstructionAgentConfi
     this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ALL);
 }
 
-bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
+bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
+  std::string image_path = this->_image_storage->GetMeta(image_id).path();
   int i_User_camera_model = PINHOLE_CAMERA_RADIAL3;
   std::shared_ptr<View> v;
 
@@ -308,7 +313,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_path){
   
   if(intrinsic){
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
-    this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, v, intrinsic);
+    this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, image_id, v, intrinsic);
   }else{
     LOG(ERROR) << "Null Intrinsic for image " << sImFilenamePart;
     return false; 
@@ -532,9 +537,10 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
   }
 }
 
-bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_paths){
+bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_ids){
   // Update our SFM data to get all the images to match with
-  LOG(INFO) << "Generating matches for " << new_image_paths.size() << " new images";
+
+  LOG(INFO) << "Generating matches for " << new_image_ids.size() << " new images";
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
@@ -549,7 +555,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
 
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
                                                        ESfM_Data::VIEWS | ESfM_Data::INTRINSICS);
-  Pair_Set pairs = this->_GatherMatchesToCompute(new_image_paths);
+  Pair_Set pairs = this->_GatherMatchesToCompute(new_image_ids);
   std::shared_ptr<Regions_Provider> regions_provider;
   EGeometricModel eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
   std::string sGeometricMatchesFilename = "";
@@ -934,31 +940,28 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   return false;
 }
 
-openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_paths){    
+openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_ids){    
     std::set<IndexT> new_ids;
     openMVG::Pair_Set matches_to_compute;
-
+    grpc::ClientContext context;
+    auto search_client =  GetIndexingClient(CONFIG_GET_STRING("index.address"));
     if(this->_sfm_data->GetViews().size() < 2){
       return openMVG::Pair_Set();
     }
 
-    for(std::pair<openMVG::IndexT, std::shared_ptr<openMVG::sfm::View>> e : this->_sfm_data->GetViews()){
-        std::shared_ptr<openMVG::sfm::View> view = e.second;
-        std::string full_path = this->_sfm_data->s_root_path + "/" + view->s_Img_path;
-        for(std::string new_image_path : new_image_paths){
-          if(full_path.compare(new_image_path) == 0){
-              new_ids.insert(view->id_view);
-          }
-        }
-    }
-
-    for(int new_id : new_ids){
-        for(std::pair<openMVG::IndexT, std::shared_ptr<openMVG::sfm::View>> e : this->_sfm_data->GetViews()){
-            std::shared_ptr<View> view = e.second;
-            if(new_id != view->id_view){
-                matches_to_compute.insert(std::pair<openMVG::IndexT,openMVG::IndexT>(view->id_view, new_id));
-            }
-         }
+    for(const std::string& image_id : new_image_ids){
+      ClosestNRequest req;
+      ClosestNResponse resp;
+      req.set_image_id(image_id);
+      req.set_n(10);
+      search_client->ClosestN(&context, req, &resp);
+      auto search_result = resp.image_ids();
+      IndexT view_idx_1 = this->_openmvg_storage->GetViewIdxByImageID(image_id);
+      for(const std::string& similar_id : search_result){
+        IndexT view_idx_2 = this->_openmvg_storage->GetViewIdxByImageID(similar_id);
+        if(matches_to_compute.find({view_idx_2, view_idx_1}) == matches_to_compute.end())
+          matches_to_compute.insert({view_idx_1, view_idx_2});
+      }
     }
 
     return matches_to_compute;

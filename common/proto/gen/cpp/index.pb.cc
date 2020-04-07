@@ -35,42 +35,41 @@ class GetBagOfWordsResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetBagOfWordsResponse> _instance;
 } _GetBagOfWordsResponse_default_instance_;
-class FindAllRequestDefaultTypeInternal {
+class ClosestNRequestDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<FindAllRequest> _instance;
-} _FindAllRequest_default_instance_;
-class FindAllResponseDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ClosestNRequest> _instance;
+} _ClosestNRequest_default_instance_;
+class ClosestNResponseDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<FindAllResponse> _instance;
-} _FindAllResponse_default_instance_;
-static void InitDefaultsscc_info_FindAllRequest_index_2eproto() {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ClosestNResponse> _instance;
+} _ClosestNResponse_default_instance_;
+static void InitDefaultsscc_info_ClosestNRequest_index_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_FindAllRequest_default_instance_;
-    new (ptr) ::FindAllRequest();
+    void* ptr = &::_ClosestNRequest_default_instance_;
+    new (ptr) ::ClosestNRequest();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::FindAllRequest::InitAsDefaultInstance();
+  ::ClosestNRequest::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_FindAllRequest_index_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_FindAllRequest_index_2eproto}, {
-      &scc_info_IndexWord_index_2eproto.base,}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ClosestNRequest_index_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ClosestNRequest_index_2eproto}, {}};
 
-static void InitDefaultsscc_info_FindAllResponse_index_2eproto() {
+static void InitDefaultsscc_info_ClosestNResponse_index_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
-    void* ptr = &::_FindAllResponse_default_instance_;
-    new (ptr) ::FindAllResponse();
+    void* ptr = &::_ClosestNResponse_default_instance_;
+    new (ptr) ::ClosestNResponse();
     ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-  ::FindAllResponse::InitAsDefaultInstance();
+  ::ClosestNResponse::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_FindAllResponse_index_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_FindAllResponse_index_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ClosestNResponse_index_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ClosestNResponse_index_2eproto}, {}};
 
 static void InitDefaultsscc_info_GetBagOfWordsRequest_index_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -178,17 +177,18 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_index_2eproto::offsets[] PROTO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::GetBagOfWordsResponse, words_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::FindAllRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ClosestNRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::FindAllRequest, words_),
+  PROTOBUF_FIELD_OFFSET(::ClosestNRequest, image_id_),
+  PROTOBUF_FIELD_OFFSET(::ClosestNRequest, n_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::FindAllResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ClosestNResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::FindAllResponse, image_ids_),
+  PROTOBUF_FIELD_OFFSET(::ClosestNResponse, image_ids_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::IndexWord)},
@@ -196,8 +196,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 12, -1, sizeof(::IndexImageResponse)},
   { 17, -1, sizeof(::GetBagOfWordsRequest)},
   { 23, -1, sizeof(::GetBagOfWordsResponse)},
-  { 29, -1, sizeof(::FindAllRequest)},
-  { 35, -1, sizeof(::FindAllResponse)},
+  { 29, -1, sizeof(::ClosestNRequest)},
+  { 36, -1, sizeof(::ClosestNResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -206,8 +206,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_IndexImageResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetBagOfWordsRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetBagOfWordsResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_FindAllRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_FindAllResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ClosestNRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ClosestNResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_index_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -215,20 +215,21 @@ const char descriptor_table_protodef_index_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\"%\n\021IndexImageRequest\022\020\n\010image_id\030\001 \001(\t\""
   "\024\n\022IndexImageResponse\"(\n\024GetBagOfWordsRe"
   "quest\022\020\n\010image_id\030\001 \001(\t\"2\n\025GetBagOfWords"
-  "Response\022\031\n\005words\030\001 \003(\0132\n.IndexWord\"+\n\016F"
-  "indAllRequest\022\031\n\005words\030\001 \003(\0132\n.IndexWord"
-  "\"$\n\017FindAllResponse\022\021\n\timage_ids\030\001 \003(\t2\274"
-  "\001\n\025VisualIndexingService\0225\n\nIndexImage\022\022"
-  ".IndexImageRequest\032\023.IndexImageResponse\022"
-  ">\n\rGetBagOfWords\022\025.GetBagOfWordsRequest\032"
-  "\026.GetBagOfWordsResponse\022,\n\007FindAll\022\017.Fin"
-  "dAllRequest\032\020.FindAllResponseb\006proto3"
+  "Response\022\031\n\005words\030\001 \003(\0132\n.IndexWord\".\n\017C"
+  "losestNRequest\022\020\n\010image_id\030\001 \001(\t\022\t\n\001N\030\002 "
+  "\001(\r\"%\n\020ClosestNResponse\022\021\n\timage_ids\030\001 \003"
+  "(\t2\277\001\n\025VisualIndexingService\0225\n\nIndexIma"
+  "ge\022\022.IndexImageRequest\032\023.IndexImageRespo"
+  "nse\022>\n\rGetBagOfWords\022\025.GetBagOfWordsRequ"
+  "est\032\026.GetBagOfWordsResponse\022/\n\010ClosestN\022"
+  "\020.ClosestNRequest\032\021.ClosestNResponseb\006pr"
+  "oto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_index_2eproto_deps[1] = {
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_index_2eproto_sccs[7] = {
-  &scc_info_FindAllRequest_index_2eproto.base,
-  &scc_info_FindAllResponse_index_2eproto.base,
+  &scc_info_ClosestNRequest_index_2eproto.base,
+  &scc_info_ClosestNResponse_index_2eproto.base,
   &scc_info_GetBagOfWordsRequest_index_2eproto.base,
   &scc_info_GetBagOfWordsResponse_index_2eproto.base,
   &scc_info_IndexImageRequest_index_2eproto.base,
@@ -238,7 +239,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ind
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_index_2eproto_once;
 static bool descriptor_table_index_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_index_2eproto = {
-  &descriptor_table_index_2eproto_initialized, descriptor_table_protodef_index_2eproto, "index.proto", 477,
+  &descriptor_table_index_2eproto_initialized, descriptor_table_protodef_index_2eproto, "index.proto", 484,
   &descriptor_table_index_2eproto_once, descriptor_table_index_2eproto_sccs, descriptor_table_index_2eproto_deps, 7, 0,
   schemas, file_default_instances, TableStruct_index_2eproto::offsets,
   file_level_metadata_index_2eproto, 7, file_level_enum_descriptors_index_2eproto, file_level_service_descriptors_index_2eproto,
@@ -1186,73 +1187,85 @@ void GetBagOfWordsResponse::InternalSwap(GetBagOfWordsResponse* other) {
 
 // ===================================================================
 
-void FindAllRequest::InitAsDefaultInstance() {
+void ClosestNRequest::InitAsDefaultInstance() {
 }
-class FindAllRequest::_Internal {
+class ClosestNRequest::_Internal {
  public:
 };
 
-FindAllRequest::FindAllRequest()
+ClosestNRequest::ClosestNRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:FindAllRequest)
+  // @@protoc_insertion_point(constructor:ClosestNRequest)
 }
-FindAllRequest::FindAllRequest(const FindAllRequest& from)
+ClosestNRequest::ClosestNRequest(const ClosestNRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _internal_metadata_(nullptr),
-      words_(from.words_) {
+      _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:FindAllRequest)
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_image_id().empty()) {
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
+  n_ = from.n_;
+  // @@protoc_insertion_point(copy_constructor:ClosestNRequest)
 }
 
-void FindAllRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_FindAllRequest_index_2eproto.base);
+void ClosestNRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ClosestNRequest_index_2eproto.base);
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  n_ = 0u;
 }
 
-FindAllRequest::~FindAllRequest() {
-  // @@protoc_insertion_point(destructor:FindAllRequest)
+ClosestNRequest::~ClosestNRequest() {
+  // @@protoc_insertion_point(destructor:ClosestNRequest)
   SharedDtor();
 }
 
-void FindAllRequest::SharedDtor() {
+void ClosestNRequest::SharedDtor() {
+  image_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void FindAllRequest::SetCachedSize(int size) const {
+void ClosestNRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const FindAllRequest& FindAllRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_FindAllRequest_index_2eproto.base);
+const ClosestNRequest& ClosestNRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ClosestNRequest_index_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void FindAllRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:FindAllRequest)
+void ClosestNRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:ClosestNRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  words_.Clear();
+  image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  n_ = 0u;
   _internal_metadata_.Clear();
 }
 
-const char* FindAllRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ClosestNRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // repeated .IndexWord words = 1;
+      // string image_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_words(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+          auto str = _internal_mutable_image_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ClosestNRequest.image_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // uint32 N = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          n_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -1275,41 +1288,56 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* FindAllRequest::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ClosestNRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:FindAllRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:ClosestNRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated .IndexWord words = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_words_size()); i < n; i++) {
+  // string image_id = 1;
+  if (this->image_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_image_id().data(), static_cast<int>(this->_internal_image_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ClosestNRequest.image_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_image_id(), target);
+  }
+
+  // uint32 N = 2;
+  if (this->n() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_words(i), target, stream);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_n(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:FindAllRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:ClosestNRequest)
   return target;
 }
 
-size_t FindAllRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:FindAllRequest)
+size_t ClosestNRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ClosestNRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .IndexWord words = 1;
-  total_size += 1UL * this->_internal_words_size();
-  for (const auto& msg : this->words_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  // string image_id = 1;
+  if (this->image_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_image_id());
+  }
+
+  // uint32 N = 2;
+  if (this->n() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+        this->_internal_n());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1321,104 +1349,112 @@ size_t FindAllRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void FindAllRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:FindAllRequest)
+void ClosestNRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ClosestNRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  const FindAllRequest* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<FindAllRequest>(
+  const ClosestNRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ClosestNRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:FindAllRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ClosestNRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:FindAllRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ClosestNRequest)
     MergeFrom(*source);
   }
 }
 
-void FindAllRequest::MergeFrom(const FindAllRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:FindAllRequest)
+void ClosestNRequest::MergeFrom(const ClosestNRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ClosestNRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  words_.MergeFrom(from.words_);
+  if (from.image_id().size() > 0) {
+
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
+  if (from.n() != 0) {
+    _internal_set_n(from._internal_n());
+  }
 }
 
-void FindAllRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:FindAllRequest)
+void ClosestNRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ClosestNRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void FindAllRequest::CopyFrom(const FindAllRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:FindAllRequest)
+void ClosestNRequest::CopyFrom(const ClosestNRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ClosestNRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool FindAllRequest::IsInitialized() const {
+bool ClosestNRequest::IsInitialized() const {
   return true;
 }
 
-void FindAllRequest::InternalSwap(FindAllRequest* other) {
+void ClosestNRequest::InternalSwap(ClosestNRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  words_.InternalSwap(&other->words_);
+  image_id_.Swap(&other->image_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(n_, other->n_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata FindAllRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ClosestNRequest::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void FindAllResponse::InitAsDefaultInstance() {
+void ClosestNResponse::InitAsDefaultInstance() {
 }
-class FindAllResponse::_Internal {
+class ClosestNResponse::_Internal {
  public:
 };
 
-FindAllResponse::FindAllResponse()
+ClosestNResponse::ClosestNResponse()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:FindAllResponse)
+  // @@protoc_insertion_point(constructor:ClosestNResponse)
 }
-FindAllResponse::FindAllResponse(const FindAllResponse& from)
+ClosestNResponse::ClosestNResponse(const ClosestNResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr),
       image_ids_(from.image_ids_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:FindAllResponse)
+  // @@protoc_insertion_point(copy_constructor:ClosestNResponse)
 }
 
-void FindAllResponse::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_FindAllResponse_index_2eproto.base);
+void ClosestNResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ClosestNResponse_index_2eproto.base);
 }
 
-FindAllResponse::~FindAllResponse() {
-  // @@protoc_insertion_point(destructor:FindAllResponse)
+ClosestNResponse::~ClosestNResponse() {
+  // @@protoc_insertion_point(destructor:ClosestNResponse)
   SharedDtor();
 }
 
-void FindAllResponse::SharedDtor() {
+void ClosestNResponse::SharedDtor() {
 }
 
-void FindAllResponse::SetCachedSize(int size) const {
+void ClosestNResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const FindAllResponse& FindAllResponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_FindAllResponse_index_2eproto.base);
+const ClosestNResponse& ClosestNResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ClosestNResponse_index_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void FindAllResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:FindAllResponse)
+void ClosestNResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:ClosestNResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1427,7 +1463,7 @@ void FindAllResponse::Clear() {
   _internal_metadata_.Clear();
 }
 
-const char* FindAllResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ClosestNResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -1442,7 +1478,7 @@ const char* FindAllResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
             ptr += 1;
             auto str = _internal_add_image_ids();
             ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "FindAllResponse.image_ids"));
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ClosestNResponse.image_ids"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -1468,9 +1504,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* FindAllResponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ClosestNResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:FindAllResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:ClosestNResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1480,7 +1516,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "FindAllResponse.image_ids");
+      "ClosestNResponse.image_ids");
     target = stream->WriteString(1, s, target);
   }
 
@@ -1488,12 +1524,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:FindAllResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:ClosestNResponse)
   return target;
 }
 
-size_t FindAllResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:FindAllResponse)
+size_t ClosestNResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ClosestNResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1517,23 +1553,23 @@ size_t FindAllResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void FindAllResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:FindAllResponse)
+void ClosestNResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ClosestNResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const FindAllResponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<FindAllResponse>(
+  const ClosestNResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ClosestNResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:FindAllResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ClosestNResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:FindAllResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ClosestNResponse)
     MergeFrom(*source);
   }
 }
 
-void FindAllResponse::MergeFrom(const FindAllResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:FindAllResponse)
+void ClosestNResponse::MergeFrom(const ClosestNResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ClosestNResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -1542,31 +1578,31 @@ void FindAllResponse::MergeFrom(const FindAllResponse& from) {
   image_ids_.MergeFrom(from.image_ids_);
 }
 
-void FindAllResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:FindAllResponse)
+void ClosestNResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ClosestNResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void FindAllResponse::CopyFrom(const FindAllResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:FindAllResponse)
+void ClosestNResponse::CopyFrom(const ClosestNResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ClosestNResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool FindAllResponse::IsInitialized() const {
+bool ClosestNResponse::IsInitialized() const {
   return true;
 }
 
-void FindAllResponse::InternalSwap(FindAllResponse* other) {
+void ClosestNResponse::InternalSwap(ClosestNResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   image_ids_.InternalSwap(&other->image_ids_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata FindAllResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ClosestNResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1588,11 +1624,11 @@ template<> PROTOBUF_NOINLINE ::GetBagOfWordsRequest* Arena::CreateMaybeMessage< 
 template<> PROTOBUF_NOINLINE ::GetBagOfWordsResponse* Arena::CreateMaybeMessage< ::GetBagOfWordsResponse >(Arena* arena) {
   return Arena::CreateInternal< ::GetBagOfWordsResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::FindAllRequest* Arena::CreateMaybeMessage< ::FindAllRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::FindAllRequest >(arena);
+template<> PROTOBUF_NOINLINE ::ClosestNRequest* Arena::CreateMaybeMessage< ::ClosestNRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::ClosestNRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::FindAllResponse* Arena::CreateMaybeMessage< ::FindAllResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::FindAllResponse >(arena);
+template<> PROTOBUF_NOINLINE ::ClosestNResponse* Arena::CreateMaybeMessage< ::ClosestNResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::ClosestNResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

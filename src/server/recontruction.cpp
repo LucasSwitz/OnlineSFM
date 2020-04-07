@@ -279,7 +279,6 @@ bool Reconstruction::SparseReconstruct(){
 }
 
 void Reconstruction::AddImage(const std::string& image_id){
-    ImageMetaData img_meta = this->_image_storage->GetMeta(image_id);
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     LOG(INFO) << "Adding image: " << image_id;
 
@@ -293,7 +292,7 @@ void Reconstruction::AddImage(const std::string& image_id){
     LOG(INFO) << "Indexing image: " << image_id;
     indexing_client->IndexImage(&context, req, &resp);
 
-    if(!reconstruction_agent.AddImage(img_meta.path())){
+    if(!reconstruction_agent.AddImage(image_id)){
         LOG(ERROR) << "Failed to add image " << image_id;
     }else{
         //this->_session_backlog->Incr(this->_id);
@@ -324,11 +323,7 @@ void Reconstruction::ComputeFeatures(const std::set<std::string>& images){
 }
 
 void Reconstruction::ComputeMatches(const std::set<std::string>& images){
-    std::set<std::string> paths;
-    std::for_each(images.begin(), images.end(), [this, &paths] (const std::string& image_id) mutable {
-        paths.insert(this->_image_storage->GetMeta(image_id).path());
-    });
-    this->reconstruction_agent.ComputeMatches(paths);
+    this->reconstruction_agent.ComputeMatches(images);
 }
 
 void Reconstruction::SetAgentConfigFields(const std::string& agent_name, const std::string& config_json){

@@ -54,12 +54,12 @@ struct TableStruct_index_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_index_2eproto;
-class FindAllRequest;
-class FindAllRequestDefaultTypeInternal;
-extern FindAllRequestDefaultTypeInternal _FindAllRequest_default_instance_;
-class FindAllResponse;
-class FindAllResponseDefaultTypeInternal;
-extern FindAllResponseDefaultTypeInternal _FindAllResponse_default_instance_;
+class ClosestNRequest;
+class ClosestNRequestDefaultTypeInternal;
+extern ClosestNRequestDefaultTypeInternal _ClosestNRequest_default_instance_;
+class ClosestNResponse;
+class ClosestNResponseDefaultTypeInternal;
+extern ClosestNResponseDefaultTypeInternal _ClosestNResponse_default_instance_;
 class GetBagOfWordsRequest;
 class GetBagOfWordsRequestDefaultTypeInternal;
 extern GetBagOfWordsRequestDefaultTypeInternal _GetBagOfWordsRequest_default_instance_;
@@ -76,8 +76,8 @@ class IndexWord;
 class IndexWordDefaultTypeInternal;
 extern IndexWordDefaultTypeInternal _IndexWord_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::FindAllRequest* Arena::CreateMaybeMessage<::FindAllRequest>(Arena*);
-template<> ::FindAllResponse* Arena::CreateMaybeMessage<::FindAllResponse>(Arena*);
+template<> ::ClosestNRequest* Arena::CreateMaybeMessage<::ClosestNRequest>(Arena*);
+template<> ::ClosestNResponse* Arena::CreateMaybeMessage<::ClosestNResponse>(Arena*);
 template<> ::GetBagOfWordsRequest* Arena::CreateMaybeMessage<::GetBagOfWordsRequest>(Arena*);
 template<> ::GetBagOfWordsResponse* Arena::CreateMaybeMessage<::GetBagOfWordsResponse>(Arena*);
 template<> ::IndexImageRequest* Arena::CreateMaybeMessage<::IndexImageRequest>(Arena*);
@@ -744,23 +744,23 @@ class GetBagOfWordsResponse :
 };
 // -------------------------------------------------------------------
 
-class FindAllRequest :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:FindAllRequest) */ {
+class ClosestNRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ClosestNRequest) */ {
  public:
-  FindAllRequest();
-  virtual ~FindAllRequest();
+  ClosestNRequest();
+  virtual ~ClosestNRequest();
 
-  FindAllRequest(const FindAllRequest& from);
-  FindAllRequest(FindAllRequest&& from) noexcept
-    : FindAllRequest() {
+  ClosestNRequest(const ClosestNRequest& from);
+  ClosestNRequest(ClosestNRequest&& from) noexcept
+    : ClosestNRequest() {
     *this = ::std::move(from);
   }
 
-  inline FindAllRequest& operator=(const FindAllRequest& from) {
+  inline ClosestNRequest& operator=(const ClosestNRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline FindAllRequest& operator=(FindAllRequest&& from) noexcept {
+  inline ClosestNRequest& operator=(ClosestNRequest&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -778,37 +778,37 @@ class FindAllRequest :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const FindAllRequest& default_instance();
+  static const ClosestNRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const FindAllRequest* internal_default_instance() {
-    return reinterpret_cast<const FindAllRequest*>(
-               &_FindAllRequest_default_instance_);
+  static inline const ClosestNRequest* internal_default_instance() {
+    return reinterpret_cast<const ClosestNRequest*>(
+               &_ClosestNRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     5;
 
-  friend void swap(FindAllRequest& a, FindAllRequest& b) {
+  friend void swap(ClosestNRequest& a, ClosestNRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(FindAllRequest* other) {
+  inline void Swap(ClosestNRequest* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline FindAllRequest* New() const final {
-    return CreateMaybeMessage<FindAllRequest>(nullptr);
+  inline ClosestNRequest* New() const final {
+    return CreateMaybeMessage<ClosestNRequest>(nullptr);
   }
 
-  FindAllRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<FindAllRequest>(arena);
+  ClosestNRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ClosestNRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const FindAllRequest& from);
-  void MergeFrom(const FindAllRequest& from);
+  void CopyFrom(const ClosestNRequest& from);
+  void MergeFrom(const ClosestNRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -822,10 +822,10 @@ class FindAllRequest :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(FindAllRequest* other);
+  void InternalSwap(ClosestNRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "FindAllRequest";
+    return "ClosestNRequest";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -850,54 +850,63 @@ class FindAllRequest :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kWordsFieldNumber = 1,
+    kImageIdFieldNumber = 1,
+    kNFieldNumber = 2,
   };
-  // repeated .IndexWord words = 1;
-  int words_size() const;
+  // string image_id = 1;
+  void clear_image_id();
+  const std::string& image_id() const;
+  void set_image_id(const std::string& value);
+  void set_image_id(std::string&& value);
+  void set_image_id(const char* value);
+  void set_image_id(const char* value, size_t size);
+  std::string* mutable_image_id();
+  std::string* release_image_id();
+  void set_allocated_image_id(std::string* image_id);
   private:
-  int _internal_words_size() const;
+  const std::string& _internal_image_id() const;
+  void _internal_set_image_id(const std::string& value);
+  std::string* _internal_mutable_image_id();
   public:
-  void clear_words();
-  ::IndexWord* mutable_words(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::IndexWord >*
-      mutable_words();
-  private:
-  const ::IndexWord& _internal_words(int index) const;
-  ::IndexWord* _internal_add_words();
-  public:
-  const ::IndexWord& words(int index) const;
-  ::IndexWord* add_words();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::IndexWord >&
-      words() const;
 
-  // @@protoc_insertion_point(class_scope:FindAllRequest)
+  // uint32 N = 2;
+  void clear_n();
+  ::PROTOBUF_NAMESPACE_ID::uint32 n() const;
+  void set_n(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_n() const;
+  void _internal_set_n(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:ClosestNRequest)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::IndexWord > words_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr image_id_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 n_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_index_2eproto;
 };
 // -------------------------------------------------------------------
 
-class FindAllResponse :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:FindAllResponse) */ {
+class ClosestNResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ClosestNResponse) */ {
  public:
-  FindAllResponse();
-  virtual ~FindAllResponse();
+  ClosestNResponse();
+  virtual ~ClosestNResponse();
 
-  FindAllResponse(const FindAllResponse& from);
-  FindAllResponse(FindAllResponse&& from) noexcept
-    : FindAllResponse() {
+  ClosestNResponse(const ClosestNResponse& from);
+  ClosestNResponse(ClosestNResponse&& from) noexcept
+    : ClosestNResponse() {
     *this = ::std::move(from);
   }
 
-  inline FindAllResponse& operator=(const FindAllResponse& from) {
+  inline ClosestNResponse& operator=(const ClosestNResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline FindAllResponse& operator=(FindAllResponse&& from) noexcept {
+  inline ClosestNResponse& operator=(ClosestNResponse&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -915,37 +924,37 @@ class FindAllResponse :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const FindAllResponse& default_instance();
+  static const ClosestNResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const FindAllResponse* internal_default_instance() {
-    return reinterpret_cast<const FindAllResponse*>(
-               &_FindAllResponse_default_instance_);
+  static inline const ClosestNResponse* internal_default_instance() {
+    return reinterpret_cast<const ClosestNResponse*>(
+               &_ClosestNResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     6;
 
-  friend void swap(FindAllResponse& a, FindAllResponse& b) {
+  friend void swap(ClosestNResponse& a, ClosestNResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(FindAllResponse* other) {
+  inline void Swap(ClosestNResponse* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline FindAllResponse* New() const final {
-    return CreateMaybeMessage<FindAllResponse>(nullptr);
+  inline ClosestNResponse* New() const final {
+    return CreateMaybeMessage<ClosestNResponse>(nullptr);
   }
 
-  FindAllResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<FindAllResponse>(arena);
+  ClosestNResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ClosestNResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const FindAllResponse& from);
-  void MergeFrom(const FindAllResponse& from);
+  void CopyFrom(const ClosestNResponse& from);
+  void MergeFrom(const ClosestNResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -959,10 +968,10 @@ class FindAllResponse :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(FindAllResponse* other);
+  void InternalSwap(ClosestNResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "FindAllResponse";
+    return "ClosestNResponse";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -1013,7 +1022,7 @@ class FindAllResponse :
   std::string* _internal_add_image_ids();
   public:
 
-  // @@protoc_insertion_point(class_scope:FindAllResponse)
+  // @@protoc_insertion_point(class_scope:ClosestNResponse)
  private:
   class _Internal;
 
@@ -1270,122 +1279,163 @@ GetBagOfWordsResponse::words() const {
 
 // -------------------------------------------------------------------
 
-// FindAllRequest
+// ClosestNRequest
 
-// repeated .IndexWord words = 1;
-inline int FindAllRequest::_internal_words_size() const {
-  return words_.size();
+// string image_id = 1;
+inline void ClosestNRequest::clear_image_id() {
+  image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline int FindAllRequest::words_size() const {
-  return _internal_words_size();
+inline const std::string& ClosestNRequest::image_id() const {
+  // @@protoc_insertion_point(field_get:ClosestNRequest.image_id)
+  return _internal_image_id();
 }
-inline void FindAllRequest::clear_words() {
-  words_.Clear();
+inline void ClosestNRequest::set_image_id(const std::string& value) {
+  _internal_set_image_id(value);
+  // @@protoc_insertion_point(field_set:ClosestNRequest.image_id)
 }
-inline ::IndexWord* FindAllRequest::mutable_words(int index) {
-  // @@protoc_insertion_point(field_mutable:FindAllRequest.words)
-  return words_.Mutable(index);
+inline std::string* ClosestNRequest::mutable_image_id() {
+  // @@protoc_insertion_point(field_mutable:ClosestNRequest.image_id)
+  return _internal_mutable_image_id();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::IndexWord >*
-FindAllRequest::mutable_words() {
-  // @@protoc_insertion_point(field_mutable_list:FindAllRequest.words)
-  return &words_;
+inline const std::string& ClosestNRequest::_internal_image_id() const {
+  return image_id_.GetNoArena();
 }
-inline const ::IndexWord& FindAllRequest::_internal_words(int index) const {
-  return words_.Get(index);
+inline void ClosestNRequest::_internal_set_image_id(const std::string& value) {
+  
+  image_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline const ::IndexWord& FindAllRequest::words(int index) const {
-  // @@protoc_insertion_point(field_get:FindAllRequest.words)
-  return _internal_words(index);
+inline void ClosestNRequest::set_image_id(std::string&& value) {
+  
+  image_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ClosestNRequest.image_id)
 }
-inline ::IndexWord* FindAllRequest::_internal_add_words() {
-  return words_.Add();
+inline void ClosestNRequest::set_image_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  image_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ClosestNRequest.image_id)
 }
-inline ::IndexWord* FindAllRequest::add_words() {
-  // @@protoc_insertion_point(field_add:FindAllRequest.words)
-  return _internal_add_words();
+inline void ClosestNRequest::set_image_id(const char* value, size_t size) {
+  
+  image_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ClosestNRequest.image_id)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::IndexWord >&
-FindAllRequest::words() const {
-  // @@protoc_insertion_point(field_list:FindAllRequest.words)
-  return words_;
+inline std::string* ClosestNRequest::_internal_mutable_image_id() {
+  
+  return image_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ClosestNRequest::release_image_id() {
+  // @@protoc_insertion_point(field_release:ClosestNRequest.image_id)
+  
+  return image_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ClosestNRequest::set_allocated_image_id(std::string* image_id) {
+  if (image_id != nullptr) {
+    
+  } else {
+    
+  }
+  image_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), image_id);
+  // @@protoc_insertion_point(field_set_allocated:ClosestNRequest.image_id)
+}
+
+// uint32 N = 2;
+inline void ClosestNRequest::clear_n() {
+  n_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ClosestNRequest::_internal_n() const {
+  return n_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 ClosestNRequest::n() const {
+  // @@protoc_insertion_point(field_get:ClosestNRequest.N)
+  return _internal_n();
+}
+inline void ClosestNRequest::_internal_set_n(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  n_ = value;
+}
+inline void ClosestNRequest::set_n(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_n(value);
+  // @@protoc_insertion_point(field_set:ClosestNRequest.N)
 }
 
 // -------------------------------------------------------------------
 
-// FindAllResponse
+// ClosestNResponse
 
 // repeated string image_ids = 1;
-inline int FindAllResponse::_internal_image_ids_size() const {
+inline int ClosestNResponse::_internal_image_ids_size() const {
   return image_ids_.size();
 }
-inline int FindAllResponse::image_ids_size() const {
+inline int ClosestNResponse::image_ids_size() const {
   return _internal_image_ids_size();
 }
-inline void FindAllResponse::clear_image_ids() {
+inline void ClosestNResponse::clear_image_ids() {
   image_ids_.Clear();
 }
-inline std::string* FindAllResponse::add_image_ids() {
-  // @@protoc_insertion_point(field_add_mutable:FindAllResponse.image_ids)
+inline std::string* ClosestNResponse::add_image_ids() {
+  // @@protoc_insertion_point(field_add_mutable:ClosestNResponse.image_ids)
   return _internal_add_image_ids();
 }
-inline const std::string& FindAllResponse::_internal_image_ids(int index) const {
+inline const std::string& ClosestNResponse::_internal_image_ids(int index) const {
   return image_ids_.Get(index);
 }
-inline const std::string& FindAllResponse::image_ids(int index) const {
-  // @@protoc_insertion_point(field_get:FindAllResponse.image_ids)
+inline const std::string& ClosestNResponse::image_ids(int index) const {
+  // @@protoc_insertion_point(field_get:ClosestNResponse.image_ids)
   return _internal_image_ids(index);
 }
-inline std::string* FindAllResponse::mutable_image_ids(int index) {
-  // @@protoc_insertion_point(field_mutable:FindAllResponse.image_ids)
+inline std::string* ClosestNResponse::mutable_image_ids(int index) {
+  // @@protoc_insertion_point(field_mutable:ClosestNResponse.image_ids)
   return image_ids_.Mutable(index);
 }
-inline void FindAllResponse::set_image_ids(int index, const std::string& value) {
-  // @@protoc_insertion_point(field_set:FindAllResponse.image_ids)
+inline void ClosestNResponse::set_image_ids(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:ClosestNResponse.image_ids)
   image_ids_.Mutable(index)->assign(value);
 }
-inline void FindAllResponse::set_image_ids(int index, std::string&& value) {
-  // @@protoc_insertion_point(field_set:FindAllResponse.image_ids)
+inline void ClosestNResponse::set_image_ids(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:ClosestNResponse.image_ids)
   image_ids_.Mutable(index)->assign(std::move(value));
 }
-inline void FindAllResponse::set_image_ids(int index, const char* value) {
+inline void ClosestNResponse::set_image_ids(int index, const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   image_ids_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:FindAllResponse.image_ids)
+  // @@protoc_insertion_point(field_set_char:ClosestNResponse.image_ids)
 }
-inline void FindAllResponse::set_image_ids(int index, const char* value, size_t size) {
+inline void ClosestNResponse::set_image_ids(int index, const char* value, size_t size) {
   image_ids_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:FindAllResponse.image_ids)
+  // @@protoc_insertion_point(field_set_pointer:ClosestNResponse.image_ids)
 }
-inline std::string* FindAllResponse::_internal_add_image_ids() {
+inline std::string* ClosestNResponse::_internal_add_image_ids() {
   return image_ids_.Add();
 }
-inline void FindAllResponse::add_image_ids(const std::string& value) {
+inline void ClosestNResponse::add_image_ids(const std::string& value) {
   image_ids_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:FindAllResponse.image_ids)
+  // @@protoc_insertion_point(field_add:ClosestNResponse.image_ids)
 }
-inline void FindAllResponse::add_image_ids(std::string&& value) {
+inline void ClosestNResponse::add_image_ids(std::string&& value) {
   image_ids_.Add(std::move(value));
-  // @@protoc_insertion_point(field_add:FindAllResponse.image_ids)
+  // @@protoc_insertion_point(field_add:ClosestNResponse.image_ids)
 }
-inline void FindAllResponse::add_image_ids(const char* value) {
+inline void ClosestNResponse::add_image_ids(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   image_ids_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:FindAllResponse.image_ids)
+  // @@protoc_insertion_point(field_add_char:ClosestNResponse.image_ids)
 }
-inline void FindAllResponse::add_image_ids(const char* value, size_t size) {
+inline void ClosestNResponse::add_image_ids(const char* value, size_t size) {
   image_ids_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:FindAllResponse.image_ids)
+  // @@protoc_insertion_point(field_add_pointer:ClosestNResponse.image_ids)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
-FindAllResponse::image_ids() const {
-  // @@protoc_insertion_point(field_list:FindAllResponse.image_ids)
+ClosestNResponse::image_ids() const {
+  // @@protoc_insertion_point(field_list:ClosestNResponse.image_ids)
   return image_ids_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
-FindAllResponse::mutable_image_ids() {
-  // @@protoc_insertion_point(field_mutable_list:FindAllResponse.image_ids)
+ClosestNResponse::mutable_image_ids() {
+  // @@protoc_insertion_point(field_mutable_list:ClosestNResponse.image_ids)
   return &image_ids_;
 }
 

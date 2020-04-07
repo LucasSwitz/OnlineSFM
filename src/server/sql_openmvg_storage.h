@@ -14,6 +14,7 @@ class SQLOpenMVGStorage : public OpenMVGStorageAdapter, public SQLStorage {
                    const std::string& meta_table,
                    const std::string& poses_table);
         void StoreViewAndIntrinsic(const std::string& reconstruction_id, 
+                                   const std::string& image_id,
                                    const std::shared_ptr<openMVG::sfm::View> view,
                                    const std::shared_ptr<openMVG::cameras::IntrinsicBase> intrinsic);
         openMVG::sfm::Views GetViews(const std::string& reconstruction_id); 
@@ -31,6 +32,7 @@ class SQLOpenMVGStorage : public OpenMVGStorageAdapter, public SQLStorage {
                                  const std::shared_ptr<openMVG::sfm::View> view, 
                                  const openMVG::geometry::Pose3& pose);
         openMVG::sfm::Poses GetPoses(const std::string& reconstruction_id);
+        openMVG::IndexT GetViewIdxByImageID(const std::string& image_id);
 
     private:
         std::string _views_table;

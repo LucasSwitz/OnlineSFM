@@ -23,7 +23,7 @@
 static const char* VisualIndexingService_method_names[] = {
   "/VisualIndexingService/IndexImage",
   "/VisualIndexingService/GetBagOfWords",
-  "/VisualIndexingService/FindAll",
+  "/VisualIndexingService/ClosestN",
 };
 
 std::unique_ptr< VisualIndexingService::Stub> VisualIndexingService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -35,7 +35,7 @@ std::unique_ptr< VisualIndexingService::Stub> VisualIndexingService::NewStub(con
 VisualIndexingService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_IndexImage_(VisualIndexingService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetBagOfWords_(VisualIndexingService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_FindAll_(VisualIndexingService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ClosestN_(VisualIndexingService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status VisualIndexingService::Stub::IndexImage(::grpc::ClientContext* context, const ::IndexImageRequest& request, ::IndexImageResponse* response) {
@@ -94,32 +94,32 @@ void VisualIndexingService::Stub::experimental_async::GetBagOfWords(::grpc::Clie
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::GetBagOfWordsResponse>::Create(channel_.get(), cq, rpcmethod_GetBagOfWords_, context, request, false);
 }
 
-::grpc::Status VisualIndexingService::Stub::FindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::FindAllResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_FindAll_, context, request, response);
+::grpc::Status VisualIndexingService::Stub::ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::ClosestNResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ClosestN_, context, request, response);
 }
 
-void VisualIndexingService::Stub::experimental_async::FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_FindAll_, context, request, response, std::move(f));
+void VisualIndexingService::Stub::experimental_async::ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ClosestN_, context, request, response, std::move(f));
 }
 
-void VisualIndexingService::Stub::experimental_async::FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_FindAll_, context, request, response, std::move(f));
+void VisualIndexingService::Stub::experimental_async::ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ClosestN_, context, request, response, std::move(f));
 }
 
-void VisualIndexingService::Stub::experimental_async::FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_FindAll_, context, request, response, reactor);
+void VisualIndexingService::Stub::experimental_async::ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ClosestN_, context, request, response, reactor);
 }
 
-void VisualIndexingService::Stub::experimental_async::FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_FindAll_, context, request, response, reactor);
+void VisualIndexingService::Stub::experimental_async::ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ClosestN_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::FindAllResponse>* VisualIndexingService::Stub::AsyncFindAllRaw(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::FindAllResponse>::Create(channel_.get(), cq, rpcmethod_FindAll_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::ClosestNResponse>* VisualIndexingService::Stub::AsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ClosestNResponse>::Create(channel_.get(), cq, rpcmethod_ClosestN_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::FindAllResponse>* VisualIndexingService::Stub::PrepareAsyncFindAllRaw(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::FindAllResponse>::Create(channel_.get(), cq, rpcmethod_FindAll_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::ClosestNResponse>* VisualIndexingService::Stub::PrepareAsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ClosestNResponse>::Create(channel_.get(), cq, rpcmethod_ClosestN_, context, request, false);
 }
 
 VisualIndexingService::Service::Service() {
@@ -136,8 +136,8 @@ VisualIndexingService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       VisualIndexingService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< VisualIndexingService::Service, ::FindAllRequest, ::FindAllResponse>(
-          std::mem_fn(&VisualIndexingService::Service::FindAll), this)));
+      new ::grpc::internal::RpcMethodHandler< VisualIndexingService::Service, ::ClosestNRequest, ::ClosestNResponse>(
+          std::mem_fn(&VisualIndexingService::Service::ClosestN), this)));
 }
 
 VisualIndexingService::Service::~Service() {
@@ -157,7 +157,7 @@ VisualIndexingService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status VisualIndexingService::Service::FindAll(::grpc::ServerContext* context, const ::FindAllRequest* request, ::FindAllResponse* response) {
+::grpc::Status VisualIndexingService::Service::ClosestN(::grpc::ServerContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response) {
   (void) context;
   (void) request;
   (void) response;

@@ -18,7 +18,6 @@ find_package(glog REQUIRED)
 find_package(gRPC REQUIRED)
 find_package(OpenMVG REQUIRED)
 
-
 file(GLOB SERVER_SOURCES
     src/server/*.cpp
     src/common/*.cpp
@@ -38,6 +37,8 @@ file(GLOB BUILD_INDEX_SOURCES
     src/index/src/*.cpp
     src/server/config.cpp
     src/common/*.cpp
+    common/proto/gen/cpp/*.cpp
+    common/proto/gen/cpp/*.cc
     src/index/tools/generate_index.cpp
 )
 
@@ -48,7 +49,6 @@ file(GLOB INDEX_SERVER_SOURCES
     src/server/config.cpp
     src/common/*.cpp
     src/index/server/*.cpp
-    common/proto/gen/cpp/*.cpp
 )
 
 add_executable(server ${SERVER_SOURCES})
@@ -91,12 +91,14 @@ target_link_libraries(upload_intrinsics_tool
                       redis++ 
                       hiredis
                       OpenMVG::openMVG_exif
+                      OpenMVG::openMVG_numeric
 )
 
 add_executable(build_index ${BUILD_INDEX_SOURCES})
 set_property(TARGET build_index PROPERTY CXX_STANDARD 14)
 target_link_libraries(build_index 
                       glog
+                      gRPC::grpc++ 
                       OpenMVG::openMVG_sfm
                       OpenMVG::openMVG_features
                       OpenMVG::openMVG_image

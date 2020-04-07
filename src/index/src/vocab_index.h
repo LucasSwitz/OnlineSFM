@@ -55,7 +55,7 @@ class VisualVocabularyIndex {
             SIFT_Descriptor desc_out;
             memcpy(&desc_out[0], desc_start, 128);
             return desc_out;
-        };
+        };        
         
         void Load(const std::string& input){
             FILE* fout = fopen(input.c_str(), "rb");

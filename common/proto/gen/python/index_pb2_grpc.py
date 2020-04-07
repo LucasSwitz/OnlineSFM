@@ -24,10 +24,10 @@ class VisualIndexingServiceStub(object):
         request_serializer=index__pb2.GetBagOfWordsRequest.SerializeToString,
         response_deserializer=index__pb2.GetBagOfWordsResponse.FromString,
         )
-    self.FindAll = channel.unary_unary(
-        '/VisualIndexingService/FindAll',
-        request_serializer=index__pb2.FindAllRequest.SerializeToString,
-        response_deserializer=index__pb2.FindAllResponse.FromString,
+    self.ClosestN = channel.unary_unary(
+        '/VisualIndexingService/ClosestN',
+        request_serializer=index__pb2.ClosestNRequest.SerializeToString,
+        response_deserializer=index__pb2.ClosestNResponse.FromString,
         )
 
 
@@ -49,7 +49,7 @@ class VisualIndexingServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def FindAll(self, request, context):
+  def ClosestN(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -69,10 +69,10 @@ def add_VisualIndexingServiceServicer_to_server(servicer, server):
           request_deserializer=index__pb2.GetBagOfWordsRequest.FromString,
           response_serializer=index__pb2.GetBagOfWordsResponse.SerializeToString,
       ),
-      'FindAll': grpc.unary_unary_rpc_method_handler(
-          servicer.FindAll,
-          request_deserializer=index__pb2.FindAllRequest.FromString,
-          response_serializer=index__pb2.FindAllResponse.SerializeToString,
+      'ClosestN': grpc.unary_unary_rpc_method_handler(
+          servicer.ClosestN,
+          request_deserializer=index__pb2.ClosestNRequest.FromString,
+          response_serializer=index__pb2.ClosestNResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

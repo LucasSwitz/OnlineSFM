@@ -4,6 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/src/index/src/**",
+                "${workspaceFolder}/src/server/**",
                 "/usr/local/include/mongocxx/v_noabi",
                 "/usr/local/include/libmongoc-1.0",
                 "/usr/local/include/bsoncxx/v_noabi",

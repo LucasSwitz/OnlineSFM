@@ -48,12 +48,12 @@ class VisualIndexingService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetBagOfWordsResponse>> PrepareAsyncGetBagOfWords(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetBagOfWordsResponse>>(PrepareAsyncGetBagOfWordsRaw(context, request, cq));
     }
-    virtual ::grpc::Status FindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::FindAllResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::FindAllResponse>> AsyncFindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::FindAllResponse>>(AsyncFindAllRaw(context, request, cq));
+    virtual ::grpc::Status ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::ClosestNResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>> AsyncClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>>(AsyncClosestNRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::FindAllResponse>> PrepareAsyncFindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::FindAllResponse>>(PrepareAsyncFindAllRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>> PrepareAsyncClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>>(PrepareAsyncClosestNRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
@@ -82,17 +82,17 @@ class VisualIndexingService final {
       #else
       virtual void GetBagOfWords(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetBagOfWordsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      virtual void FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -107,8 +107,8 @@ class VisualIndexingService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::IndexImageResponse>* PrepareAsyncIndexImageRaw(::grpc::ClientContext* context, const ::IndexImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetBagOfWordsResponse>* AsyncGetBagOfWordsRaw(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetBagOfWordsResponse>* PrepareAsyncGetBagOfWordsRaw(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::FindAllResponse>* AsyncFindAllRaw(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::FindAllResponse>* PrepareAsyncFindAllRaw(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>* AsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>* PrepareAsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -127,12 +127,12 @@ class VisualIndexingService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetBagOfWordsResponse>> PrepareAsyncGetBagOfWords(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetBagOfWordsResponse>>(PrepareAsyncGetBagOfWordsRaw(context, request, cq));
     }
-    ::grpc::Status FindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::FindAllResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::FindAllResponse>> AsyncFindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::FindAllResponse>>(AsyncFindAllRaw(context, request, cq));
+    ::grpc::Status ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::ClosestNResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>> AsyncClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>>(AsyncClosestNRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::FindAllResponse>> PrepareAsyncFindAll(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::FindAllResponse>>(PrepareAsyncFindAllRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>> PrepareAsyncClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>>(PrepareAsyncClosestNRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -161,17 +161,17 @@ class VisualIndexingService final {
       #else
       void GetBagOfWords(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetBagOfWordsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
-      void FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, std::function<void(::grpc::Status)>) override;
-      void FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, std::function<void(::grpc::Status)>) override;
+      void ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, std::function<void(::grpc::Status)>) override;
+      void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void FindAll(::grpc::ClientContext* context, const ::FindAllRequest* request, ::FindAllResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void ClosestN(::grpc::ClientContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void FindAll(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::FindAllResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -188,11 +188,11 @@ class VisualIndexingService final {
     ::grpc::ClientAsyncResponseReader< ::IndexImageResponse>* PrepareAsyncIndexImageRaw(::grpc::ClientContext* context, const ::IndexImageRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetBagOfWordsResponse>* AsyncGetBagOfWordsRaw(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetBagOfWordsResponse>* PrepareAsyncGetBagOfWordsRaw(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::FindAllResponse>* AsyncFindAllRaw(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::FindAllResponse>* PrepareAsyncFindAllRaw(::grpc::ClientContext* context, const ::FindAllRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>* AsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>* PrepareAsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_IndexImage_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBagOfWords_;
-    const ::grpc::internal::RpcMethod rpcmethod_FindAll_;
+    const ::grpc::internal::RpcMethod rpcmethod_ClosestN_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -202,7 +202,7 @@ class VisualIndexingService final {
     virtual ~Service();
     virtual ::grpc::Status IndexImage(::grpc::ServerContext* context, const ::IndexImageRequest* request, ::IndexImageResponse* response);
     virtual ::grpc::Status GetBagOfWords(::grpc::ServerContext* context, const ::GetBagOfWordsRequest* request, ::GetBagOfWordsResponse* response);
-    virtual ::grpc::Status FindAll(::grpc::ServerContext* context, const ::FindAllRequest* request, ::FindAllResponse* response);
+    virtual ::grpc::Status ClosestN(::grpc::ServerContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_IndexImage : public BaseClass {
@@ -245,26 +245,26 @@ class VisualIndexingService final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_FindAll : public BaseClass {
+  class WithAsyncMethod_ClosestN : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_FindAll() {
+    WithAsyncMethod_ClosestN() {
       ::grpc::Service::MarkMethodAsync(2);
     }
-    ~WithAsyncMethod_FindAll() override {
+    ~WithAsyncMethod_ClosestN() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status FindAll(::grpc::ServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/) override {
+    ::grpc::Status ClosestN(::grpc::ServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestFindAll(::grpc::ServerContext* context, ::FindAllRequest* request, ::grpc::ServerAsyncResponseWriter< ::FindAllResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestClosestN(::grpc::ServerContext* context, ::ClosestNRequest* request, ::grpc::ServerAsyncResponseWriter< ::ClosestNResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_IndexImage<WithAsyncMethod_GetBagOfWords<WithAsyncMethod_FindAll<Service > > > AsyncService;
+  typedef WithAsyncMethod_IndexImage<WithAsyncMethod_GetBagOfWords<WithAsyncMethod_ClosestN<Service > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_IndexImage : public BaseClass {
    private:
@@ -360,57 +360,57 @@ class VisualIndexingService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_FindAll : public BaseClass {
+  class ExperimentalWithCallbackMethod_ClosestN : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_FindAll() {
+    ExperimentalWithCallbackMethod_ClosestN() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(2,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::FindAllRequest, ::FindAllResponse>(
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::ClosestNRequest, ::ClosestNResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::FindAllRequest* request, ::FindAllResponse* response) { return this->FindAll(context, request, response); }));}
-    void SetMessageAllocatorFor_FindAll(
-        ::grpc::experimental::MessageAllocator< ::FindAllRequest, ::FindAllResponse>* allocator) {
+                     context, const ::ClosestNRequest* request, ::ClosestNResponse* response) { return this->ClosestN(context, request, response); }));}
+    void SetMessageAllocatorFor_ClosestN(
+        ::grpc::experimental::MessageAllocator< ::ClosestNRequest, ::ClosestNResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
     #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::FindAllRequest, ::FindAllResponse>*>(handler)
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::ClosestNRequest, ::ClosestNResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_FindAll() override {
+    ~ExperimentalWithCallbackMethod_ClosestN() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status FindAll(::grpc::ServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/) override {
+    ::grpc::Status ClosestN(::grpc::ServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* FindAll(
-      ::grpc::CallbackServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/)
+    virtual ::grpc::ServerUnaryReactor* ClosestN(
+      ::grpc::CallbackServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerUnaryReactor* FindAll(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/)
+    virtual ::grpc::experimental::ServerUnaryReactor* ClosestN(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/)
     #endif
       { return nullptr; }
   };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_FindAll<Service > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_ClosestN<Service > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_FindAll<Service > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_ClosestN<Service > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_IndexImage : public BaseClass {
    private:
@@ -446,18 +446,18 @@ class VisualIndexingService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_FindAll : public BaseClass {
+  class WithGenericMethod_ClosestN : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_FindAll() {
+    WithGenericMethod_ClosestN() {
       ::grpc::Service::MarkMethodGeneric(2);
     }
-    ~WithGenericMethod_FindAll() override {
+    ~WithGenericMethod_ClosestN() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status FindAll(::grpc::ServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/) override {
+    ::grpc::Status ClosestN(::grpc::ServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -503,22 +503,22 @@ class VisualIndexingService final {
     }
   };
   template <class BaseClass>
-  class WithRawMethod_FindAll : public BaseClass {
+  class WithRawMethod_ClosestN : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_FindAll() {
+    WithRawMethod_ClosestN() {
       ::grpc::Service::MarkMethodRaw(2);
     }
-    ~WithRawMethod_FindAll() override {
+    ~WithRawMethod_ClosestN() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status FindAll(::grpc::ServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/) override {
+    ::grpc::Status ClosestN(::grpc::ServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestFindAll(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestClosestN(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -599,11 +599,11 @@ class VisualIndexingService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_FindAll : public BaseClass {
+  class ExperimentalWithRawCallbackMethod_ClosestN : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_FindAll() {
+    ExperimentalWithRawCallbackMethod_ClosestN() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
@@ -617,21 +617,21 @@ class VisualIndexingService final {
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->FindAll(context, request, response); }));
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ClosestN(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_FindAll() override {
+    ~ExperimentalWithRawCallbackMethod_ClosestN() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status FindAll(::grpc::ServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/) override {
+    ::grpc::Status ClosestN(::grpc::ServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* FindAll(
+    virtual ::grpc::ServerUnaryReactor* ClosestN(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerUnaryReactor* FindAll(
+    virtual ::grpc::experimental::ServerUnaryReactor* ClosestN(
       ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
     #endif
       { return nullptr; }
@@ -677,28 +677,28 @@ class VisualIndexingService final {
     virtual ::grpc::Status StreamedGetBagOfWords(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GetBagOfWordsRequest,::GetBagOfWordsResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_FindAll : public BaseClass {
+  class WithStreamedUnaryMethod_ClosestN : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_FindAll() {
+    WithStreamedUnaryMethod_ClosestN() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::FindAllRequest, ::FindAllResponse>(std::bind(&WithStreamedUnaryMethod_FindAll<BaseClass>::StreamedFindAll, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::ClosestNRequest, ::ClosestNResponse>(std::bind(&WithStreamedUnaryMethod_ClosestN<BaseClass>::StreamedClosestN, this, std::placeholders::_1, std::placeholders::_2)));
     }
-    ~WithStreamedUnaryMethod_FindAll() override {
+    ~WithStreamedUnaryMethod_ClosestN() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status FindAll(::grpc::ServerContext* /*context*/, const ::FindAllRequest* /*request*/, ::FindAllResponse* /*response*/) override {
+    ::grpc::Status ClosestN(::grpc::ServerContext* /*context*/, const ::ClosestNRequest* /*request*/, ::ClosestNResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedFindAll(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::FindAllRequest,::FindAllResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedClosestN(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ClosestNRequest,::ClosestNResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_FindAll<Service > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_ClosestN<Service > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_FindAll<Service > > > StreamedService;
+  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_ClosestN<Service > > > StreamedService;
 };
 
 

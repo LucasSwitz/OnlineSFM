@@ -11,8 +11,8 @@
 #define SQL_INTRINSICS_COUNT(t) "SELECT @intrinsic_count:= COUNT(*) FROM " + t + " WHERE RECONSTRUCTION_ID = ?;"
 #define SQL_INSERT_OPENMVG_INTRINSIC(t) "INSERT INTO " + t + " VALUES (?,@intrinsic_count,?,?,?);"
 #define SQL_VIEW_COUNT(t) "SELECT @view_count:=COUNT(*) FROM " + t + " WHERE RECONSTRUCTION_ID = ?;"
-#define SQL_INSERT_OPENMVG_VIEW(t) "INSERT INTO " + t + " VALUES (?,@view_count,@intrinsic_count,@view_count,?);"
-#define SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(t) "INSERT INTO " + t + " VALUES (?,@view_count,?,@view_count,?);"
+#define SQL_INSERT_OPENMVG_VIEW(t) "INSERT INTO " + t + " VALUES (?,?,@view_count,@intrinsic_count,@view_count,?);"
+#define SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(t) "INSERT INTO " + t + " VALUES (?,?,@view_count,?,@view_count,?);"
 #define SQL_GET_INTRINSIC_BY_HASH(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ? AND DATA_HASH = ?"
 
 #define SQL_INSERT_MATCH(t) "INSERT INTO " + t + " VALUES (?,?,?,?,?)"
@@ -24,6 +24,8 @@
 #define SQL_GET_OPENMVG_POSES(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ? ORDER BY POSE_IDX ASC"
 
 #define SQL_UPDATE_VIEW_POSE_IDX(t) "UPDATE " + t + " SET POSE_IDX = ? WHERE RECONSTRUCTION_ID = ? AND VIEW_IDX = ?"
+
+#define SQL_GET_VIEW_IDX_BY_IMAGE_ID(t) "SELECT VIEW_IDX FROM " + t + " WHERE IMAGE_ID = (?)"
 
 using namespace openMVG;
 using namespace openMVG::cameras;
@@ -133,6 +135,7 @@ SQLOpenMVGStorage::SQLOpenMVGStorage(const std::string& address,
 }
 
 void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_id, 
+                                              const std::string& image_id,
                                               const std::shared_ptr<View> view,
                                               const std::shared_ptr<IntrinsicBase> intrinsic){
     bool store_intrinsic = false;
@@ -164,6 +167,7 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
 
     this->Transaction([this, 
                      reconstruction_id, 
+                     image_id,
                      view_json, 
                      store_intrinsic, 
                      intrinsic, 
@@ -198,9 +202,10 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
             });
             this->Execute(SQL_INSERT_OPENMVG_VIEW(this->_views_table),
                 con,
-                [reconstruction_id, view_json](sql::PreparedStatement* stmt){
+                [reconstruction_id, image_id, view_json](sql::PreparedStatement* stmt){
                     stmt->setString(1, reconstruction_id);
-                    stmt->setString(2, view_json);
+                    stmt->setString(2, image_id);
+                    stmt->setString(3, view_json);
             });
         }else{
             this->Execute(SQL_VIEW_COUNT(this->_views_table),
@@ -210,10 +215,11 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
             });
             this->Execute(SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(this->_views_table),
                 con,
-                [reconstruction_id, view_json, intrinsic_idx](sql::PreparedStatement* stmt){
+                [reconstruction_id, image_id, view_json, intrinsic_idx](sql::PreparedStatement* stmt){
                     stmt->setString(1, reconstruction_id);
-                    stmt->setInt64(2, intrinsic_idx);
-                    stmt->setString(3, view_json);
+                    stmt->setString(2, image_id);
+                    stmt->setInt64(3, intrinsic_idx);
+                    stmt->setString(4, view_json);
             });
         }
     });
@@ -371,4 +377,24 @@ Poses SQLOpenMVGStorage::GetPoses(const std::string& reconstruction_id){
     }
     delete res;
     return poses;
+}
+
+
+openMVG::IndexT SQLOpenMVGStorage::GetViewIdxByImageID(const std::string& image_id){
+    IndexT index = -1;
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_poses_table), 
+        [this, image_id](sql::PreparedStatement *stmt){
+            stmt->setString(1, image_id);
+    });
+
+    if(!res){
+        LOG(ERROR) << "Failure to retrieve results";
+        return index;
+    }
+
+    if(res->next()){
+        index = res->getInt64("VIEW_IDX");
+    }
+    delete res;
+    return index;
 }
