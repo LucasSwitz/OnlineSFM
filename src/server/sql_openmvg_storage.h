@@ -4,10 +4,8 @@
 
 class SQLOpenMVGStorage : public OpenMVGStorageAdapter, public SQLStorage {
     public:
-        SQLOpenMVGStorage(const std::string& address, 
-                   const std::string& user, 
-                   const std::string& pass, 
-                   const std::string& db,
+        SQLOpenMVGStorage(sql::Driver* driver, 
+                   std::shared_ptr<sql::Connection> con,
                    const std::string& views_table,
                    const std::string& intrinsics_table,
                    const std::string& matches_table,

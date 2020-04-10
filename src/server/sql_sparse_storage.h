@@ -5,11 +5,9 @@
 
 class SQLSparseStorage : public SparseStorageAdapter, public SQLStorage, public FileSystemStorer<SparsePointCloudData> {
     public:
-        SQLSparseStorage(const std::string& address, 
-                                 const std::string& user, 
-                                 const std::string& pass, 
-                                 const std::string& db,
-                                 const std::string& table);
+        SQLSparseStorage(sql::Driver* driver, 
+                         std::shared_ptr<sql::Connection> con,
+                         const std::string& table);
         SparsePointCloudData Get(const std::string& sparse_id);
         SparsePointCloudMetaData GetMeta(const std::string& sparse_id);
         void Store(const SparsePointCloudMetaData& data);

@@ -31,20 +31,19 @@ using namespace openMVG;
 using namespace openMVG::cameras;
 using namespace openMVG::sfm;
 
-SQLOpenMVGStorage::SQLOpenMVGStorage(const std::string& address, 
-                   const std::string& user, 
-                   const std::string& pass, 
-                   const std::string& db,
+SQLOpenMVGStorage::SQLOpenMVGStorage(
+                   sql::Driver* driver, 
+                   std::shared_ptr<sql::Connection> con,
                    const std::string& views_table,
                    const std::string& intrinsics_table,
                    const std::string& matches_table,
                    const std::string& meta_table,
-                   const std::string& poses_table): SQLStorage(address, user, pass, db),
-                                                        _views_table(views_table),
-                                                        _intrinsics_table(intrinsics_table),
-                                                        _matches_table(matches_table),
-                                                        _meta_table(meta_table),
-                                                        _poses_table(poses_table){
+                   const std::string& poses_table): SQLStorage(driver, con),
+                                                    _views_table(views_table),
+                                                    _intrinsics_table(intrinsics_table),
+                                                    _matches_table(matches_table),
+                                                    _meta_table(meta_table),
+                                                    _poses_table(poses_table){
 
 }
 
@@ -173,7 +172,7 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
                         intrinsic, 
                         intrinsic_idx, 
                         intrinsic_type, 
-                        intrinsic_hash](sql::Connection* con){
+                        intrinsic_hash](std::shared_ptr<sql::Connection> con){
             if(store_intrinsic){
                 std::stringstream instrinsic_os;
                 {

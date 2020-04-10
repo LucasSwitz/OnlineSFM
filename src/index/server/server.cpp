@@ -14,6 +14,7 @@
 #include "search_engine.h"
 #include "tfidf_ranker.h"
 #include "sql_descriptor_storage.h"
+#include <cppconn/driver.h>
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -49,11 +50,14 @@ class VisualIndexingServer : public VisualIndexingService::Service {
         LOG(INFO) << "Searching for " << request->n() << " closest images to " << request->image_id();
         auto image_indexer = 
             ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
+        sql::Driver* driver(get_driver_instance());
+        std::shared_ptr<sql::Connection> connection(driver->connect(CONFIG_GET_STRING("sql.address"), 
+                                                                CONFIG_GET_STRING("sql.user"), 
+                                                                CONFIG_GET_STRING("sql.password")));
+        connection->setSchema(CONFIG_GET_STRING("sql.db"));
         std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
-                                               std::make_shared<SQLDescriptorStorage>(CONFIG_GET_STRING("sql.address"), 
-                                               CONFIG_GET_STRING("sql.user"), 
-                                               CONFIG_GET_STRING("sql.password"), 
-                                               CONFIG_GET_STRING("sql.db"), 
+                                               std::make_shared<SQLDescriptorStorage>(driver,
+                                               connection,
                                                CONFIG_GET_STRING("sql.words_table")));
         SearchEngine search_engine(std::move(image_indexer), std::move(ranker));
         auto results = search_engine.Search(request->image_id(), request->n());

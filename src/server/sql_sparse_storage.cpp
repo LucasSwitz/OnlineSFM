@@ -8,13 +8,11 @@
 #define SQL_DELETE_SPARSE(t) "DELETE FROM " + t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_SPARSES(t) "DELETE FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 
-SQLSparseStorage::SQLSparseStorage(const std::string& address, 
-                                 const std::string& user, 
-                                 const std::string& pass, 
-                                 const std::string& db,
-                                 const std::string& table) : FileSystemStorer(CONFIG_GET_STRING("storage.root")),
-                                                             SQLStorage(address, user, pass, db),
-                                                             _table(table){
+SQLSparseStorage::SQLSparseStorage(sql::Driver* driver, 
+                                   std::shared_ptr<sql::Connection> con,
+                                   const std::string& table) : FileSystemStorer(CONFIG_GET_STRING("storage.root")),
+                                                               SQLStorage(driver, con),
+                                                               _table(table){
                                     
 }
 

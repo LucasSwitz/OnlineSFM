@@ -11,4 +11,5 @@ class ReconstructionAgent{
         virtual bool ComputeMatches(const  std::set<std::string>& image_paths) = 0;
         virtual bool IncrementalSFM() = 0;
         virtual bool ComputeStructure() = 0;
+        virtual void SetConfig(void * config) = 0;
 };

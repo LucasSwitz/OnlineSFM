@@ -38,23 +38,23 @@ class Image {
 class SparseReconstruction {
     public:
         SparseReconstruction() = default;
-        SparseReconstruction(const std::string& id, SparseStorageAdapter* storage_adapter);
+        SparseReconstruction(const std::string& id, std::shared_ptr<SparseStorageAdapter> storage_adapter);
         SparsePointCloudData Data(); 
         void Delete();
     private:
         std::string _id;
-        SparseStorageAdapter* _storage_adapter;
+        std::shared_ptr<SparseStorageAdapter> _storage_adapter;
 };
 
 class OBJ{
     public:
         OBJ() = default;
-        OBJ(const std::string& id, OBJStorageAdapter* storage_adapter);
+        OBJ(const std::string& id, std::shared_ptr<OBJStorageAdapter> storage_adapter);
         OBJData Data();
         void Delete();
     private:
         std::string _id;
-        OBJStorageAdapter* _storage_adapter;
+        std::shared_ptr<OBJStorageAdapter> _storage_adapter;
 };
 
 
@@ -70,13 +70,14 @@ class DefaultReconstructionConfig : public ConfigurationContainer{
 class Reconstruction {
     public:
         Reconstruction(const std::string& id,
-                       ReconstructionStorageAdapter* reconstruction_staroage,
+                       std::shared_ptr<ReconstructionStorageAdapter> reconstruction_staroage,
                        std::shared_ptr<ImageStorageAdapter> image_storage,
-                       SparseStorageAdapter* sparse_storage,
-                       OBJStorageAdapter* obj_storage,
-                       CameraIntrinsicsStorage* intrinsics_storages,
+                       std::shared_ptr<SparseStorageAdapter> sparse_storage,
+                       std::shared_ptr<OBJStorageAdapter> obj_storage,
+                       std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storages,
                        SFMBacklogCounter* session_backlog,
-                       std::shared_ptr<ConfigurationAdapter> config_adapter);
+                       std::shared_ptr<ConfigurationAdapter> config_adapter,
+                       std::shared_ptr<ReconstructionAgent> reconstruction_agent);
         ~Reconstruction();
         void ComputeFeatures(const std::set<std::string>& images);
         void ComputeMatches(const std::set<std::string>& images);
@@ -102,13 +103,13 @@ class Reconstruction {
         bool _running_mvs = false;
         std::thread* _mvs_thread = nullptr;
         std::string _working_mvs_dir;
-        ReconstructionStorageAdapter* _reconstruction_storage = nullptr;
+        std::shared_ptr<ReconstructionStorageAdapter> _reconstruction_storage = nullptr;
         std::shared_ptr<ImageStorageAdapter> _image_storage = nullptr;
-        OBJStorageAdapter* _obj_storage = nullptr;
-        SparseStorageAdapter* _sparse_storage = nullptr;
-        CameraIntrinsicsStorage* _intrinsics_storage = nullptr;
+        std::shared_ptr<OBJStorageAdapter> _obj_storage = nullptr;
+        std::shared_ptr<SparseStorageAdapter> _sparse_storage = nullptr;
+        std::shared_ptr<CameraIntrinsicsStorage> _intrinsics_storage = nullptr;
         std::shared_ptr<ConfigurationAdapter> _config_adapter = nullptr;
-        OpenMVGReconstructionAgent reconstruction_agent;
+        std::shared_ptr<ReconstructionAgent> reconstruction_agent;
         ReconstructionData _data;
         SFMBacklogCounter* _session_backlog = nullptr;
         void _SetupMVS();

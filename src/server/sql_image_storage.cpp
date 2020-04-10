@@ -9,18 +9,13 @@
 #define SQL_DELETE_IMAGE(t) "DELETE FROM "+ t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_IMAGES(t) "DELETE FROM "+ t + " WHERE RECONSTRUCTION_ID = ?"
 
-SQLImageStorage::SQLImageStorage(ImageDataStorage* data_storage,
-                                    const std::string& address, 
-                                    const std::string& user, 
-                                    const std::string& pass, 
-                                    const std::string& db,
-                                    const std::string& table) : 
+SQLImageStorage::SQLImageStorage(sql::Driver* driver, 
+                                 std::shared_ptr<sql::Connection> con,
+                                 std::shared_ptr<ImageDataStorage> data_storage,
+                                 const std::string& table) : 
                                                             _data_storage(data_storage),
-                                                             SQLStorage(address,
-                                                                        user,
-                                                                        pass,
-                                                                        db),
-                                                             _table(table){
+                                                            SQLStorage(driver, con),
+                                                            _table(table){
 }
 
 ImageMetaData SQLImageStorage::GetMeta(const std::string& image_id){

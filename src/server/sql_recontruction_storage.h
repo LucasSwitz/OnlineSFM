@@ -5,11 +5,10 @@
 
 class SQLReconstructionStorage : public ReconstructionStorageAdapter, public SQLStorage {
     public:
-        SQLReconstructionStorage(const std::string& address, 
-                   const std::string& user, 
-                   const std::string& pass, 
-                   const std::string& db,
-                   const std::string& table);
+        SQLReconstructionStorage(
+                       sql::Driver* driver, 
+                       std::shared_ptr<sql::Connection> connection,
+                       const std::string& table);
         void Store(const ReconstructionData& data);
         ReconstructionData Get(const std::string& id);
         void Delete(const std::string& id);

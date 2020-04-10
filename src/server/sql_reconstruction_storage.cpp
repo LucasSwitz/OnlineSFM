@@ -6,11 +6,9 @@
 #define SQL_GET_RECONSTRUCTION(t) "SELECT * FROM " + t + " WHERE ID = ?"
 #define SQL_DELETE_RECONSTRUCTION(t) "DELETE FROM " + t + " WHERE ID = ?"
 
-SQLReconstructionStorage::SQLReconstructionStorage(const std::string& address, 
-                                                        const std::string& user, 
-                                                        const std::string& pass, 
-                                                        const std::string& db,
-                                                        const std::string& table) : SQLStorage(address, user, pass, db),
+SQLReconstructionStorage::SQLReconstructionStorage(sql::Driver* driver, 
+                                                   std::shared_ptr<sql::Connection> con,
+                                                   const std::string& table) : SQLStorage(driver, con),
                                                                                     _table(table){
     
 }

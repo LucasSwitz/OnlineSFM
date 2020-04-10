@@ -2,6 +2,7 @@
 #include <string>
 #include "sql_camera_intrinsics_storage.h"
 #include "openMVG/exif/sensor_width_database/ParseDatabase.hpp"
+#include <cppconn/driver.h>
 
 /**
  * ./upload_intrinsics_tool $OPENMVG_SENSOR_DB tcp://127.0.0.1:3306 root password  reconstruction CAMERA_INTRINSICS
@@ -13,7 +14,12 @@ int main(int argc, char** argv){
     std::string pass = argv[4];
     std::string db = argv[5];
     std::string table = argv[6];
-    SQLCameraIntrinsicsStorage intrinsics_storage(address, user, pass, db, table);
+    sql::Driver* driver(get_driver_instance());
+    std::shared_ptr<sql::Connection> connection(driver->connect(address, 
+                                                                  user, 
+                                                                  pass));
+    connection->setSchema(db);
+    SQLCameraIntrinsicsStorage intrinsics_storage(driver, connection, table);
 
     std::vector<Datasheet> vec_database;
     std::cout << "Loading DB from: " << path_to_db;

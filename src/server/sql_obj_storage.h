@@ -5,11 +5,9 @@
 
 class SQLOBJStorage : public OBJStorageAdapter, public SQLStorage, public FileSystemStorer<OBJMetaData>{
     public:
-        SQLOBJStorage(const std::string& address, 
-                     const std::string& user, 
-                     const std::string& pass, 
-                     const std::string& db,
-                     const std::string& table);
+        SQLOBJStorage(sql::Driver* driver, 
+                      std::shared_ptr<sql::Connection> con,
+                      const std::string& table);
         OBJMetaData GetMeta(const std::string& obj_id); 
         OBJData Get(const std::string& obj_id);
         std::vector<OBJMetaData> GetAll(const std::string& reconstruction_id);

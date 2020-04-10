@@ -16,7 +16,7 @@ class ReconstructDirectoryTest(PerfTest):
         with self.timer("UploadDirectory"):
             reconstruction.set_agent_configuration("openmvg", {"num_threads": 1})
             reconstruction.upload_directory(self._directory)
-        '''with self.timer("SparseReconstruction"):
+        with self.timer("SparseReconstruction"):
             reconstruction.do_sparse_reconstruction()
         sparse = None
         with self.timer("GetSparseReconstruction"):
@@ -26,7 +26,7 @@ class ReconstructDirectoryTest(PerfTest):
         with self.timer("GetAgentConfiguration"):
             agent_config = reconstruction.get_active_agent_config()
         self.report("agent_config", agent_config)
-        print("Closing connection...")'''
+        print("Closing connection...")
         reconstruction.close()
             
 

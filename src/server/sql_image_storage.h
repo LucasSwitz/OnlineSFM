@@ -6,11 +6,9 @@
 
 class SQLImageStorage : public ImageStorageAdapter, public SQLStorage  {
     public:
-        SQLImageStorage(ImageDataStorage* data_storage,
-                        const std::string& address, 
-                        const std::string& user, 
-                        const std::string& pass, 
-                        const std::string& db,
+        SQLImageStorage(sql::Driver* driver, 
+                        std::shared_ptr<sql::Connection> con,
+                        std::shared_ptr<ImageDataStorage> data_storage,
                         const std::string& table);
         ImageMetaData GetMeta(const std::string& image_id);
         std::vector<ImageMetaData> GetAll(std::string reconstruction_id);
@@ -20,5 +18,5 @@ class SQLImageStorage : public ImageStorageAdapter, public SQLStorage  {
         ImageData Get(const std::string& image_id);
     private:
         std::string _table;
-        ImageDataStorage* _data_storage = nullptr;
+        std::shared_ptr<ImageDataStorage> _data_storage = nullptr;
 };

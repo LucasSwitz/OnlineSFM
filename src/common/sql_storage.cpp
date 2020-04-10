@@ -4,16 +4,9 @@
 #include <cppconn/exception.h>
 #include <glog/logging.h>
 
-SQLStorage::SQLStorage(const std::string& address, 
-                                 const std::string& user, 
-                                 const std::string& pass,
-                                 const std::string& db):  _address(address),
-                                                             _user(user),
-                                                             _pass(pass),
-                                                             _db(db){
-    this->_driver = get_driver_instance();
-    this->_con = this->_driver->connect(this->_address, this->_user, this->_pass);
-    this->_con->setSchema(this->_db);
+SQLStorage::SQLStorage(sql::Driver* driver, 
+                       std::shared_ptr<sql::Connection> connection):  _driver(driver),
+                                                                     _con(connection){
 };
 
 sql::ResultSet* SQLStorage::IssueQuery(const std::string& q, 
@@ -29,7 +22,7 @@ sql::ResultSet* SQLStorage::IssueQuery(const std::string& q,
 }
 
 sql::ResultSet* SQLStorage::IssueQuery(const std::string& q, 
-                                       sql::Connection* con,
+                                       std::shared_ptr<sql::Connection> con,
                                        std::function<void(sql::PreparedStatement *stmt)> modifier){
     sql::PreparedStatement *stmt;
     sql::ResultSet* res;
@@ -57,7 +50,7 @@ void SQLStorage::IssueUpdate(const std::string& u,
 }
 
 void SQLStorage::IssueUpdate(const std::string& u,
-                             sql::Connection* con, 
+                             std::shared_ptr<sql::Connection> con, 
                              std::function<void(sql::PreparedStatement *stmt)> modifier){
     sql::PreparedStatement *stmt;
     try{
@@ -81,7 +74,7 @@ void SQLStorage::Execute(const std::string& ex, std::function<void(sql::Prepared
     }
 }
 
-void SQLStorage::Execute(const std::string& ex, sql::Connection* con, std::function<void(sql::PreparedStatement *stmt)> modifier){
+void SQLStorage::Execute(const std::string& ex, std::shared_ptr<sql::Connection> con, std::function<void(sql::PreparedStatement *stmt)> modifier){
     sql::PreparedStatement *stmt;
     try{
         stmt = con->prepareStatement(ex);
@@ -94,7 +87,7 @@ void SQLStorage::Execute(const std::string& ex, sql::Connection* con, std::funct
     }
 }
 
-void SQLStorage::Transaction(std::function<void(sql::Connection *con)> t){
+void SQLStorage::Transaction(std::function<void(std::shared_ptr<sql::Connection> con)> t){
     try{
         this->_con->setAutoCommit(false);
         t(this->_con);
@@ -107,6 +100,6 @@ void SQLStorage::Transaction(std::function<void(sql::Connection *con)> t){
 }
 
 SQLStorage::~SQLStorage(){
+    if(!this->_con->isClosed())
     this->_con->close();
-    delete this->_con;
 }

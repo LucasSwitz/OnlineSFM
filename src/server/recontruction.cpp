@@ -13,66 +13,94 @@
 #include "image_filesystem_storer.h"
 #include <thread>
 #include "index_helpers.h"
+#include <cppconn/driver.h>
+#include "sql_openmvg_storage.h"
+#include "sql_descriptor_storage.h"
 
 std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& id){
     try{
-        return std::make_shared<Reconstruction>(id, new SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
+        sql::Driver* driver(get_driver_instance());
+        std::shared_ptr<sql::Connection> connection(driver->connect(CONFIG_GET_STRING("sql.address"), 
                                                                 CONFIG_GET_STRING("sql.user"), 
-                                                                CONFIG_GET_STRING("sql.password"), 
-                                                                CONFIG_GET_STRING("sql.db"), 
-                                                                CONFIG_GET_STRING("sql.reconstruction_table")), 
-                                    std::make_shared<SQLImageStorage>(new FileSystemImageDataStorage(),
-                                                        CONFIG_GET_STRING("sql.address"), 
-                                                        CONFIG_GET_STRING("sql.user"), 
-                                                        CONFIG_GET_STRING("sql.password"), 
-                                                        CONFIG_GET_STRING("sql.db"), 
-                                                        CONFIG_GET_STRING("sql.views_table")), 
-                                    new SQLSparseStorage(CONFIG_GET_STRING("sql.address"), 
-                                                        CONFIG_GET_STRING("sql.user"), 
-                                                        CONFIG_GET_STRING("sql.password"), 
-                                                        CONFIG_GET_STRING("sql.db"), 
-                                                        CONFIG_GET_STRING("sql.sparse_table")), 
-                                    new SQLOBJStorage(CONFIG_GET_STRING("sql.address"), 
-                                                        CONFIG_GET_STRING("sql.user"), 
-                                                        CONFIG_GET_STRING("sql.password"),
-                                                        CONFIG_GET_STRING("sql.db"), 
-                                                        CONFIG_GET_STRING("sql.obj_table")),
-                                    new SQLCameraIntrinsicsStorage(CONFIG_GET_STRING("sql.address"), 
-                                                        CONFIG_GET_STRING("sql.user"), 
-                                                        CONFIG_GET_STRING("sql.password"),
-                                                        CONFIG_GET_STRING("sql.db"), 
-                                                        CONFIG_GET_STRING("sql.intrinsics_table")),
-                                    new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
-                                                        CONFIG_GET_STRING("redis.user"),
-                                                        CONFIG_GET_STRING("redis.password")),
-                                    std::make_shared<MongoDBConfigurationAdapter>(CONFIG_GET_STRING("mongodb.uri"),
+                                                                CONFIG_GET_STRING("sql.password")));
+        connection->setSchema(CONFIG_GET_STRING("sql.db"));
+        auto intrinsics_storage = std::make_shared<SQLCameraIntrinsicsStorage>(
+                                                        driver,
+                                                        connection, 
+                                                        CONFIG_GET_STRING("sql.intrinsics_table"));
+        auto config_adapter = std::make_shared<MongoDBConfigurationAdapter>(
+                                                    CONFIG_GET_STRING("mongodb.uri"),
                                                     CONFIG_GET_STRING("mongodb.db"),
                                                     CONFIG_GET_STRING("mongodb.agents_collection"),
                                                     CONFIG_GET_STRING("mongodb.default_agents_collection"),
-                                                    CONFIG_GET_STRING("mongodb.reconstructions_collections")));
+                                                    CONFIG_GET_STRING("mongodb.reconstructions_collections"));
+        auto image_storage = std::make_shared<SQLImageStorage>( 
+                                                        driver,
+                                                        connection, 
+                                                        std::make_shared<FileSystemImageDataStorage>(), 
+                                                        CONFIG_GET_STRING("sql.views_table"));
+        return std::make_shared<Reconstruction>(id,  
+                std::make_shared<SQLReconstructionStorage>(
+                                            driver,
+                                            connection, 
+                                            CONFIG_GET_STRING("sql.reconstruction_table")), 
+                image_storage, 
+                std::make_shared<SQLSparseStorage>(
+                                    driver,
+                                    connection, 
+                                    CONFIG_GET_STRING("sql.sparse_table")), 
+                std::make_shared<SQLOBJStorage>(
+                                    driver,
+                                    connection, 
+                                    CONFIG_GET_STRING("sql.obj_table")),
+                intrinsics_storage,
+                new RedisSFMBacklog(
+                                    CONFIG_GET_STRING("redis.address"),
+                                    CONFIG_GET_STRING("redis.user"),
+                                    CONFIG_GET_STRING("redis.password")),
+                config_adapter,
+                std::make_shared<OpenMVGReconstructionAgent>(           
+                    id,
+                    intrinsics_storage, 
+                    std::make_shared<SQLOpenMVGStorage>(
+                                        driver,
+                                        connection,
+                                        CONFIG_GET_STRING("sql.openmvg_views_table"),
+                                        CONFIG_GET_STRING("sql.openmvg_intrinsics_table"),
+                                        CONFIG_GET_STRING("sql.openmvg_matches_table"),
+                                        CONFIG_GET_STRING("sql.openmvg_meta_table"),
+                                        CONFIG_GET_STRING("sql.openmvg_poses_table")),
+                                        config_adapter,
+                    std::make_shared<SQLDescriptorStorage>(
+                                        driver,
+                                        connection,
+                                        CONFIG_GET_STRING("sql.descriptors_table")),
+                    image_storage));
     }catch(const std::exception& e){
         throw;
     }
 }
 
 void ReconstructionFetcher::Store(const ReconstructionData& reconstruction){
-    SQLReconstructionStorage(CONFIG_GET_STRING("sql.address"), 
-                            CONFIG_GET_STRING("sql.user"), 
-                            CONFIG_GET_STRING("sql.password"), 
-                            CONFIG_GET_STRING("sql.db"), 
+    sql::Driver* driver(get_driver_instance());
+    std::shared_ptr<sql::Connection> connection(driver->connect(CONFIG_GET_STRING("sql.address"), 
+                                                                CONFIG_GET_STRING("sql.user"), 
+                                                                CONFIG_GET_STRING("sql.password")));
+    connection->setSchema(CONFIG_GET_STRING("sql.db"));
+    SQLReconstructionStorage(driver,
+                            connection, 
                             CONFIG_GET_STRING("sql.reconstruction_table")).Store(reconstruction);
 }
 
-#include "sql_openmvg_storage.h"
-#include "sql_descriptor_storage.h"
 Reconstruction::Reconstruction(const std::string& id,
-                       ReconstructionStorageAdapter* reconstruction_storage,
+                       std::shared_ptr<ReconstructionStorageAdapter> reconstruction_storage,
                        std::shared_ptr<ImageStorageAdapter> image_storage,
-                       SparseStorageAdapter* sparse_storage,
-                       OBJStorageAdapter* obj_storage,
-                       CameraIntrinsicsStorage* intrinsics_storage,
+                       std::shared_ptr<SparseStorageAdapter> sparse_storage,
+                       std::shared_ptr<OBJStorageAdapter> obj_storage,
+                       std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage,
                        SFMBacklogCounter* backlog_monitor,
-                       std::shared_ptr<ConfigurationAdapter> config_adapter) : 
+                       std::shared_ptr<ConfigurationAdapter> config_adapter,
+                       std::shared_ptr<ReconstructionAgent> reconstruction_agent) : 
     _id(id), 
     _reconstruction_storage(reconstruction_storage),
     _image_storage(image_storage), 
@@ -81,32 +109,15 @@ Reconstruction::Reconstruction(const std::string& id,
     _intrinsics_storage(intrinsics_storage),
     _session_backlog(backlog_monitor),
     _config_adapter(config_adapter),
-    reconstruction_agent(id,
-                        _intrinsics_storage, 
-                        new SQLOpenMVGStorage(CONFIG_GET_STRING("sql.address"),
-                                            CONFIG_GET_STRING("sql.user"), 
-                                            CONFIG_GET_STRING("sql.password"),
-                                            CONFIG_GET_STRING("sql.db"), 
-                                            CONFIG_GET_STRING("sql.openmvg_views_table"),
-                                            CONFIG_GET_STRING("sql.openmvg_intrinsics_table"),
-                                            CONFIG_GET_STRING("sql.openmvg_matches_table"),
-                                            CONFIG_GET_STRING("sql.openmvg_meta_table"),
-                                            CONFIG_GET_STRING("sql.openmvg_poses_table")),
-                                            config_adapter,
-                        std::make_shared<SQLDescriptorStorage>(CONFIG_GET_STRING("sql.address"),
-                                            CONFIG_GET_STRING("sql.user"), 
-                                            CONFIG_GET_STRING("sql.password"),
-                                            CONFIG_GET_STRING("sql.db"),
-                                            CONFIG_GET_STRING("sql.descriptors_table")),
-                                            image_storage){
-    this->_data = this->_reconstruction_storage->Get(this->_id);
-    OpenMVGReconstructionAgentConfig config;
-    config.features_dir = this->_data.features_path();
-    config.sfm_dir = this->_data.features_path();
-    config.root_path = this->_data.images_path();
-    config.matches_dir = this->_data.matches_path();
-    config.sOutFile =  this->_data.sfm_path() + "/robust.bin";
-    this->reconstruction_agent.SetConfig(config);
+    reconstruction_agent(reconstruction_agent){
+        this->_data = this->_reconstruction_storage->Get(this->_id);
+        OpenMVGReconstructionAgentConfig config;
+        config.features_dir = this->_data.features_path();
+        config.sfm_dir = this->_data.features_path();
+        config.root_path = this->_data.images_path();
+        config.matches_dir = this->_data.matches_path();
+        config.sOutFile =  this->_data.sfm_path() + "/robust.bin";
+        this->reconstruction_agent->SetConfig(&config);
 }
 
 const ReconstructionData& Reconstruction::Data(){
@@ -163,7 +174,7 @@ void Image::Delete(){
     this->_storage_adapter->Delete(this->_id);
 }
 
-OBJ::OBJ(const std::string& id, OBJStorageAdapter* obj_storage) : _id(id), _storage_adapter(obj_storage){
+OBJ::OBJ(const std::string& id, std::shared_ptr<OBJStorageAdapter> obj_storage) : _id(id), _storage_adapter(obj_storage){
 
 }
 
@@ -177,7 +188,7 @@ void OBJ::Delete(){
     this->_storage_adapter->Delete(this->_id);
 }
 
-SparseReconstruction::SparseReconstruction(const std::string& id, SparseStorageAdapter* storage_adapter) : 
+SparseReconstruction::SparseReconstruction(const std::string& id,  std::shared_ptr<SparseStorageAdapter> storage_adapter) : 
                                                                                      _id(id), 
                                                                                      _storage_adapter(storage_adapter){
 
@@ -256,11 +267,11 @@ bool Reconstruction::SparseReconstruct(){
     std::string undistored_images_path = reconstruction_reconstruction_dir + "/undistorted";
 
     LOG(INFO) << "Starting Incremental SFM for " << this->_id;
-    if(!reconstruction_agent.IncrementalSFM()){
+    if(!reconstruction_agent->IncrementalSFM()){
          return false;
     }
     LOG(INFO) << "Starting compute structure for " << this->_id;
-    if(!reconstruction_agent.ComputeStructure()){
+    if(!reconstruction_agent->ComputeStructure()){
         return false;
     }
     LOG(INFO) << "Creating MVS File for " << this->_id;
@@ -292,7 +303,7 @@ void Reconstruction::AddImage(const std::string& image_id){
     LOG(INFO) << "Indexing image: " << image_id;
     indexing_client->IndexImage(&context, req, &resp);
 
-    if(!reconstruction_agent.AddImage(image_id)){
+    if(!reconstruction_agent->AddImage(image_id)){
         LOG(ERROR) << "Failed to add image " << image_id;
     }else{
         //this->_session_backlog->Incr(this->_id);
@@ -312,9 +323,6 @@ Reconstruction::~Reconstruction(){
         this->_mvs_thread->join();
         delete this->_mvs_thread;
     }
-    delete this->_obj_storage;
-    delete this->_sparse_storage;
-    delete this->_intrinsics_storage;
 }
 
 bool Reconstruction::IsRunningMVS(){
@@ -322,11 +330,11 @@ bool Reconstruction::IsRunningMVS(){
 }
 
 void Reconstruction::ComputeFeatures(const std::set<std::string>& images){
-    this->reconstruction_agent.ComputeFeatures(images);
+    this->reconstruction_agent->ComputeFeatures(images);
 }
 
 void Reconstruction::ComputeMatches(const std::set<std::string>& images){
-    this->reconstruction_agent.ComputeMatches(images);
+    this->reconstruction_agent->ComputeMatches(images);
 }
 
 void Reconstruction::SetAgentConfigFields(const std::string& agent_name, const std::string& config_json){

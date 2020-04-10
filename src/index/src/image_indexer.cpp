@@ -3,18 +3,20 @@
 #include "sql_descriptor_storage.h"
 #include "config.h"
 #include "types.h"
+#include <cppconn/driver.h>
 
 std::unique_ptr<ImageIndexer> ImageIndexerFactory::GetImageIndexer(std::shared_ptr<VisualVocabularyIndex> index){
+    sql::Driver* driver(get_driver_instance());
+    std::shared_ptr<sql::Connection> connection(driver->connect(CONFIG_GET_STRING("sql.address"), 
+                                                                CONFIG_GET_STRING("sql.user"), 
+                                                                CONFIG_GET_STRING("sql.password")));
+    connection->setSchema(CONFIG_GET_STRING("sql.db"));
     return std::make_unique<ImageIndexer>(
-        std::make_shared<SQLDescriptorStorage>(CONFIG_GET_STRING("sql.address"), 
-                                               CONFIG_GET_STRING("sql.user"), 
-                                               CONFIG_GET_STRING("sql.password"), 
-                                               CONFIG_GET_STRING("sql.db"), 
+        std::make_shared<SQLDescriptorStorage>(driver,
+                                               connection,  
                                                CONFIG_GET_STRING("sql.descriptors_table")),
-        std::make_shared<SQLDescriptorStorage>(CONFIG_GET_STRING("sql.address"), 
-                                               CONFIG_GET_STRING("sql.user"), 
-                                               CONFIG_GET_STRING("sql.password"), 
-                                               CONFIG_GET_STRING("sql.db"), 
+        std::make_shared<SQLDescriptorStorage>(driver,
+                                               connection, 
                                                CONFIG_GET_STRING("sql.words_table")),
         index
     );

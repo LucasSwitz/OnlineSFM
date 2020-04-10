@@ -18,18 +18,16 @@ class SQLDescriptorStorage : public SQLStorage,
                              public DescriptorStorage<SIFT_Descriptor> {
     public:
         SQLDescriptorStorage(
-                   const std::string& address, 
-                   const std::string& user, 
-                   const std::string& pass,
-                   const std::string& db,
-                   const std::string& table) : SQLStorage(address, user, pass, db), 
+                   sql::Driver* driver, 
+                   std::shared_ptr<sql::Connection> con,
+                   const std::string& table) : SQLStorage(driver, con), 
                                                _table(table){
                     
         }
 
         void Store(const std::string& reconstruction_id, const std::string& image_id, SIFT_Descriptor_count_map& descriptors){
             this->Transaction([this, 
-                     reconstruction_id, image_id, descriptors](sql::Connection* con){
+                     reconstruction_id, image_id, descriptors](std::shared_ptr<sql::Connection> con){
                 for(auto e : descriptors){
                     auto descriptor = e.first;
                     unsigned int count = e.second;

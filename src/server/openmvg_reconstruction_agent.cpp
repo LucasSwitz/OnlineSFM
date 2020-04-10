@@ -168,8 +168,8 @@ std::pair<bool, Vec3> checkGPS
 }
 
 OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& reconstruction_id, 
-                                                       CameraIntrinsicsStorage* intrinsics_storage,
-                                                       OpenMVGStorageAdapter* openmvg_storage,
+                                                       std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage,
+                                                       std::shared_ptr<OpenMVGStorageAdapter> openmvg_storage,
                                                        std::shared_ptr<ConfigurationAdapter> configuration_adapter,
                                                        std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> descriptor_storage,
                                                        std::shared_ptr<ImageStorageAdapter> image_storage):
@@ -183,13 +183,13 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
   
 }
 
-void OpenMVGReconstructionAgent::SetConfig(const OpenMVGReconstructionAgentConfig& config){
-    this->_config = config;
+void OpenMVGReconstructionAgent::SetConfig(void * config){
+    this->_config = *(OpenMVGReconstructionAgentConfig*)config;
     OpenMVGMetadata data;
     /*
       CHANGE THIS. Need some Initializer that can take reconstruction and setup a given reconstruction agent. 
     */
-    data.root_path = config.root_path;
+    data.root_path = this->_config.root_path;
     this->_openmvg_storage->StoreMeta(this->_reconstruction_id, data);
     this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ALL);
 }
@@ -556,7 +556,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   );
   std::string sGeometricModel = config->get_string("geometric_model");
   float fDistRatio = config->get_double("dist_ratio");
-  std::string sNearestMatchingMethod = "BRUTEFORCEL2"; //config->get_string("nearest_matching_method");
+  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method");
   bool bGuided_matching = config->get_bool("guided_matching");
   int imax_iteration = config->get_int("max_iterations");
   int ui_max_cache_size = config->get_int("ui_max_cache_size");
@@ -984,5 +984,4 @@ void OpenMVGReconstructionAgent::Load(const std::string& sfm_data_path){
 }
 
 OpenMVGReconstructionAgent::~OpenMVGReconstructionAgent(){
-  delete this->_openmvg_storage;
 }
