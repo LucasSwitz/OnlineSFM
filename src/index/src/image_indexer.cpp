@@ -28,14 +28,19 @@ ImageIndexer::ImageIndexer(DescriptorStorePtr desc_storage,
 
 }
 
-void ImageIndexer::Index(const std::string& image_id){
+void ImageIndexer::Index(const std::string& reconstruction_id, const std::string& image_id){
     SIFT_Descriptor_count_map descriptors = this->_descriptor_storage->GetAllDescriptors(image_id);
     SIFT_Vector words;
     //transform(descriptors.begin(), descriptors.end(), back_inserter(words), std::bind(&VisualVocabularyIndex::Index, this->_index.get(), SIFT_Descriptor()));
+    SIFT_Descriptor_count_map word_sparse;
     for(auto desc : descriptors){
-        words.push_back(this->_index->Index(desc.first));
+        auto word = this->_index->Index(desc.first);
+        if(word_sparse.find(word) == word_sparse.end()){
+            word_sparse[word] = 0;
+        }
+        word_sparse[word]+=desc.second;
     }
-    this->_word_storage->StoreAll(image_id, words);
+    this->_word_storage->Store(reconstruction_id, image_id, word_sparse);
 }
 
 std::unordered_map<std::string, SIFT_Descriptor_count_map> ImageIndexer::GetSimilar(const std::string& image_id){

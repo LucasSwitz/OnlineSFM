@@ -11,4 +11,5 @@ class ImageStorageAdapter{
         virtual int Store(const ImageData& image_data) = 0;
         virtual int Delete(const std::string& image_id) = 0;
         virtual int DeleteByReconstruction(const std::string& reconstruction_id) = 0;
+        virtual ~ImageStorageAdapter(){};
 };

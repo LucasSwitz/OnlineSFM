@@ -279,7 +279,6 @@ bool Reconstruction::SparseReconstruct(){
 }
 
 void Reconstruction::AddImage(const std::string& image_id){
-    std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
     LOG(INFO) << "Adding image: " << image_id;
 
     auto indexing_client = GetIndexingClient(CONFIG_GET_STRING("index.address"));
@@ -287,6 +286,7 @@ void Reconstruction::AddImage(const std::string& image_id){
     //TODO: Wrap this shit
     IndexImageRequest req;
     req.set_image_id(image_id);
+    req.set_reconstruction_id(this->_id);
     IndexImageResponse resp;
     grpc::ClientContext context;
     LOG(INFO) << "Indexing image: " << image_id;
@@ -312,6 +312,9 @@ Reconstruction::~Reconstruction(){
         this->_mvs_thread->join();
         delete this->_mvs_thread;
     }
+    delete this->_obj_storage;
+    delete this->_sparse_storage;
+    delete this->_intrinsics_storage;
 }
 
 bool Reconstruction::IsRunningMVS(){

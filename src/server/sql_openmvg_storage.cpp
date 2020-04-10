@@ -164,65 +164,72 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
         archive_view_out(cereal::make_nvp("view", view));
     }
     std::string view_json = view_os.str();
+    try{
+        this->Transaction([this, 
+                        reconstruction_id, 
+                        image_id,
+                        view_json, 
+                        store_intrinsic, 
+                        intrinsic, 
+                        intrinsic_idx, 
+                        intrinsic_type, 
+                        intrinsic_hash](sql::Connection* con){
+            if(store_intrinsic){
+                std::stringstream instrinsic_os;
+                {
+                    cereal::JSONOutputArchive archive_instrinsic_out(instrinsic_os);
+                    archive_instrinsic_out(cereal::make_nvp("intrinsic", intrinsic));
+                }
+                std::string intrinsic_json = instrinsic_os.str();
 
-    this->Transaction([this, 
-                     reconstruction_id, 
-                     image_id,
-                     view_json, 
-                     store_intrinsic, 
-                     intrinsic, 
-                     intrinsic_idx, 
-                     intrinsic_type, 
-                     intrinsic_hash](sql::Connection* con){
-        if(store_intrinsic){
-            std::stringstream instrinsic_os;
-            {
-                cereal::JSONOutputArchive archive_instrinsic_out(instrinsic_os);
-                archive_instrinsic_out(cereal::make_nvp("intrinsic", intrinsic));
+                this->Execute(SQL_INTRINSICS_COUNT(this->_intrinsics_table),
+                    con,
+                    [reconstruction_id](sql::PreparedStatement* stmt){
+                        stmt->setString(1, reconstruction_id);
+                });
+                this->Execute(SQL_INSERT_OPENMVG_INTRINSIC(this->_intrinsics_table),
+                    con,
+                    [reconstruction_id, intrinsic_type, intrinsic_hash, intrinsic_json](sql::PreparedStatement* stmt){
+                        stmt->setString(1, reconstruction_id);
+                        stmt->setInt64(2, intrinsic_type);
+                        stmt->setInt64(3, intrinsic_hash);
+                        stmt->setString(4, intrinsic_json);
+                });
+                this->Execute(SQL_VIEW_COUNT(this->_views_table),
+                    con,
+                    [reconstruction_id](sql::PreparedStatement* stmt){
+                        stmt->setString(1, reconstruction_id);
+                });
+                this->Execute(SQL_INSERT_OPENMVG_VIEW(this->_views_table),
+                    con,
+                    [reconstruction_id, image_id, view_json](sql::PreparedStatement* stmt){
+                        stmt->setString(1, reconstruction_id);
+                        stmt->setString(2, image_id);
+                        stmt->setString(3, view_json);
+                });
+            }else{
+                this->Execute(SQL_VIEW_COUNT(this->_views_table),
+                    con,
+                    [reconstruction_id](sql::PreparedStatement* stmt){
+                        stmt->setString(1, reconstruction_id);
+                });
+                this->Execute(SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(this->_views_table),
+                    con,
+                    [reconstruction_id, image_id, view_json, intrinsic_idx](sql::PreparedStatement* stmt){
+                        stmt->setString(1, reconstruction_id);
+                        stmt->setString(2, image_id);
+                        stmt->setInt64(3, intrinsic_idx);
+                        stmt->setString(4, view_json);
+                });
             }
-            std::string intrinsic_json = instrinsic_os.str();
-
-            this->Execute(SQL_INTRINSICS_COUNT(this->_intrinsics_table),
-                con,
-                [reconstruction_id](sql::PreparedStatement* stmt){
-                    stmt->setString(1, reconstruction_id);
-            });
-            this->Execute(SQL_INSERT_OPENMVG_INTRINSIC(this->_intrinsics_table),
-                con,
-                [reconstruction_id, intrinsic_type, intrinsic_hash, intrinsic_json](sql::PreparedStatement* stmt){
-                    stmt->setString(1, reconstruction_id);
-                    stmt->setInt64(2, intrinsic_type);
-                    stmt->setInt64(3, intrinsic_hash);
-                    stmt->setString(4, intrinsic_json);
-            });
-            this->Execute(SQL_VIEW_COUNT(this->_views_table),
-                con,
-                [reconstruction_id](sql::PreparedStatement* stmt){
-                    stmt->setString(1, reconstruction_id);
-            });
-            this->Execute(SQL_INSERT_OPENMVG_VIEW(this->_views_table),
-                con,
-                [reconstruction_id, image_id, view_json](sql::PreparedStatement* stmt){
-                    stmt->setString(1, reconstruction_id);
-                    stmt->setString(2, image_id);
-                    stmt->setString(3, view_json);
-            });
-        }else{
-            this->Execute(SQL_VIEW_COUNT(this->_views_table),
-                con,
-                [reconstruction_id](sql::PreparedStatement* stmt){
-                    stmt->setString(1, reconstruction_id);
-            });
-            this->Execute(SQL_INSERT_OPENMVG_VIEW_SET_INTRINSIC(this->_views_table),
-                con,
-                [reconstruction_id, image_id, view_json, intrinsic_idx](sql::PreparedStatement* stmt){
-                    stmt->setString(1, reconstruction_id);
-                    stmt->setString(2, image_id);
-                    stmt->setInt64(3, intrinsic_idx);
-                    stmt->setString(4, view_json);
-            });
+        });
+    }catch(const sql::SQLException& e){
+        if(e.getErrorCode() == 1062){
+            //duplicate key
+            LOG(ERROR) << "Duplicate key when storing View/Intrinsic. Trying again...";
+            this->StoreViewAndIntrinsic(reconstruction_id, image_id, view, intrinsic);
         }
-    });
+    }
 }
 
 void SQLOpenMVGStorage::DeleteAll(const std::string& reconstruction_id){
@@ -236,7 +243,7 @@ void SQLOpenMVGStorage::StoreMatches(const std::string& reconstruction_id,
     for(auto e : matches){
         std::pair<IndexT,  IndexT> p = e.first;
         IndexT view_1 = std::get<0>(p);
-         IndexT view_2 = std::get<1>(p);
+        IndexT view_2 = std::get<1>(p);
         const std::vector<IndMatch> & pair_matches = e.second;
         std::stringstream stream;
         stream << view_1 << " " << view_2 << '\n' << pair_matches.size() << '\n';
@@ -382,7 +389,7 @@ Poses SQLOpenMVGStorage::GetPoses(const std::string& reconstruction_id){
 
 openMVG::IndexT SQLOpenMVGStorage::GetViewIdxByImageID(const std::string& image_id){
     IndexT index = -1;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_poses_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_views_table), 
         [this, image_id](sql::PreparedStatement *stmt){
             stmt->setString(1, image_id);
     });

@@ -76,10 +76,10 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
-        Status StoreImage(ServerContext* context, 
-                            ServerReader<StoreImageRequest>* stream, 
-                            StoreImageResponse* response){
-            StoreImageRequest request;
+        Status ReconstructionUploadImage(ServerContext* context, 
+                            ServerReader<ReconstructionUploadImageRequest>* stream, 
+                            ReconstructionUploadImageResponse* response){
+            ReconstructionUploadImageRequest request;
             stream->Read(&request);
             ImageData final_image;
             final_image.CopyFrom(request.image());
@@ -90,15 +90,34 @@ class ReconstructionServer : public ReconstructionService::Service {
             try{
                 ReconstructionFetcher rf;
                 auto reconstruction = rf.Fetch(final_image.metadata().reconstruction());
-                LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
-                reconstruction->StoreImage(final_image);
+                std::string image_id = reconstruction->StoreImage(final_image);
+                reconstruction->ComputeFeatures({image_id});
+                reconstruction->AddImage(image_id);
+
+                if(request.compute_matches()){
+                    reconstruction->ComputeMatches({image_id});
+                }
+                response->set_image_id(image_id);
                 
             } catch(std::exception& e){
                 LOG(ERROR) << e.what();
                 return Status::CANCELLED;
             }
-                
             return Status::OK;
+        }
+
+        Status ComputeMatches(ServerContext* context, 
+                              const ComputeMatchesRequest* request, 
+                              ComputeMatchesResponse* response){
+            ReconstructionFetcher rf;
+            try {
+                auto reconstruction = rf.Fetch(request->reconstruction_id());
+                reconstruction->ComputeMatches({request->image_id()});    
+                return Status::OK;            
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
         }
 
         Status SparseReconstruct(ServerContext* context, 
@@ -107,12 +126,13 @@ class ReconstructionServer : public ReconstructionService::Service {
             ReconstructionFetcher rf;
             try {
                 auto reconstruction = rf.Fetch(request->reconstruction_id());
-                response->set_success(reconstruction->SparseReconstruct());
-                
+                bool sucess = reconstruction->SparseReconstruct();
+                response->set_success(sucess);
+                return Status::OK;
             } catch (const std::exception& e){
                 LOG(ERROR) << e.what();
+                return Status::CANCELLED;
             }
-            return Status::OK;
         }
 
         Status MVS(ServerContext* context, 
@@ -236,7 +256,7 @@ class ReconstructionServer : public ReconstructionService::Service {
             ImageData final_image;
             final_image.CopyFrom(request.upload_image().image());
             while(stream->Read(&request)){
-                StoreImageRequest upload_image_request = request.upload_image();
+                ReconstructionUploadImageRequest upload_image_request = request.upload_image();
                 final_image.mutable_data()->append(upload_image_request.image().data());  
             }
             LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();

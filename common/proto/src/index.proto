@@ -5,7 +5,8 @@ message IndexWord {
 };
 
 message IndexImageRequest {
-    string image_id = 1;
+    string reconstruction_id = 1;
+    string image_id = 2;
 }
 
 message IndexImageResponse {

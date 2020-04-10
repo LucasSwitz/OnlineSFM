@@ -19,9 +19,9 @@ extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ImageMetaData_server_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_OBJData_server_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_OBJMetaData_server_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ReconstructionUploadImageRequest_server_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SparsePointCloudData_server_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_SparsePointCloudMetaData_server_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_server_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_StoreImageRequest_server_2eproto;
 class ImageMetaDataDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ImageMetaData> _instance;
@@ -50,14 +50,14 @@ class ReconstructionDataDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReconstructionData> _instance;
 } _ReconstructionData_default_instance_;
-class StoreImageResponseDefaultTypeInternal {
+class ReconstructionUploadImageResponseDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StoreImageResponse> _instance;
-} _StoreImageResponse_default_instance_;
-class StoreImageRequestDefaultTypeInternal {
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReconstructionUploadImageResponse> _instance;
+} _ReconstructionUploadImageResponse_default_instance_;
+class ReconstructionUploadImageRequestDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StoreImageRequest> _instance;
-} _StoreImageRequest_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ReconstructionUploadImageRequest> _instance;
+} _ReconstructionUploadImageRequest_default_instance_;
 class NewReconstructionRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<NewReconstructionRequest> _instance;
@@ -186,6 +186,14 @@ class GetAgentCOnfigResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetAgentCOnfigResponse> _instance;
 } _GetAgentCOnfigResponse_default_instance_;
+class ComputeMatchesRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ComputeMatchesRequest> _instance;
+} _ComputeMatchesRequest_default_instance_;
+class ComputeMatchesResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ComputeMatchesResponse> _instance;
+} _ComputeMatchesResponse_default_instance_;
 static void InitDefaultsscc_info_CameraIntrinsics_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -199,6 +207,34 @@ static void InitDefaultsscc_info_CameraIntrinsics_server_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CameraIntrinsics_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_CameraIntrinsics_server_2eproto}, {}};
+
+static void InitDefaultsscc_info_ComputeMatchesRequest_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_ComputeMatchesRequest_default_instance_;
+    new (ptr) ::ComputeMatchesRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::ComputeMatchesRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ComputeMatchesRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ComputeMatchesRequest_server_2eproto}, {}};
+
+static void InitDefaultsscc_info_ComputeMatchesResponse_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_ComputeMatchesResponse_default_instance_;
+    new (ptr) ::ComputeMatchesResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::ComputeMatchesResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ComputeMatchesResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ComputeMatchesResponse_server_2eproto}, {}};
 
 static void InitDefaultsscc_info_DeleteReconstructionRequest_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -542,6 +578,35 @@ static void InitDefaultsscc_info_ReconstructionUploadImageBatchResponse_server_2
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReconstructionUploadImageBatchResponse_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReconstructionUploadImageBatchResponse_server_2eproto}, {}};
 
+static void InitDefaultsscc_info_ReconstructionUploadImageRequest_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_ReconstructionUploadImageRequest_default_instance_;
+    new (ptr) ::ReconstructionUploadImageRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::ReconstructionUploadImageRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_ReconstructionUploadImageRequest_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ReconstructionUploadImageRequest_server_2eproto}, {
+      &scc_info_ImageData_server_2eproto.base,}};
+
+static void InitDefaultsscc_info_ReconstructionUploadImageResponse_server_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_ReconstructionUploadImageResponse_default_instance_;
+    new (ptr) ::ReconstructionUploadImageResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::ReconstructionUploadImageResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_ReconstructionUploadImageResponse_server_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_ReconstructionUploadImageResponse_server_2eproto}, {}};
+
 static void InitDefaultsscc_info_SessionAddImageRequest_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -555,7 +620,7 @@ static void InitDefaultsscc_info_SessionAddImageRequest_server_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_SessionAddImageRequest_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_SessionAddImageRequest_server_2eproto}, {
-      &scc_info_StoreImageRequest_server_2eproto.base,}};
+      &scc_info_ReconstructionUploadImageRequest_server_2eproto.base,}};
 
 static void InitDefaultsscc_info_SessionAddImageResponse_server_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -740,36 +805,7 @@ static void InitDefaultsscc_info_StopSessionResponse_server_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_StopSessionResponse_server_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_StopSessionResponse_server_2eproto}, {}};
 
-static void InitDefaultsscc_info_StoreImageRequest_server_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::_StoreImageRequest_default_instance_;
-    new (ptr) ::StoreImageRequest();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::StoreImageRequest::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_StoreImageRequest_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_StoreImageRequest_server_2eproto}, {
-      &scc_info_ImageData_server_2eproto.base,}};
-
-static void InitDefaultsscc_info_StoreImageResponse_server_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::_StoreImageResponse_default_instance_;
-    new (ptr) ::StoreImageResponse();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::StoreImageResponse::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_StoreImageResponse_server_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_StoreImageResponse_server_2eproto}, {}};
-
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_server_2eproto[41];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_server_2eproto[43];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_server_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_server_2eproto = nullptr;
 
@@ -841,18 +877,20 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, features_path_),
   PROTOBUF_FIELD_OFFSET(::ReconstructionData, matches_path_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::StoreImageResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::StoreImageResponse, success_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageResponse, success_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageResponse, image_id_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::StoreImageRequest, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::StoreImageRequest, reconstruction_id_),
-  PROTOBUF_FIELD_OFFSET(::StoreImageRequest, image_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageRequest, reconstruction_id_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageRequest, compute_matches_),
+  PROTOBUF_FIELD_OFFSET(::ReconstructionUploadImageRequest, image_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::NewReconstructionRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1058,6 +1096,18 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::GetAgentCOnfigResponse, config_json_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ComputeMatchesRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ComputeMatchesRequest, reconstruction_id_),
+  PROTOBUF_FIELD_OFFSET(::ComputeMatchesRequest, image_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ComputeMatchesResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::ImageMetaData)},
@@ -1067,40 +1117,42 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 32, -1, sizeof(::OBJMetaData)},
   { 42, -1, sizeof(::OBJData)},
   { 51, -1, sizeof(::ReconstructionData)},
-  { 66, -1, sizeof(::StoreImageResponse)},
-  { 72, -1, sizeof(::StoreImageRequest)},
-  { 79, -1, sizeof(::NewReconstructionRequest)},
-  { 84, -1, sizeof(::NewReconstructionResponse)},
-  { 90, -1, sizeof(::SparseReconstructRequest)},
-  { 96, -1, sizeof(::GetOBJRequest)},
-  { 102, -1, sizeof(::GetOBJResponse)},
-  { 109, -1, sizeof(::SparseReconstructResponse)},
-  { 116, -1, sizeof(::ReconstructionOBJ)},
-  { 122, -1, sizeof(::DeleteReconstructionRequest)},
-  { 128, -1, sizeof(::DeleteReconstructionResponse)},
-  { 135, -1, sizeof(::CameraIntrinsics)},
-  { 147, -1, sizeof(::HandhsakeRequest)},
-  { 154, -1, sizeof(::HandshakeResponse)},
-  { 160, -1, sizeof(::StartSessionRequest)},
-  { 166, -1, sizeof(::StartSessionResponse)},
-  { 173, -1, sizeof(::StopSessionRequest)},
-  { 179, -1, sizeof(::StopSessionResponse)},
-  { 185, -1, sizeof(::SessionAddImageRequest)},
-  { 192, -1, sizeof(::SessionAddImageResponse)},
-  { 197, -1, sizeof(::GetSparseRequest)},
-  { 203, -1, sizeof(::GetSparseResponse)},
-  { 209, -1, sizeof(::GetReconstructionConfigRequest)},
-  { 215, -1, sizeof(::GetReconstructionConfigResponse)},
-  { 221, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
-  { 228, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
-  { 234, -1, sizeof(::MVSRequest)},
-  { 240, -1, sizeof(::MVSResponse)},
-  { 246, -1, sizeof(::SetAgentConfigFieldsRequest)},
-  { 254, -1, sizeof(::SetAgentConfigFieldsResponse)},
-  { 259, -1, sizeof(::SetReconstructionConfigFieldsRequest)},
-  { 266, -1, sizeof(::SetReconstructionConfigFieldsResponse)},
-  { 271, -1, sizeof(::GetAgentConfigRequest)},
-  { 278, -1, sizeof(::GetAgentCOnfigResponse)},
+  { 66, -1, sizeof(::ReconstructionUploadImageResponse)},
+  { 73, -1, sizeof(::ReconstructionUploadImageRequest)},
+  { 81, -1, sizeof(::NewReconstructionRequest)},
+  { 86, -1, sizeof(::NewReconstructionResponse)},
+  { 92, -1, sizeof(::SparseReconstructRequest)},
+  { 98, -1, sizeof(::GetOBJRequest)},
+  { 104, -1, sizeof(::GetOBJResponse)},
+  { 111, -1, sizeof(::SparseReconstructResponse)},
+  { 118, -1, sizeof(::ReconstructionOBJ)},
+  { 124, -1, sizeof(::DeleteReconstructionRequest)},
+  { 130, -1, sizeof(::DeleteReconstructionResponse)},
+  { 137, -1, sizeof(::CameraIntrinsics)},
+  { 149, -1, sizeof(::HandhsakeRequest)},
+  { 156, -1, sizeof(::HandshakeResponse)},
+  { 162, -1, sizeof(::StartSessionRequest)},
+  { 168, -1, sizeof(::StartSessionResponse)},
+  { 175, -1, sizeof(::StopSessionRequest)},
+  { 181, -1, sizeof(::StopSessionResponse)},
+  { 187, -1, sizeof(::SessionAddImageRequest)},
+  { 194, -1, sizeof(::SessionAddImageResponse)},
+  { 199, -1, sizeof(::GetSparseRequest)},
+  { 205, -1, sizeof(::GetSparseResponse)},
+  { 211, -1, sizeof(::GetReconstructionConfigRequest)},
+  { 217, -1, sizeof(::GetReconstructionConfigResponse)},
+  { 223, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
+  { 230, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
+  { 236, -1, sizeof(::MVSRequest)},
+  { 242, -1, sizeof(::MVSResponse)},
+  { 248, -1, sizeof(::SetAgentConfigFieldsRequest)},
+  { 256, -1, sizeof(::SetAgentConfigFieldsResponse)},
+  { 261, -1, sizeof(::SetReconstructionConfigFieldsRequest)},
+  { 268, -1, sizeof(::SetReconstructionConfigFieldsResponse)},
+  { 273, -1, sizeof(::GetAgentConfigRequest)},
+  { 280, -1, sizeof(::GetAgentCOnfigResponse)},
+  { 286, -1, sizeof(::ComputeMatchesRequest)},
+  { 293, -1, sizeof(::ComputeMatchesResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1111,8 +1163,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_OBJMetaData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_OBJData_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionData_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StoreImageResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_StoreImageRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionUploadImageResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ReconstructionUploadImageRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_NewReconstructionRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_NewReconstructionResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SparseReconstructRequest_default_instance_),
@@ -1145,6 +1197,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_SetReconstructionConfigFieldsResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetAgentConfigRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_GetAgentCOnfigResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ComputeMatchesRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_ComputeMatchesResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -1166,92 +1220,101 @@ const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "images\030\003 \003(\t\022\035\n\025sparse_reconstruction\030\004 "
   "\001(\t\022\013\n\003obj\030\005 \001(\t\022\023\n\013images_path\030\006 \001(\t\022\020\n"
   "\010sfm_path\030\007 \001(\t\022\020\n\010mvs_path\030\010 \001(\t\022\025\n\rfea"
-  "tures_path\030\t \001(\t\022\024\n\014matches_path\030\n \001(\t\"%"
-  "\n\022StoreImageResponse\022\017\n\007success\030\001 \001(\010\"I\n"
-  "\021StoreImageRequest\022\031\n\021reconstruction_id\030"
-  "\001 \001(\t\022\031\n\005image\030\002 \001(\0132\n.ImageData\"\032\n\030NewR"
-  "econstructionRequest\"6\n\031NewReconstructio"
-  "nResponse\022\031\n\021reconstruction_id\030\001 \001(\t\"5\n\030"
-  "SparseReconstructRequest\022\031\n\021reconstructi"
-  "on_id\030\001 \001(\t\"*\n\rGetOBJRequest\022\031\n\021reconstr"
-  "uction_id\030\001 \001(\t\"8\n\016GetOBJResponse\022\017\n\007suc"
-  "cess\030\001 \001(\010\022\025\n\003obj\030\002 \001(\0132\010.OBJData\"\?\n\031Spa"
-  "rseReconstructResponse\022\017\n\007success\030\001 \001(\010\022"
-  "\021\n\terror_msg\030\002 \001(\t\" \n\021ReconstructionOBJ\022"
-  "\013\n\003obj\030\001 \001(\014\")\n\033DeleteReconstructionRequ"
-  "est\022\n\n\002id\030\001 \001(\t\";\n\034DeleteReconstructionR"
-  "esponse\022\017\n\007success\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n"
-  "\020CameraIntrinsics\022\r\n\005model\030\001 \001(\t\022\r\n\005make"
-  "r\030\002 \001(\t\022\025\n\rnumeric_model\030\003 \001(\t\022\023\n\013sensor"
-  "_size\030\004 \001(\002\022\022\n\nfocus_mode\030\005 \001(\t\022\035\n\025horiz"
-  "ontal_view_angle\030\006 \001(\002\022\024\n\014jpeg_quality\030\007"
-  " \001(\005\"T\n\020HandhsakeRequest\022\022\n\nidentifier\030\001"
-  " \001(\t\022,\n\021camera_intrinsics\030\002 \001(\0132\021.Camera"
-  "Intrinsics\"$\n\021HandshakeResponse\022\017\n\007succe"
-  "ss\030\001 \001(\010\"0\n\023StartSessionRequest\022\031\n\021recon"
-  "struction_id\030\001 \001(\t\"E\n\024StartSessionRespon"
-  "se\022\031\n\021reconstruction_id\030\001 \001(\t\022\022\n\nsession"
-  "_id\030\002 \001(\t\"(\n\022StopSessionRequest\022\022\n\nsessi"
-  "on_id\030\001 \001(\t\")\n\023StopSessionResponse\022\022\n\nse"
-  "ssion_id\030\001 \001(\t\"V\n\026SessionAddImageRequest"
-  "\022\022\n\nsession_id\030\001 \001(\t\022(\n\014upload_image\030\002 \001"
-  "(\0132\022.StoreImageRequest\"\031\n\027SessionAddImag"
-  "eResponse\"-\n\020GetSparseRequest\022\031\n\021reconst"
-  "ruction_id\030\001 \001(\t\":\n\021GetSparseResponse\022%\n"
-  "\006sparse\030\001 \001(\0132\025.SparsePointCloudData\";\n\036"
-  "GetReconstructionConfigRequest\022\031\n\021recons"
-  "truction_id\030\001 \001(\t\"6\n\037GetReconstructionCo"
-  "nfigResponse\022\023\n\013config_json\030\001 \001(\t\"N\n%Rec"
-  "onstructionUploadImageBatchRequest\022\013\n\003id"
-  "x\030\001 \001(\005\022\030\n\004data\030\002 \001(\0132\n.ImageData\"A\n&Rec"
-  "onstructionUploadImageBatchResponse\022\027\n\017i"
-  "mages_uploaded\030\001 \001(\005\"\'\n\nMVSRequest\022\031\n\021re"
-  "construction_id\030\001 \001(\t\"\036\n\013MVSResponse\022\017\n\007"
-  "success\030\001 \001(\010\"a\n\033SetAgentConfigFieldsReq"
-  "uest\022\031\n\021reconstruction_id\030\001 \001(\t\022\022\n\nagent"
-  "_name\030\002 \001(\t\022\023\n\013config_json\030\003 \001(\t\"\036\n\034SetA"
-  "gentConfigFieldsResponse\"V\n$SetReconstru"
-  "ctionConfigFieldsRequest\022\031\n\021reconstructi"
-  "on_id\030\001 \001(\t\022\023\n\013config_json\030\002 \001(\t\"\'\n%SetR"
-  "econstructionConfigFieldsResponse\"F\n\025Get"
-  "AgentConfigRequest\022\031\n\021reconstruction_id\030"
-  "\001 \001(\t\022\022\n\nagent_name\030\002 \001(\t\"-\n\026GetAgentCOn"
-  "figResponse\022\023\n\013config_json\030\001 \001(\t2\224\t\n\025Rec"
-  "onstructionService\0224\n\tHandshake\022\021.Handhs"
-  "akeRequest\032\022.HandshakeResponse\"\000\0229\n\nStor"
-  "eImage\022\022.StoreImageRequest\032\023.StoreImageR"
-  "esponse\"\000(\001\022J\n\021SparseReconstruct\022\031.Spars"
-  "eReconstructRequest\032\032.SparseReconstructR"
-  "esponse\022+\n\006GetOBJ\022\016.GetOBJRequest\032\017.GetO"
-  "BJResponse0\001\0224\n\tGetSparse\022\021.GetSparseReq"
-  "uest\032\022.GetSparseResponse0\001\022J\n\021NewReconst"
-  "ruction\022\031.NewReconstructionRequest\032\032.New"
-  "ReconstructionResponse\022S\n\024DeleteReconstr"
-  "uction\022\034.DeleteReconstructionRequest\032\035.D"
-  "eleteReconstructionResponse\022;\n\014StartSess"
-  "ion\022\024.StartSessionRequest\032\025.StartSession"
-  "Response\0228\n\013StopSession\022\023.StopSessionReq"
-  "uest\032\024.StopSessionResponse\022F\n\017SessionAdd"
-  "Image\022\027.SessionAddImageRequest\032\030.Session"
-  "AddImageResponse(\001\022\\\n\027GetReconstructionC"
-  "onfig\022\037.GetReconstructionConfigRequest\032 "
-  ".GetReconstructionConfigResponse\022A\n\016GetA"
-  "gentConfig\022\026.GetAgentConfigRequest\032\027.Get"
-  "AgentCOnfigResponse\022s\n\036ReconstructionUpl"
-  "oadImageBatch\022&.ReconstructionUploadImag"
-  "eBatchRequest\032\'.ReconstructionUploadImag"
-  "eBatchResponse(\001\022 \n\003MVS\022\013.MVSRequest\032\014.M"
-  "VSResponse\022S\n\024SetAgentConfigFields\022\034.Set"
-  "AgentConfigFieldsRequest\032\035.SetAgentConfi"
-  "gFieldsResponse\022n\n\035SetReconstructionConf"
-  "igFields\022%.SetReconstructionConfigFields"
-  "Request\032&.SetReconstructionConfigFieldsR"
-  "esponseb\006proto3"
+  "tures_path\030\t \001(\t\022\024\n\014matches_path\030\n \001(\t\"F"
+  "\n!ReconstructionUploadImageResponse\022\017\n\007s"
+  "uccess\030\001 \001(\010\022\020\n\010image_id\030\002 \001(\t\"q\n Recons"
+  "tructionUploadImageRequest\022\031\n\021reconstruc"
+  "tion_id\030\001 \001(\t\022\027\n\017compute_matches\030\002 \001(\010\022\031"
+  "\n\005image\030\003 \001(\0132\n.ImageData\"\032\n\030NewReconstr"
+  "uctionRequest\"6\n\031NewReconstructionRespon"
+  "se\022\031\n\021reconstruction_id\030\001 \001(\t\"5\n\030SparseR"
+  "econstructRequest\022\031\n\021reconstruction_id\030\001"
+  " \001(\t\"*\n\rGetOBJRequest\022\031\n\021reconstruction_"
+  "id\030\001 \001(\t\"8\n\016GetOBJResponse\022\017\n\007success\030\001 "
+  "\001(\010\022\025\n\003obj\030\002 \001(\0132\010.OBJData\"\?\n\031SparseReco"
+  "nstructResponse\022\017\n\007success\030\001 \001(\010\022\021\n\terro"
+  "r_msg\030\002 \001(\t\" \n\021ReconstructionOBJ\022\013\n\003obj\030"
+  "\001 \001(\014\")\n\033DeleteReconstructionRequest\022\n\n\002"
+  "id\030\001 \001(\t\";\n\034DeleteReconstructionResponse"
+  "\022\017\n\007success\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n\020Camera"
+  "Intrinsics\022\r\n\005model\030\001 \001(\t\022\r\n\005maker\030\002 \001(\t"
+  "\022\025\n\rnumeric_model\030\003 \001(\t\022\023\n\013sensor_size\030\004"
+  " \001(\002\022\022\n\nfocus_mode\030\005 \001(\t\022\035\n\025horizontal_v"
+  "iew_angle\030\006 \001(\002\022\024\n\014jpeg_quality\030\007 \001(\005\"T\n"
+  "\020HandhsakeRequest\022\022\n\nidentifier\030\001 \001(\t\022,\n"
+  "\021camera_intrinsics\030\002 \001(\0132\021.CameraIntrins"
+  "ics\"$\n\021HandshakeResponse\022\017\n\007success\030\001 \001("
+  "\010\"0\n\023StartSessionRequest\022\031\n\021reconstructi"
+  "on_id\030\001 \001(\t\"E\n\024StartSessionResponse\022\031\n\021r"
+  "econstruction_id\030\001 \001(\t\022\022\n\nsession_id\030\002 \001"
+  "(\t\"(\n\022StopSessionRequest\022\022\n\nsession_id\030\001"
+  " \001(\t\")\n\023StopSessionResponse\022\022\n\nsession_i"
+  "d\030\001 \001(\t\"e\n\026SessionAddImageRequest\022\022\n\nses"
+  "sion_id\030\001 \001(\t\0227\n\014upload_image\030\002 \001(\0132!.Re"
+  "constructionUploadImageRequest\"\031\n\027Sessio"
+  "nAddImageResponse\"-\n\020GetSparseRequest\022\031\n"
+  "\021reconstruction_id\030\001 \001(\t\":\n\021GetSparseRes"
+  "ponse\022%\n\006sparse\030\001 \001(\0132\025.SparsePointCloud"
+  "Data\";\n\036GetReconstructionConfigRequest\022\031"
+  "\n\021reconstruction_id\030\001 \001(\t\"6\n\037GetReconstr"
+  "uctionConfigResponse\022\023\n\013config_json\030\001 \001("
+  "\t\"N\n%ReconstructionUploadImageBatchReque"
+  "st\022\013\n\003idx\030\001 \001(\005\022\030\n\004data\030\002 \001(\0132\n.ImageDat"
+  "a\"A\n&ReconstructionUploadImageBatchRespo"
+  "nse\022\027\n\017images_uploaded\030\001 \001(\005\"\'\n\nMVSReque"
+  "st\022\031\n\021reconstruction_id\030\001 \001(\t\"\036\n\013MVSResp"
+  "onse\022\017\n\007success\030\001 \001(\010\"a\n\033SetAgentConfigF"
+  "ieldsRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022"
+  "\022\n\nagent_name\030\002 \001(\t\022\023\n\013config_json\030\003 \001(\t"
+  "\"\036\n\034SetAgentConfigFieldsResponse\"V\n$SetR"
+  "econstructionConfigFieldsRequest\022\031\n\021reco"
+  "nstruction_id\030\001 \001(\t\022\023\n\013config_json\030\002 \001(\t"
+  "\"\'\n%SetReconstructionConfigFieldsRespons"
+  "e\"F\n\025GetAgentConfigRequest\022\031\n\021reconstruc"
+  "tion_id\030\001 \001(\t\022\022\n\nagent_name\030\002 \001(\t\"-\n\026Get"
+  "AgentCOnfigResponse\022\023\n\013config_json\030\001 \001(\t"
+  "\"D\n\025ComputeMatchesRequest\022\031\n\021reconstruct"
+  "ion_id\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t\"\030\n\026Comput"
+  "eMatchesResponse2\204\n\n\025ReconstructionServi"
+  "ce\0224\n\tHandshake\022\021.HandhsakeRequest\032\022.Han"
+  "dshakeResponse\"\000\022f\n\031ReconstructionUpload"
+  "Image\022!.ReconstructionUploadImageRequest"
+  "\032\".ReconstructionUploadImageResponse\"\000(\001"
+  "\022A\n\016ComputeMatches\022\026.ComputeMatchesReque"
+  "st\032\027.ComputeMatchesResponse\022J\n\021SparseRec"
+  "onstruct\022\031.SparseReconstructRequest\032\032.Sp"
+  "arseReconstructResponse\022+\n\006GetOBJ\022\016.GetO"
+  "BJRequest\032\017.GetOBJResponse0\001\0224\n\tGetSpars"
+  "e\022\021.GetSparseRequest\032\022.GetSparseResponse"
+  "0\001\022J\n\021NewReconstruction\022\031.NewReconstruct"
+  "ionRequest\032\032.NewReconstructionResponse\022S"
+  "\n\024DeleteReconstruction\022\034.DeleteReconstru"
+  "ctionRequest\032\035.DeleteReconstructionRespo"
+  "nse\022;\n\014StartSession\022\024.StartSessionReques"
+  "t\032\025.StartSessionResponse\0228\n\013StopSession\022"
+  "\023.StopSessionRequest\032\024.StopSessionRespon"
+  "se\022F\n\017SessionAddImage\022\027.SessionAddImageR"
+  "equest\032\030.SessionAddImageResponse(\001\022\\\n\027Ge"
+  "tReconstructionConfig\022\037.GetReconstructio"
+  "nConfigRequest\032 .GetReconstructionConfig"
+  "Response\022A\n\016GetAgentConfig\022\026.GetAgentCon"
+  "figRequest\032\027.GetAgentCOnfigResponse\022s\n\036R"
+  "econstructionUploadImageBatch\022&.Reconstr"
+  "uctionUploadImageBatchRequest\032\'.Reconstr"
+  "uctionUploadImageBatchResponse(\001\022 \n\003MVS\022"
+  "\013.MVSRequest\032\014.MVSResponse\022S\n\024SetAgentCo"
+  "nfigFields\022\034.SetAgentConfigFieldsRequest"
+  "\032\035.SetAgentConfigFieldsResponse\022n\n\035SetRe"
+  "constructionConfigFields\022%.SetReconstruc"
+  "tionConfigFieldsRequest\032&.SetReconstruct"
+  "ionConfigFieldsResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_server_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_server_2eproto_sccs[41] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_server_2eproto_sccs[43] = {
   &scc_info_CameraIntrinsics_server_2eproto.base,
+  &scc_info_ComputeMatchesRequest_server_2eproto.base,
+  &scc_info_ComputeMatchesResponse_server_2eproto.base,
   &scc_info_DeleteReconstructionRequest_server_2eproto.base,
   &scc_info_DeleteReconstructionResponse_server_2eproto.base,
   &scc_info_GetAgentCOnfigResponse_server_2eproto.base,
@@ -1276,6 +1339,8 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
   &scc_info_ReconstructionOBJ_server_2eproto.base,
   &scc_info_ReconstructionUploadImageBatchRequest_server_2eproto.base,
   &scc_info_ReconstructionUploadImageBatchResponse_server_2eproto.base,
+  &scc_info_ReconstructionUploadImageRequest_server_2eproto.base,
+  &scc_info_ReconstructionUploadImageResponse_server_2eproto.base,
   &scc_info_SessionAddImageRequest_server_2eproto.base,
   &scc_info_SessionAddImageResponse_server_2eproto.base,
   &scc_info_SetAgentConfigFieldsRequest_server_2eproto.base,
@@ -1290,16 +1355,14 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
   &scc_info_StartSessionResponse_server_2eproto.base,
   &scc_info_StopSessionRequest_server_2eproto.base,
   &scc_info_StopSessionResponse_server_2eproto.base,
-  &scc_info_StoreImageRequest_server_2eproto.base,
-  &scc_info_StoreImageResponse_server_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_server_2eproto_once;
 static bool descriptor_table_server_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_server_2eproto = {
-  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 3935,
-  &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 41, 0,
+  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 4231,
+  &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 43, 0,
   schemas, file_default_instances, TableStruct_server_2eproto::offsets,
-  file_level_metadata_server_2eproto, 41, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
+  file_level_metadata_server_2eproto, 43, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -3623,57 +3686,65 @@ void ReconstructionData::InternalSwap(ReconstructionData* other) {
 
 // ===================================================================
 
-void StoreImageResponse::InitAsDefaultInstance() {
+void ReconstructionUploadImageResponse::InitAsDefaultInstance() {
 }
-class StoreImageResponse::_Internal {
+class ReconstructionUploadImageResponse::_Internal {
  public:
 };
 
-StoreImageResponse::StoreImageResponse()
+ReconstructionUploadImageResponse::ReconstructionUploadImageResponse()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:StoreImageResponse)
+  // @@protoc_insertion_point(constructor:ReconstructionUploadImageResponse)
 }
-StoreImageResponse::StoreImageResponse(const StoreImageResponse& from)
+ReconstructionUploadImageResponse::ReconstructionUploadImageResponse(const ReconstructionUploadImageResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_image_id().empty()) {
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
   success_ = from.success_;
-  // @@protoc_insertion_point(copy_constructor:StoreImageResponse)
+  // @@protoc_insertion_point(copy_constructor:ReconstructionUploadImageResponse)
 }
 
-void StoreImageResponse::SharedCtor() {
+void ReconstructionUploadImageResponse::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReconstructionUploadImageResponse_server_2eproto.base);
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   success_ = false;
 }
 
-StoreImageResponse::~StoreImageResponse() {
-  // @@protoc_insertion_point(destructor:StoreImageResponse)
+ReconstructionUploadImageResponse::~ReconstructionUploadImageResponse() {
+  // @@protoc_insertion_point(destructor:ReconstructionUploadImageResponse)
   SharedDtor();
 }
 
-void StoreImageResponse::SharedDtor() {
+void ReconstructionUploadImageResponse::SharedDtor() {
+  image_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void StoreImageResponse::SetCachedSize(int size) const {
+void ReconstructionUploadImageResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const StoreImageResponse& StoreImageResponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_StoreImageResponse_server_2eproto.base);
+const ReconstructionUploadImageResponse& ReconstructionUploadImageResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReconstructionUploadImageResponse_server_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void StoreImageResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:StoreImageResponse)
+void ReconstructionUploadImageResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:ReconstructionUploadImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   success_ = false;
   _internal_metadata_.Clear();
 }
 
-const char* StoreImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReconstructionUploadImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -3684,6 +3755,15 @@ const char* StoreImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string image_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_image_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionUploadImageResponse.image_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -3707,9 +3787,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* StoreImageResponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ReconstructionUploadImageResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:StoreImageResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:ReconstructionUploadImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3719,21 +3799,38 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
   }
 
+  // string image_id = 2;
+  if (this->image_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_image_id().data(), static_cast<int>(this->_internal_image_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ReconstructionUploadImageResponse.image_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_image_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:StoreImageResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:ReconstructionUploadImageResponse)
   return target;
 }
 
-size_t StoreImageResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:StoreImageResponse)
+size_t ReconstructionUploadImageResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ReconstructionUploadImageResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // string image_id = 2;
+  if (this->image_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_image_id());
+  }
 
   // bool success = 1;
   if (this->success() != 0) {
@@ -3749,83 +3846,89 @@ size_t StoreImageResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void StoreImageResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:StoreImageResponse)
+void ReconstructionUploadImageResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ReconstructionUploadImageResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const StoreImageResponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StoreImageResponse>(
+  const ReconstructionUploadImageResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReconstructionUploadImageResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:StoreImageResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ReconstructionUploadImageResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:StoreImageResponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ReconstructionUploadImageResponse)
     MergeFrom(*source);
   }
 }
 
-void StoreImageResponse::MergeFrom(const StoreImageResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:StoreImageResponse)
+void ReconstructionUploadImageResponse::MergeFrom(const ReconstructionUploadImageResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ReconstructionUploadImageResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.image_id().size() > 0) {
+
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
   if (from.success() != 0) {
     _internal_set_success(from._internal_success());
   }
 }
 
-void StoreImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:StoreImageResponse)
+void ReconstructionUploadImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ReconstructionUploadImageResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void StoreImageResponse::CopyFrom(const StoreImageResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:StoreImageResponse)
+void ReconstructionUploadImageResponse::CopyFrom(const ReconstructionUploadImageResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ReconstructionUploadImageResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool StoreImageResponse::IsInitialized() const {
+bool ReconstructionUploadImageResponse::IsInitialized() const {
   return true;
 }
 
-void StoreImageResponse::InternalSwap(StoreImageResponse* other) {
+void ReconstructionUploadImageResponse::InternalSwap(ReconstructionUploadImageResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  image_id_.Swap(&other->image_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(success_, other->success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata StoreImageResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ReconstructionUploadImageResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
 
 // ===================================================================
 
-void StoreImageRequest::InitAsDefaultInstance() {
-  ::_StoreImageRequest_default_instance_._instance.get_mutable()->image_ = const_cast< ::ImageData*>(
+void ReconstructionUploadImageRequest::InitAsDefaultInstance() {
+  ::_ReconstructionUploadImageRequest_default_instance_._instance.get_mutable()->image_ = const_cast< ::ImageData*>(
       ::ImageData::internal_default_instance());
 }
-class StoreImageRequest::_Internal {
+class ReconstructionUploadImageRequest::_Internal {
  public:
-  static const ::ImageData& image(const StoreImageRequest* msg);
+  static const ::ImageData& image(const ReconstructionUploadImageRequest* msg);
 };
 
 const ::ImageData&
-StoreImageRequest::_Internal::image(const StoreImageRequest* msg) {
+ReconstructionUploadImageRequest::_Internal::image(const ReconstructionUploadImageRequest* msg) {
   return *msg->image_;
 }
-StoreImageRequest::StoreImageRequest()
+ReconstructionUploadImageRequest::ReconstructionUploadImageRequest()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:StoreImageRequest)
+  // @@protoc_insertion_point(constructor:ReconstructionUploadImageRequest)
 }
-StoreImageRequest::StoreImageRequest(const StoreImageRequest& from)
+ReconstructionUploadImageRequest::ReconstructionUploadImageRequest(const ReconstructionUploadImageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
@@ -3838,36 +3941,39 @@ StoreImageRequest::StoreImageRequest(const StoreImageRequest& from)
   } else {
     image_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:StoreImageRequest)
+  compute_matches_ = from.compute_matches_;
+  // @@protoc_insertion_point(copy_constructor:ReconstructionUploadImageRequest)
 }
 
-void StoreImageRequest::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_StoreImageRequest_server_2eproto.base);
+void ReconstructionUploadImageRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ReconstructionUploadImageRequest_server_2eproto.base);
   reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  image_ = nullptr;
+  ::memset(&image_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&compute_matches_) -
+      reinterpret_cast<char*>(&image_)) + sizeof(compute_matches_));
 }
 
-StoreImageRequest::~StoreImageRequest() {
-  // @@protoc_insertion_point(destructor:StoreImageRequest)
+ReconstructionUploadImageRequest::~ReconstructionUploadImageRequest() {
+  // @@protoc_insertion_point(destructor:ReconstructionUploadImageRequest)
   SharedDtor();
 }
 
-void StoreImageRequest::SharedDtor() {
+void ReconstructionUploadImageRequest::SharedDtor() {
   reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete image_;
 }
 
-void StoreImageRequest::SetCachedSize(int size) const {
+void ReconstructionUploadImageRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const StoreImageRequest& StoreImageRequest::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_StoreImageRequest_server_2eproto.base);
+const ReconstructionUploadImageRequest& ReconstructionUploadImageRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ReconstructionUploadImageRequest_server_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void StoreImageRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:StoreImageRequest)
+void ReconstructionUploadImageRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:ReconstructionUploadImageRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3877,10 +3983,11 @@ void StoreImageRequest::Clear() {
     delete image_;
   }
   image_ = nullptr;
+  compute_matches_ = false;
   _internal_metadata_.Clear();
 }
 
-const char* StoreImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReconstructionUploadImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
@@ -3892,13 +3999,20 @@ const char* StoreImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           auto str = _internal_mutable_reconstruction_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "StoreImageRequest.reconstruction_id"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ReconstructionUploadImageRequest.reconstruction_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .ImageData image = 2;
+      // bool compute_matches = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          compute_matches_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .ImageData image = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_image(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -3923,9 +4037,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* StoreImageRequest::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* ReconstructionUploadImageRequest::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:StoreImageRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:ReconstructionUploadImageRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3934,29 +4048,35 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "StoreImageRequest.reconstruction_id");
+      "ReconstructionUploadImageRequest.reconstruction_id");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_reconstruction_id(), target);
   }
 
-  // .ImageData image = 2;
+  // bool compute_matches = 2;
+  if (this->compute_matches() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_compute_matches(), target);
+  }
+
+  // .ImageData image = 3;
   if (this->has_image()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::image(this), target, stream);
+        3, _Internal::image(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:StoreImageRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:ReconstructionUploadImageRequest)
   return target;
 }
 
-size_t StoreImageRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:StoreImageRequest)
+size_t ReconstructionUploadImageRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ReconstructionUploadImageRequest)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -3970,11 +4090,16 @@ size_t StoreImageRequest::ByteSizeLong() const {
         this->_internal_reconstruction_id());
   }
 
-  // .ImageData image = 2;
+  // .ImageData image = 3;
   if (this->has_image()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *image_);
+  }
+
+  // bool compute_matches = 2;
+  if (this->compute_matches() != 0) {
+    total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3986,23 +4111,23 @@ size_t StoreImageRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void StoreImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:StoreImageRequest)
+void ReconstructionUploadImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ReconstructionUploadImageRequest)
   GOOGLE_DCHECK_NE(&from, this);
-  const StoreImageRequest* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<StoreImageRequest>(
+  const ReconstructionUploadImageRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ReconstructionUploadImageRequest>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:StoreImageRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ReconstructionUploadImageRequest)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:StoreImageRequest)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ReconstructionUploadImageRequest)
     MergeFrom(*source);
   }
 }
 
-void StoreImageRequest::MergeFrom(const StoreImageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:StoreImageRequest)
+void ReconstructionUploadImageRequest::MergeFrom(const ReconstructionUploadImageRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ReconstructionUploadImageRequest)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -4015,35 +4140,39 @@ void StoreImageRequest::MergeFrom(const StoreImageRequest& from) {
   if (from.has_image()) {
     _internal_mutable_image()->::ImageData::MergeFrom(from._internal_image());
   }
+  if (from.compute_matches() != 0) {
+    _internal_set_compute_matches(from._internal_compute_matches());
+  }
 }
 
-void StoreImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:StoreImageRequest)
+void ReconstructionUploadImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ReconstructionUploadImageRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void StoreImageRequest::CopyFrom(const StoreImageRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:StoreImageRequest)
+void ReconstructionUploadImageRequest::CopyFrom(const ReconstructionUploadImageRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ReconstructionUploadImageRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool StoreImageRequest::IsInitialized() const {
+bool ReconstructionUploadImageRequest::IsInitialized() const {
   return true;
 }
 
-void StoreImageRequest::InternalSwap(StoreImageRequest* other) {
+void ReconstructionUploadImageRequest::InternalSwap(ReconstructionUploadImageRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
   reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(image_, other->image_);
+  swap(compute_matches_, other->compute_matches_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata StoreImageRequest::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata ReconstructionUploadImageRequest::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -7528,15 +7657,15 @@ void StopSessionResponse::InternalSwap(StopSessionResponse* other) {
 // ===================================================================
 
 void SessionAddImageRequest::InitAsDefaultInstance() {
-  ::_SessionAddImageRequest_default_instance_._instance.get_mutable()->upload_image_ = const_cast< ::StoreImageRequest*>(
-      ::StoreImageRequest::internal_default_instance());
+  ::_SessionAddImageRequest_default_instance_._instance.get_mutable()->upload_image_ = const_cast< ::ReconstructionUploadImageRequest*>(
+      ::ReconstructionUploadImageRequest::internal_default_instance());
 }
 class SessionAddImageRequest::_Internal {
  public:
-  static const ::StoreImageRequest& upload_image(const SessionAddImageRequest* msg);
+  static const ::ReconstructionUploadImageRequest& upload_image(const SessionAddImageRequest* msg);
 };
 
-const ::StoreImageRequest&
+const ::ReconstructionUploadImageRequest&
 SessionAddImageRequest::_Internal::upload_image(const SessionAddImageRequest* msg) {
   return *msg->upload_image_;
 }
@@ -7554,7 +7683,7 @@ SessionAddImageRequest::SessionAddImageRequest(const SessionAddImageRequest& fro
     session_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.session_id_);
   }
   if (from._internal_has_upload_image()) {
-    upload_image_ = new ::StoreImageRequest(*from.upload_image_);
+    upload_image_ = new ::ReconstructionUploadImageRequest(*from.upload_image_);
   } else {
     upload_image_ = nullptr;
   }
@@ -7616,7 +7745,7 @@ const char* SessionAddImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .StoreImageRequest upload_image = 2;
+      // .ReconstructionUploadImageRequest upload_image = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_upload_image(), ptr);
@@ -7659,7 +7788,7 @@ failure:
         1, this->_internal_session_id(), target);
   }
 
-  // .StoreImageRequest upload_image = 2;
+  // .ReconstructionUploadImageRequest upload_image = 2;
   if (this->has_upload_image()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -7690,7 +7819,7 @@ size_t SessionAddImageRequest::ByteSizeLong() const {
         this->_internal_session_id());
   }
 
-  // .StoreImageRequest upload_image = 2;
+  // .ReconstructionUploadImageRequest upload_image = 2;
   if (this->has_upload_image()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -7733,7 +7862,7 @@ void SessionAddImageRequest::MergeFrom(const SessionAddImageRequest& from) {
     session_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.session_id_);
   }
   if (from.has_upload_image()) {
-    _internal_mutable_upload_image()->::StoreImageRequest::MergeFrom(from._internal_upload_image());
+    _internal_mutable_upload_image()->::ReconstructionUploadImageRequest::MergeFrom(from._internal_upload_image());
   }
 }
 
@@ -10784,6 +10913,398 @@ void GetAgentCOnfigResponse::InternalSwap(GetAgentCOnfigResponse* other) {
 }
 
 
+// ===================================================================
+
+void ComputeMatchesRequest::InitAsDefaultInstance() {
+}
+class ComputeMatchesRequest::_Internal {
+ public:
+};
+
+ComputeMatchesRequest::ComputeMatchesRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ComputeMatchesRequest)
+}
+ComputeMatchesRequest::ComputeMatchesRequest(const ComputeMatchesRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_image_id().empty()) {
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
+  // @@protoc_insertion_point(copy_constructor:ComputeMatchesRequest)
+}
+
+void ComputeMatchesRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ComputeMatchesRequest_server_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+ComputeMatchesRequest::~ComputeMatchesRequest() {
+  // @@protoc_insertion_point(destructor:ComputeMatchesRequest)
+  SharedDtor();
+}
+
+void ComputeMatchesRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  image_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ComputeMatchesRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ComputeMatchesRequest& ComputeMatchesRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ComputeMatchesRequest_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ComputeMatchesRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:ComputeMatchesRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* ComputeMatchesRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ComputeMatchesRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string image_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_image_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ComputeMatchesRequest.image_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ComputeMatchesRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ComputeMatchesRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ComputeMatchesRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  // string image_id = 2;
+  if (this->image_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_image_id().data(), static_cast<int>(this->_internal_image_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ComputeMatchesRequest.image_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_image_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ComputeMatchesRequest)
+  return target;
+}
+
+size_t ComputeMatchesRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ComputeMatchesRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  // string image_id = 2;
+  if (this->image_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_image_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ComputeMatchesRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ComputeMatchesRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ComputeMatchesRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ComputeMatchesRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ComputeMatchesRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ComputeMatchesRequest)
+    MergeFrom(*source);
+  }
+}
+
+void ComputeMatchesRequest::MergeFrom(const ComputeMatchesRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ComputeMatchesRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  if (from.image_id().size() > 0) {
+
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
+}
+
+void ComputeMatchesRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ComputeMatchesRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ComputeMatchesRequest::CopyFrom(const ComputeMatchesRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ComputeMatchesRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ComputeMatchesRequest::IsInitialized() const {
+  return true;
+}
+
+void ComputeMatchesRequest::InternalSwap(ComputeMatchesRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  image_id_.Swap(&other->image_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ComputeMatchesRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void ComputeMatchesResponse::InitAsDefaultInstance() {
+}
+class ComputeMatchesResponse::_Internal {
+ public:
+};
+
+ComputeMatchesResponse::ComputeMatchesResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ComputeMatchesResponse)
+}
+ComputeMatchesResponse::ComputeMatchesResponse(const ComputeMatchesResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:ComputeMatchesResponse)
+}
+
+void ComputeMatchesResponse::SharedCtor() {
+}
+
+ComputeMatchesResponse::~ComputeMatchesResponse() {
+  // @@protoc_insertion_point(destructor:ComputeMatchesResponse)
+  SharedDtor();
+}
+
+void ComputeMatchesResponse::SharedDtor() {
+}
+
+void ComputeMatchesResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const ComputeMatchesResponse& ComputeMatchesResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_ComputeMatchesResponse_server_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void ComputeMatchesResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:ComputeMatchesResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear();
+}
+
+const char* ComputeMatchesResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* ComputeMatchesResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ComputeMatchesResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ComputeMatchesResponse)
+  return target;
+}
+
+size_t ComputeMatchesResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:ComputeMatchesResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ComputeMatchesResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:ComputeMatchesResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const ComputeMatchesResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<ComputeMatchesResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:ComputeMatchesResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:ComputeMatchesResponse)
+    MergeFrom(*source);
+  }
+}
+
+void ComputeMatchesResponse::MergeFrom(const ComputeMatchesResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:ComputeMatchesResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+}
+
+void ComputeMatchesResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:ComputeMatchesResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ComputeMatchesResponse::CopyFrom(const ComputeMatchesResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:ComputeMatchesResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ComputeMatchesResponse::IsInitialized() const {
+  return true;
+}
+
+void ComputeMatchesResponse::InternalSwap(ComputeMatchesResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata ComputeMatchesResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::ImageMetaData* Arena::CreateMaybeMessage< ::ImageMetaData >(Arena* arena) {
@@ -10807,11 +11328,11 @@ template<> PROTOBUF_NOINLINE ::OBJData* Arena::CreateMaybeMessage< ::OBJData >(A
 template<> PROTOBUF_NOINLINE ::ReconstructionData* Arena::CreateMaybeMessage< ::ReconstructionData >(Arena* arena) {
   return Arena::CreateInternal< ::ReconstructionData >(arena);
 }
-template<> PROTOBUF_NOINLINE ::StoreImageResponse* Arena::CreateMaybeMessage< ::StoreImageResponse >(Arena* arena) {
-  return Arena::CreateInternal< ::StoreImageResponse >(arena);
+template<> PROTOBUF_NOINLINE ::ReconstructionUploadImageResponse* Arena::CreateMaybeMessage< ::ReconstructionUploadImageResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::ReconstructionUploadImageResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::StoreImageRequest* Arena::CreateMaybeMessage< ::StoreImageRequest >(Arena* arena) {
-  return Arena::CreateInternal< ::StoreImageRequest >(arena);
+template<> PROTOBUF_NOINLINE ::ReconstructionUploadImageRequest* Arena::CreateMaybeMessage< ::ReconstructionUploadImageRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::ReconstructionUploadImageRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::NewReconstructionRequest* Arena::CreateMaybeMessage< ::NewReconstructionRequest >(Arena* arena) {
   return Arena::CreateInternal< ::NewReconstructionRequest >(arena);
@@ -10908,6 +11429,12 @@ template<> PROTOBUF_NOINLINE ::GetAgentConfigRequest* Arena::CreateMaybeMessage<
 }
 template<> PROTOBUF_NOINLINE ::GetAgentCOnfigResponse* Arena::CreateMaybeMessage< ::GetAgentCOnfigResponse >(Arena* arena) {
   return Arena::CreateInternal< ::GetAgentCOnfigResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ComputeMatchesRequest* Arena::CreateMaybeMessage< ::ComputeMatchesRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::ComputeMatchesRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::ComputeMatchesResponse* Arena::CreateMaybeMessage< ::ComputeMatchesResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::ComputeMatchesResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

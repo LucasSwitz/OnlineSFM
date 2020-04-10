@@ -12,3 +12,14 @@ std::string split_SIFT_Vector(const SIFT_Vector& descs){
     });
     return boost::algorithm::join(desc_strs, ",");
 }
+
+SIFT_Descriptor_count_map SIFT_Vector_to_Sparse_Vector(const SIFT_Vector& v){
+    SIFT_Descriptor_count_map cm;
+    for(auto d : v){
+        if(cm.find(d) == cm.end()){
+            cm[d] = 0;
+        }
+        cm[d]++;
+    }
+    return cm;
+}

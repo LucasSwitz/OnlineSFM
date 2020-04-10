@@ -24,4 +24,5 @@ class CameraIntrinsicsStorage {
             }
             return "";
         }
+    virtual ~CameraIntrinsicsStorage(){};
 };      

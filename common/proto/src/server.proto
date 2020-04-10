@@ -52,13 +52,15 @@ message ReconstructionData {
     string matches_path = 10;
 }
 
-message StoreImageResponse{
+message ReconstructionUploadImageResponse{
     bool success = 1;
+    string image_id = 2;
 }
 
-message StoreImageRequest{
+message ReconstructionUploadImageRequest{
     string reconstruction_id = 1;
-    ImageData image = 2;
+    bool compute_matches = 2;
+    ImageData image = 3;
 }   
 
 message NewReconstructionRequest {
@@ -138,7 +140,7 @@ message StopSessionResponse {
 
 message SessionAddImageRequest {
     string session_id = 1;
-    StoreImageRequest upload_image = 2;
+    ReconstructionUploadImageRequest upload_image = 2;
 };
 
 message SessionAddImageResponse {
@@ -208,9 +210,19 @@ message GetAgentCOnfigResponse {
 };  
 
 
+message ComputeMatchesRequest {
+    string reconstruction_id = 1;
+    string image_id = 2;
+};
+
+message ComputeMatchesResponse {
+
+};
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
-    rpc StoreImage(stream StoreImageRequest) returns (StoreImageResponse){};
+    rpc ReconstructionUploadImage(stream ReconstructionUploadImageRequest) returns (ReconstructionUploadImageResponse){};
+    rpc ComputeMatches(ComputeMatchesRequest) returns (ComputeMatchesResponse);
     rpc SparseReconstruct(SparseReconstructRequest) returns (SparseReconstructResponse);
     rpc GetOBJ(GetOBJRequest) returns (stream GetOBJResponse);
     rpc GetSparse(GetSparseRequest) returns (stream GetSparseResponse);

@@ -90,6 +90,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "config.h"
 
@@ -438,10 +439,16 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
   // For each View of the SfM_Data container:
   // - if regions file exists continue,
   // - if no file, compute features
+  std::mutex storage_lock;
   {
     Image<unsigned char> imageGray;
     // Use a boolean to track if we must stop feature extraction
     std::atomic<bool> preemptive_exit(false);
+
+    std::unordered_map<std::string, std::string> id_path_map;
+    for(std::string id : image_ids){
+      id_path_map[id] = this->_image_storage->GetMeta(id).path();
+    }
 #define OPENMVG_USE_OPENMP
 #ifdef OPENMVG_USE_OPENMP
     const unsigned int nb_max_thread = omp_get_max_threads();
@@ -455,11 +462,11 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
     #pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
 #endif
-    for(int i = 0; i < image_ids.size(); ++i){
-      std::set<std::string>::const_iterator iter_ids = image_ids.begin();
-      std::advance(iter_ids, i);
-      std::string image_id = *iter_ids;
-      std::string image_path = this->_image_storage->GetMeta(image_id).path();
+    for(int i = 0; i < id_path_map.size(); ++i){
+      auto iter = id_path_map.begin();
+      std::advance(iter, i);
+      std::string image_id = std::get<0>(*iter);
+      std::string image_path = std::get<1>(*iter);
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
       const std::string
       sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
@@ -524,8 +531,10 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
               descs[i] = descriptor;
           }
           LOG(INFO) << "Storing " << descs.size() << " computed features for " << image_id;
-          this->_descriptor_storage->StoreAll(image_id, descs);
-
+          SIFT_Descriptor_count_map descs_sparse = SIFT_Vector_to_Sparse_Vector(descs);
+          storage_lock.lock();
+          this->_descriptor_storage->Store(this->_reconstruction_id, image_id, descs_sparse);
+          storage_lock.unlock();
           if (regions && !image_describer->Save(regions.get(), sFeat, sDesc)) {
               std::cerr << "Cannot save regions for images: " << image_path << std::endl
                       << "Stopping feature extraction." << std::endl;
@@ -540,7 +549,6 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_ids){
   // Update our SFM data to get all the images to match with
 
-  LOG(INFO) << "Generating matches for " << new_image_ids.size() << " new images";
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
@@ -548,7 +556,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   );
   std::string sGeometricModel = config->get_string("geometric_model");
   float fDistRatio = config->get_double("dist_ratio");
-  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method");
+  std::string sNearestMatchingMethod = "BRUTEFORCEL2"; //config->get_string("nearest_matching_method");
   bool bGuided_matching = config->get_bool("guided_matching");
   int imax_iteration = config->get_int("max_iterations");
   int ui_max_cache_size = config->get_int("ui_max_cache_size");
@@ -765,8 +773,9 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
       }
       break;
     }
-    this->_openmvg_storage->StoreMatches(this->_reconstruction_id, sGeometricModel[0], geometric_matches);
   }
+  LOG(INFO) << "Storing " << geometric_matches.size() << "new match for reconstruction " << this->_reconstruction_id;
+  this->_openmvg_storage->StoreMatches(this->_reconstruction_id, sGeometricModel[0], geometric_matches);
   return true;
 }
 
@@ -865,7 +874,7 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   );
   double dMax_reprojection_error = config->get_double("max_reprojection_error");
   unsigned int ui_max_cache_size = config->get_int("ui_max_cache_size");
-  int triangulation_method = config->get_int("trangulation_method");
+  int triangulation_method = config->get_int("triangulation_method");
   
   const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
@@ -943,13 +952,14 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
 openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_ids){    
     std::set<IndexT> new_ids;
     openMVG::Pair_Set matches_to_compute;
-    grpc::ClientContext context;
     auto search_client =  GetIndexingClient(CONFIG_GET_STRING("index.address"));
     if(this->_sfm_data->GetViews().size() < 2){
       return openMVG::Pair_Set();
     }
 
     for(const std::string& image_id : new_image_ids){
+      LOG(INFO) << "Gathering matches for " << image_id;
+      grpc::ClientContext context;
       ClosestNRequest req;
       ClosestNResponse resp;
       req.set_image_id(image_id);
@@ -971,4 +981,8 @@ void OpenMVGReconstructionAgent::Load(const std::string& sfm_data_path){
     if (!openMVG::sfm::Load(*this->_sfm_data, sfm_data_path, openMVG::sfm::ESfM_Data(openMVG::sfm::ESfM_Data::ALL))){
         LOG(ERROR) << "Could not read smf file";
     }
+}
+
+OpenMVGReconstructionAgent::~OpenMVGReconstructionAgent(){
+  delete this->_openmvg_storage;
 }

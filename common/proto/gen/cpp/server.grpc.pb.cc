@@ -22,7 +22,8 @@
 
 static const char* ReconstructionService_method_names[] = {
   "/ReconstructionService/Handshake",
-  "/ReconstructionService/StoreImage",
+  "/ReconstructionService/ReconstructionUploadImage",
+  "/ReconstructionService/ComputeMatches",
   "/ReconstructionService/SparseReconstruct",
   "/ReconstructionService/GetOBJ",
   "/ReconstructionService/GetSparse",
@@ -47,21 +48,22 @@ std::unique_ptr< ReconstructionService::Stub> ReconstructionService::NewStub(con
 
 ReconstructionService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Handshake_(ReconstructionService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StoreImage_(ReconstructionService_method_names[1], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
-  , rpcmethod_SparseReconstruct_(ReconstructionService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetOBJ_(ReconstructionService_method_names[3], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_GetSparse_(ReconstructionService_method_names[4], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
-  , rpcmethod_NewReconstruction_(ReconstructionService_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DeleteReconstruction_(ReconstructionService_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StartSession_(ReconstructionService_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StopSession_(ReconstructionService_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SessionAddImage_(ReconstructionService_method_names[9], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
-  , rpcmethod_GetReconstructionConfig_(ReconstructionService_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetAgentConfig_(ReconstructionService_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ReconstructionUploadImageBatch_(ReconstructionService_method_names[12], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
-  , rpcmethod_MVS_(ReconstructionService_method_names[13], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetAgentConfigFields_(ReconstructionService_method_names[14], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetReconstructionConfigFields_(ReconstructionService_method_names[15], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ReconstructionUploadImage_(ReconstructionService_method_names[1], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+  , rpcmethod_ComputeMatches_(ReconstructionService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SparseReconstruct_(ReconstructionService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetOBJ_(ReconstructionService_method_names[4], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_GetSparse_(ReconstructionService_method_names[5], ::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_NewReconstruction_(ReconstructionService_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteReconstruction_(ReconstructionService_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StartSession_(ReconstructionService_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StopSession_(ReconstructionService_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SessionAddImage_(ReconstructionService_method_names[10], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+  , rpcmethod_GetReconstructionConfig_(ReconstructionService_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAgentConfig_(ReconstructionService_method_names[12], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ReconstructionUploadImageBatch_(ReconstructionService_method_names[13], ::grpc::internal::RpcMethod::CLIENT_STREAMING, channel)
+  , rpcmethod_MVS_(ReconstructionService_method_names[14], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetAgentConfigFields_(ReconstructionService_method_names[15], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetReconstructionConfigFields_(ReconstructionService_method_names[16], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ReconstructionService::Stub::Handshake(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::HandshakeResponse* response) {
@@ -92,20 +94,48 @@ void ReconstructionService::Stub::experimental_async::Handshake(::grpc::ClientCo
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::HandshakeResponse>::Create(channel_.get(), cq, rpcmethod_Handshake_, context, request, false);
 }
 
-::grpc::ClientWriter< ::StoreImageRequest>* ReconstructionService::Stub::StoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response) {
-  return ::grpc_impl::internal::ClientWriterFactory< ::StoreImageRequest>::Create(channel_.get(), rpcmethod_StoreImage_, context, response);
+::grpc::ClientWriter< ::ReconstructionUploadImageRequest>* ReconstructionService::Stub::ReconstructionUploadImageRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageResponse* response) {
+  return ::grpc_impl::internal::ClientWriterFactory< ::ReconstructionUploadImageRequest>::Create(channel_.get(), rpcmethod_ReconstructionUploadImage_, context, response);
 }
 
-void ReconstructionService::Stub::experimental_async::StoreImage(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::StoreImageRequest>* reactor) {
-  ::grpc_impl::internal::ClientCallbackWriterFactory< ::StoreImageRequest>::Create(stub_->channel_.get(), stub_->rpcmethod_StoreImage_, context, response, reactor);
+void ReconstructionService::Stub::experimental_async::ReconstructionUploadImage(::grpc::ClientContext* context, ::ReconstructionUploadImageResponse* response, ::grpc::experimental::ClientWriteReactor< ::ReconstructionUploadImageRequest>* reactor) {
+  ::grpc_impl::internal::ClientCallbackWriterFactory< ::ReconstructionUploadImageRequest>::Create(stub_->channel_.get(), stub_->rpcmethod_ReconstructionUploadImage_, context, response, reactor);
 }
 
-::grpc::ClientAsyncWriter< ::StoreImageRequest>* ReconstructionService::Stub::AsyncStoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
-  return ::grpc_impl::internal::ClientAsyncWriterFactory< ::StoreImageRequest>::Create(channel_.get(), cq, rpcmethod_StoreImage_, context, response, true, tag);
+::grpc::ClientAsyncWriter< ::ReconstructionUploadImageRequest>* ReconstructionService::Stub::AsyncReconstructionUploadImageRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageResponse* response, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc_impl::internal::ClientAsyncWriterFactory< ::ReconstructionUploadImageRequest>::Create(channel_.get(), cq, rpcmethod_ReconstructionUploadImage_, context, response, true, tag);
 }
 
-::grpc::ClientAsyncWriter< ::StoreImageRequest>* ReconstructionService::Stub::PrepareAsyncStoreImageRaw(::grpc::ClientContext* context, ::StoreImageResponse* response, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncWriterFactory< ::StoreImageRequest>::Create(channel_.get(), cq, rpcmethod_StoreImage_, context, response, false, nullptr);
+::grpc::ClientAsyncWriter< ::ReconstructionUploadImageRequest>* ReconstructionService::Stub::PrepareAsyncReconstructionUploadImageRaw(::grpc::ClientContext* context, ::ReconstructionUploadImageResponse* response, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncWriterFactory< ::ReconstructionUploadImageRequest>::Create(channel_.get(), cq, rpcmethod_ReconstructionUploadImage_, context, response, false, nullptr);
+}
+
+::grpc::Status ReconstructionService::Stub::ComputeMatches(::grpc::ClientContext* context, const ::ComputeMatchesRequest& request, ::ComputeMatchesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeMatches_, context, request, response);
+}
+
+void ReconstructionService::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::ComputeMatchesRequest* request, ::ComputeMatchesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ComputeMatchesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
+}
+
+void ReconstructionService::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::ComputeMatchesRequest* request, ::ComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
+}
+
+void ReconstructionService::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::ComputeMatchesResponse>* ReconstructionService::Stub::AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::ComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ComputeMatchesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::ComputeMatchesResponse>* ReconstructionService::Stub::PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::ComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ComputeMatchesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, false);
 }
 
 ::grpc::Status ReconstructionService::Stub::SparseReconstruct(::grpc::ClientContext* context, const ::SparseReconstructRequest& request, ::SparseReconstructResponse* response) {
@@ -461,75 +491,80 @@ ReconstructionService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ReconstructionService_method_names[1],
       ::grpc::internal::RpcMethod::CLIENT_STREAMING,
-      new ::grpc::internal::ClientStreamingHandler< ReconstructionService::Service, ::StoreImageRequest, ::StoreImageResponse>(
-          std::mem_fn(&ReconstructionService::Service::StoreImage), this)));
+      new ::grpc::internal::ClientStreamingHandler< ReconstructionService::Service, ::ReconstructionUploadImageRequest, ::ReconstructionUploadImageResponse>(
+          std::mem_fn(&ReconstructionService::Service::ReconstructionUploadImage), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ReconstructionService_method_names[2],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::ComputeMatchesRequest, ::ComputeMatchesResponse>(
+          std::mem_fn(&ReconstructionService::Service::ComputeMatches), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ReconstructionService_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::SparseReconstructRequest, ::SparseReconstructResponse>(
           std::mem_fn(&ReconstructionService::Service::SparseReconstruct), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[3],
+      ReconstructionService_method_names[4],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
       new ::grpc::internal::ServerStreamingHandler< ReconstructionService::Service, ::GetOBJRequest, ::GetOBJResponse>(
           std::mem_fn(&ReconstructionService::Service::GetOBJ), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[4],
+      ReconstructionService_method_names[5],
       ::grpc::internal::RpcMethod::SERVER_STREAMING,
       new ::grpc::internal::ServerStreamingHandler< ReconstructionService::Service, ::GetSparseRequest, ::GetSparseResponse>(
           std::mem_fn(&ReconstructionService::Service::GetSparse), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[5],
+      ReconstructionService_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::NewReconstructionRequest, ::NewReconstructionResponse>(
           std::mem_fn(&ReconstructionService::Service::NewReconstruction), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[6],
+      ReconstructionService_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::DeleteReconstructionRequest, ::DeleteReconstructionResponse>(
           std::mem_fn(&ReconstructionService::Service::DeleteReconstruction), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[7],
+      ReconstructionService_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::StartSessionRequest, ::StartSessionResponse>(
           std::mem_fn(&ReconstructionService::Service::StartSession), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[8],
+      ReconstructionService_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::StopSessionRequest, ::StopSessionResponse>(
           std::mem_fn(&ReconstructionService::Service::StopSession), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[9],
+      ReconstructionService_method_names[10],
       ::grpc::internal::RpcMethod::CLIENT_STREAMING,
       new ::grpc::internal::ClientStreamingHandler< ReconstructionService::Service, ::SessionAddImageRequest, ::SessionAddImageResponse>(
           std::mem_fn(&ReconstructionService::Service::SessionAddImage), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[10],
+      ReconstructionService_method_names[11],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::GetReconstructionConfigRequest, ::GetReconstructionConfigResponse>(
           std::mem_fn(&ReconstructionService::Service::GetReconstructionConfig), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[11],
+      ReconstructionService_method_names[12],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::GetAgentConfigRequest, ::GetAgentCOnfigResponse>(
           std::mem_fn(&ReconstructionService::Service::GetAgentConfig), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[12],
+      ReconstructionService_method_names[13],
       ::grpc::internal::RpcMethod::CLIENT_STREAMING,
       new ::grpc::internal::ClientStreamingHandler< ReconstructionService::Service, ::ReconstructionUploadImageBatchRequest, ::ReconstructionUploadImageBatchResponse>(
           std::mem_fn(&ReconstructionService::Service::ReconstructionUploadImageBatch), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[13],
+      ReconstructionService_method_names[14],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::MVSRequest, ::MVSResponse>(
           std::mem_fn(&ReconstructionService::Service::MVS), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[14],
+      ReconstructionService_method_names[15],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::SetAgentConfigFieldsRequest, ::SetAgentConfigFieldsResponse>(
           std::mem_fn(&ReconstructionService::Service::SetAgentConfigFields), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ReconstructionService_method_names[15],
+      ReconstructionService_method_names[16],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::SetReconstructionConfigFieldsRequest, ::SetReconstructionConfigFieldsResponse>(
           std::mem_fn(&ReconstructionService::Service::SetReconstructionConfigFields), this)));
@@ -545,9 +580,16 @@ ReconstructionService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status ReconstructionService::Service::StoreImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::StoreImageRequest>* reader, ::StoreImageResponse* response) {
+::grpc::Status ReconstructionService::Service::ReconstructionUploadImage(::grpc::ServerContext* context, ::grpc::ServerReader< ::ReconstructionUploadImageRequest>* reader, ::ReconstructionUploadImageResponse* response) {
   (void) context;
   (void) reader;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ReconstructionService::Service::ComputeMatches(::grpc::ServerContext* context, const ::ComputeMatchesRequest* request, ::ComputeMatchesResponse* response) {
+  (void) context;
+  (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }

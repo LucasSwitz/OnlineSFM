@@ -15,8 +15,7 @@ class SQLOBJStorage : public OBJStorageAdapter, public SQLStorage, public FileSy
         std::vector<OBJMetaData> GetAll(const std::string& reconstruction_id);
         int Store(const OBJMetaData& obj_data);
         int Delete(const std::string& obj_id);
-        int DeleteByReconstruction(const std::string& reconstruction_id);
-        
+        int DeleteByReconstruction(const std::string& reconstruction_id);        
     private:
         std::string _table;
 };

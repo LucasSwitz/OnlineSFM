@@ -43,6 +43,7 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         bool ComputeStructure();
         void Load(const std::string& sfm_data);
         void SetConfig(const OpenMVGReconstructionAgentConfig& config);
+        ~OpenMVGReconstructionAgent();
     private:
         openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_image_paths);
         bool _GenerateImageFeatures(const std::string& image_path);

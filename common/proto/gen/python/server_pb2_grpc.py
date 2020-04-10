@@ -19,10 +19,15 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.HandhsakeRequest.SerializeToString,
         response_deserializer=server__pb2.HandshakeResponse.FromString,
         )
-    self.StoreImage = channel.stream_unary(
-        '/ReconstructionService/StoreImage',
-        request_serializer=server__pb2.StoreImageRequest.SerializeToString,
-        response_deserializer=server__pb2.StoreImageResponse.FromString,
+    self.ReconstructionUploadImage = channel.stream_unary(
+        '/ReconstructionService/ReconstructionUploadImage',
+        request_serializer=server__pb2.ReconstructionUploadImageRequest.SerializeToString,
+        response_deserializer=server__pb2.ReconstructionUploadImageResponse.FromString,
+        )
+    self.ComputeMatches = channel.unary_unary(
+        '/ReconstructionService/ComputeMatches',
+        request_serializer=server__pb2.ComputeMatchesRequest.SerializeToString,
+        response_deserializer=server__pb2.ComputeMatchesResponse.FromString,
         )
     self.SparseReconstruct = channel.unary_unary(
         '/ReconstructionService/SparseReconstruct',
@@ -107,7 +112,14 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def StoreImage(self, request_iterator, context):
+  def ReconstructionUploadImage(self, request_iterator, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ComputeMatches(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -220,10 +232,15 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           request_deserializer=server__pb2.HandhsakeRequest.FromString,
           response_serializer=server__pb2.HandshakeResponse.SerializeToString,
       ),
-      'StoreImage': grpc.stream_unary_rpc_method_handler(
-          servicer.StoreImage,
-          request_deserializer=server__pb2.StoreImageRequest.FromString,
-          response_serializer=server__pb2.StoreImageResponse.SerializeToString,
+      'ReconstructionUploadImage': grpc.stream_unary_rpc_method_handler(
+          servicer.ReconstructionUploadImage,
+          request_deserializer=server__pb2.ReconstructionUploadImageRequest.FromString,
+          response_serializer=server__pb2.ReconstructionUploadImageResponse.SerializeToString,
+      ),
+      'ComputeMatches': grpc.unary_unary_rpc_method_handler(
+          servicer.ComputeMatches,
+          request_deserializer=server__pb2.ComputeMatchesRequest.FromString,
+          response_serializer=server__pb2.ComputeMatchesResponse.SerializeToString,
       ),
       'SparseReconstruct': grpc.unary_unary_rpc_method_handler(
           servicer.SparseReconstruct,

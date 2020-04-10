@@ -328,9 +328,26 @@ class IndexImageRequest :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kImageIdFieldNumber = 1,
+    kReconstructionIdFieldNumber = 1,
+    kImageIdFieldNumber = 2,
   };
-  // string image_id = 1;
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // string image_id = 2;
   void clear_image_id();
   const std::string& image_id() const;
   void set_image_id(const std::string& value);
@@ -351,6 +368,7 @@ class IndexImageRequest :
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr image_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_index_2eproto;
@@ -1106,7 +1124,67 @@ inline void IndexWord::set_allocated_word(std::string* word) {
 
 // IndexImageRequest
 
-// string image_id = 1;
+// string reconstruction_id = 1;
+inline void IndexImageRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& IndexImageRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:IndexImageRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void IndexImageRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:IndexImageRequest.reconstruction_id)
+}
+inline std::string* IndexImageRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:IndexImageRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& IndexImageRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void IndexImageRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void IndexImageRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:IndexImageRequest.reconstruction_id)
+}
+inline void IndexImageRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:IndexImageRequest.reconstruction_id)
+}
+inline void IndexImageRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:IndexImageRequest.reconstruction_id)
+}
+inline std::string* IndexImageRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* IndexImageRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:IndexImageRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void IndexImageRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:IndexImageRequest.reconstruction_id)
+}
+
+// string image_id = 2;
 inline void IndexImageRequest::clear_image_id() {
   image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }

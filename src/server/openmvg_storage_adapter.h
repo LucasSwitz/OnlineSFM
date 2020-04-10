@@ -33,4 +33,5 @@ class OpenMVGStorageAdapter {
                                          const openMVG::geometry::Pose3& pose) = 0;
         virtual openMVG::sfm::Poses GetPoses(const std::string& reconstruction_id) = 0;
         virtual openMVG::IndexT GetViewIdxByImageID(const std::string& image_id) = 0;
+        virtual ~OpenMVGStorageAdapter(){};
 };

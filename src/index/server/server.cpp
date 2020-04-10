@@ -31,7 +31,7 @@ class VisualIndexingServer : public VisualIndexingService::Service {
         auto image_indexer = 
             ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
         LOG(INFO) << "Indexing image " << request->image_id();
-        image_indexer->Index(request->image_id());
+        image_indexer->Index(request->reconstruction_id(), request->image_id());
         return Status::OK;
     }
 
@@ -46,6 +46,7 @@ class VisualIndexingServer : public VisualIndexingService::Service {
     virtual ::grpc::Status ClosestN(ServerContext* context, 
                                    const ClosestNRequest* request, 
                                    ClosestNResponse* response){
+        LOG(INFO) << "Searching for " << request->n() << " closest images to " << request->image_id();
         auto image_indexer = 
             ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
         std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
@@ -55,7 +56,10 @@ class VisualIndexingServer : public VisualIndexingService::Service {
                                                CONFIG_GET_STRING("sql.db"), 
                                                CONFIG_GET_STRING("sql.words_table")));
         SearchEngine search_engine(std::move(image_indexer), std::move(ranker));
-        search_engine.Search(request->image_id(), request->n());
+        auto results = search_engine.Search(request->image_id(), request->n());
+        for(auto result : results){
+            response->add_image_ids(result);
+        }
         return Status::OK;
     }
 };

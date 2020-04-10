@@ -22,7 +22,7 @@ sql::ResultSet* SQLStorage::IssueQuery(const std::string& q,
     try{
         res = this->IssueQuery(q, this->_con, modifier);
         return res;
-    }catch(sql::SQLException e){
+    }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: "<< e.what() << e.getSQLStateCStr() << " " << e.getErrorCode();
         return nullptr;
     }
@@ -39,7 +39,7 @@ sql::ResultSet* SQLStorage::IssueQuery(const std::string& q,
         res =  stmt->executeQuery();   
         delete stmt;
         return res;
-    }catch(sql::SQLException e){
+    }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: "<< e.what() << e.getSQLStateCStr() << " " << e.getErrorCode();
         return nullptr;
     }
@@ -75,8 +75,9 @@ void SQLStorage::IssueUpdate(const std::string& u,
 void SQLStorage::Execute(const std::string& ex, std::function<void(sql::PreparedStatement *stmt)> modifier){
     try{
         Execute(ex, this->_con, modifier);
-    }catch(sql::SQLException e){
+    }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
+        throw;
     }
 }
 
@@ -87,8 +88,9 @@ void SQLStorage::Execute(const std::string& ex, sql::Connection* con, std::funct
         modifier(stmt);
         stmt->execute();
         delete stmt;
-    }catch(sql::SQLException e){
+    }catch(const sql::SQLException& e){
         LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
+        throw;
     }
 }
 
@@ -97,11 +99,14 @@ void SQLStorage::Transaction(std::function<void(sql::Connection *con)> t){
         this->_con->setAutoCommit(false);
         t(this->_con);
         this->_con->commit();
-    }catch(sql::SQLException e){
-        LOG(ERROR) << "SQL Error: " << e.what() << " " << e.getSQLStateCStr() << " " << e.getErrorCode();
+        this->_con->setAutoCommit(true);
+    }catch(const sql::SQLException& e){
+        this->_con->setAutoCommit(true);
+        throw;
     }
 }
 
 SQLStorage::~SQLStorage(){
+    this->_con->close();
     delete this->_con;
 }

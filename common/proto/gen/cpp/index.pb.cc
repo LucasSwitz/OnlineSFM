@@ -158,6 +158,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_index_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::IndexImageRequest, reconstruction_id_),
   PROTOBUF_FIELD_OFFSET(::IndexImageRequest, image_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::IndexImageResponse, _internal_metadata_),
@@ -193,11 +194,11 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_index_2eproto::offsets[] PROTO
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::IndexWord)},
   { 6, -1, sizeof(::IndexImageRequest)},
-  { 12, -1, sizeof(::IndexImageResponse)},
-  { 17, -1, sizeof(::GetBagOfWordsRequest)},
-  { 23, -1, sizeof(::GetBagOfWordsResponse)},
-  { 29, -1, sizeof(::ClosestNRequest)},
-  { 36, -1, sizeof(::ClosestNResponse)},
+  { 13, -1, sizeof(::IndexImageResponse)},
+  { 18, -1, sizeof(::GetBagOfWordsRequest)},
+  { 24, -1, sizeof(::GetBagOfWordsResponse)},
+  { 30, -1, sizeof(::ClosestNRequest)},
+  { 37, -1, sizeof(::ClosestNResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -212,18 +213,18 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_index_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\013index.proto\"\031\n\tIndexWord\022\014\n\004word\030\001 \001(\014"
-  "\"%\n\021IndexImageRequest\022\020\n\010image_id\030\001 \001(\t\""
-  "\024\n\022IndexImageResponse\"(\n\024GetBagOfWordsRe"
-  "quest\022\020\n\010image_id\030\001 \001(\t\"2\n\025GetBagOfWords"
-  "Response\022\031\n\005words\030\001 \003(\0132\n.IndexWord\".\n\017C"
-  "losestNRequest\022\020\n\010image_id\030\001 \001(\t\022\t\n\001N\030\002 "
-  "\001(\r\"%\n\020ClosestNResponse\022\021\n\timage_ids\030\001 \003"
-  "(\t2\277\001\n\025VisualIndexingService\0225\n\nIndexIma"
-  "ge\022\022.IndexImageRequest\032\023.IndexImageRespo"
-  "nse\022>\n\rGetBagOfWords\022\025.GetBagOfWordsRequ"
-  "est\032\026.GetBagOfWordsResponse\022/\n\010ClosestN\022"
-  "\020.ClosestNRequest\032\021.ClosestNResponseb\006pr"
-  "oto3"
+  "\"@\n\021IndexImageRequest\022\031\n\021reconstruction_"
+  "id\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t\"\024\n\022IndexImage"
+  "Response\"(\n\024GetBagOfWordsRequest\022\020\n\010imag"
+  "e_id\030\001 \001(\t\"2\n\025GetBagOfWordsResponse\022\031\n\005w"
+  "ords\030\001 \003(\0132\n.IndexWord\".\n\017ClosestNReques"
+  "t\022\020\n\010image_id\030\001 \001(\t\022\t\n\001N\030\002 \001(\r\"%\n\020Closes"
+  "tNResponse\022\021\n\timage_ids\030\001 \003(\t2\277\001\n\025Visual"
+  "IndexingService\0225\n\nIndexImage\022\022.IndexIma"
+  "geRequest\032\023.IndexImageResponse\022>\n\rGetBag"
+  "OfWords\022\025.GetBagOfWordsRequest\032\026.GetBagO"
+  "fWordsResponse\022/\n\010ClosestN\022\020.ClosestNReq"
+  "uest\032\021.ClosestNResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_index_2eproto_deps[1] = {
 };
@@ -239,7 +240,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ind
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_index_2eproto_once;
 static bool descriptor_table_index_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_index_2eproto = {
-  &descriptor_table_index_2eproto_initialized, descriptor_table_protodef_index_2eproto, "index.proto", 484,
+  &descriptor_table_index_2eproto_initialized, descriptor_table_protodef_index_2eproto, "index.proto", 511,
   &descriptor_table_index_2eproto_once, descriptor_table_index_2eproto_sccs, descriptor_table_index_2eproto_deps, 7, 0,
   schemas, file_default_instances, TableStruct_index_2eproto::offsets,
   file_level_metadata_index_2eproto, 7, file_level_enum_descriptors_index_2eproto, file_level_service_descriptors_index_2eproto,
@@ -459,6 +460,10 @@ IndexImageRequest::IndexImageRequest(const IndexImageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
   image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_image_id().empty()) {
     image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
@@ -468,6 +473,7 @@ IndexImageRequest::IndexImageRequest(const IndexImageRequest& from)
 
 void IndexImageRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_IndexImageRequest_index_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -477,6 +483,7 @@ IndexImageRequest::~IndexImageRequest() {
 }
 
 void IndexImageRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -495,6 +502,7 @@ void IndexImageRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
@@ -506,9 +514,18 @@ const char* IndexImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string image_id = 1;
+      // string reconstruction_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "IndexImageRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string image_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_image_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "IndexImageRequest.image_id"));
@@ -541,14 +558,24 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string image_id = 1;
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "IndexImageRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  // string image_id = 2;
   if (this->image_id().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_image_id().data(), static_cast<int>(this->_internal_image_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "IndexImageRequest.image_id");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_image_id(), target);
+        2, this->_internal_image_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -567,7 +594,14 @@ size_t IndexImageRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string image_id = 1;
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  // string image_id = 2;
   if (this->image_id().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -605,6 +639,10 @@ void IndexImageRequest::MergeFrom(const IndexImageRequest& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
   if (from.image_id().size() > 0) {
 
     image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
@@ -632,6 +670,8 @@ bool IndexImageRequest::IsInitialized() const {
 void IndexImageRequest::InternalSwap(IndexImageRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   image_id_.Swap(&other->image_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }

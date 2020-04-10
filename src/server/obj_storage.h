@@ -11,4 +11,5 @@ class OBJStorageAdapter {
         virtual int Delete(const std::string& obj_id) = 0;
         virtual int DeleteByReconstruction(const std::string& reconstruction_id) = 0;
         virtual std::vector<OBJMetaData> GetAll(const std::string& reconstruction_id) = 0;
+        virtual ~OBJStorageAdapter(){};
 };

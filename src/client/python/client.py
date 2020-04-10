@@ -10,7 +10,9 @@ from server_pb2 import (ImageData,
                         GetSparseRequest,
                         SparsePointCloudData,
                         GetReconstructionConfigRequest,
-                        GetAgentConfigRequest)
+                        GetAgentConfigRequest,
+                        ReconstructionUploadImageRequest,
+                        ComputeMatchesRequest)
 from server_pb2_grpc import ReconstructionServiceStub
 import sys
 import random
@@ -18,6 +20,7 @@ import string
 import json
 from glob import glob
 import os
+import time
 
 class OnlineSFMSession:
     def __init__(self, client, reconstruction_id):
@@ -25,8 +28,9 @@ class OnlineSFMSession:
         self._reconstrution_id = reconstruction_id
 
 class OnlineSFMReconstruction:
-    def __init__(self, client, id):
+    def __init__(self, client, channel, id):
         self._client = client
+        self._channel = channel
         self._id = id
 
     def upload_image(self, image_path):
@@ -40,7 +44,7 @@ class OnlineSFMReconstruction:
                                                                                           data=image_bytes[i:i+CHUNK_SIZE])))
                 self._client.ReconstructionUploadImageBatch(iter(chunked))
 
-    def upload_directory(self, directory_path):
+    def upload_directory_batch(self, directory_path):
         files = glob(directory_path+"/*")
         img_idx = 0
         chunked = []
@@ -54,9 +58,35 @@ class OnlineSFMReconstruction:
                                                                                           data=image_bytes[i:i+CHUNK_SIZE])))
             img_idx+=1
         self._client.ReconstructionUploadImageBatch(iter(chunked))
+
+
+    def upload_directory(self, directory_path):
+        files = glob(directory_path+"/*")
+        upload_futures = []
+        for image_path in files:
+            chunked = []
+            with open(image_path, "rb") as image:
+                meta = ImageMetaData(reconstruction=self._id, format=os.path.splitext(image_path)[1][1:])
+                image_bytes = image.read()
+                for i in range(0, len(image_bytes), CHUNK_SIZE):
+                    chunked.append(ReconstructionUploadImageRequest(reconstruction_id = self._id,
+                                                                    compute_matches = False,
+                                                                    image = ImageData(metadata=meta, 
+                                                                                      data=image_bytes[i:i+CHUNK_SIZE])))
+            upload_futures.append(self._client.ReconstructionUploadImage.future(iter(chunked), timeout=1000))
+        image_ids = []
+        for future in upload_futures:
+            image_ids.append(future.result().image_id)
+        matches_futures = []
+        for image_id in image_ids:
+            matches_futures.append(self._client.ComputeMatches.future(ComputeMatchesRequest(reconstruction_id = self._id, 
+                                                                                            image_id=image_id),timeout=10000))
+        for match_future in matches_futures:
+            match_future.result()
+        
         
     def do_sparse_reconstruction(self):
-        self._client.SparseReconstruct(SparseReconstructRequest(reconstruction_id=self._id))
+        return self._client.SparseReconstruct(SparseReconstructRequest(reconstruction_id=self._id))
 
     def get_sparse_reconstruction(self):
         sparse_response = self._client.GetSparse(GetSparseRequest(reconstruction_id=self._id))
@@ -89,6 +119,9 @@ class OnlineSFMReconstruction:
         aresp = self._client.GetAgentConfig(GetAgentConfigRequest(reconstruction_id=self._id, agent_name=agent_name))
         return json.loads(aresp.config_json)
 
+    def close(self):
+        self._channel.close()
+
 class OnlineSFMClient:
     def __init__(self, server_addr):
         self._channel = grpc.insecure_channel(server_addr)
@@ -99,7 +132,7 @@ class OnlineSFMClient:
 
     def make_reconstruction(self):
         reconstruction_id = self._client.NewReconstruction(NewReconstructionRequest()).reconstruction_id
-        return OnlineSFMReconstruction(self._client, reconstruction_id)
+        return OnlineSFMReconstruction(self._client, self._channel, reconstruction_id)
 
     def make_session(self, reconstruction_id):
         return OnlineSFMSession(self._client, reconstruction_id)

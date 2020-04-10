@@ -9,7 +9,7 @@ class ImageIndexer {
         ImageIndexer(DescriptorStorePtr desc_storage,
                      DescriptorStorePtr word_storage,
                      std::shared_ptr<VisualVocabularyIndex> index);
-        virtual void Index(const std::string& image_id);
+        virtual void Index(const std::string& reconstruction_id, const std::string& image_id);
         virtual std::unordered_map<std::string, SIFT_Descriptor_count_map> GetSimilar(const std::string& image_id);
     private:
         std::shared_ptr<VisualVocabularyIndex> _index = nullptr;

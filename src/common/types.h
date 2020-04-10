@@ -22,3 +22,4 @@ namespace std {
 
 double SIFT_Descriptor_weight_map_L2_Distance(const SIFT_Descriptor_weight_map& m1, const SIFT_Descriptor_weight_map& m2);
 std::string split_SIFT_Vector(const SIFT_Vector& descs);
+SIFT_Descriptor_count_map SIFT_Vector_to_Sparse_Vector(const SIFT_Vector& v);
