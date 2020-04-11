@@ -3,7 +3,7 @@
 #include "image_data_storage.h"
 #include "filesystem_storer.h"
 
-class FileSystemImageDataStorage : public ImageDataStorage, public FileSystemStorer<ImageData> {
+class FileSystemImageDataStorage : public ImageDataStorage, public FileSystemStorer {
     public:
         FileSystemImageDataStorage();
         int Get(const std::string& path, std::vector<char>& buf);

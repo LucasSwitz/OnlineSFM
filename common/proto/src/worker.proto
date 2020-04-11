@@ -1,0 +1,39 @@
+syntax="proto3";
+
+message WorkerComputeFeaturesRequest {
+    string reconstruction_id = 1;
+    string image_id = 2;
+};
+
+message WorkerComputeFeaturesResponse {
+    
+};
+
+message WorkerComputeMatchesRequest {
+    string reconstruction_id = 1;
+    string image_id = 2;
+};
+
+message WorkerComputeMatchesReponse{
+    
+}
+
+message RegisterWorkerRequest{
+    string address = 1;
+    int32 cores = 2;
+};
+
+message RegisterWorkerResponse {
+
+};
+
+service WorkerPoolManager {
+    rpc ComputeFeatures(WorkerComputeFeaturesRequest) returns (WorkerComputeFeaturesResponse);
+    rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesReponse);
+    rpc Register(RegisterWorkerRequest) returns (RegisterWorkerResponse);
+}
+
+service Worker {
+    rpc ComputeFeatures(WorkerComputeFeaturesRequest) returns (WorkerComputeFeaturesResponse);
+    rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesReponse);
+}

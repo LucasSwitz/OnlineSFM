@@ -10,7 +10,7 @@ int FileSystemImageDataStorage::Get(const std::string& path, std::vector<char>& 
 }
 
 std::string FileSystemImageDataStorage::Store(const ImageData& img, const std::string& path){
-    return FileSystemStorer::Store(img, path);
+    return FileSystemStorer::Store(img.data(), path);
 }
 
 void FileSystemImageDataStorage::Delete(const std::string& path){

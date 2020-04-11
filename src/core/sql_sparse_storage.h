@@ -3,7 +3,7 @@
 #include "sql_storage.h"
 #include "filesystem_storer.h"
 
-class SQLSparseStorage : public SparseStorageAdapter, public SQLStorage, public FileSystemStorer<SparsePointCloudData> {
+class SQLSparseStorage : public SparseStorageAdapter, public SQLStorage, public FileSystemStorer {
     public:
         SQLSparseStorage(sql::Driver* driver, 
                          std::shared_ptr<sql::Connection> con,

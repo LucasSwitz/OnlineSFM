@@ -32,7 +32,7 @@ using grpc::Status;
 using grpc::ServerReader;
 using grpc::ServerWriter;
 
-#define OBJ_CHUNK_SIZE 1024*10
+#define CHUNK_SIZE 1024*10
 
 class ReconstructionServer : public ReconstructionService::Service {
     public:
@@ -77,8 +77,8 @@ class ReconstructionServer : public ReconstructionService::Service {
         }
 
         Status ReconstructionUploadImage(ServerContext* context, 
-                            ServerReader<ReconstructionUploadImageRequest>* stream, 
-                            ReconstructionUploadImageResponse* response){
+                                         ServerReader<ReconstructionUploadImageRequest>* stream, 
+                                         ReconstructionUploadImageResponse* response){
             ReconstructionUploadImageRequest request;
             stream->Read(&request);
             ImageData final_image;
@@ -168,31 +168,31 @@ class ReconstructionServer : public ReconstructionService::Service {
 
             OBJData full_data = obj.Data();
 
-            for(int i = 0; i < full_data.obj_data().size(); i+=OBJ_CHUNK_SIZE){
+            for(int i = 0; i < full_data.obj_data().size(); i+=CHUNK_SIZE){
                 OBJData data_chunked;
                 GetOBJResponse resp;
                 data_chunked.mutable_metadata()->CopyFrom(full_data.metadata());
-                std::string chunked_bytes = full_data.obj_data().substr(i, OBJ_CHUNK_SIZE);
+                std::string chunked_bytes = full_data.obj_data().substr(i, CHUNK_SIZE);
                 data_chunked.set_obj_data(chunked_bytes);
                 resp.mutable_obj()->CopyFrom(data_chunked);
                 resp.set_success(true);
                 writer->Write(resp);
             }
-            for(int i = 0; i < full_data.texture_data().size(); i+=OBJ_CHUNK_SIZE){
+            for(int i = 0; i < full_data.texture_data().size(); i+=CHUNK_SIZE){
                 OBJData data_chunked;
                 GetOBJResponse resp;
                 data_chunked.mutable_metadata()->CopyFrom(full_data.metadata());
-                std::string chunked_bytes = full_data.texture_data().substr(i, OBJ_CHUNK_SIZE);
+                std::string chunked_bytes = full_data.texture_data().substr(i, CHUNK_SIZE);
                 data_chunked.set_texture_data(chunked_bytes);
                 resp.mutable_obj()->CopyFrom(data_chunked);
                 resp.set_success(true);
                 writer->Write(resp);
             }
-            for(int i = 0; i < full_data.mtl_data().size(); i+=OBJ_CHUNK_SIZE){
+            for(int i = 0; i < full_data.mtl_data().size(); i+=CHUNK_SIZE){
                 OBJData data_chunked;
                 GetOBJResponse resp;
                 data_chunked.mutable_metadata()->CopyFrom(full_data.metadata());
-                std::string chunked_bytes = full_data.mtl_data().substr(i, OBJ_CHUNK_SIZE);
+                std::string chunked_bytes = full_data.mtl_data().substr(i, CHUNK_SIZE);
                 data_chunked.set_mtl_data(chunked_bytes);
                 resp.mutable_obj()->CopyFrom(data_chunked);
                 resp.set_success(true);
@@ -285,11 +285,11 @@ class ReconstructionServer : public ReconstructionService::Service {
             auto reconstruction = rf.Fetch(request->reconstruction_id());
             SparseReconstruction sparse = reconstruction->GetSparse();
             SparsePointCloudData full_data = sparse.Data();
-            for(int i = 0; i < full_data.data().size(); i+=OBJ_CHUNK_SIZE){
+            for(int i = 0; i < full_data.data().size(); i+=CHUNK_SIZE){
                 SparsePointCloudData data_chunked;
                 GetSparseResponse resp;
                 data_chunked.mutable_metadata()->CopyFrom(full_data.metadata());
-                std::string chunked_bytes = full_data.data().substr(i, OBJ_CHUNK_SIZE);
+                std::string chunked_bytes = full_data.data().substr(i, CHUNK_SIZE);
                 data_chunked.set_data(chunked_bytes);
                 resp.mutable_sparse()->CopyFrom(data_chunked);
                 writer->Write(resp);

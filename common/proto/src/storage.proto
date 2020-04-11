@@ -1,0 +1,23 @@
+syntax="proto3";
+
+message StoreItemRequest {
+    string path = 1;
+    bytes data = 2;
+};
+
+message StoreItemResponse {
+    string path = 1;
+};
+
+message GetItemRequest {
+    string path = 1;
+};
+
+message GetItemResponse {
+    bytes data = 1;
+};
+
+service Storage {
+    rpc Store(stream StoreItemRequest) returns (StoreItemResponse);
+    rpc Get(GetItemRequest) returns (stream GetItemResponse);
+}

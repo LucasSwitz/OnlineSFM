@@ -69,6 +69,14 @@ bool MongoDBConfigurationContainer::get_bool(const std::string& key){
     }
 }
 
+ConfigurationContainerPtr MongoDBConfigurationContainer::get_container(const std::string& key){
+    try {
+        return std::make_unique<MongoDBConfigurationContainer>(bsoncxx::document::value(this->_document.view()[key].get_document().view()));
+    }catch(bsoncxx::exception& e){
+        LOG(ERROR) << "BSON parse error: " << e.what() << " " << key;
+    }
+}
+
 std::string MongoDBConfigurationContainer::jsonify(){
     try {
         return bsoncxx::to_json(this->_document);

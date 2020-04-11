@@ -335,6 +335,17 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   return true;
 }
 
+std::unique_ptr<features::Regions> Init_region_type_from_json(const std::string& json)
+{
+    std::unique_ptr<Regions> regions_type;
+    std::istringstream stream(json);
+    {
+        cereal::JSONInputArchive archive(stream);
+        archive(cereal::make_nvp("regions_type", regions_type));
+    }
+    return regions_type;
+}
+
 bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_ids){
   LOG(INFO) << "Computing features for " << image_ids.size() << " new images";
   if (this->_config.features_dir.empty())  {
@@ -358,7 +369,22 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
   std::unique_ptr<Image_describer> image_describer;
 
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
+  ConfigurationContainerPtr image_describer_config = config->get_container("image_describer");
+  std::string json_image_desciber = image_describer_config->jsonify();
+  std::istringstream stream(json_image_desciber);
+  try
+  {
+    cereal::JSONInputArchive archive(stream);
+    archive(cereal::make_nvp("image_describer", image_describer));
+  }
+  catch (const cereal::Exception & e)
+  {
+    std::cerr << e.what() << std::endl
+      << "Cannot dynamically allocate the Image_describer interface." << std::endl;
+    return false;
+  }
+  
+  /*const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   if (stlplus::is_file(sImage_describer))
   {
     // Dynamically load the image_describer from the file (will restore old used settings)
@@ -420,20 +446,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
         return false;
       }
     }
-
-    // Export the used Image_describer and region type for:
-    // - dynamic future regions computation and/or loading
-    {
-      std::ofstream stream(sImage_describer.c_str());
-      if (!stream.is_open())
-        return false;
-
-      cereal::JSONOutputArchive archive(stream);
-      archive(cereal::make_nvp("image_describer", image_describer));
-      auto regionsType = image_describer->Allocate();
-      archive(cereal::make_nvp("regions_type", regionsType));
-    }
-  }
+  }*/
 
   // Feature extraction routines
   // For each View of the SfM_Data container:
@@ -594,13 +607,11 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
       std::cerr << "Unknown geometric model" << std::endl;
       return false;
   }
-
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
-  std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
+  ConfigurationContainerPtr image_describer = config->get_container("image_describer");
+  std::unique_ptr<Regions> regions_type = Init_region_type_from_json(image_describer->jsonify());
   if (!regions_type)
   {
-    std::cerr << "Invalid: "
-      << sImage_describer << " regions type file." << std::endl;
+    std::cerr << "Invalid: regions type." << std::endl;
     return false;
   }
   if (ui_max_cache_size == 0)
@@ -789,13 +800,11 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   int i_User_camera_model = config->get_int("user_camera_model");
   bool b_use_motion_priors = config->get_bool("use_motion_priors");
   int triangulation_method = config->get_int("triangulation_method");
-
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
-  std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
+  ConfigurationContainerPtr image_describer = config->get_container("image_describer");
+  std::unique_ptr<Regions> regions_type = Init_region_type_from_json(image_describer->jsonify());
   if (!regions_type)
   {
-    std::cerr << "Invalid: "
-      << sImage_describer << " regions type file." << std::endl;
+    std::cerr << "Invalid: regions type." << std::endl;
     return false;
   }
 

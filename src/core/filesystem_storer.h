@@ -7,28 +7,18 @@
 #include <sys/types.h> 
 #include <boost/filesystem.hpp>
 
-template<typename T>
 class FileSystemStorer{
     public:
         FileSystemStorer(const std::string& storage_root) : _storage_root(storage_root){};
-        std::string Store(T pb, const std::string& path){
+        std::string Store(const std::string& data, const std::string& path){
             std::filebuf fb;
             std::string store_location = this->_storage_root + "/" + path;
             fb.open(store_location , std::ios::out|std::ios::binary);
             std::ostream os(&fb);
-            os << pb.data();
+            os << data;
             fb.close();
             LOG(INFO) << "Finished Writing file to disk " << store_location; 
             return store_location;
-        }
-        void Delete(const std::string& reconstruction_id, const std::string& subpath, const std::string& item_name){
-            std::string store_location = this->_storage_root + "/" + reconstruction_id + "/" + subpath + "/" + item_name;
-            if(!boost::filesystem::exists(store_location)) return;
-            if(boost::filesystem::remove(store_location)){
-                LOG(INFO) << "Deleted file" << store_location;
-            }else{
-                LOG(ERROR) << "Failed to delete file " << store_location;
-            }
         }
         void DeleteDir(const std::string& path){
             if(!boost::filesystem::exists(path)) return;

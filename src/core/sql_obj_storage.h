@@ -3,7 +3,7 @@
 #include "filesystem_storer.h"
 #include "sql_storage.h"
 
-class SQLOBJStorage : public OBJStorageAdapter, public SQLStorage, public FileSystemStorer<OBJMetaData>{
+class SQLOBJStorage : public OBJStorageAdapter, public SQLStorage, public FileSystemStorer {
     public:
         SQLOBJStorage(sql::Driver* driver, 
                       std::shared_ptr<sql::Connection> con,

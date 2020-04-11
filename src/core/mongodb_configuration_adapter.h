@@ -19,6 +19,9 @@ class MongoDBConfigurationContainer : public ConfigurationContainer{
         double get_double(const std::string& key);
         void patch(const std::string& json);
         std::string jsonify();
+        ConfigurationContainerPtr get_container(const std::string& key);
+        virtual ~MongoDBConfigurationContainer(){};
+
     private:
         bsoncxx::document::value _document;
 };

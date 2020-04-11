@@ -381,6 +381,10 @@ void DefaultReconstructionConfig::patch(const std::string& json){
 
 }
 
+ConfigurationContainerPtr DefaultReconstructionConfig::get_container(const std::string& key){
+    return nullptr;
+}
+
 std::string DefaultReconstructionConfig::jsonify(){
     return "{\"reconstruction_agent\":\"openmvg\"}";
 }

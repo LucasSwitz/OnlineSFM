@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 
+
 class ConfigurationContainer{
     public:
         virtual std::string get_string(const std::string& key) = 0;
@@ -10,9 +11,12 @@ class ConfigurationContainer{
         virtual double get_double(const std::string& key) = 0;
         virtual void patch(const std::string& json) = 0;
         virtual std::string jsonify() = 0;
+        virtual std::unique_ptr<ConfigurationContainer> get_container(const std::string& key) = 0;
+        virtual ~ConfigurationContainer(){};
 };
 
 typedef std::unique_ptr<ConfigurationContainer> ConfigurationContainerPtr;
+
 
 class ConfigurationAdapter {
     public:
