@@ -404,3 +404,23 @@ openMVG::IndexT SQLOpenMVGStorage::GetViewIdxByImageID(const std::string& image_
     delete res;
     return index;
 }
+
+std::unique_ptr<std::unordered_map<std::string, IndexT>> SQLOpenMVGStorage::GetAllViewIdxByImageID(const std::vector<std::string>& image_ids){
+    std::unique_ptr<std::unordered_map<std::string, IndexT>> idx_map = std::make_unique<std::unordered_map<std::string, IndexT>>();
+    this->Transaction([this, &image_ids, &idx_map](std::shared_ptr<sql::Connection> con) mutable{
+        for(std::string image_id : image_ids){
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_views_table), 
+            [image_id, &idx_map](sql::PreparedStatement *stmt) mutable{
+                stmt->setString(1, image_id);
+            });
+            if(!res){
+                LOG(ERROR) << "Failure to retrieve results";
+                return;
+            }
+            if(res->next()){
+                (*idx_map)[image_id] = res->getInt64("VIEW_IDX");
+            }
+        }
+    });
+    return idx_map;
+}

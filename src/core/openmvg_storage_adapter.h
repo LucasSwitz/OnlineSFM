@@ -7,7 +7,7 @@
 #include "openMVG/geometry/pose3.hpp"
 
 #include <memory>
-
+#include <unordered_map>
 
 typedef struct OpenMVGMetadataT{
     std::string root_path;
@@ -34,4 +34,5 @@ class OpenMVGStorageAdapter {
         virtual openMVG::sfm::Poses GetPoses(const std::string& reconstruction_id) = 0;
         virtual openMVG::IndexT GetViewIdxByImageID(const std::string& image_id) = 0;
         virtual ~OpenMVGStorageAdapter(){};
+        virtual std::unique_ptr<std::unordered_map<std::string, openMVG::IndexT>> GetAllViewIdxByImageID(const std::vector<std::string>& image_ids) = 0;
 };

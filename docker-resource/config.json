@@ -20,7 +20,7 @@
         "openmvg_matches_table" : "OPENMVG_MATCHES",
         "openmvg_meta_table" : "OPENMVG_META",
         "openmvg_poses_table" : "OPENMVG_POSES",
-        "descriptors_table" : "IMAGE_DESCRIPTORS",
+        "regions_table" : "IMAGE_REGIONS",
         "words_table" : "IMAGE_WORDS"
     },
     "redis" : {
@@ -31,10 +31,14 @@
     "mongodb" : {
         "uri" : "mongodb://localhost:27017",
         "db" : "reconstruction",
-        "configurations_collection": "reconstruction_configurations",
-        "default_configurations_collection" : "default_reconstruction_configurations"
+        "reconstructions_collections": "reconstruction_configurations",
+        "agents_collection" : "agent_configurations",
+        "default_agents_collection" : "default_agent_configurations"
     },
     "reconstruction" :{
         "threads" : 1
+    },
+    "index" : {
+        "address" : "0.0.0.0:9998"
     }
 }

@@ -14,10 +14,13 @@
 #include "camera_intrinsics_storage.h"
 
 #include "configuration_adapter.h"
-#include "descriptor_storage.h"
+#include "regions_storage.h"
 #include "image_storage.h"
 
 #include "types.h"
+
+#include <openMVG/features/regions_factory.hpp>
+#include "openMVG/features/sift/SIFT_Anatomy_Image_Describer.hpp"
 
 typedef struct OpenMVGReconstructionAgentConfig {
     std::string features_dir = "",
@@ -33,7 +36,7 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
                                    std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage, 
                                    std::shared_ptr<OpenMVGStorageAdapter> openmvg_storage,
                                    std::shared_ptr<ConfigurationAdapter> configuration_adapter,
-                                   std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> descriptor_storage,
+                                   std::shared_ptr<RegionsStorage<openMVG::features::SIFT_Anatomy_Image_describer::Regions_type>> regions_storage,
                                    std::shared_ptr<ImageStorageAdapter> image_storage);
         bool IncrementalSFM(const std::set<std::string>& new_images){}
         bool AddImage(const std::string& image_path);
@@ -50,7 +53,7 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         OpenMVGReconstructionAgentConfig _config;
         std::unique_ptr<openMVG::sfm::SfM_Data> _sfm_data;
         std::shared_ptr<ConfigurationAdapter> _configuration_adapter;
-        std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> _descriptor_storage;
+        std::shared_ptr<RegionsStorage<openMVG::features::SIFT_Anatomy_Image_describer::Regions_type>> _regions_storage;
         std::shared_ptr<ImageStorageAdapter> _image_storage;
         std::shared_ptr<CameraIntrinsicsStorage> _intrinsics_storage = nullptr;
         std::shared_ptr<OpenMVGStorageAdapter> _openmvg_storage = nullptr;

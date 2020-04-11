@@ -79,6 +79,7 @@
 #include "openMVG/geodesy/geodesy.hpp"
 #include "openMVG/image/image_io.hpp"
 #include "openMVG/numeric/eigen_alias_definition.hpp"
+#include "openmvg_ext.h"
 
 #include "index_helpers.h"
 
@@ -171,13 +172,13 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
                                                        std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage,
                                                        std::shared_ptr<OpenMVGStorageAdapter> openmvg_storage,
                                                        std::shared_ptr<ConfigurationAdapter> configuration_adapter,
-                                                       std::shared_ptr<DescriptorStorage<SIFT_Descriptor>> descriptor_storage,
+                                                       std::shared_ptr<RegionsStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_storage,
                                                        std::shared_ptr<ImageStorageAdapter> image_storage):
                                                                                   _reconstruction_id(reconstruction_id), 
                                                                                   _intrinsics_storage(intrinsics_storage),
                                                                                   _openmvg_storage(openmvg_storage),
                                                                                   _configuration_adapter(configuration_adapter),
-                                                                                  _descriptor_storage(descriptor_storage),
+                                                                                  _regions_storage(regions_storage),
                                                                                   _image_storage(image_storage){
   
   
@@ -481,15 +482,8 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       std::string image_id = std::get<0>(*iter);
       std::string image_path = std::get<1>(*iter);
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
-      const std::string
-      sFeat = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "feat"),
-      sDesc = stlplus::create_filespec(this->_config.features_dir, stlplus::basename_part(image_path), "desc");
-
       // If features or descriptors file are missing, compute them
-      if (!preemptive_exit && 
-              (bForce || 
-              !stlplus::file_exists(sFeat) || 
-              !stlplus::file_exists(sDesc)))
+      if (!preemptive_exit)
       {
           if (!ReadImage(image_path.c_str(), &imageGray))
               continue;
@@ -535,24 +529,17 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
           }
 
           // Compute features and descriptors and export them to files and now sql. TODO: Remove file storage.
-          auto regions = image_describer->Describe(imageGray, mask);
-          auto desc_raw = regions->DescriptorRawData();
-          SIFT_Vector descs(regions->RegionCount());
-          for(int i = 0; i < regions->RegionCount(); i++){
-              Descriptor<unsigned char, 128> descriptor;
-              memcpy(&descriptor, desc_raw + (i*sizeof(Descriptor<unsigned char, 128>)), sizeof(Descriptor<unsigned char, 128>));
-              descs[i] = descriptor;
-          }
-          LOG(INFO) << "Storing " << descs.size() << " computed features for " << image_id;
-          SIFT_Descriptor_count_map descs_sparse = SIFT_Vector_to_Sparse_Vector(descs);
-          storage_lock.lock();
-          this->_descriptor_storage->Store(this->_reconstruction_id, image_id, descs_sparse);
-          storage_lock.unlock();
-          if (regions && !image_describer->Save(regions.get(), sFeat, sDesc)) {
+          // TODO: this casting bullshit is dangerous and disgusting. Needs be be fixed asap. 
+          auto sift_regions = std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type>(
+            dynamic_cast<SIFT_Anatomy_Image_describer::Regions_type*>(image_describer->Describe(imageGray, mask).release()));
+          if (!sift_regions){
               std::cerr << "Cannot save regions for images: " << image_path << std::endl
                       << "Stopping feature extraction." << std::endl;
               preemptive_exit = true;
           }
+          storage_lock.lock();
+          this->_regions_storage->Store(this->_reconstruction_id, image_id, std::move(sift_regions));
+          storage_lock.unlock();
       }
     }
     return !preemptive_exit;
@@ -577,31 +564,24 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
                                                        ESfM_Data::VIEWS | ESfM_Data::INTRINSICS);
   Pair_Set pairs = this->_GatherMatchesToCompute(new_image_ids);
-  std::shared_ptr<Regions_Provider> regions_provider;
   EGeometricModel eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
-  std::string sGeometricMatchesFilename = "";
 
   switch (sGeometricModel[0])
   {
     case 'f': case 'F':
       eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
-      sGeometricMatchesFilename = "matches.f.bin";
     break;
     case 'e': case 'E':
       eGeometricModelToCompute = ESSENTIAL_MATRIX;
-      sGeometricMatchesFilename = "matches.e.bin";
     break;
     case 'h': case 'H':
       eGeometricModelToCompute = HOMOGRAPHY_MATRIX;
-      sGeometricMatchesFilename = "matches.h.bin";
     break;
     case 'a': case 'A':
       eGeometricModelToCompute = ESSENTIAL_MATRIX_ANGULAR;
-      sGeometricMatchesFilename = "matches.f.bin";
     break;
     case 'o': case 'O':
       eGeometricModelToCompute = ESSENTIAL_MATRIX_ORTHO;
-      sGeometricMatchesFilename = "matches.o.bin";
     break;
     default:
       std::cerr << "Unknown geometric model" << std::endl;
@@ -614,40 +594,8 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     std::cerr << "Invalid: regions type." << std::endl;
     return false;
   }
-  if (ui_max_cache_size == 0)
-  {
-      // Default regions provider (load & store all regions in memory)
-      regions_provider = std::make_shared<Regions_Provider>();
-  }
-  else
-  {
-      // Cached regions provider (load & store regions on demand)
-      regions_provider = std::make_shared<Regions_Provider_Cache>(ui_max_cache_size);
-  }
-  if (!regions_provider->load(*this->_sfm_data, this->_config.features_dir, regions_type)) {
-      std::cerr << std::endl << "Invalid regions." << std::endl;
-      return false;
-  }
 
   PairWiseMatches map_PutativesMatches;
-
-  // Build some alias from SfM_Data Views data:
-  // - List views as a vector of filenames & image sizes
-  std::vector<std::string> vec_fileNames;
-  std::vector<std::pair<size_t, size_t>> vec_imagesSize;
-  {
-    vec_fileNames.reserve(this->_sfm_data->GetViews().size());
-    vec_imagesSize.reserve(this->_sfm_data->GetViews().size());
-    for (Views::const_iterator iter = this->_sfm_data->GetViews().begin();
-      iter != this->_sfm_data->GetViews().end();
-      ++iter)
-    {
-      const View * v = iter->second.get();
-      vec_fileNames.push_back(stlplus::create_filespec(this->_sfm_data->s_root_path,
-          v->s_Img_path));
-      vec_imagesSize.push_back( std::make_pair( v->ui_width, v->ui_height) );
-    }
-  }
 
   // Allocate the right Matcher according the Matching requested method
   std::unique_ptr<Matcher> collectionMatcher;
@@ -707,6 +655,9 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     return false;
   }
 
+  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider 
+    = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
+  regions_provider->load_from_storage(this->_reconstruction_id);
   collectionMatcher->Match(regions_provider, pairs, map_PutativesMatches);
 
   //---------------------------------------
@@ -812,12 +763,9 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   matches_provider->pairWise_matches_ = std::move(this->_openmvg_storage->GetMatches(this->_reconstruction_id));
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
                                                        ESfM_Data::VIEWS | ESfM_Data::INTRINSICS | ESfM_Data::EXTRINSICS);
-  std::shared_ptr<Features_Provider> feats_provider = std::make_shared<Features_Provider>();
-  if (!feats_provider->load(*this->_sfm_data, this->_config.features_dir, regions_type)) {
-    std::cerr << std::endl
-      << "Invalid features." << std::endl;
-    return false;
-  }
+  std::shared_ptr<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> feats_provider 
+    = std::make_shared<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage);
+  feats_provider->load_from_storage(this->_reconstruction_id);
   std::unique_ptr<SfMSceneInitializer> scene_initializer;
     
   if(!this->_sfm_data->poses.empty()){
@@ -893,22 +841,10 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
       << sImage_describer << " regions type file." << std::endl;
     return false;
   }
+  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider 
+    = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
+  regions_provider->load_from_storage(this->_reconstruction_id);
 
-  std::shared_ptr<Regions_Provider> regions_provider;
-  if (ui_max_cache_size == 0)
-  {
-    regions_provider = std::make_shared<Regions_Provider>();
-  }
-  else
-  {
-    regions_provider = std::make_shared<Regions_Provider_Cache>(ui_max_cache_size);
-  }
-
-  if (!regions_provider->load(*this->_sfm_data, this->_config.features_dir, regions_type)) {
-    std::cerr << std::endl
-      << "Invalid regions." << std::endl;
-    return false;
-  }
     //--
     //- Pair selection method:
     //  - geometry guided -> camera frustum intersection,

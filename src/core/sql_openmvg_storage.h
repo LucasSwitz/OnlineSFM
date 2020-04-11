@@ -31,6 +31,7 @@ class SQLOpenMVGStorage : public OpenMVGStorageAdapter, public SQLStorage {
                                  const openMVG::geometry::Pose3& pose);
         openMVG::sfm::Poses GetPoses(const std::string& reconstruction_id);
         openMVG::IndexT GetViewIdxByImageID(const std::string& image_id);
+        std::unique_ptr<std::unordered_map<std::string, openMVG::IndexT>> GetAllViewIdxByImageID(const std::vector<std::string>& image_ids);
 
     private:
         std::string _views_table;

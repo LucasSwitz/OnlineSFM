@@ -15,7 +15,7 @@
 #include "index_helpers.h"
 #include <cppconn/driver.h>
 #include "sql_openmvg_storage.h"
-#include "sql_descriptor_storage.h"
+#include "sql_regions_storage.h"
 
 std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& id){
     try{
@@ -71,10 +71,10 @@ std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& 
                                         CONFIG_GET_STRING("sql.openmvg_meta_table"),
                                         CONFIG_GET_STRING("sql.openmvg_poses_table")),
                                         config_adapter,
-                    std::make_shared<SQLDescriptorStorage>(
+                    std::make_shared<SQLRegionsStorage<openMVG::features::SIFT_Regions>>(
                                         driver,
                                         connection,
-                                        CONFIG_GET_STRING("sql.descriptors_table")),
+                                        CONFIG_GET_STRING("sql.regions_table")),
                     image_storage));
     }catch(const std::exception& e){
         throw;
