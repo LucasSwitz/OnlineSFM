@@ -16,6 +16,8 @@
 #include <cppconn/driver.h>
 #include "sql_openmvg_storage.h"
 #include "sql_regions_storage.h"
+#include "remote_image_storage_adapter.h"
+#include "image_storage_openmvg_adapter.h"
 
 std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& id){
     try{
@@ -37,7 +39,7 @@ std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(const std::string& 
         auto image_storage = std::make_shared<SQLImageStorage>( 
                                                         driver,
                                                         connection, 
-                                                        std::make_shared<FileSystemImageDataStorage>(), 
+                                                        std::make_shared<RemoteImageStorageAdapter>(CONFIG_GET_STRING("storage.address")), 
                                                         CONFIG_GET_STRING("sql.views_table"));
         return std::make_shared<Reconstruction>(id,  
                 std::make_shared<SQLReconstructionStorage>(

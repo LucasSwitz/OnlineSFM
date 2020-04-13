@@ -48,6 +48,13 @@ file(GLOB INDEX_SERVER_SOURCES
     src/index/server/*.cpp
 )
 
+file(GLOB STORAGE_SOURCES
+    common/proto/gen/cpp/*.cc
+    common/proto/gen/cpp/*.cpp
+    src/storage/*.cpp
+    src/core/*.cpp
+)
+
 add_executable(server ${SERVER_SOURCES})
 set_property(TARGET server PROPERTY CXX_STANDARD 14)
 target_link_libraries(server 
@@ -141,6 +148,37 @@ target_link_libraries(build_index
 add_executable(indexing_server ${INDEX_SERVER_SOURCES})
 set_property(TARGET indexing_server PROPERTY CXX_STANDARD 14)
 target_link_libraries(indexing_server glog
+                        mongocxx 
+                        bsoncxx
+                        stlplus3
+                        ${Protobuf_LIBRARIES} 
+                        vlsift 
+                        gRPC::grpc++
+                        glog
+                        mysqlcppconn Boost::filesystem 
+                        redis++ 
+                        hiredis      
+                        OpenMVG::openMVG_camera
+                        OpenMVG::openMVG_exif
+                        OpenMVG::openMVG_features
+                        OpenMVG::openMVG_geodesy
+                        OpenMVG::openMVG_geometry
+                        OpenMVG::openMVG_graph
+                        OpenMVG::openMVG_image
+                        OpenMVG::openMVG_linearProgramming
+                        OpenMVG::openMVG_matching
+                        OpenMVG::openMVG_matching_image_collection
+                        OpenMVG::openMVG_multiview
+                        OpenMVG::openMVG_numeric
+                        OpenMVG::openMVG_robust_estimation
+                        OpenMVG::openMVG_sfm
+                        OpenMVG::openMVG_system
+                        lz4
+)
+
+add_executable(storage_server ${STORAGE_SOURCES})
+set_property(TARGET storage_server PROPERTY CXX_STANDARD 14)
+target_link_libraries(storage_server glog
                         mongocxx 
                         bsoncxx
                         stlplus3

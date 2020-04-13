@@ -112,9 +112,8 @@ ImageData SQLImageStorage::Get(const std::string& image_id){
     img_data.mutable_metadata()->CopyFrom(meta);
     std::vector<char> raw_data;
     if(this->_data_storage->Get(meta.path(), raw_data)){
-        char data_arr[raw_data.size()];
-        std::copy(raw_data.begin(), raw_data.end(), data_arr);
-        img_data.set_data(data_arr);
+        std::string data_str(raw_data.begin(), raw_data.end());
+        img_data.set_data(data_str);
     }
     return img_data;
 }

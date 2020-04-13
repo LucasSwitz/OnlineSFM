@@ -3,7 +3,7 @@
 #include <vector>
 #include "server.pb.h"
 
-class ImageStorageAdapter{
+class ImageStorageAdapter {
     public:
         virtual ImageData Get(const std::string& image_id) = 0;
         virtual ImageMetaData GetMeta(const std::string& image_id) = 0; 

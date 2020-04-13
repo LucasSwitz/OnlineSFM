@@ -21,6 +21,7 @@
 
 #include <openMVG/features/regions_factory.hpp>
 #include "openMVG/features/sift/SIFT_Anatomy_Image_Describer.hpp"
+#include "image_storage_openmvg_adapter.h"
 
 typedef struct OpenMVGReconstructionAgentConfig {
     std::string features_dir = "",
@@ -57,5 +58,6 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         std::shared_ptr<ImageStorageAdapter> _image_storage;
         std::shared_ptr<CameraIntrinsicsStorage> _intrinsics_storage = nullptr;
         std::shared_ptr<OpenMVGStorageAdapter> _openmvg_storage = nullptr;
+        ImageStorageOpenMVGAdapter _openmvg_images_storage;
         std::string _reconstruction_id;
 };

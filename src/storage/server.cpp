@@ -1,5 +1,3 @@
-#pragma once
-
 #include "storage.pb.h"
 #include "storage.grpc.pb.h"
 
@@ -31,23 +29,26 @@ class StorageServer : public Storage::Service {
         virtual ::grpc::Status Store(ServerContext* context, 
                                      ServerReader<StoreItemRequest>* stream, 
                                      StoreItemResponse* response){
+            LOG(INFO) << "Storing new file";
             std::string final_data;
             StoreItemRequest request;
             while(stream->Read(&request)){
                 final_data += request.data();
             }
-            this->_storage.Store(final_data, request.path());
+            response->set_path(this->_storage.Store(final_data, request.path()));
             return Status::OK;
         }
 
         virtual ::grpc::Status Get(ServerContext* context, 
                                    const GetItemRequest* request, 
                                    ServerWriter<GetItemResponse>* writer){
+            LOG(INFO) << "Getting " << request->path();
             std::vector<char> data;
             this->_storage.Read(request->path(), data);
+            std::string data_full(data.begin(), data.end());
             for(int i = 0; i < data.size(); i+=CHUNK_SIZE){
                     GetItemResponse data_chunked;
-                    std::string chunked_bytes(data.cbegin() + i*CHUNK_SIZE, data.cbegin() + (i+1)*CHUNK_SIZE);
+                    std::string chunked_bytes = data_full.substr(i, CHUNK_SIZE);
                     data_chunked.set_data(chunked_bytes);
                     writer->Write(data_chunked);
             }
@@ -62,8 +63,8 @@ int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
     StorageServer service;
-    std::string server_address(CONFIG_GET_STRING("storage.server_address"));
-    LOG(INFO) << "Starting server at address " << server_address; 
+    std::string server_address(CONFIG_GET_STRING("storage.address"));
+    LOG(INFO) << "Starting storage server at address " << server_address; 
     grpc::EnableDefaultHealthCheckService(true);
     ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());

@@ -179,7 +179,8 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
                                                                                   _openmvg_storage(openmvg_storage),
                                                                                   _configuration_adapter(configuration_adapter),
                                                                                   _regions_storage(regions_storage),
-                                                                                  _image_storage(image_storage){
+                                                                                  _image_storage(image_storage),
+                                                                                  _openmvg_images_storage(image_storage){
   
   
 }
@@ -225,7 +226,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   }
 
   ImageHeader imgHeader;
-  if (!openMVG::image::ReadImageHeader(image_path.c_str(), &imgHeader)){
+  if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
       std::cout
           << sImFilenamePart << " Failed to read header" << "\n";
       return false; // image cannot be read
@@ -485,7 +486,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       // If features or descriptors file are missing, compute them
       if (!preemptive_exit)
       {
-          if (!ReadImage(image_path.c_str(), &imageGray))
+          if (!this->_openmvg_images_storage.ReadImage(image_id, &imageGray))
               continue;
 
           Image<unsigned char> * mask = nullptr; // The mask is null by default
@@ -516,15 +517,15 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
               // Try to read the global mask
               if (stlplus::file_exists(mask__filename_global))
               {
-              if (!ReadImage(mask__filename_global.c_str(), &imageMask))
-              {
-                  std::cerr << "Invalid mask: " << mask__filename_global << std::endl
-                          << "Stopping feature extraction." << std::endl;
-                  preemptive_exit = true;
-              }
-              // Use the global mask only if it fits the current image size
-              if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
-                  mask = &imageMask;
+                if (!ReadImage(mask__filename_global.c_str(), &imageMask))
+                {
+                    std::cerr << "Invalid mask: " << mask__filename_global << std::endl
+                            << "Stopping feature extraction." << std::endl;
+                    preemptive_exit = true;
+                }
+                // Use the global mask only if it fits the current image size
+                if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
+                    mask = &imageMask;
               }
           }
 
