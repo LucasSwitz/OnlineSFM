@@ -12,13 +12,14 @@ class FileSystemStorer{
         FileSystemStorer(const std::string& storage_root) : _storage_root(storage_root){};
         std::string Store(const std::string& data, const std::string& path){
             std::filebuf fb;
-            std::string store_location = this->_storage_root + "/" + path;
-            fb.open(store_location , std::ios::out|std::ios::binary);
+            boost::filesystem::path store_location(this->_storage_root + "/" + path);
+            boost::filesystem::create_directories(store_location.parent_path());
+            fb.open(store_location.string() , std::ios::out|std::ios::binary);
             std::ostream os(&fb);
             os << data;
             fb.close();
-            LOG(INFO) << "Finished Writing file to disk " << store_location; 
-            return store_location;
+            LOG(INFO) << "Finished Writing file to disk " << store_location.string(); 
+            return store_location.string();
         }
         void DeleteDir(const std::string& path){
             if(!boost::filesystem::exists(path)) return;

@@ -10,9 +10,11 @@
 
 SQLSparseStorage::SQLSparseStorage(sql::Driver* driver, 
                                    std::shared_ptr<sql::Connection> con,
-                                   const std::string& table) : FileSystemStorer(CONFIG_GET_STRING("storage.root")),
+                                   const std::string& table,
+                                   std::shared_ptr<SPCDataStorage> data_storage) :
                                                                SQLStorage(driver, con),
-                                                               _table(table){
+                                                               _table(table),
+                                                               _data_storage(data_storage){
                                     
 }
 
@@ -21,7 +23,8 @@ SparsePointCloudData SQLSparseStorage::Get(const std::string& sparse_id){
     SparsePointCloudData sparse_data;
     sparse_data.mutable_metadata()->CopyFrom(meta);
     std::vector<char> raw_data;
-    if(this->Read(meta.ply_path(), raw_data)){
+
+    if(this->_data_storage->GetSPC(meta.ply_path(), raw_data)){
         LOG(INFO) << "Read Sparse of " << raw_data.size() << " bytes";
         std::string data_str(raw_data.begin(), raw_data.end()); 
         sparse_data.set_data(data_str);
@@ -44,27 +47,35 @@ SparsePointCloudMetaData SQLSparseStorage::GetMeta(const std::string& sparse_id)
         sparse_meta.set_ply_path(res->getString("PLY_PATH"));
         sparse_meta.set_mvs_path(res->getString("MVS_PATH"));
     }
+    delete res;
     return sparse_meta;
 }
 
-void SQLSparseStorage::Store(const SparsePointCloudMetaData& sparse_data){
-    LOG(INFO) << "Storing Sparse Data " << sparse_data.id() <<  " for " << sparse_data.reconstruction();
+void SQLSparseStorage::Store(const SparsePointCloudData& sparse_data){
+    LOG(INFO) << "Storing Sparse Data " << sparse_data.metadata().id() <<  
+        " for " << sparse_data.metadata().reconstruction();
+    //TODO finish MVS storage
+    std::string relative_store_path = sparse_data.metadata().reconstruction() 
+        + "/sparses/" 
+        + sparse_data.metadata().id() 
+        + ".ply"; 
+    std::string ply_path = this->_data_storage->StoreSPC(sparse_data, relative_store_path);
     this->IssueUpdate(SQL_INSERT_SPARSE(this->_table), 
-        [this, sparse_data](sql::PreparedStatement *stmt){
-            stmt->setString(1, sparse_data.id());
-            stmt->setString(2, sparse_data.reconstruction());
-            stmt->setString(3, sparse_data.ply_path());
-            stmt->setString(4, sparse_data.mvs_path());
-            stmt->setString(5, sparse_data.ply_path());
-            stmt->setString(6, sparse_data.mvs_path());
+        [this, sparse_data, ply_path](sql::PreparedStatement *stmt){
+            stmt->setString(1, sparse_data.metadata().id());
+            stmt->setString(2, sparse_data.metadata().reconstruction());
+            stmt->setString(3, ply_path);
+            stmt->setString(4, sparse_data.metadata().mvs_path());
+            stmt->setString(5, ply_path);
+            stmt->setString(6, sparse_data.metadata().mvs_path());
     });
 }
 
 void SQLSparseStorage::Delete(const std::string& sparse_id){
     LOG(INFO) << "Deleting Sparse Data " << sparse_id;
     SparsePointCloudMetaData sparse_meta = GetMeta(sparse_id);
-    FileSystemStorer::DeleteItem(sparse_meta.ply_path());
-    FileSystemStorer::DeleteItem(sparse_meta.mvs_path());
+    this->_data_storage->DeleteSPC(sparse_meta.ply_path());
+    this->_data_storage->DeleteSPC(sparse_meta.mvs_path());
     this->IssueUpdate(SQL_DELETE_SPARSE(this->_table), 
         [sparse_id](sql::PreparedStatement *stmt){
             stmt->setString(1, sparse_id);
@@ -100,8 +111,8 @@ std::vector<SparsePointCloudMetaData> SQLSparseStorage::GetAll(const std::string
 int SQLSparseStorage::DeleteByReconstruction(const std::string& reconstruction_id){
     std::vector<SparsePointCloudMetaData> sparses = GetAll(reconstruction_id);
     for(SparsePointCloudMetaData sparse : sparses){
-        FileSystemStorer::DeleteItem(sparse.ply_path());
-        FileSystemStorer::DeleteItem(sparse.mvs_path());
+        this->_data_storage->DeleteSPC(sparse.ply_path());
+        this->_data_storage->DeleteSPC(sparse.mvs_path());
     }
     this->IssueUpdate(SQL_DELETE_ALL_SPARSES(this->_table), 
         [this, reconstruction_id](sql::PreparedStatement *stmt){

@@ -7,9 +7,9 @@ class RedisWorkerReserver {
     public:
         RedisWorkerReserver(std::shared_ptr<sw::redis::Redis> redis);
         void AddNewWorker(const std::string& address, uint32_t cores);
-        std::string ReserverWorker();
-        std::string ReleaseWorker(const std::string& address);
+        std::string ReserveWorker();
+        void ReleaseWorker(const std::string& address);
     private:
-        std::shared_ptr<sw::redis::Redis> _redis;
         sw::redis::Transaction _tx;
+        std::shared_ptr<sw::redis::Redis> _redis;
 };

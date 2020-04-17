@@ -59,6 +59,7 @@ CameraIntrinsics SQLCameraIntrinsicsStorage::Get(const std::string& model){
         intrinsics_data.set_horizontal_view_angle(res->getDouble("HORIZONTAL_VIEW_ANGLE"));
         intrinsics_data.set_jpeg_quality(res->getInt64("JPEG_QUALITY"));
     }
+    delete res;
     return intrinsics_data;
 }
 

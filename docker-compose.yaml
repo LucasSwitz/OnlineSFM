@@ -9,7 +9,7 @@ services:
     redis:
         image: "redis:latest"
         ports:
-            - "6376:6376"
+            - "6379:6379"
     mysql:
         image: "mysql:latest"
         ports: 

@@ -26,10 +26,10 @@ class WorkerComputeMatchesRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerComputeMatchesRequest> _instance;
 } _WorkerComputeMatchesRequest_default_instance_;
-class WorkerComputeMatchesReponseDefaultTypeInternal {
+class WorkerComputeMatchesResponseDefaultTypeInternal {
  public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerComputeMatchesReponse> _instance;
-} _WorkerComputeMatchesReponse_default_instance_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerComputeMatchesResponse> _instance;
+} _WorkerComputeMatchesResponse_default_instance_;
 class RegisterWorkerRequestDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RegisterWorkerRequest> _instance;
@@ -38,6 +38,30 @@ class RegisterWorkerResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RegisterWorkerResponse> _instance;
 } _RegisterWorkerResponse_default_instance_;
+class WorkerAddImageRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerAddImageRequest> _instance;
+} _WorkerAddImageRequest_default_instance_;
+class WorkerAddImageResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerAddImageResponse> _instance;
+} _WorkerAddImageResponse_default_instance_;
+class WorkerIncrementalSFMRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerIncrementalSFMRequest> _instance;
+} _WorkerIncrementalSFMRequest_default_instance_;
+class WorkerIncrementalSFMResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerIncrementalSFMResponse> _instance;
+} _WorkerIncrementalSFMResponse_default_instance_;
+class WorkerComputeStructureRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerComputeStructureRequest> _instance;
+} _WorkerComputeStructureRequest_default_instance_;
+class WorkerComputeStructureResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerComputeStructureResponse> _instance;
+} _WorkerComputeStructureResponse_default_instance_;
 static void InitDefaultsscc_info_RegisterWorkerRequest_worker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -65,6 +89,34 @@ static void InitDefaultsscc_info_RegisterWorkerResponse_worker_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RegisterWorkerResponse_worker_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_RegisterWorkerResponse_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerAddImageRequest_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerAddImageRequest_default_instance_;
+    new (ptr) ::WorkerAddImageRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerAddImageRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerAddImageRequest_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerAddImageRequest_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerAddImageResponse_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerAddImageResponse_default_instance_;
+    new (ptr) ::WorkerAddImageResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerAddImageResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerAddImageResponse_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerAddImageResponse_worker_2eproto}, {}};
 
 static void InitDefaultsscc_info_WorkerComputeFeaturesRequest_worker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -94,20 +146,6 @@ static void InitDefaultsscc_info_WorkerComputeFeaturesResponse_worker_2eproto() 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerComputeFeaturesResponse_worker_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerComputeFeaturesResponse_worker_2eproto}, {}};
 
-static void InitDefaultsscc_info_WorkerComputeMatchesReponse_worker_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::_WorkerComputeMatchesReponse_default_instance_;
-    new (ptr) ::WorkerComputeMatchesReponse();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::WorkerComputeMatchesReponse::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerComputeMatchesReponse_worker_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerComputeMatchesReponse_worker_2eproto}, {}};
-
 static void InitDefaultsscc_info_WorkerComputeMatchesRequest_worker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -122,7 +160,77 @@ static void InitDefaultsscc_info_WorkerComputeMatchesRequest_worker_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerComputeMatchesRequest_worker_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerComputeMatchesRequest_worker_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_worker_2eproto[6];
+static void InitDefaultsscc_info_WorkerComputeMatchesResponse_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerComputeMatchesResponse_default_instance_;
+    new (ptr) ::WorkerComputeMatchesResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerComputeMatchesResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerComputeMatchesResponse_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerComputeMatchesResponse_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerComputeStructureRequest_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerComputeStructureRequest_default_instance_;
+    new (ptr) ::WorkerComputeStructureRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerComputeStructureRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerComputeStructureRequest_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerComputeStructureRequest_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerComputeStructureResponse_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerComputeStructureResponse_default_instance_;
+    new (ptr) ::WorkerComputeStructureResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerComputeStructureResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerComputeStructureResponse_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerComputeStructureResponse_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerIncrementalSFMRequest_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerIncrementalSFMRequest_default_instance_;
+    new (ptr) ::WorkerIncrementalSFMRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerIncrementalSFMRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerIncrementalSFMRequest_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerIncrementalSFMRequest_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerIncrementalSFMResponse_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerIncrementalSFMResponse_default_instance_;
+    new (ptr) ::WorkerIncrementalSFMResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerIncrementalSFMResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerIncrementalSFMResponse_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerIncrementalSFMResponse_worker_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_worker_2eproto[12];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_worker_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_worker_2eproto = nullptr;
 
@@ -139,6 +247,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeFeaturesResponse, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -147,10 +256,11 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesRequest, reconstruction_id_),
   PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesRequest, image_id_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesReponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesResponse, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RegisterWorkerRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -163,63 +273,138 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerAddImageRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerAddImageRequest, reconstruction_id_),
+  PROTOBUF_FIELD_OFFSET(::WorkerAddImageRequest, image_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerAddImageResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerAddImageResponse, success_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerIncrementalSFMRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerIncrementalSFMRequest, reconstruction_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerIncrementalSFMResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerIncrementalSFMResponse, success_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeStructureRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeStructureRequest, reconstruction_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeStructureResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerComputeStructureResponse, success_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::WorkerComputeFeaturesRequest)},
   { 7, -1, sizeof(::WorkerComputeFeaturesResponse)},
-  { 12, -1, sizeof(::WorkerComputeMatchesRequest)},
-  { 19, -1, sizeof(::WorkerComputeMatchesReponse)},
-  { 24, -1, sizeof(::RegisterWorkerRequest)},
-  { 31, -1, sizeof(::RegisterWorkerResponse)},
+  { 13, -1, sizeof(::WorkerComputeMatchesRequest)},
+  { 20, -1, sizeof(::WorkerComputeMatchesResponse)},
+  { 26, -1, sizeof(::RegisterWorkerRequest)},
+  { 33, -1, sizeof(::RegisterWorkerResponse)},
+  { 38, -1, sizeof(::WorkerAddImageRequest)},
+  { 45, -1, sizeof(::WorkerAddImageResponse)},
+  { 51, -1, sizeof(::WorkerIncrementalSFMRequest)},
+  { 57, -1, sizeof(::WorkerIncrementalSFMResponse)},
+  { 63, -1, sizeof(::WorkerComputeStructureRequest)},
+  { 69, -1, sizeof(::WorkerComputeStructureResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeFeaturesRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeFeaturesResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeMatchesRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeMatchesReponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeMatchesResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_RegisterWorkerRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_RegisterWorkerResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerAddImageRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerAddImageResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerIncrementalSFMRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerIncrementalSFMResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeStructureRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeStructureResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_worker_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014worker.proto\"K\n\034WorkerComputeFeaturesR"
   "equest\022\031\n\021reconstruction_id\030\001 \001(\t\022\020\n\010ima"
-  "ge_id\030\002 \001(\t\"\037\n\035WorkerComputeFeaturesResp"
-  "onse\"J\n\033WorkerComputeMatchesRequest\022\031\n\021r"
-  "econstruction_id\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t"
-  "\"\035\n\033WorkerComputeMatchesReponse\"7\n\025Regis"
-  "terWorkerRequest\022\017\n\007address\030\001 \001(\t\022\r\n\005cor"
-  "es\030\002 \001(\005\"\030\n\026RegisterWorkerResponse2\360\001\n\021W"
-  "orkerPoolManager\022P\n\017ComputeFeatures\022\035.Wo"
-  "rkerComputeFeaturesRequest\032\036.WorkerCompu"
-  "teFeaturesResponse\022L\n\016ComputeMatches\022\034.W"
-  "orkerComputeMatchesRequest\032\034.WorkerCompu"
-  "teMatchesReponse\022;\n\010Register\022\026.RegisterW"
-  "orkerRequest\032\027.RegisterWorkerResponse2\250\001"
-  "\n\006Worker\022P\n\017ComputeFeatures\022\035.WorkerComp"
-  "uteFeaturesRequest\032\036.WorkerComputeFeatur"
-  "esResponse\022L\n\016ComputeMatches\022\034.WorkerCom"
-  "puteMatchesRequest\032\034.WorkerComputeMatche"
-  "sReponseb\006proto3"
+  "ge_id\030\002 \001(\t\"0\n\035WorkerComputeFeaturesResp"
+  "onse\022\017\n\007success\030\001 \001(\010\"J\n\033WorkerComputeMa"
+  "tchesRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022"
+  "\020\n\010image_id\030\002 \001(\t\"/\n\034WorkerComputeMatche"
+  "sResponse\022\017\n\007success\030\001 \001(\010\"7\n\025RegisterWo"
+  "rkerRequest\022\017\n\007address\030\001 \001(\t\022\r\n\005cores\030\002 "
+  "\001(\005\"\030\n\026RegisterWorkerResponse\"D\n\025WorkerA"
+  "ddImageRequest\022\031\n\021reconstruction_id\030\001 \001("
+  "\t\022\020\n\010image_id\030\002 \001(\t\")\n\026WorkerAddImageRes"
+  "ponse\022\017\n\007success\030\001 \001(\010\"8\n\033WorkerIncremen"
+  "talSFMRequest\022\031\n\021reconstruction_id\030\001 \001(\t"
+  "\"/\n\034WorkerIncrementalSFMResponse\022\017\n\007succ"
+  "ess\030\001 \001(\010\":\n\035WorkerComputeStructureReque"
+  "st\022\031\n\021reconstruction_id\030\001 \001(\t\"1\n\036WorkerC"
+  "omputeStructureResponse\022\017\n\007success\030\001 \001(\010"
+  "2\322\003\n\021WorkerPoolManager\022;\n\010Register\022\026.Reg"
+  "isterWorkerRequest\032\027.RegisterWorkerRespo"
+  "nse\022;\n\010AddImage\022\026.WorkerAddImageRequest\032"
+  "\027.WorkerAddImageResponse\022P\n\017ComputeFeatu"
+  "res\022\035.WorkerComputeFeaturesRequest\032\036.Wor"
+  "kerComputeFeaturesResponse\022M\n\016ComputeMat"
+  "ches\022\034.WorkerComputeMatchesRequest\032\035.Wor"
+  "kerComputeMatchesResponse\022M\n\016Incremental"
+  "SFM\022\034.WorkerIncrementalSFMRequest\032\035.Work"
+  "erIncrementalSFMResponse\022S\n\020ComputeStruc"
+  "ture\022\036.WorkerComputeStructureRequest\032\037.W"
+  "orkerComputeStructureResponse2\212\003\n\006Worker"
+  "\022;\n\010AddImage\022\026.WorkerAddImageRequest\032\027.W"
+  "orkerAddImageResponse\022P\n\017ComputeFeatures"
+  "\022\035.WorkerComputeFeaturesRequest\032\036.Worker"
+  "ComputeFeaturesResponse\022M\n\016ComputeMatche"
+  "s\022\034.WorkerComputeMatchesRequest\032\035.Worker"
+  "ComputeMatchesResponse\022M\n\016IncrementalSFM"
+  "\022\034.WorkerIncrementalSFMRequest\032\035.WorkerI"
+  "ncrementalSFMResponse\022S\n\020ComputeStructur"
+  "e\022\036.WorkerComputeStructureRequest\032\037.Work"
+  "erComputeStructureResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_worker_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_worker_2eproto_sccs[6] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_worker_2eproto_sccs[12] = {
   &scc_info_RegisterWorkerRequest_worker_2eproto.base,
   &scc_info_RegisterWorkerResponse_worker_2eproto.base,
+  &scc_info_WorkerAddImageRequest_worker_2eproto.base,
+  &scc_info_WorkerAddImageResponse_worker_2eproto.base,
   &scc_info_WorkerComputeFeaturesRequest_worker_2eproto.base,
   &scc_info_WorkerComputeFeaturesResponse_worker_2eproto.base,
-  &scc_info_WorkerComputeMatchesReponse_worker_2eproto.base,
   &scc_info_WorkerComputeMatchesRequest_worker_2eproto.base,
+  &scc_info_WorkerComputeMatchesResponse_worker_2eproto.base,
+  &scc_info_WorkerComputeStructureRequest_worker_2eproto.base,
+  &scc_info_WorkerComputeStructureResponse_worker_2eproto.base,
+  &scc_info_WorkerIncrementalSFMRequest_worker_2eproto.base,
+  &scc_info_WorkerIncrementalSFMResponse_worker_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_worker_2eproto_once;
 static bool descriptor_table_worker_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_worker_2eproto = {
-  &descriptor_table_worker_2eproto_initialized, descriptor_table_protodef_worker_2eproto, "worker.proto", 736,
-  &descriptor_table_worker_2eproto_once, descriptor_table_worker_2eproto_sccs, descriptor_table_worker_2eproto_deps, 6, 0,
+  &descriptor_table_worker_2eproto_initialized, descriptor_table_protodef_worker_2eproto, "worker.proto", 1554,
+  &descriptor_table_worker_2eproto_once, descriptor_table_worker_2eproto_sccs, descriptor_table_worker_2eproto_deps, 12, 0,
   schemas, file_default_instances, TableStruct_worker_2eproto::offsets,
-  file_level_metadata_worker_2eproto, 6, file_level_enum_descriptors_worker_2eproto, file_level_service_descriptors_worker_2eproto,
+  file_level_metadata_worker_2eproto, 12, file_level_enum_descriptors_worker_2eproto, file_level_service_descriptors_worker_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -480,10 +665,12 @@ WorkerComputeFeaturesResponse::WorkerComputeFeaturesResponse(const WorkerCompute
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  success_ = from.success_;
   // @@protoc_insertion_point(copy_constructor:WorkerComputeFeaturesResponse)
 }
 
 void WorkerComputeFeaturesResponse::SharedCtor() {
+  success_ = false;
 }
 
 WorkerComputeFeaturesResponse::~WorkerComputeFeaturesResponse() {
@@ -509,6 +696,7 @@ void WorkerComputeFeaturesResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  success_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -518,6 +706,16 @@ const char* WorkerComputeFeaturesResponse::_InternalParse(const char* ptr, ::PRO
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -525,6 +723,8 @@ const char* WorkerComputeFeaturesResponse::_InternalParse(const char* ptr, ::PRO
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
+      }
+    }  // switch
   }  // while
 success:
   return ptr;
@@ -539,6 +739,12 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeFeaturesResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -555,6 +761,11 @@ size_t WorkerComputeFeaturesResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -587,6 +798,9 @@ void WorkerComputeFeaturesResponse::MergeFrom(const WorkerComputeFeaturesRespons
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
 }
 
 void WorkerComputeFeaturesResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -610,6 +824,7 @@ bool WorkerComputeFeaturesResponse::IsInitialized() const {
 void WorkerComputeFeaturesResponse::InternalSwap(WorkerComputeFeaturesResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(success_, other->success_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeFeaturesResponse::GetMetadata() const {
@@ -857,59 +1072,72 @@ void WorkerComputeMatchesRequest::InternalSwap(WorkerComputeMatchesRequest* othe
 
 // ===================================================================
 
-void WorkerComputeMatchesReponse::InitAsDefaultInstance() {
+void WorkerComputeMatchesResponse::InitAsDefaultInstance() {
 }
-class WorkerComputeMatchesReponse::_Internal {
+class WorkerComputeMatchesResponse::_Internal {
  public:
 };
 
-WorkerComputeMatchesReponse::WorkerComputeMatchesReponse()
+WorkerComputeMatchesResponse::WorkerComputeMatchesResponse()
   : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:WorkerComputeMatchesReponse)
+  // @@protoc_insertion_point(constructor:WorkerComputeMatchesResponse)
 }
-WorkerComputeMatchesReponse::WorkerComputeMatchesReponse(const WorkerComputeMatchesReponse& from)
+WorkerComputeMatchesResponse::WorkerComputeMatchesResponse(const WorkerComputeMatchesResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:WorkerComputeMatchesReponse)
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:WorkerComputeMatchesResponse)
 }
 
-void WorkerComputeMatchesReponse::SharedCtor() {
+void WorkerComputeMatchesResponse::SharedCtor() {
+  success_ = false;
 }
 
-WorkerComputeMatchesReponse::~WorkerComputeMatchesReponse() {
-  // @@protoc_insertion_point(destructor:WorkerComputeMatchesReponse)
+WorkerComputeMatchesResponse::~WorkerComputeMatchesResponse() {
+  // @@protoc_insertion_point(destructor:WorkerComputeMatchesResponse)
   SharedDtor();
 }
 
-void WorkerComputeMatchesReponse::SharedDtor() {
+void WorkerComputeMatchesResponse::SharedDtor() {
 }
 
-void WorkerComputeMatchesReponse::SetCachedSize(int size) const {
+void WorkerComputeMatchesResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const WorkerComputeMatchesReponse& WorkerComputeMatchesReponse::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerComputeMatchesReponse_worker_2eproto.base);
+const WorkerComputeMatchesResponse& WorkerComputeMatchesResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerComputeMatchesResponse_worker_2eproto.base);
   return *internal_default_instance();
 }
 
 
-void WorkerComputeMatchesReponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:WorkerComputeMatchesReponse)
+void WorkerComputeMatchesResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerComputeMatchesResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  success_ = false;
   _internal_metadata_.Clear();
 }
 
-const char* WorkerComputeMatchesReponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WorkerComputeMatchesResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -917,6 +1145,8 @@ const char* WorkerComputeMatchesReponse::_InternalParse(const char* ptr, ::PROTO
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
+      }
+    }  // switch
   }  // while
 success:
   return ptr;
@@ -926,27 +1156,38 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* WorkerComputeMatchesReponse::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerComputeMatchesResponse::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeMatchesReponse)
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeMatchesResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:WorkerComputeMatchesReponse)
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerComputeMatchesResponse)
   return target;
 }
 
-size_t WorkerComputeMatchesReponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:WorkerComputeMatchesReponse)
+size_t WorkerComputeMatchesResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerComputeMatchesResponse)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -957,54 +1198,58 @@ size_t WorkerComputeMatchesReponse::ByteSizeLong() const {
   return total_size;
 }
 
-void WorkerComputeMatchesReponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:WorkerComputeMatchesReponse)
+void WorkerComputeMatchesResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerComputeMatchesResponse)
   GOOGLE_DCHECK_NE(&from, this);
-  const WorkerComputeMatchesReponse* source =
-      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerComputeMatchesReponse>(
+  const WorkerComputeMatchesResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerComputeMatchesResponse>(
           &from);
   if (source == nullptr) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerComputeMatchesReponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerComputeMatchesResponse)
     ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerComputeMatchesReponse)
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerComputeMatchesResponse)
     MergeFrom(*source);
   }
 }
 
-void WorkerComputeMatchesReponse::MergeFrom(const WorkerComputeMatchesReponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:WorkerComputeMatchesReponse)
+void WorkerComputeMatchesResponse::MergeFrom(const WorkerComputeMatchesResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerComputeMatchesResponse)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
 }
 
-void WorkerComputeMatchesReponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:WorkerComputeMatchesReponse)
+void WorkerComputeMatchesResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerComputeMatchesResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void WorkerComputeMatchesReponse::CopyFrom(const WorkerComputeMatchesReponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:WorkerComputeMatchesReponse)
+void WorkerComputeMatchesResponse::CopyFrom(const WorkerComputeMatchesResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerComputeMatchesResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool WorkerComputeMatchesReponse::IsInitialized() const {
+bool WorkerComputeMatchesResponse::IsInitialized() const {
   return true;
 }
 
-void WorkerComputeMatchesReponse::InternalSwap(WorkerComputeMatchesReponse* other) {
+void WorkerComputeMatchesResponse::InternalSwap(WorkerComputeMatchesResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(success_, other->success_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeMatchesReponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeMatchesResponse::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -1389,6 +1634,1194 @@ void RegisterWorkerResponse::InternalSwap(RegisterWorkerResponse* other) {
 }
 
 
+// ===================================================================
+
+void WorkerAddImageRequest::InitAsDefaultInstance() {
+}
+class WorkerAddImageRequest::_Internal {
+ public:
+};
+
+WorkerAddImageRequest::WorkerAddImageRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerAddImageRequest)
+}
+WorkerAddImageRequest::WorkerAddImageRequest(const WorkerAddImageRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_image_id().empty()) {
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
+  // @@protoc_insertion_point(copy_constructor:WorkerAddImageRequest)
+}
+
+void WorkerAddImageRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_WorkerAddImageRequest_worker_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+WorkerAddImageRequest::~WorkerAddImageRequest() {
+  // @@protoc_insertion_point(destructor:WorkerAddImageRequest)
+  SharedDtor();
+}
+
+void WorkerAddImageRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  image_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void WorkerAddImageRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerAddImageRequest& WorkerAddImageRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerAddImageRequest_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerAddImageRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerAddImageRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerAddImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "WorkerAddImageRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string image_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          auto str = _internal_mutable_image_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "WorkerAddImageRequest.image_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerAddImageRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerAddImageRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "WorkerAddImageRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  // string image_id = 2;
+  if (this->image_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_image_id().data(), static_cast<int>(this->_internal_image_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "WorkerAddImageRequest.image_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_image_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerAddImageRequest)
+  return target;
+}
+
+size_t WorkerAddImageRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerAddImageRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  // string image_id = 2;
+  if (this->image_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_image_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerAddImageRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerAddImageRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerAddImageRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerAddImageRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerAddImageRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerAddImageRequest)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerAddImageRequest::MergeFrom(const WorkerAddImageRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerAddImageRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  if (from.image_id().size() > 0) {
+
+    image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
+  }
+}
+
+void WorkerAddImageRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerAddImageRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerAddImageRequest::CopyFrom(const WorkerAddImageRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerAddImageRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerAddImageRequest::IsInitialized() const {
+  return true;
+}
+
+void WorkerAddImageRequest::InternalSwap(WorkerAddImageRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  image_id_.Swap(&other->image_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerAddImageRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void WorkerAddImageResponse::InitAsDefaultInstance() {
+}
+class WorkerAddImageResponse::_Internal {
+ public:
+};
+
+WorkerAddImageResponse::WorkerAddImageResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerAddImageResponse)
+}
+WorkerAddImageResponse::WorkerAddImageResponse(const WorkerAddImageResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:WorkerAddImageResponse)
+}
+
+void WorkerAddImageResponse::SharedCtor() {
+  success_ = false;
+}
+
+WorkerAddImageResponse::~WorkerAddImageResponse() {
+  // @@protoc_insertion_point(destructor:WorkerAddImageResponse)
+  SharedDtor();
+}
+
+void WorkerAddImageResponse::SharedDtor() {
+}
+
+void WorkerAddImageResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerAddImageResponse& WorkerAddImageResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerAddImageResponse_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerAddImageResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerAddImageResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  success_ = false;
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerAddImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerAddImageResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerAddImageResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerAddImageResponse)
+  return target;
+}
+
+size_t WorkerAddImageResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerAddImageResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerAddImageResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerAddImageResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerAddImageResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerAddImageResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerAddImageResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerAddImageResponse)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerAddImageResponse::MergeFrom(const WorkerAddImageResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerAddImageResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
+}
+
+void WorkerAddImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerAddImageResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerAddImageResponse::CopyFrom(const WorkerAddImageResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerAddImageResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerAddImageResponse::IsInitialized() const {
+  return true;
+}
+
+void WorkerAddImageResponse::InternalSwap(WorkerAddImageResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(success_, other->success_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerAddImageResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void WorkerIncrementalSFMRequest::InitAsDefaultInstance() {
+}
+class WorkerIncrementalSFMRequest::_Internal {
+ public:
+};
+
+WorkerIncrementalSFMRequest::WorkerIncrementalSFMRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerIncrementalSFMRequest)
+}
+WorkerIncrementalSFMRequest::WorkerIncrementalSFMRequest(const WorkerIncrementalSFMRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  // @@protoc_insertion_point(copy_constructor:WorkerIncrementalSFMRequest)
+}
+
+void WorkerIncrementalSFMRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_WorkerIncrementalSFMRequest_worker_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+WorkerIncrementalSFMRequest::~WorkerIncrementalSFMRequest() {
+  // @@protoc_insertion_point(destructor:WorkerIncrementalSFMRequest)
+  SharedDtor();
+}
+
+void WorkerIncrementalSFMRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void WorkerIncrementalSFMRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerIncrementalSFMRequest& WorkerIncrementalSFMRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerIncrementalSFMRequest_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerIncrementalSFMRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerIncrementalSFMRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerIncrementalSFMRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "WorkerIncrementalSFMRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerIncrementalSFMRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerIncrementalSFMRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "WorkerIncrementalSFMRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerIncrementalSFMRequest)
+  return target;
+}
+
+size_t WorkerIncrementalSFMRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerIncrementalSFMRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerIncrementalSFMRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerIncrementalSFMRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerIncrementalSFMRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerIncrementalSFMRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerIncrementalSFMRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerIncrementalSFMRequest)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerIncrementalSFMRequest::MergeFrom(const WorkerIncrementalSFMRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerIncrementalSFMRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+}
+
+void WorkerIncrementalSFMRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerIncrementalSFMRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerIncrementalSFMRequest::CopyFrom(const WorkerIncrementalSFMRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerIncrementalSFMRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerIncrementalSFMRequest::IsInitialized() const {
+  return true;
+}
+
+void WorkerIncrementalSFMRequest::InternalSwap(WorkerIncrementalSFMRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerIncrementalSFMRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void WorkerIncrementalSFMResponse::InitAsDefaultInstance() {
+}
+class WorkerIncrementalSFMResponse::_Internal {
+ public:
+};
+
+WorkerIncrementalSFMResponse::WorkerIncrementalSFMResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerIncrementalSFMResponse)
+}
+WorkerIncrementalSFMResponse::WorkerIncrementalSFMResponse(const WorkerIncrementalSFMResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:WorkerIncrementalSFMResponse)
+}
+
+void WorkerIncrementalSFMResponse::SharedCtor() {
+  success_ = false;
+}
+
+WorkerIncrementalSFMResponse::~WorkerIncrementalSFMResponse() {
+  // @@protoc_insertion_point(destructor:WorkerIncrementalSFMResponse)
+  SharedDtor();
+}
+
+void WorkerIncrementalSFMResponse::SharedDtor() {
+}
+
+void WorkerIncrementalSFMResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerIncrementalSFMResponse& WorkerIncrementalSFMResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerIncrementalSFMResponse_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerIncrementalSFMResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerIncrementalSFMResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  success_ = false;
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerIncrementalSFMResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerIncrementalSFMResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerIncrementalSFMResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerIncrementalSFMResponse)
+  return target;
+}
+
+size_t WorkerIncrementalSFMResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerIncrementalSFMResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerIncrementalSFMResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerIncrementalSFMResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerIncrementalSFMResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerIncrementalSFMResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerIncrementalSFMResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerIncrementalSFMResponse)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerIncrementalSFMResponse::MergeFrom(const WorkerIncrementalSFMResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerIncrementalSFMResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
+}
+
+void WorkerIncrementalSFMResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerIncrementalSFMResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerIncrementalSFMResponse::CopyFrom(const WorkerIncrementalSFMResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerIncrementalSFMResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerIncrementalSFMResponse::IsInitialized() const {
+  return true;
+}
+
+void WorkerIncrementalSFMResponse::InternalSwap(WorkerIncrementalSFMResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(success_, other->success_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerIncrementalSFMResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void WorkerComputeStructureRequest::InitAsDefaultInstance() {
+}
+class WorkerComputeStructureRequest::_Internal {
+ public:
+};
+
+WorkerComputeStructureRequest::WorkerComputeStructureRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerComputeStructureRequest)
+}
+WorkerComputeStructureRequest::WorkerComputeStructureRequest(const WorkerComputeStructureRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  // @@protoc_insertion_point(copy_constructor:WorkerComputeStructureRequest)
+}
+
+void WorkerComputeStructureRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_WorkerComputeStructureRequest_worker_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+WorkerComputeStructureRequest::~WorkerComputeStructureRequest() {
+  // @@protoc_insertion_point(destructor:WorkerComputeStructureRequest)
+  SharedDtor();
+}
+
+void WorkerComputeStructureRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void WorkerComputeStructureRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerComputeStructureRequest& WorkerComputeStructureRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerComputeStructureRequest_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerComputeStructureRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerComputeStructureRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerComputeStructureRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "WorkerComputeStructureRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerComputeStructureRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeStructureRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "WorkerComputeStructureRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerComputeStructureRequest)
+  return target;
+}
+
+size_t WorkerComputeStructureRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerComputeStructureRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerComputeStructureRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerComputeStructureRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerComputeStructureRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerComputeStructureRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerComputeStructureRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerComputeStructureRequest)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerComputeStructureRequest::MergeFrom(const WorkerComputeStructureRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerComputeStructureRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+}
+
+void WorkerComputeStructureRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerComputeStructureRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerComputeStructureRequest::CopyFrom(const WorkerComputeStructureRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerComputeStructureRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerComputeStructureRequest::IsInitialized() const {
+  return true;
+}
+
+void WorkerComputeStructureRequest::InternalSwap(WorkerComputeStructureRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeStructureRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void WorkerComputeStructureResponse::InitAsDefaultInstance() {
+}
+class WorkerComputeStructureResponse::_Internal {
+ public:
+};
+
+WorkerComputeStructureResponse::WorkerComputeStructureResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerComputeStructureResponse)
+}
+WorkerComputeStructureResponse::WorkerComputeStructureResponse(const WorkerComputeStructureResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  success_ = from.success_;
+  // @@protoc_insertion_point(copy_constructor:WorkerComputeStructureResponse)
+}
+
+void WorkerComputeStructureResponse::SharedCtor() {
+  success_ = false;
+}
+
+WorkerComputeStructureResponse::~WorkerComputeStructureResponse() {
+  // @@protoc_insertion_point(destructor:WorkerComputeStructureResponse)
+  SharedDtor();
+}
+
+void WorkerComputeStructureResponse::SharedDtor() {
+}
+
+void WorkerComputeStructureResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerComputeStructureResponse& WorkerComputeStructureResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerComputeStructureResponse_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerComputeStructureResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerComputeStructureResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  success_ = false;
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerComputeStructureResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bool success = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerComputeStructureResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeStructureResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerComputeStructureResponse)
+  return target;
+}
+
+size_t WorkerComputeStructureResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerComputeStructureResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool success = 1;
+  if (this->success() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerComputeStructureResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerComputeStructureResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerComputeStructureResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerComputeStructureResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerComputeStructureResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerComputeStructureResponse)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerComputeStructureResponse::MergeFrom(const WorkerComputeStructureResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerComputeStructureResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.success() != 0) {
+    _internal_set_success(from._internal_success());
+  }
+}
+
+void WorkerComputeStructureResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerComputeStructureResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerComputeStructureResponse::CopyFrom(const WorkerComputeStructureResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerComputeStructureResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerComputeStructureResponse::IsInitialized() const {
+  return true;
+}
+
+void WorkerComputeStructureResponse::InternalSwap(WorkerComputeStructureResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  swap(success_, other->success_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeStructureResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::WorkerComputeFeaturesRequest* Arena::CreateMaybeMessage< ::WorkerComputeFeaturesRequest >(Arena* arena) {
@@ -1400,14 +2833,32 @@ template<> PROTOBUF_NOINLINE ::WorkerComputeFeaturesResponse* Arena::CreateMaybe
 template<> PROTOBUF_NOINLINE ::WorkerComputeMatchesRequest* Arena::CreateMaybeMessage< ::WorkerComputeMatchesRequest >(Arena* arena) {
   return Arena::CreateInternal< ::WorkerComputeMatchesRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::WorkerComputeMatchesReponse* Arena::CreateMaybeMessage< ::WorkerComputeMatchesReponse >(Arena* arena) {
-  return Arena::CreateInternal< ::WorkerComputeMatchesReponse >(arena);
+template<> PROTOBUF_NOINLINE ::WorkerComputeMatchesResponse* Arena::CreateMaybeMessage< ::WorkerComputeMatchesResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerComputeMatchesResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::RegisterWorkerRequest* Arena::CreateMaybeMessage< ::RegisterWorkerRequest >(Arena* arena) {
   return Arena::CreateInternal< ::RegisterWorkerRequest >(arena);
 }
 template<> PROTOBUF_NOINLINE ::RegisterWorkerResponse* Arena::CreateMaybeMessage< ::RegisterWorkerResponse >(Arena* arena) {
   return Arena::CreateInternal< ::RegisterWorkerResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerAddImageRequest* Arena::CreateMaybeMessage< ::WorkerAddImageRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerAddImageRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerAddImageResponse* Arena::CreateMaybeMessage< ::WorkerAddImageResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerAddImageResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerIncrementalSFMRequest* Arena::CreateMaybeMessage< ::WorkerIncrementalSFMRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerIncrementalSFMRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerIncrementalSFMResponse* Arena::CreateMaybeMessage< ::WorkerIncrementalSFMResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerIncrementalSFMResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerComputeStructureRequest* Arena::CreateMaybeMessage< ::WorkerComputeStructureRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerComputeStructureRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerComputeStructureResponse* Arena::CreateMaybeMessage< ::WorkerComputeStructureResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerComputeStructureResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

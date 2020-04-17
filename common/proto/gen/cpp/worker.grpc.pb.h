@@ -34,20 +34,6 @@ class WorkerPoolManager final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
-    }
-    virtual ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesReponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>>(AsyncComputeMatchesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
-    }
     virtual ::grpc::Status Register(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::RegisterWorkerResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegisterWorkerResponse>> AsyncRegister(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegisterWorkerResponse>>(AsyncRegisterRaw(context, request, cq));
@@ -55,33 +41,44 @@ class WorkerPoolManager final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegisterWorkerResponse>> PrepareAsyncRegister(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::RegisterWorkerResponse>>(PrepareAsyncRegisterRaw(context, request, cq));
     }
+    virtual ::grpc::Status AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>> AsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>>(AsyncAddImageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>> PrepareAsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>>(PrepareAsyncAddImageRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>>(AsyncComputeMatchesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
+    }
+    virtual ::grpc::Status IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::WorkerIncrementalSFMResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>> AsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>>(AsyncIncrementalSFMRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>> PrepareAsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>>(PrepareAsyncIncrementalSFMRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::WorkerComputeStructureResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>> AsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>>(AsyncComputeStructureRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
       virtual void Register(::grpc::ClientContext* context, const ::RegisterWorkerRequest* request, ::RegisterWorkerResponse* response, std::function<void(::grpc::Status)>) = 0;
       virtual void Register(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::RegisterWorkerResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -94,6 +91,66 @@ class WorkerPoolManager final {
       #else
       virtual void Register(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::RegisterWorkerResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     typedef class experimental_async_interface async_interface;
@@ -103,30 +160,22 @@ class WorkerPoolManager final {
     #endif
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegisterWorkerResponse>* AsyncRegisterRaw(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::RegisterWorkerResponse>* PrepareAsyncRegisterRaw(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>* AsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>* PrepareAsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>* AsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
-    }
-    ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesReponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>>(AsyncComputeMatchesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
-    }
     ::grpc::Status Register(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::RegisterWorkerResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegisterWorkerResponse>> AsyncRegister(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegisterWorkerResponse>>(AsyncRegisterRaw(context, request, cq));
@@ -134,33 +183,44 @@ class WorkerPoolManager final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegisterWorkerResponse>> PrepareAsyncRegister(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::RegisterWorkerResponse>>(PrepareAsyncRegisterRaw(context, request, cq));
     }
+    ::grpc::Status AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>> AsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>>(AsyncAddImageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>> PrepareAsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>>(PrepareAsyncAddImageRaw(context, request, cq));
+    }
+    ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
+    }
+    ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>>(AsyncComputeMatchesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
+    }
+    ::grpc::Status IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::WorkerIncrementalSFMResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>> AsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>>(AsyncIncrementalSFMRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>> PrepareAsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>>(PrepareAsyncIncrementalSFMRaw(context, request, cq));
+    }
+    ::grpc::Status ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::WorkerComputeStructureResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>> AsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>>(AsyncComputeStructureRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
      public:
-      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
-      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) override;
-      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
       void Register(::grpc::ClientContext* context, const ::RegisterWorkerRequest* request, ::RegisterWorkerResponse* response, std::function<void(::grpc::Status)>) override;
       void Register(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::RegisterWorkerResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -173,6 +233,66 @@ class WorkerPoolManager final {
       #else
       void Register(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::RegisterWorkerResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) override;
+      void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) override;
+      void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) override;
+      void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -184,15 +304,24 @@ class WorkerPoolManager final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::RegisterWorkerResponse>* AsyncRegisterRaw(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::RegisterWorkerResponse>* PrepareAsyncRegisterRaw(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* AsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* PrepareAsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* AsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_Register_;
+    const ::grpc::internal::RpcMethod rpcmethod_AddImage_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeFeatures_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeMatches_;
-    const ::grpc::internal::RpcMethod rpcmethod_Register_;
+    const ::grpc::internal::RpcMethod rpcmethod_IncrementalSFM_;
+    const ::grpc::internal::RpcMethod rpcmethod_ComputeStructure_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -200,49 +329,12 @@ class WorkerPoolManager final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response);
-    virtual ::grpc::Status ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response);
     virtual ::grpc::Status Register(::grpc::ServerContext* context, const ::RegisterWorkerRequest* request, ::RegisterWorkerResponse* response);
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_ComputeFeatures : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithAsyncMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodAsync(0);
-    }
-    ~WithAsyncMethod_ComputeFeatures() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeFeatures(::grpc::ServerContext* context, ::WorkerComputeFeaturesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeFeaturesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithAsyncMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodAsync(1);
-    }
-    ~WithAsyncMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeMatches(::grpc::ServerContext* context, ::WorkerComputeMatchesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeMatchesReponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
+    virtual ::grpc::Status AddImage(::grpc::ServerContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response);
+    virtual ::grpc::Status ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response);
+    virtual ::grpc::Status ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response);
+    virtual ::grpc::Status IncrementalSFM(::grpc::ServerContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response);
+    virtual ::grpc::Status ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Register : public BaseClass {
@@ -250,7 +342,7 @@ class WorkerPoolManager final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Register() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(0);
     }
     ~WithAsyncMethod_Register() override {
       BaseClassMustBeDerivedFromService(this);
@@ -261,10 +353,204 @@ class WorkerPoolManager final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRegister(::grpc::ServerContext* context, ::RegisterWorkerRequest* request, ::grpc::ServerAsyncResponseWriter< ::RegisterWorkerResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_AddImage() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAddImage(::grpc::ServerContext* context, ::WorkerAddImageRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerAddImageResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComputeFeatures() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeFeatures(::grpc::ServerContext* context, ::WorkerComputeFeaturesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeFeaturesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_Register<Service > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComputeMatches() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeMatches(::grpc::ServerContext* context, ::WorkerComputeMatchesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeMatchesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestIncrementalSFM(::grpc::ServerContext* context, ::WorkerIncrementalSFMRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerIncrementalSFMResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeStructure(::grpc::ServerContext* context, ::WorkerComputeStructureRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeStructureResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Register<WithAsyncMethod_AddImage<WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_IncrementalSFM<WithAsyncMethod_ComputeStructure<Service > > > > > > AsyncService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_Register : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_Register() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::RegisterWorkerRequest, ::RegisterWorkerResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::RegisterWorkerRequest* request, ::RegisterWorkerResponse* response) { return this->Register(context, request, response); }));}
+    void SetMessageAllocatorFor_Register(
+        ::grpc::experimental::MessageAllocator< ::RegisterWorkerRequest, ::RegisterWorkerResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::RegisterWorkerRequest, ::RegisterWorkerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_Register() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Register(::grpc::ServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* Register(
+      ::grpc::CallbackServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* Register(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_AddImage() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerAddImageRequest, ::WorkerAddImageResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response) { return this->AddImage(context, request, response); }));}
+    void SetMessageAllocatorFor_AddImage(
+        ::grpc::experimental::MessageAllocator< ::WorkerAddImageRequest, ::WorkerAddImageResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerAddImageRequest, ::WorkerAddImageResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* AddImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* AddImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_ComputeFeatures : public BaseClass {
    private:
@@ -276,7 +562,7 @@ class WorkerPoolManager final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(0,
+        MarkMethodCallback(2,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -288,9 +574,9 @@ class WorkerPoolManager final {
     void SetMessageAllocatorFor_ComputeFeatures(
         ::grpc::experimental::MessageAllocator< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
     #endif
       static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
@@ -323,73 +609,150 @@ class WorkerPoolManager final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(1,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>(
+        MarkMethodCallback(3,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response) { return this->ComputeMatches(context, request, response); }));}
+                     context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response) { return this->ComputeMatches(context, request, response); }));}
     void SetMessageAllocatorFor_ComputeMatches(
-        ::grpc::experimental::MessageAllocator< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>* allocator) {
+        ::grpc::experimental::MessageAllocator< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
     #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>*>(handler)
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_ComputeMatches() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     virtual ::grpc::ServerUnaryReactor* ComputeMatches(
-      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/)
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/)
     #else
     virtual ::grpc::experimental::ServerUnaryReactor* ComputeMatches(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/)
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/)
     #endif
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_Register : public BaseClass {
+  class ExperimentalWithCallbackMethod_IncrementalSFM : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_Register() {
+    ExperimentalWithCallbackMethod_IncrementalSFM() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(2,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::RegisterWorkerRequest, ::RegisterWorkerResponse>(
+        MarkMethodCallback(4,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::RegisterWorkerRequest* request, ::RegisterWorkerResponse* response) { return this->Register(context, request, response); }));}
-    void SetMessageAllocatorFor_Register(
-        ::grpc::experimental::MessageAllocator< ::RegisterWorkerRequest, ::RegisterWorkerResponse>* allocator) {
+                     context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response) { return this->IncrementalSFM(context, request, response); }));}
+    void SetMessageAllocatorFor_IncrementalSFM(
+        ::grpc::experimental::MessageAllocator< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
     #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
     #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::RegisterWorkerRequest, ::RegisterWorkerResponse>*>(handler)
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_Register() override {
+    ~ExperimentalWithCallbackMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_ComputeStructure() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(5,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response) { return this->ComputeStructure(context, request, response); }));}
+    void SetMessageAllocatorFor_ComputeStructure(
+        ::grpc::experimental::MessageAllocator< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeStructure(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeStructure(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+  typedef ExperimentalWithCallbackMethod_Register<ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > > CallbackService;
+  #endif
+
+  typedef ExperimentalWithCallbackMethod_Register<ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_Register : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_Register() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_Register() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -397,27 +760,31 @@ class WorkerPoolManager final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* Register(
-      ::grpc::CallbackServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* Register(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/)
-    #endif
-      { return nullptr; }
   };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_Register<Service > > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_Register<Service > > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_AddImage() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
   template <class BaseClass>
   class WithGenericMethod_ComputeFeatures : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodGeneric(0);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_ComputeFeatures() override {
       BaseClassMustBeDerivedFromService(this);
@@ -434,72 +801,49 @@ class WorkerPoolManager final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodGeneric(1);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_ComputeMatches() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_Register : public BaseClass {
+  class WithGenericMethod_IncrementalSFM : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_Register() {
-      ::grpc::Service::MarkMethodGeneric(2);
+    WithGenericMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodGeneric(4);
     }
-    ~WithGenericMethod_Register() override {
+    ~WithGenericMethod_IncrementalSFM() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Register(::grpc::ServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/) override {
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ComputeFeatures : public BaseClass {
+  class WithGenericMethod_ComputeStructure : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodRaw(0);
+    WithGenericMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodGeneric(5);
     }
-    ~WithRawMethod_ComputeFeatures() override {
+    ~WithGenericMethod_ComputeStructure() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeFeatures(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithRawMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithRawMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodRaw(1);
-    }
-    ~WithRawMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeMatches(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -508,7 +852,7 @@ class WorkerPoolManager final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Register() {
-      ::grpc::Service::MarkMethodRaw(2);
+      ::grpc::Service::MarkMethodRaw(0);
     }
     ~WithRawMethod_Register() override {
       BaseClassMustBeDerivedFromService(this);
@@ -519,31 +863,38 @@ class WorkerPoolManager final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRegister(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ComputeFeatures : public BaseClass {
+  class WithRawMethod_AddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ComputeFeatures() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(0,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-            [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComputeFeatures(context, request, response); }));
+    WithRawMethod_AddImage() {
+      ::grpc::Service::MarkMethodRaw(1);
     }
-    ~ExperimentalWithRawCallbackMethod_ComputeFeatures() override {
+    ~WithRawMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAddImage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ComputeFeatures() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_ComputeFeatures() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
@@ -551,52 +902,69 @@ class WorkerPoolManager final {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* ComputeFeatures(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ComputeFeatures(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+    void RequestComputeFeatures(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ComputeMatches : public BaseClass {
+  class WithRawMethod_ComputeMatches : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ComputeMatches() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodRawCallback(1,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
-            [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComputeMatches(context, request, response); }));
+    WithRawMethod_ComputeMatches() {
+      ::grpc::Service::MarkMethodRaw(3);
     }
-    ~ExperimentalWithRawCallbackMethod_ComputeMatches() override {
+    ~WithRawMethod_ComputeMatches() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* ComputeMatches(
-      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ComputeMatches(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
-    #endif
-      { return nullptr; }
+    void RequestComputeMatches(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestIncrementalSFM(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeStructure(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
   };
   template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_Register : public BaseClass {
@@ -609,7 +977,7 @@ class WorkerPoolManager final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(2,
+        MarkMethodRawCallback(0,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -637,417 +1005,42 @@ class WorkerPoolManager final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ComputeFeatures : public BaseClass {
+  class ExperimentalWithRawCallbackMethod_AddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(std::bind(&WithStreamedUnaryMethod_ComputeFeatures<BaseClass>::StreamedComputeFeatures, this, std::placeholders::_1, std::placeholders::_2)));
-    }
-    ~WithStreamedUnaryMethod_ComputeFeatures() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable regular version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedComputeFeatures(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeFeaturesRequest,::WorkerComputeFeaturesResponse>* server_unary_streamer) = 0;
-  };
-  template <class BaseClass>
-  class WithStreamedUnaryMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithStreamedUnaryMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>(std::bind(&WithStreamedUnaryMethod_ComputeMatches<BaseClass>::StreamedComputeMatches, this, std::placeholders::_1, std::placeholders::_2)));
-    }
-    ~WithStreamedUnaryMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable regular version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedComputeMatches(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeMatchesRequest,::WorkerComputeMatchesReponse>* server_unary_streamer) = 0;
-  };
-  template <class BaseClass>
-  class WithStreamedUnaryMethod_Register : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithStreamedUnaryMethod_Register() {
-      ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::RegisterWorkerRequest, ::RegisterWorkerResponse>(std::bind(&WithStreamedUnaryMethod_Register<BaseClass>::StreamedRegister, this, std::placeholders::_1, std::placeholders::_2)));
-    }
-    ~WithStreamedUnaryMethod_Register() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable regular version of this method
-    ::grpc::Status Register(::grpc::ServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedRegister(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::RegisterWorkerRequest,::RegisterWorkerResponse>* server_unary_streamer) = 0;
-  };
-  typedef WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_Register<Service > > > StreamedUnaryService;
-  typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_Register<Service > > > StreamedService;
-};
-
-class Worker final {
- public:
-  static constexpr char const* service_full_name() {
-    return "Worker";
-  }
-  class StubInterface {
-   public:
-    virtual ~StubInterface() {}
-    virtual ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
-    }
-    virtual ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesReponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>>(AsyncComputeMatchesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
-    }
-    class experimental_async_interface {
-     public:
-      virtual ~experimental_async_interface() {}
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) = 0;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      #else
-      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
-      #endif
-    };
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    typedef class experimental_async_interface async_interface;
-    #endif
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    async_interface* async() { return experimental_async(); }
-    #endif
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesReponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-  };
-  class Stub final : public StubInterface {
-   public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
-    }
-    ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesReponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>>(AsyncComputeMatchesRaw(context, request, cq));
-    }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
-    }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
-     public:
-      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
-      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) override;
-      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)>) override;
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::ClientUnaryReactor* reactor) override;
-      #else
-      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
-      #endif
-     private:
-      friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
-      Stub* stub() { return stub_; }
-      Stub* stub_;
-    };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
-
-   private:
-    std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
-    const ::grpc::internal::RpcMethod rpcmethod_ComputeFeatures_;
-    const ::grpc::internal::RpcMethod rpcmethod_ComputeMatches_;
-  };
-  static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-
-  class Service : public ::grpc::Service {
-   public:
-    Service();
-    virtual ~Service();
-    virtual ::grpc::Status ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response);
-    virtual ::grpc::Status ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response);
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_ComputeFeatures : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithAsyncMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodAsync(0);
-    }
-    ~WithAsyncMethod_ComputeFeatures() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeFeatures(::grpc::ServerContext* context, ::WorkerComputeFeaturesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeFeaturesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithAsyncMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithAsyncMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodAsync(1);
-    }
-    ~WithAsyncMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeMatches(::grpc::ServerContext* context, ::WorkerComputeMatchesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeMatchesReponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  typedef WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<Service > > AsyncService;
-  template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ComputeFeatures : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    ExperimentalWithCallbackMethod_ComputeFeatures() {
+    ExperimentalWithRawCallbackMethod_AddImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodCallback(0,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
+        MarkMethodRawCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response) { return this->ComputeFeatures(context, request, response); }));}
-    void SetMessageAllocatorFor_ComputeFeatures(
-        ::grpc::experimental::MessageAllocator< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
-    #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>*>(handler)
-              ->SetMessageAllocator(allocator);
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AddImage(context, request, response); }));
     }
-    ~ExperimentalWithCallbackMethod_ComputeFeatures() override {
+    ~ExperimentalWithRawCallbackMethod_AddImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* ComputeFeatures(
-      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/)
+    virtual ::grpc::ServerUnaryReactor* AddImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ComputeFeatures(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/)
+    virtual ::grpc::experimental::ServerUnaryReactor* AddImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
     #endif
       { return nullptr; }
-  };
-  template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    ExperimentalWithCallbackMethod_ComputeMatches() {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::Service::
-    #else
-      ::grpc::Service::experimental().
-    #endif
-        MarkMethodCallback(1,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>(
-            [this](
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-                   ::grpc::CallbackServerContext*
-    #else
-                   ::grpc::experimental::CallbackServerContext*
-    #endif
-                     context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response) { return this->ComputeMatches(context, request, response); }));}
-    void SetMessageAllocatorFor_ComputeMatches(
-        ::grpc::experimental::MessageAllocator< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>* allocator) {
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
-    #else
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
-    #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>*>(handler)
-              ->SetMessageAllocator(allocator);
-    }
-    ~ExperimentalWithCallbackMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* ComputeMatches(
-      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/)
-    #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ComputeMatches(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/)
-    #endif
-      { return nullptr; }
-  };
-  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<Service > > CallbackService;
-  #endif
-
-  typedef ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<Service > > ExperimentalCallbackService;
-  template <class BaseClass>
-  class WithGenericMethod_ComputeFeatures : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithGenericMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodGeneric(0);
-    }
-    ~WithGenericMethod_ComputeFeatures() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithGenericMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodGeneric(1);
-    }
-    ~WithGenericMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithRawMethod_ComputeFeatures : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithRawMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodRaw(0);
-    }
-    ~WithRawMethod_ComputeFeatures() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeFeatures(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
-  class WithRawMethod_ComputeMatches : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
-   public:
-    WithRawMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodRaw(1);
-    }
-    ~WithRawMethod_ComputeMatches() override {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestComputeMatches(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
   };
   template <class BaseClass>
   class ExperimentalWithRawCallbackMethod_ComputeFeatures : public BaseClass {
@@ -1060,7 +1053,7 @@ class Worker final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(0,
+        MarkMethodRawCallback(2,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1098,7 +1091,7 @@ class Worker final {
     #else
       ::grpc::Service::experimental().
     #endif
-        MarkMethodRawCallback(1,
+        MarkMethodRawCallback(3,
           new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -1112,7 +1105,7 @@ class Worker final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1126,12 +1119,128 @@ class Worker final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_IncrementalSFM() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(4,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->IncrementalSFM(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_ComputeStructure() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(5,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComputeStructure(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeStructure(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeStructure(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_Register : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_Register() {
+      ::grpc::Service::MarkMethodStreamed(0,
+        new ::grpc::internal::StreamedUnaryHandler< ::RegisterWorkerRequest, ::RegisterWorkerResponse>(std::bind(&WithStreamedUnaryMethod_Register<BaseClass>::StreamedRegister, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_Register() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status Register(::grpc::ServerContext* /*context*/, const ::RegisterWorkerRequest* /*request*/, ::RegisterWorkerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedRegister(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::RegisterWorkerRequest,::RegisterWorkerResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_AddImage() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerAddImageRequest, ::WorkerAddImageResponse>(std::bind(&WithStreamedUnaryMethod_AddImage<BaseClass>::StreamedAddImage, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedAddImage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerAddImageRequest,::WorkerAddImageResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_ComputeFeatures : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ComputeFeatures() {
-      ::grpc::Service::MarkMethodStreamed(0,
+      ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(std::bind(&WithStreamedUnaryMethod_ComputeFeatures<BaseClass>::StreamedComputeFeatures, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_ComputeFeatures() override {
@@ -1151,23 +1260,1150 @@ class Worker final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ComputeMatches() {
-      ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>(std::bind(&WithStreamedUnaryMethod_ComputeMatches<BaseClass>::StreamedComputeMatches, this, std::placeholders::_1, std::placeholders::_2)));
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>(std::bind(&WithStreamedUnaryMethod_ComputeMatches<BaseClass>::StreamedComputeMatches, this, std::placeholders::_1, std::placeholders::_2)));
     }
     ~WithStreamedUnaryMethod_ComputeMatches() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesReponse* /*response*/) override {
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedComputeMatches(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeMatchesRequest,::WorkerComputeMatchesReponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedComputeMatches(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeMatchesRequest,::WorkerComputeMatchesResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<Service > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>(std::bind(&WithStreamedUnaryMethod_IncrementalSFM<BaseClass>::StreamedIncrementalSFM, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedIncrementalSFM(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerIncrementalSFMRequest,::WorkerIncrementalSFMResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(std::bind(&WithStreamedUnaryMethod_ComputeStructure<BaseClass>::StreamedComputeStructure, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedComputeStructure(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeStructureRequest,::WorkerComputeStructureResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<Service > > StreamedService;
+  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > > StreamedService;
+};
+
+class Worker final {
+ public:
+  static constexpr char const* service_full_name() {
+    return "Worker";
+  }
+  class StubInterface {
+   public:
+    virtual ~StubInterface() {}
+    virtual ::grpc::Status AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>> AsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>>(AsyncAddImageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>> PrepareAsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>>(PrepareAsyncAddImageRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>>(AsyncComputeMatchesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
+    }
+    virtual ::grpc::Status IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::WorkerIncrementalSFMResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>> AsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>>(AsyncIncrementalSFMRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>> PrepareAsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>>(PrepareAsyncIncrementalSFMRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::WorkerComputeStructureResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>> AsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>>(AsyncComputeStructureRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
+    class experimental_async_interface {
+     public:
+      virtual ~experimental_async_interface() {}
+      virtual void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+    };
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    typedef class experimental_async_interface async_interface;
+    #endif
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    async_interface* async() { return experimental_async(); }
+    #endif
+    virtual class experimental_async_interface* experimental_async() { return nullptr; }
+  private:
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>* AsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerAddImageResponse>* PrepareAsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeMatchesResponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>* AsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
+  };
+  class Stub final : public StubInterface {
+   public:
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    ::grpc::Status AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>> AsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>>(AsyncAddImageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>> PrepareAsyncAddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>>(PrepareAsyncAddImageRaw(context, request, cq));
+    }
+    ::grpc::Status ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> AsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(AsyncComputeFeaturesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>> PrepareAsyncComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>>(PrepareAsyncComputeFeaturesRaw(context, request, cq));
+    }
+    ::grpc::Status ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>> AsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>>(AsyncComputeMatchesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>> PrepareAsyncComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>>(PrepareAsyncComputeMatchesRaw(context, request, cq));
+    }
+    ::grpc::Status IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::WorkerIncrementalSFMResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>> AsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>>(AsyncIncrementalSFMRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>> PrepareAsyncIncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>>(PrepareAsyncIncrementalSFMRaw(context, request, cq));
+    }
+    ::grpc::Status ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::WorkerComputeStructureResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>> AsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>>(AsyncComputeStructureRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
+    class experimental_async final :
+      public StubInterface::experimental_async_interface {
+     public:
+      void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) override;
+      void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) override;
+      void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) override;
+      void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+     private:
+      friend class Stub;
+      explicit experimental_async(Stub* stub): stub_(stub) { }
+      Stub* stub() { return stub_; }
+      Stub* stub_;
+    };
+    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+
+   private:
+    std::shared_ptr< ::grpc::ChannelInterface> channel_;
+    class experimental_async async_stub_{this};
+    ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* AsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* PrepareAsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* AsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_AddImage_;
+    const ::grpc::internal::RpcMethod rpcmethod_ComputeFeatures_;
+    const ::grpc::internal::RpcMethod rpcmethod_ComputeMatches_;
+    const ::grpc::internal::RpcMethod rpcmethod_IncrementalSFM_;
+    const ::grpc::internal::RpcMethod rpcmethod_ComputeStructure_;
+  };
+  static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+
+  class Service : public ::grpc::Service {
+   public:
+    Service();
+    virtual ~Service();
+    virtual ::grpc::Status AddImage(::grpc::ServerContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response);
+    virtual ::grpc::Status ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response);
+    virtual ::grpc::Status ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response);
+    virtual ::grpc::Status IncrementalSFM(::grpc::ServerContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response);
+    virtual ::grpc::Status ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_AddImage() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAddImage(::grpc::ServerContext* context, ::WorkerAddImageRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerAddImageResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComputeFeatures() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeFeatures(::grpc::ServerContext* context, ::WorkerComputeFeaturesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeFeaturesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComputeMatches() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeMatches(::grpc::ServerContext* context, ::WorkerComputeMatchesRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeMatchesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodAsync(3);
+    }
+    ~WithAsyncMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestIncrementalSFM(::grpc::ServerContext* context, ::WorkerIncrementalSFMRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerIncrementalSFMResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodAsync(4);
+    }
+    ~WithAsyncMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeStructure(::grpc::ServerContext* context, ::WorkerComputeStructureRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerComputeStructureResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_AddImage<WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_IncrementalSFM<WithAsyncMethod_ComputeStructure<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_AddImage() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerAddImageRequest, ::WorkerAddImageResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response) { return this->AddImage(context, request, response); }));}
+    void SetMessageAllocatorFor_AddImage(
+        ::grpc::experimental::MessageAllocator< ::WorkerAddImageRequest, ::WorkerAddImageResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(0);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerAddImageRequest, ::WorkerAddImageResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* AddImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* AddImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_ComputeFeatures() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response) { return this->ComputeFeatures(context, request, response); }));}
+    void SetMessageAllocatorFor_ComputeFeatures(
+        ::grpc::experimental::MessageAllocator< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(1);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeFeatures(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeFeatures(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_ComputeMatches() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(2,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response) { return this->ComputeMatches(context, request, response); }));}
+    void SetMessageAllocatorFor_ComputeMatches(
+        ::grpc::experimental::MessageAllocator< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(2);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeMatches(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeMatches(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_IncrementalSFM() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(3,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response) { return this->IncrementalSFM(context, request, response); }));}
+    void SetMessageAllocatorFor_IncrementalSFM(
+        ::grpc::experimental::MessageAllocator< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_ComputeStructure() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(4,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response) { return this->ComputeStructure(context, request, response); }));}
+    void SetMessageAllocatorFor_ComputeStructure(
+        ::grpc::experimental::MessageAllocator< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(4);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeStructure(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeStructure(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+  typedef ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > CallbackService;
+  #endif
+
+  typedef ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_AddImage() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ComputeFeatures() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ComputeMatches() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodGeneric(3);
+    }
+    ~WithGenericMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodGeneric(4);
+    }
+    ~WithGenericMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_AddImage() {
+      ::grpc::Service::MarkMethodRaw(0);
+    }
+    ~WithRawMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAddImage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ComputeFeatures() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeFeatures(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ComputeMatches() {
+      ::grpc::Service::MarkMethodRaw(2);
+    }
+    ~WithRawMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeMatches(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodRaw(3);
+    }
+    ~WithRawMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestIncrementalSFM(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodRaw(4);
+    }
+    ~WithRawMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestComputeStructure(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_AddImage() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(0,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AddImage(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* AddImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* AddImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_ComputeFeatures() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(1,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComputeFeatures(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeFeatures(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeFeatures(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_ComputeMatches() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(2,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComputeMatches(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeMatches(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeMatches(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_IncrementalSFM() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(3,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->IncrementalSFM(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* IncrementalSFM(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_ComputeStructure() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(4,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ComputeStructure(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ComputeStructure(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ComputeStructure(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_AddImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_AddImage() {
+      ::grpc::Service::MarkMethodStreamed(0,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerAddImageRequest, ::WorkerAddImageResponse>(std::bind(&WithStreamedUnaryMethod_AddImage<BaseClass>::StreamedAddImage, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_AddImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status AddImage(::grpc::ServerContext* /*context*/, const ::WorkerAddImageRequest* /*request*/, ::WorkerAddImageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedAddImage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerAddImageRequest,::WorkerAddImageResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ComputeFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ComputeFeatures() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(std::bind(&WithStreamedUnaryMethod_ComputeFeatures<BaseClass>::StreamedComputeFeatures, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_ComputeFeatures() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ComputeFeatures(::grpc::ServerContext* /*context*/, const ::WorkerComputeFeaturesRequest* /*request*/, ::WorkerComputeFeaturesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedComputeFeatures(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeFeaturesRequest,::WorkerComputeFeaturesResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ComputeMatches : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ComputeMatches() {
+      ::grpc::Service::MarkMethodStreamed(2,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>(std::bind(&WithStreamedUnaryMethod_ComputeMatches<BaseClass>::StreamedComputeMatches, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_ComputeMatches() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ComputeMatches(::grpc::ServerContext* /*context*/, const ::WorkerComputeMatchesRequest* /*request*/, ::WorkerComputeMatchesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedComputeMatches(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeMatchesRequest,::WorkerComputeMatchesResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_IncrementalSFM : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_IncrementalSFM() {
+      ::grpc::Service::MarkMethodStreamed(3,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>(std::bind(&WithStreamedUnaryMethod_IncrementalSFM<BaseClass>::StreamedIncrementalSFM, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_IncrementalSFM() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status IncrementalSFM(::grpc::ServerContext* /*context*/, const ::WorkerIncrementalSFMRequest* /*request*/, ::WorkerIncrementalSFMResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedIncrementalSFM(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerIncrementalSFMRequest,::WorkerIncrementalSFMResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ComputeStructure : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ComputeStructure() {
+      ::grpc::Service::MarkMethodStreamed(4,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(std::bind(&WithStreamedUnaryMethod_ComputeStructure<BaseClass>::StreamedComputeStructure, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_ComputeStructure() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedComputeStructure(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeStructureRequest,::WorkerComputeStructureResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > StreamedUnaryService;
+  typedef Service SplitStreamedService;
+  typedef WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > StreamedService;
 };
 
 

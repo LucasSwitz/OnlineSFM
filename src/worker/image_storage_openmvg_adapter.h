@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include "image_storage.h"
-#include "remote_image_storage_adapter.h"
 
 #include "openMVG/image/image_container.hpp"
 #include "openMVG/image/image_converter.hpp"

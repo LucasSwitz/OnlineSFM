@@ -36,6 +36,7 @@ ImageMetaData SQLImageStorage::GetMeta(const std::string& image_id){
         image.set_reconstruction(res->getString("RECONSTRUCTION_ID"));
         image.set_path(res->getString("PATH"));
     }
+    delete res;
     return image;
 }
 
@@ -70,7 +71,7 @@ int SQLImageStorage::Store(const ImageData& image_data){
     std::string rel_path = image_data.metadata().reconstruction() + 
                                                   "/images/" + 
                                                   image_data.metadata().id() + "." + image_data.metadata().format();
-    std::string path = this->_data_storage->Store(image_data, rel_path);
+    std::string path = this->_data_storage->StoreImage(image_data, rel_path);
 
     // Store to DB
     this->IssueUpdate(SQL_INSERT_IMAGE(this->_table), 
@@ -87,7 +88,7 @@ int SQLImageStorage::Store(const ImageData& image_data){
 
 int SQLImageStorage::Delete(const std::string& image_id){
     ImageMetaData img_meta = GetMeta(image_id);
-    this->_data_storage->Delete(img_meta.path());
+    this->_data_storage->DeleteImage(img_meta.path());
     this->IssueUpdate(SQL_DELETE_IMAGE(this->_table), 
         [this, image_id](sql::PreparedStatement *stmt){
             stmt->setString(1, image_id);
@@ -98,7 +99,7 @@ int SQLImageStorage::Delete(const std::string& image_id){
 int SQLImageStorage::DeleteByReconstruction(const std::string& reconstruction_id){
     std::vector<ImageMetaData> images = GetAll(reconstruction_id);
     for(ImageMetaData i : images){
-        this->_data_storage->Delete(i.path());
+        this->_data_storage->DeleteImage(i.path());
     }
     this->IssueUpdate(SQL_DELETE_ALL_IMAGES(this->_table), 
         [this, reconstruction_id](sql::PreparedStatement *stmt){
@@ -111,7 +112,7 @@ ImageData SQLImageStorage::Get(const std::string& image_id){
     ImageData img_data;
     img_data.mutable_metadata()->CopyFrom(meta);
     std::vector<char> raw_data;
-    if(this->_data_storage->Get(meta.path(), raw_data)){
+    if(this->_data_storage->GetImage(meta.path(), raw_data)){
         std::string data_str(raw_data.begin(), raw_data.end());
         img_data.set_data(data_str);
     }

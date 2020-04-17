@@ -14,12 +14,12 @@
 #include "util.h"
 #include <sys/stat.h> 
 #include <unordered_map>
-#include "session.h"
 
 #include "CTPL/ctpl.h"
 
 #include "config.h"
 #include "redis_sfm_backlog.h"
+#include "remote.h"
 
 /*
     TODO: 
@@ -43,31 +43,12 @@ class ReconstructionServer : public ReconstructionService::Service {
         Status NewReconstruction(ServerContext* context, const NewReconstructionRequest* request, NewReconstructionResponse* response){
             ReconstructionData new_reconstruction;
             std::string uuid = GetUUID();
-            std::string reconstruction_root = CONFIG_GET_STRING("storage.root") + "/" + uuid;
-            std::string images_dir = reconstruction_root + "/images";
-            std::string features_dir = reconstruction_root + "/features";
-            std::string sfm_dir = reconstruction_root + "/SFM";
-            std::string mvs_dir = reconstruction_root + "/MVS";
-            std::string matches_dir = reconstruction_root + "/matches";
-            
-            mkdir(reconstruction_root.c_str(), 0777);
-            mkdir(images_dir.c_str(), 0777);
-            mkdir(features_dir.c_str(), 0777);
-            mkdir(sfm_dir.c_str(), 0777);
-            mkdir(mvs_dir.c_str(), 0777);
-            mkdir(matches_dir.c_str(), 0777);
-
             new_reconstruction.set_id(uuid);
-            new_reconstruction.set_images_path(images_dir);
-            new_reconstruction.set_features_path(features_dir);
-            new_reconstruction.set_sfm_path(sfm_dir);
-            new_reconstruction.set_mvs_path(mvs_dir);
-            new_reconstruction.set_matches_path(matches_dir);
             response->set_reconstruction_id(new_reconstruction.id());
             
             try {
                 ReconstructionFetcher rf;
-                rf.Store(new_reconstruction);
+                rf.Fetch(RemoteReconstructionContext(uuid))->StoreData(new_reconstruction);
             } catch(std::exception& e){
                 LOG(ERROR) << e.what();
             }
@@ -89,7 +70,7 @@ class ReconstructionServer : public ReconstructionService::Service {
             
             try{
                 ReconstructionFetcher rf;
-                auto reconstruction = rf.Fetch(final_image.metadata().reconstruction());
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(final_image.metadata().reconstruction()));
                 std::string image_id = reconstruction->StoreImage(final_image);
                 reconstruction->ComputeFeatures({image_id});
                 reconstruction->AddImage(image_id);
@@ -111,7 +92,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                               ComputeMatchesResponse* response){
             ReconstructionFetcher rf;
             try {
-                auto reconstruction = rf.Fetch(request->reconstruction_id());
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
                 reconstruction->ComputeMatches({request->image_id()});    
                 return Status::OK;            
             } catch (const std::exception& e){
@@ -125,9 +106,11 @@ class ReconstructionServer : public ReconstructionService::Service {
                                     SparseReconstructResponse* response){
             ReconstructionFetcher rf;
             try {
-                auto reconstruction = rf.Fetch(request->reconstruction_id());
-                bool sucess = reconstruction->SparseReconstruct();
-                response->set_success(sucess);
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
+                bool success = reconstruction->SparseReconstruct();
+                if(success)
+                    success &= reconstruction->ComputeStructure();
+                response->set_success(success);
                 return Status::OK;
             } catch (const std::exception& e){
                 LOG(ERROR) << e.what();
@@ -140,7 +123,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                     MVSResponse* response){
             ReconstructionFetcher rf;
             try {
-                auto reconstruction = rf.Fetch(request->reconstruction_id());
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
                 response->set_success(reconstruction->MVS(true));
                 
                 return Status::OK;
@@ -158,7 +141,7 @@ class ReconstructionServer : public ReconstructionService::Service {
             std::shared_ptr<Reconstruction> reconstruction = nullptr;
             OBJ obj;
             try {
-                reconstruction = rf.Fetch(request->reconstruction_id());
+                reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
                 obj = reconstruction->GetOBJ();
 
             } catch(const std::exception& e){
@@ -206,7 +189,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                                     DeleteReconstructionResponse* response){
             try{
                 ReconstructionFetcher fetcher;
-                auto reconstruction = fetcher.Fetch(request->id());
+                auto reconstruction = fetcher.Fetch(RemoteReconstructionContext(request->id()));
                 reconstruction->Delete();
                 response->set_id(request->id());
                 response->set_success(true);  
@@ -220,7 +203,7 @@ class ReconstructionServer : public ReconstructionService::Service {
         Status StartSession(ServerContext* context, 
                             const StartSessionRequest* request, 
                             StartSessionResponse* response){
-            LOG(INFO) << "Creating new session for reconstruction " << request->reconstruction_id();
+           /* LOG(INFO) << "Creating new session for reconstruction " << request->reconstruction_id();
             std::string session_id = GetUUID();
             Session* s = new Session(session_id, 
                                         request->reconstruction_id(), 
@@ -233,18 +216,18 @@ class ReconstructionServer : public ReconstructionService::Service {
             response->set_session_id(session_id);
             LOG(INFO) << "Starting session " << session_id << " for reconstruction " << request->reconstruction_id();
             s->Start();
-            return Status::OK;
+            return Status::OK;*/
         }
 
         Status StopSession(ServerContext* context, 
                             const StopSessionRequest* request, 
                             StopSessionResponse* response){
-            Session* s = this->_sessions[request->session_id()];
+            /*Session* s = this->_sessions[request->session_id()];
             response->set_session_id(request->session_id());
             LOG(INFO) << "Stopping session " << request->session_id();
             s->Stop();
             delete this->_sessions[request->session_id()];
-            return Status::OK;
+            return Status::OK;*/
         }
 
 
@@ -263,7 +246,7 @@ class ReconstructionServer : public ReconstructionService::Service {
             try {
                 this->thread_pool.push([final_image](int id) mutable{
                         ReconstructionFetcher rf;
-                        auto reconstruction = rf.Fetch(final_image.metadata().reconstruction());
+                        auto reconstruction = rf.Fetch(RemoteReconstructionContext(final_image.metadata().reconstruction()));
                         std::string image_uuid = reconstruction->StoreImage(final_image);
                         reconstruction->ComputeFeatures({final_image.metadata().path()});
                         reconstruction->AddImage(final_image.metadata().id());
@@ -282,7 +265,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                             ServerWriter<GetSparseResponse>* writer){
             LOG(INFO) << "Getting Sparse for " << request->reconstruction_id();
             ReconstructionFetcher rf;
-            auto reconstruction = rf.Fetch(request->reconstruction_id());
+            auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
             SparseReconstruction sparse = reconstruction->GetSparse();
             SparsePointCloudData full_data = sparse.Data();
             for(int i = 0; i < full_data.data().size(); i+=CHUNK_SIZE){
@@ -306,7 +289,7 @@ class ReconstructionServer : public ReconstructionService::Service {
             ReconstructionFetcher rf;
             reader->Read(&request);
             try{
-                auto reconstruction = rf.Fetch(request.data().metadata().reconstruction());
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request.data().metadata().reconstruction()));
                 std::set<std::string> new_image_ids;
                 final_image.CopyFrom(request.data());
                 while(reader->Read(&request)){
@@ -342,7 +325,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                                        GetReconstructionConfigResponse* response){
              try{
                 ReconstructionFetcher rf;
-                auto reconstruction = rf.Fetch(request->reconstruction_id());
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
                 ConfigurationContainerPtr config = reconstruction->GetConfig();
                 response->set_config_json(config->jsonify());
                 return Status::OK;
@@ -357,7 +340,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                               GetAgentCOnfigResponse* response){
             try{
                 ReconstructionFetcher rf;
-                auto reconstruction = rf.Fetch(request->reconstruction_id());
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
                 ConfigurationContainerPtr config = reconstruction->GetAgentConfig(request->agent_name());
                 response->set_config_json(config->jsonify());
                 return Status::OK;
@@ -372,7 +355,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                                 SetAgentConfigFieldsResponse* response){
         try {
             ReconstructionFetcher rf;
-            auto reconstruction = rf.Fetch(request->reconstruction_id());
+            auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
             reconstruction->SetAgentConfigFields(request->agent_name(), request->config_json());
             return Status::OK;
         } catch (const std::exception& e){
@@ -386,7 +369,7 @@ class ReconstructionServer : public ReconstructionService::Service {
                                             SetReconstructionConfigFieldsResponse* response){
             try {
             ReconstructionFetcher rf;
-            auto reconstruction = rf.Fetch(request->reconstruction_id());
+            auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
             reconstruction->SetConfigFields(request->config_json());
             return Status::OK;
         } catch (const std::exception& e){
@@ -396,7 +379,7 @@ class ReconstructionServer : public ReconstructionService::Service {
         }
 
     private:
-        std::unordered_map<std::string, Session*> _sessions;
+        //std::unordered_map<std::string, Session*> _sessions;
         ctpl::thread_pool thread_pool;
 };
 

@@ -6,7 +6,7 @@ message WorkerComputeFeaturesRequest {
 };
 
 message WorkerComputeFeaturesResponse {
-    
+    bool success = 1;
 };
 
 message WorkerComputeMatchesRequest {
@@ -14,8 +14,8 @@ message WorkerComputeMatchesRequest {
     string image_id = 2;
 };
 
-message WorkerComputeMatchesReponse{
-    
+message WorkerComputeMatchesResponse{
+    bool success = 1;
 }
 
 message RegisterWorkerRequest{
@@ -27,13 +27,44 @@ message RegisterWorkerResponse {
 
 };
 
+message WorkerAddImageRequest {
+    string reconstruction_id = 1;
+    string image_id = 2;
+};
+
+message  WorkerAddImageResponse {
+    bool success = 1;
+};
+
+message  WorkerIncrementalSFMRequest {
+    string reconstruction_id = 1;
+};
+
+message  WorkerIncrementalSFMResponse {
+    bool success = 1;
+};
+
+message  WorkerComputeStructureRequest {
+    string reconstruction_id = 1;
+};
+
+message  WorkerComputeStructureResponse {
+    bool success = 1;
+};
+
 service WorkerPoolManager {
-    rpc ComputeFeatures(WorkerComputeFeaturesRequest) returns (WorkerComputeFeaturesResponse);
-    rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesReponse);
     rpc Register(RegisterWorkerRequest) returns (RegisterWorkerResponse);
+    rpc AddImage(WorkerAddImageRequest) returns (WorkerAddImageResponse);
+    rpc ComputeFeatures(WorkerComputeFeaturesRequest) returns (WorkerComputeFeaturesResponse);
+    rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesResponse);
+    rpc IncrementalSFM( WorkerIncrementalSFMRequest) returns (WorkerIncrementalSFMResponse);
+    rpc ComputeStructure(WorkerComputeStructureRequest) returns (WorkerComputeStructureResponse);
 }
 
 service Worker {
+    rpc AddImage(WorkerAddImageRequest) returns ( WorkerAddImageResponse);
     rpc ComputeFeatures(WorkerComputeFeaturesRequest) returns (WorkerComputeFeaturesResponse);
-    rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesReponse);
+    rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesResponse);
+    rpc IncrementalSFM(WorkerIncrementalSFMRequest) returns (WorkerIncrementalSFMResponse);
+    rpc ComputeStructure(WorkerComputeStructureRequest) returns (WorkerComputeStructureResponse);
 }

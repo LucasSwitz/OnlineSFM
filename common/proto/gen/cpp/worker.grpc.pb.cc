@@ -21,9 +21,12 @@
 #include <grpcpp/impl/codegen/sync_stream.h>
 
 static const char* WorkerPoolManager_method_names[] = {
+  "/WorkerPoolManager/Register",
+  "/WorkerPoolManager/AddImage",
   "/WorkerPoolManager/ComputeFeatures",
   "/WorkerPoolManager/ComputeMatches",
-  "/WorkerPoolManager/Register",
+  "/WorkerPoolManager/IncrementalSFM",
+  "/WorkerPoolManager/ComputeStructure",
 };
 
 std::unique_ptr< WorkerPoolManager::Stub> WorkerPoolManager::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -33,66 +36,13 @@ std::unique_ptr< WorkerPoolManager::Stub> WorkerPoolManager::NewStub(const std::
 }
 
 WorkerPoolManager::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_ComputeFeatures_(WorkerPoolManager_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ComputeMatches_(WorkerPoolManager_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Register_(WorkerPoolManager_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_Register_(WorkerPoolManager_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_AddImage_(WorkerPoolManager_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ComputeFeatures_(WorkerPoolManager_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ComputeMatches_(WorkerPoolManager_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_IncrementalSFM_(WorkerPoolManager_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ComputeStructure_(WorkerPoolManager_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
-
-::grpc::Status WorkerPoolManager::Stub::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeFeatures_, context, request, response);
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, std::move(f));
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, std::move(f));
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, reactor);
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, reactor);
-}
-
-::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* WorkerPoolManager::Stub::AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeFeaturesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeFeatures_, context, request, true);
-}
-
-::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* WorkerPoolManager::Stub::PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeFeaturesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeFeatures_, context, request, false);
-}
-
-::grpc::Status WorkerPoolManager::Stub::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesReponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeMatches_, context, request, response);
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
-}
-
-void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
-}
-
-::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* WorkerPoolManager::Stub::AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesReponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, true);
-}
-
-::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* WorkerPoolManager::Stub::PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesReponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, false);
-}
 
 ::grpc::Status WorkerPoolManager::Stub::Register(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::RegisterWorkerResponse* response) {
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Register_, context, request, response);
@@ -122,39 +72,180 @@ void WorkerPoolManager::Stub::experimental_async::Register(::grpc::ClientContext
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::RegisterWorkerResponse>::Create(channel_.get(), cq, rpcmethod_Register_, context, request, false);
 }
 
+::grpc::Status WorkerPoolManager::Stub::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_AddImage_, context, request, response);
+}
+
+void WorkerPoolManager::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, reactor);
+}
+
+void WorkerPoolManager::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* WorkerPoolManager::Stub::AsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerAddImageResponse>::Create(channel_.get(), cq, rpcmethod_AddImage_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* WorkerPoolManager::Stub::PrepareAsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerAddImageResponse>::Create(channel_.get(), cq, rpcmethod_AddImage_, context, request, false);
+}
+
+::grpc::Status WorkerPoolManager::Stub::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeFeatures_, context, request, response);
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, reactor);
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeFeaturesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeFeatures_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* WorkerPoolManager::Stub::AsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeFeaturesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeFeatures_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeFeaturesResponse>* WorkerPoolManager::Stub::PrepareAsyncComputeFeaturesRaw(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeFeaturesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeFeatures_, context, request, false);
+}
+
+::grpc::Status WorkerPoolManager::Stub::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeMatches_, context, request, response);
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* WorkerPoolManager::Stub::AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* WorkerPoolManager::Stub::PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, false);
+}
+
+::grpc::Status WorkerPoolManager::Stub::IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::WorkerIncrementalSFMResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_IncrementalSFM_, context, request, response);
+}
+
+void WorkerPoolManager::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, reactor);
+}
+
+void WorkerPoolManager::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* WorkerPoolManager::Stub::AsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerIncrementalSFMResponse>::Create(channel_.get(), cq, rpcmethod_IncrementalSFM_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* WorkerPoolManager::Stub::PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerIncrementalSFMResponse>::Create(channel_.get(), cq, rpcmethod_IncrementalSFM_, context, request, false);
+}
+
+::grpc::Status WorkerPoolManager::Stub::ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::WorkerComputeStructureResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeStructure_, context, request, response);
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, reactor);
+}
+
+void WorkerPoolManager::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* WorkerPoolManager::Stub::AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeStructureResponse>::Create(channel_.get(), cq, rpcmethod_ComputeStructure_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* WorkerPoolManager::Stub::PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeStructureResponse>::Create(channel_.get(), cq, rpcmethod_ComputeStructure_, context, request, false);
+}
+
 WorkerPoolManager::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WorkerPoolManager_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
-          std::mem_fn(&WorkerPoolManager::Service::ComputeFeatures), this)));
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::RegisterWorkerRequest, ::RegisterWorkerResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::Register), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WorkerPoolManager_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>(
-          std::mem_fn(&WorkerPoolManager::Service::ComputeMatches), this)));
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerAddImageRequest, ::WorkerAddImageResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::AddImage), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WorkerPoolManager_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::RegisterWorkerRequest, ::RegisterWorkerResponse>(
-          std::mem_fn(&WorkerPoolManager::Service::Register), this)));
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::ComputeFeatures), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      WorkerPoolManager_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::ComputeMatches), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      WorkerPoolManager_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::IncrementalSFM), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      WorkerPoolManager_method_names[5],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::ComputeStructure), this)));
 }
 
 WorkerPoolManager::Service::~Service() {
-}
-
-::grpc::Status WorkerPoolManager::Service::ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status WorkerPoolManager::Service::ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status WorkerPoolManager::Service::Register(::grpc::ServerContext* context, const ::RegisterWorkerRequest* request, ::RegisterWorkerResponse* response) {
@@ -164,10 +255,48 @@ WorkerPoolManager::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+::grpc::Status WorkerPoolManager::Service::AddImage(::grpc::ServerContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status WorkerPoolManager::Service::ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status WorkerPoolManager::Service::ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status WorkerPoolManager::Service::IncrementalSFM(::grpc::ServerContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status WorkerPoolManager::Service::ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
 
 static const char* Worker_method_names[] = {
+  "/Worker/AddImage",
   "/Worker/ComputeFeatures",
   "/Worker/ComputeMatches",
+  "/Worker/IncrementalSFM",
+  "/Worker/ComputeStructure",
 };
 
 std::unique_ptr< Worker::Stub> Worker::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -177,9 +306,40 @@ std::unique_ptr< Worker::Stub> Worker::NewStub(const std::shared_ptr< ::grpc::Ch
 }
 
 Worker::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_ComputeFeatures_(Worker_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ComputeMatches_(Worker_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_AddImage_(Worker_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ComputeFeatures_(Worker_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ComputeMatches_(Worker_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_IncrementalSFM_(Worker_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ComputeStructure_(Worker_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::Status Worker::Stub::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_AddImage_, context, request, response);
+}
+
+void Worker::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, reactor);
+}
+
+void Worker::Stub::experimental_async::AddImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerAddImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_AddImage_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* Worker::Stub::AsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerAddImageResponse>::Create(channel_.get(), cq, rpcmethod_AddImage_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerAddImageResponse>* Worker::Stub::PrepareAsyncAddImageRaw(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerAddImageResponse>::Create(channel_.get(), cq, rpcmethod_AddImage_, context, request, false);
+}
 
 ::grpc::Status Worker::Stub::ComputeFeatures(::grpc::ClientContext* context, const ::WorkerComputeFeaturesRequest& request, ::WorkerComputeFeaturesResponse* response) {
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeFeatures_, context, request, response);
@@ -209,48 +369,126 @@ void Worker::Stub::experimental_async::ComputeFeatures(::grpc::ClientContext* co
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeFeaturesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeFeatures_, context, request, false);
 }
 
-::grpc::Status Worker::Stub::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesReponse* response) {
+::grpc::Status Worker::Stub::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::WorkerComputeMatchesResponse* response) {
   return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeMatches_, context, request, response);
 }
 
-void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)> f) {
+void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
 }
 
-void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, std::function<void(::grpc::Status)> f) {
+void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, std::function<void(::grpc::Status)> f) {
   ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, std::move(f));
 }
 
-void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
 }
 
-void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesReponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+void Worker::Stub::experimental_async::ComputeMatches(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeMatchesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
   ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeMatches_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* Worker::Stub::AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesReponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* Worker::Stub::AsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesReponse>* Worker::Stub::PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesReponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::WorkerComputeMatchesResponse>* Worker::Stub::PrepareAsyncComputeMatchesRaw(::grpc::ClientContext* context, const ::WorkerComputeMatchesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeMatchesResponse>::Create(channel_.get(), cq, rpcmethod_ComputeMatches_, context, request, false);
+}
+
+::grpc::Status Worker::Stub::IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::WorkerIncrementalSFMResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_IncrementalSFM_, context, request, response);
+}
+
+void Worker::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, reactor);
+}
+
+void Worker::Stub::experimental_async::IncrementalSFM(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerIncrementalSFMResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_IncrementalSFM_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* Worker::Stub::AsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerIncrementalSFMResponse>::Create(channel_.get(), cq, rpcmethod_IncrementalSFM_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* Worker::Stub::PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerIncrementalSFMResponse>::Create(channel_.get(), cq, rpcmethod_IncrementalSFM_, context, request, false);
+}
+
+::grpc::Status Worker::Stub::ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::WorkerComputeStructureResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ComputeStructure_, context, request, response);
+}
+
+void Worker::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, reactor);
+}
+
+void Worker::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ComputeStructure_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* Worker::Stub::AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeStructureResponse>::Create(channel_.get(), cq, rpcmethod_ComputeStructure_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* Worker::Stub::PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeStructureResponse>::Create(channel_.get(), cq, rpcmethod_ComputeStructure_, context, request, false);
 }
 
 Worker::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Worker_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
-          std::mem_fn(&Worker::Service::ComputeFeatures), this)));
+      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerAddImageRequest, ::WorkerAddImageResponse>(
+          std::mem_fn(&Worker::Service::AddImage), this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Worker_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesReponse>(
+      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerComputeFeaturesRequest, ::WorkerComputeFeaturesResponse>(
+          std::mem_fn(&Worker::Service::ComputeFeatures), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Worker_method_names[2],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerComputeMatchesRequest, ::WorkerComputeMatchesResponse>(
           std::mem_fn(&Worker::Service::ComputeMatches), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Worker_method_names[3],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerIncrementalSFMRequest, ::WorkerIncrementalSFMResponse>(
+          std::mem_fn(&Worker::Service::IncrementalSFM), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Worker_method_names[4],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(
+          std::mem_fn(&Worker::Service::ComputeStructure), this)));
 }
 
 Worker::Service::~Service() {
+}
+
+::grpc::Status Worker::Service::AddImage(::grpc::ServerContext* context, const ::WorkerAddImageRequest* request, ::WorkerAddImageResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status Worker::Service::ComputeFeatures(::grpc::ServerContext* context, const ::WorkerComputeFeaturesRequest* request, ::WorkerComputeFeaturesResponse* response) {
@@ -260,7 +498,21 @@ Worker::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Worker::Service::ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesReponse* response) {
+::grpc::Status Worker::Service::ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Worker::Service::IncrementalSFM(::grpc::ServerContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Worker::Service::ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response) {
   (void) context;
   (void) request;
   (void) response;

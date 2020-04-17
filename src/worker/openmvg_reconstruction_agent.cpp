@@ -83,7 +83,6 @@
 
 #include "index_helpers.h"
 
-
 #include <fstream>
 #include <memory>
 #include <utility>
@@ -94,6 +93,9 @@
 #include <unordered_map>
 
 #include "config.h"
+#include "util.h"
+
+#include "sparse_storage.h"
 
 using namespace openMVG;
 using namespace openMVG::cameras;
@@ -173,27 +175,17 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
                                                        std::shared_ptr<OpenMVGStorageAdapter> openmvg_storage,
                                                        std::shared_ptr<ConfigurationAdapter> configuration_adapter,
                                                        std::shared_ptr<RegionsStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_storage,
-                                                       std::shared_ptr<ImageStorageAdapter> image_storage):
+                                                       std::shared_ptr<ImageStorageAdapter> image_storage,
+                                                       std::shared_ptr<SparseStorageAdapter> sparse_storage):
                                                                                   _reconstruction_id(reconstruction_id), 
                                                                                   _intrinsics_storage(intrinsics_storage),
                                                                                   _openmvg_storage(openmvg_storage),
                                                                                   _configuration_adapter(configuration_adapter),
                                                                                   _regions_storage(regions_storage),
                                                                                   _image_storage(image_storage),
-                                                                                  _openmvg_images_storage(image_storage){
-  
-  
-}
-
-void OpenMVGReconstructionAgent::SetConfig(void * config){
-    this->_config = *(OpenMVGReconstructionAgentConfig*)config;
-    OpenMVGMetadata data;
-    /*
-      CHANGE THIS. Need some Initializer that can take reconstruction and setup a given reconstruction agent. 
-    */
-    data.root_path = this->_config.root_path;
-    this->_openmvg_storage->StoreMeta(this->_reconstruction_id, data);
-    this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ALL);
+                                                                                  _openmvg_images_storage(image_storage),
+                                                                                  _sparse_storage(sparse_storage){
+  this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
 }
 
 bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
@@ -324,16 +316,6 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
 
   // Group camera that share common properties if desired (leads to more faster & stable BA).
   GroupSharedIntrinsics(*this->_sfm_data);
-
-  // Store SfM_Data views & intrinsic data
-  if (!Save(
-    *this->_sfm_data,
-    stlplus::create_filespec(this->_config.sfm_dir, "sfm_data.json" ).c_str(),
-    ESfM_Data(ALL)))
-  {
-    std::cout <<" failed to save sfm_json.data in " << this->_config.sfm_dir <<  "\n";
-        return false;
-  }
   return true;
 }
 
@@ -350,10 +332,6 @@ std::unique_ptr<features::Regions> Init_region_type_from_json(const std::string&
 
 bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_ids){
   LOG(INFO) << "Computing features for " << image_ids.size() << " new images";
-  if (this->_config.features_dir.empty())  {
-    std::cerr << "\nIt is an invalid output directory" << std::endl;
-    return false;
-  }
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
@@ -493,14 +471,12 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
           const std::string
               mask_filename_local =
-              stlplus::create_filespec(this->_sfm_data->s_root_path,
-                  stlplus::basename_part(image_path) + "_mask", "png"),
-              mask__filename_global =
-              stlplus::create_filespec(this->_sfm_data->s_root_path, "mask", "png");
+             stlplus::basename_part(image_path) + "_mask.png",
+              mask__filename_global = "mask.png";
 
           Image<unsigned char> imageMask;
           // Try to read the local mask
-          if (stlplus::file_exists(mask_filename_local))
+          /*if (stlplus::file_exists(mask_filename_local))
           {
               if (!ReadImage(mask_filename_local.c_str(), &imageMask))
               {
@@ -527,7 +503,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
                 if (imageMask.Width() == imageGray.Width() && imageMask.Height() == imageGray.Height())
                     mask = &imageMask;
               }
-          }
+          }*/
 
           // Compute features and descriptors and export them to files and now sql. TODO: Remove file storage.
           // TODO: this casting bullshit is dangerous and disgusting. Needs be be fixed asap. 
@@ -561,9 +537,6 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   bool bGuided_matching = config->get_bool("guided_matching");
   int imax_iteration = config->get_int("max_iterations");
   int ui_max_cache_size = config->get_int("ui_max_cache_size");
-
-  this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
-                                                       ESfM_Data::VIEWS | ESfM_Data::INTRINSICS);
   Pair_Set pairs = this->_GatherMatchesToCompute(new_image_ids);
   EGeometricModel eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
 
@@ -762,8 +735,6 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
 
   std::shared_ptr<Matches_Provider> matches_provider = std::make_shared<Matches_Provider>();
   matches_provider->pairWise_matches_ = std::move(this->_openmvg_storage->GetMatches(this->_reconstruction_id));
-  this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, 
-                                                       ESfM_Data::VIEWS | ESfM_Data::INTRINSICS | ESfM_Data::EXTRINSICS);
   std::shared_ptr<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> feats_provider 
     = std::make_shared<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage);
   feats_provider->load_from_storage(this->_reconstruction_id);
@@ -784,7 +755,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   SequentialSfMReconstructionEngine2 sfmEngine(
     scene_initializer.get(),
     *this->_sfm_data,
-    this->_config.sfm_dir);
+    "/tmp");
 
   sfmEngine.SetFeaturesProvider(feats_provider.get());
   sfmEngine.SetMatchesProvider(matches_provider.get());
@@ -809,19 +780,164 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
         this->_openmvg_storage->StorePoseUpdateView(this->_reconstruction_id, v, pose);
       }
     }
-
-    Save(*this->_sfm_data,
-      stlplus::create_filespec(this->_config.sfm_dir, "sfm_data", ".bin"),
-      ESfM_Data(ALL));
-    Save(*this->_sfm_data,
-      stlplus::create_filespec(this->_config.sfm_dir, "sfm_data_2", ".json"),
-      ESfM_Data(ALL));
   }else{
     std::cout << "...SFM process failed" << std::endl;
     this->_sfm_data->poses.clear();
     return false;
   }
   return true;
+}
+
+
+bool GetPLYDataFromSFMData(const SfM_Data& sfm_data, std::string* data_out){
+  const bool b_structure = true;
+  const bool b_control_points = true;
+  const bool b_extrinsics = true;
+  const bool b_write_in_ascii = false;
+
+  if (!(b_structure || b_extrinsics || b_control_points))
+      return false;
+
+  // Create the stream and check its status
+  std::ostringstream stream;
+  bool bOk = false;
+  {
+      // Count how many views having valid poses:
+      IndexT view_with_pose_count = 0;
+      IndexT view_with_pose_prior_count = 0;
+      if (b_extrinsics)
+      {
+          for (const auto & view : sfm_data.GetViews())
+          {
+              view_with_pose_count += sfm_data.IsPoseAndIntrinsicDefined(view.second.get());
+          }
+
+          for (const auto & view : sfm_data.GetViews())
+          {
+              if (const sfm::ViewPriors *prior = dynamic_cast<sfm::ViewPriors*>(view.second.get()))
+              {
+                  view_with_pose_prior_count += prior->b_use_pose_center_;
+              }
+          }
+      }
+
+      stream << std::fixed << std::setprecision (std::numeric_limits<double>::digits10 + 1);
+
+      using Vec3uc = Eigen::Matrix<unsigned char, 3, 1>;
+
+      stream << "ply"
+      << '\n' << "format "
+              << (b_write_in_ascii ? "ascii 1.0" : "binary_little_endian 1.0")
+      << '\n' << "comment generated by OpenMVG"
+      << '\n' << "element vertex "
+          // Vertex count: (#landmark + #GCP + #view_with_valid_pose)
+          << (  (b_structure ? sfm_data.GetLandmarks().size() : 0)
+              + (b_control_points ? sfm_data.GetControl_Points().size() : 0)
+              + view_with_pose_count
+              + view_with_pose_prior_count)
+      << '\n' << "property double x"
+      << '\n' << "property double y"
+      << '\n' << "property double z"
+      << '\n' << "property uchar red"
+      << '\n' << "property uchar green"
+      << '\n' << "property uchar blue"
+      << '\n' << "end_header" << std::endl;
+
+      if (b_extrinsics)
+      {
+          for (const auto & view : sfm_data.GetViews())
+          {
+          // Export pose as Green points
+          if (sfm_data.IsPoseAndIntrinsicDefined(view.second.get()))
+          {
+              const geometry::Pose3 pose = sfm_data.GetPoseOrDie(view.second.get());
+              if (b_write_in_ascii)
+              {
+              stream
+                  << pose.center()(0) << ' '
+                  << pose.center()(1) << ' '
+                  << pose.center()(2) << ' '
+                  << "0 255 0\n";
+              }
+              else
+              {
+              stream.write( reinterpret_cast<const char*> ( pose.center().data() ), sizeof( Vec3 ) );
+              stream.write( reinterpret_cast<const char*> ( Vec3uc(0, 255, 0).data() ), sizeof( Vec3uc ) );
+              }
+          }
+
+          // Export pose priors as Blue points
+          if (const sfm::ViewPriors *prior = dynamic_cast<sfm::ViewPriors*>(view.second.get()))
+          {
+              if (prior->b_use_pose_center_)
+              {
+              if (b_write_in_ascii)
+              {
+                  stream
+                  << prior->pose_center_(0) << ' '
+                  << prior->pose_center_(1) << ' '
+                  << prior->pose_center_(2) << ' '
+                  << "0 0 255\n";
+              }
+              else
+              {
+                  stream.write( reinterpret_cast<const char*> ( prior->pose_center_.data() ), sizeof( Vec3 ) );
+                  stream.write( reinterpret_cast<const char*> ( Vec3uc(0, 0, 255).data() ), sizeof( Vec3uc ) );
+              }
+              }
+          }
+          }
+      }
+
+      if (b_structure)
+      {
+          // Export structure points as White points
+          const Landmarks & landmarks = sfm_data.GetLandmarks();
+          for ( const auto & iterLandmarks : landmarks )
+          {
+          if (b_write_in_ascii)
+          {
+              stream
+              << iterLandmarks.second.X(0) << ' '
+              << iterLandmarks.second.X(1) << ' '
+              << iterLandmarks.second.X(2) << ' '
+              << "255 255 255\n";
+          }
+          else
+          {
+              stream.write( reinterpret_cast<const char*> ( iterLandmarks.second.X.data() ), sizeof( Vec3 ) );
+              stream.write( reinterpret_cast<const char*> ( Vec3uc(255, 255, 255).data() ), sizeof( Vec3uc ) );
+          }
+          }
+      }
+
+      if (b_control_points)
+      {
+          // Export GCP as Red points
+          const Landmarks & landmarks = sfm_data.GetControl_Points();
+          for ( const auto & iterGCP : landmarks )
+          {
+          if (b_write_in_ascii)
+          {
+              stream
+              << iterGCP.second.X(0) << ' '
+              << iterGCP.second.X(1) << ' '
+              << iterGCP.second.X(2) << ' '
+              << "255 0 0\n";
+          }
+          else
+          {
+              stream.write( reinterpret_cast<const char*> ( iterGCP.second.X.data() ), sizeof( Vec3 ) );
+              stream.write( reinterpret_cast<const char*> ( Vec3uc(255, 0, 0).data() ), sizeof( Vec3uc ) );
+          }
+          }
+      }
+
+      stream.flush();
+      bOk = stream.good();
+      *data_out = stream.str();
+      return bOk;
+  }
 }
 
 bool OpenMVGReconstructionAgent::ComputeStructure(){
@@ -833,66 +949,45 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   double dMax_reprojection_error = config->get_double("max_reprojection_error");
   unsigned int ui_max_cache_size = config->get_int("ui_max_cache_size");
   int triangulation_method = config->get_int("triangulation_method");
-  
-  const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
-  std::unique_ptr<Regions> regions_type = Init_region_type_from_file(sImage_describer);
+
+  ConfigurationContainerPtr image_describer = config->get_container("image_describer");
+  std::unique_ptr<Regions> regions_type = Init_region_type_from_json(image_describer->jsonify());
   if (!regions_type)
   {
-    std::cerr << "Invalid: "
-      << sImage_describer << " regions type file." << std::endl;
+    std::cerr << "Invalid: regions type." << std::endl;
     return false;
   }
   std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider 
     = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
   regions_provider->load_from_storage(this->_reconstruction_id);
 
-    //--
-    //- Pair selection method:
-    //  - geometry guided -> camera frustum intersection,
-    //  - putative matches guided (photometric matches)
-    //     (keep pairs that have valid Intrinsic & Pose ids).
-    //--
-    PairWiseMatches matches = this->_openmvg_storage->GetMatches(this->_reconstruction_id);
-    Pair_Set pairs = getPairs(matches);
-        // Keep only Pairs that belong to valid view indexes.
-    const std::set<IndexT> valid_viewIdx = Get_Valid_Views(*this->_sfm_data);
-    pairs = Pair_filter(pairs, valid_viewIdx);
-    
+  PairWiseMatches matches = this->_openmvg_storage->GetMatches(this->_reconstruction_id);
+  Pair_Set pairs = getPairs(matches);
 
-    //------------------------------------------
-    // Compute Structure from known camera poses
-    //------------------------------------------
-    SfM_Data_Structure_Estimation_From_Known_Poses structure_estimator(dMax_reprojection_error);
-    structure_estimator.run(*this->_sfm_data, pairs, regions_provider,
-        static_cast<ETriangulationMethod>(triangulation_method));
-
-          std::cout
-    << "\n#landmark found: " << this->_sfm_data->GetLandmarks().size() << std::endl;
+  const std::set<IndexT> valid_viewIdx = Get_Valid_Views(*this->_sfm_data);
+  pairs = Pair_filter(pairs, valid_viewIdx);
   
-    regions_provider.reset(); // Regions are not longer needed.
-    RemoveOutliers_AngleError(*this->_sfm_data, 2.0);
+  SfM_Data_Structure_Estimation_From_Known_Poses structure_estimator(dMax_reprojection_error);
+  structure_estimator.run(*this->_sfm_data, pairs, regions_provider,
+      static_cast<ETriangulationMethod>(triangulation_method));
 
-    std::cout
-    << "Found a this->_sfm_data scene with:\n"
-    << " #views: " << this->_sfm_data->GetViews().size() << "\n"
-    << " #poses: " << this->_sfm_data->GetPoses().size() << "\n"
-    << " #intrinsics: " << this->_sfm_data->GetIntrinsics().size() <<  "\n"
-    << " #tracks: " << this->_sfm_data->GetLandmarks().size()
-    << std::endl;
+  regions_provider.reset();
+  RemoveOutliers_AngleError(*this->_sfm_data, 2.0);
 
-  if (stlplus::extension_part(this->_config.sOutFile) != "ply") {
-    Save(*this->_sfm_data,
-      stlplus::create_filespec(
-        stlplus::folder_part(this->_config.sOutFile),
-        stlplus::basename_part(this->_config.sOutFile), "ply"),
-      ESfM_Data(ALL));
-  }
+  SparsePointCloudData spc_data;
+  GetPLYDataFromSFMData(*this->_sfm_data, spc_data.mutable_data());
+  SparsePointCloudMetaData spc_meta_data;
+  spc_meta_data.set_id(GetUUID());
+  spc_meta_data.set_reconstruction(this->_reconstruction_id);
+  spc_data.mutable_metadata()->CopyFrom(spc_meta_data);
+  this->_sparse_storage->Store(spc_data);
 
-  if (Save(*this->_sfm_data, this->_config.sOutFile, ESfM_Data(ALL)))
+  //TODO: Store this computed SFM structure data i think.
+  /*if (Save(*this->_sfm_data, this->_config.sOutFile, ESfM_Data(ALL)))
   {
     return true;
-  }
-  return false;
+  }*/
+  return true;
 }
 
 openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_ids){    

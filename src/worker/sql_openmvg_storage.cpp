@@ -265,7 +265,7 @@ void SQLOpenMVGStorage::StoreMatches(const std::string& reconstruction_id,
 
 std::unique_ptr<SfM_Data> SQLOpenMVGStorage::GetSFMData(const std::string& reconstruction_id, int mask){
         std::unique_ptr<SfM_Data> sfm_data = std::make_unique<SfM_Data>();
-        sfm_data->s_root_path = this->GetMeta(reconstruction_id).root_path;
+        //sfm_data->s_root_path = this->GetMeta(reconstruction_id).root_path;
         if(mask & ESfM_Data::VIEWS)
             sfm_data->views = this->GetViews(reconstruction_id);
         if(mask & ESfM_Data::INTRINSICS)

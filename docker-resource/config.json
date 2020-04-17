@@ -3,7 +3,8 @@
         "server_address":"0.0.0.0:9999"
     },
     "storage" : {
-        "root": "/home/gumbo00/OnlineSFMDatabase"
+        "root": "/home/gumbo00/OnlineSFMDatabase",
+        "address":"0.0.0.0:9997"
     },
     "sql" : {
         "address" : "tcp://127.0.0.1:3306",
@@ -40,5 +41,12 @@
     },
     "index" : {
         "address" : "0.0.0.0:9998"
+    },
+    "worker_pool":{
+        "address" : "0.0.0.0:9996"
+    },
+    "worker":{
+        "address" : "0.0.0.0:9995",
+        "cores" : 8
     }
 }

@@ -28,6 +28,7 @@ OBJMetaData SQLOBJStorage::GetMeta(const std::string& obj_id){
         obj_meta.set_texture_path(res->getString("TEXTURE_PATH"));
         obj_meta.set_mtl_path(res->getString("MTL_PATH"));
     }
+    delete res;
     return obj_meta;
 } 
 

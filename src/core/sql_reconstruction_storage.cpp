@@ -55,6 +55,7 @@ ReconstructionData SQLReconstructionStorage::Get(const std::string& id){
         reconstruction_data.set_features_path(res->getString("FEATURES_PATH"));
         reconstruction_data.set_matches_path(res->getString("MATCHES_PATH"));
     }
+    delete res;
     return reconstruction_data;
 }
 

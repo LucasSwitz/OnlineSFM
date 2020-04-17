@@ -6,6 +6,8 @@
     "configurations": [
 
 
+
+
         {
             "name": "server",
             "type": "cppdbg",
@@ -52,6 +54,46 @@
             "request": "launch",
             "program": "/home/gumbo00/OnlineSFM/build/indexing_server",
             "args": ["config.json", "index.bin"],
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "worker pool",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/gumbo00/OnlineSFM/build/worker_manager",
+            "args": ["config.json"],
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "worker",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/gumbo00/OnlineSFM/build/worker",
+            "args": ["config.json"],
             "cwd": "${workspaceFolder}/build",
             "environment": [],
             "externalConsole": false,

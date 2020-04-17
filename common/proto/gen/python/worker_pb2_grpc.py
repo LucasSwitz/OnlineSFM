@@ -14,6 +14,16 @@ class WorkerPoolManagerStub(object):
     Args:
       channel: A grpc.Channel.
     """
+    self.Register = channel.unary_unary(
+        '/WorkerPoolManager/Register',
+        request_serializer=worker__pb2.RegisterWorkerRequest.SerializeToString,
+        response_deserializer=worker__pb2.RegisterWorkerResponse.FromString,
+        )
+    self.AddImage = channel.unary_unary(
+        '/WorkerPoolManager/AddImage',
+        request_serializer=worker__pb2.WorkerAddImageRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerAddImageResponse.FromString,
+        )
     self.ComputeFeatures = channel.unary_unary(
         '/WorkerPoolManager/ComputeFeatures',
         request_serializer=worker__pb2.WorkerComputeFeaturesRequest.SerializeToString,
@@ -22,18 +32,37 @@ class WorkerPoolManagerStub(object):
     self.ComputeMatches = channel.unary_unary(
         '/WorkerPoolManager/ComputeMatches',
         request_serializer=worker__pb2.WorkerComputeMatchesRequest.SerializeToString,
-        response_deserializer=worker__pb2.WorkerComputeMatchesReponse.FromString,
+        response_deserializer=worker__pb2.WorkerComputeMatchesResponse.FromString,
         )
-    self.Register = channel.unary_unary(
-        '/WorkerPoolManager/Register',
-        request_serializer=worker__pb2.RegisterWorkerRequest.SerializeToString,
-        response_deserializer=worker__pb2.RegisterWorkerResponse.FromString,
+    self.IncrementalSFM = channel.unary_unary(
+        '/WorkerPoolManager/IncrementalSFM',
+        request_serializer=worker__pb2.WorkerIncrementalSFMRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerIncrementalSFMResponse.FromString,
+        )
+    self.ComputeStructure = channel.unary_unary(
+        '/WorkerPoolManager/ComputeStructure',
+        request_serializer=worker__pb2.WorkerComputeStructureRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerComputeStructureResponse.FromString,
         )
 
 
 class WorkerPoolManagerServicer(object):
   # missing associated documentation comment in .proto file
   pass
+
+  def Register(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def AddImage(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
 
   def ComputeFeatures(self, request, context):
     # missing associated documentation comment in .proto file
@@ -49,7 +78,14 @@ class WorkerPoolManagerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def Register(self, request, context):
+  def IncrementalSFM(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ComputeStructure(self, request, context):
     # missing associated documentation comment in .proto file
     pass
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -59,6 +95,16 @@ class WorkerPoolManagerServicer(object):
 
 def add_WorkerPoolManagerServicer_to_server(servicer, server):
   rpc_method_handlers = {
+      'Register': grpc.unary_unary_rpc_method_handler(
+          servicer.Register,
+          request_deserializer=worker__pb2.RegisterWorkerRequest.FromString,
+          response_serializer=worker__pb2.RegisterWorkerResponse.SerializeToString,
+      ),
+      'AddImage': grpc.unary_unary_rpc_method_handler(
+          servicer.AddImage,
+          request_deserializer=worker__pb2.WorkerAddImageRequest.FromString,
+          response_serializer=worker__pb2.WorkerAddImageResponse.SerializeToString,
+      ),
       'ComputeFeatures': grpc.unary_unary_rpc_method_handler(
           servicer.ComputeFeatures,
           request_deserializer=worker__pb2.WorkerComputeFeaturesRequest.FromString,
@@ -67,12 +113,17 @@ def add_WorkerPoolManagerServicer_to_server(servicer, server):
       'ComputeMatches': grpc.unary_unary_rpc_method_handler(
           servicer.ComputeMatches,
           request_deserializer=worker__pb2.WorkerComputeMatchesRequest.FromString,
-          response_serializer=worker__pb2.WorkerComputeMatchesReponse.SerializeToString,
+          response_serializer=worker__pb2.WorkerComputeMatchesResponse.SerializeToString,
       ),
-      'Register': grpc.unary_unary_rpc_method_handler(
-          servicer.Register,
-          request_deserializer=worker__pb2.RegisterWorkerRequest.FromString,
-          response_serializer=worker__pb2.RegisterWorkerResponse.SerializeToString,
+      'IncrementalSFM': grpc.unary_unary_rpc_method_handler(
+          servicer.IncrementalSFM,
+          request_deserializer=worker__pb2.WorkerIncrementalSFMRequest.FromString,
+          response_serializer=worker__pb2.WorkerIncrementalSFMResponse.SerializeToString,
+      ),
+      'ComputeStructure': grpc.unary_unary_rpc_method_handler(
+          servicer.ComputeStructure,
+          request_deserializer=worker__pb2.WorkerComputeStructureRequest.FromString,
+          response_serializer=worker__pb2.WorkerComputeStructureResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
@@ -90,6 +141,11 @@ class WorkerStub(object):
     Args:
       channel: A grpc.Channel.
     """
+    self.AddImage = channel.unary_unary(
+        '/Worker/AddImage',
+        request_serializer=worker__pb2.WorkerAddImageRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerAddImageResponse.FromString,
+        )
     self.ComputeFeatures = channel.unary_unary(
         '/Worker/ComputeFeatures',
         request_serializer=worker__pb2.WorkerComputeFeaturesRequest.SerializeToString,
@@ -98,13 +154,30 @@ class WorkerStub(object):
     self.ComputeMatches = channel.unary_unary(
         '/Worker/ComputeMatches',
         request_serializer=worker__pb2.WorkerComputeMatchesRequest.SerializeToString,
-        response_deserializer=worker__pb2.WorkerComputeMatchesReponse.FromString,
+        response_deserializer=worker__pb2.WorkerComputeMatchesResponse.FromString,
+        )
+    self.IncrementalSFM = channel.unary_unary(
+        '/Worker/IncrementalSFM',
+        request_serializer=worker__pb2.WorkerIncrementalSFMRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerIncrementalSFMResponse.FromString,
+        )
+    self.ComputeStructure = channel.unary_unary(
+        '/Worker/ComputeStructure',
+        request_serializer=worker__pb2.WorkerComputeStructureRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerComputeStructureResponse.FromString,
         )
 
 
 class WorkerServicer(object):
   # missing associated documentation comment in .proto file
   pass
+
+  def AddImage(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
 
   def ComputeFeatures(self, request, context):
     # missing associated documentation comment in .proto file
@@ -120,9 +193,28 @@ class WorkerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def IncrementalSFM(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def ComputeStructure(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_WorkerServicer_to_server(servicer, server):
   rpc_method_handlers = {
+      'AddImage': grpc.unary_unary_rpc_method_handler(
+          servicer.AddImage,
+          request_deserializer=worker__pb2.WorkerAddImageRequest.FromString,
+          response_serializer=worker__pb2.WorkerAddImageResponse.SerializeToString,
+      ),
       'ComputeFeatures': grpc.unary_unary_rpc_method_handler(
           servicer.ComputeFeatures,
           request_deserializer=worker__pb2.WorkerComputeFeaturesRequest.FromString,
@@ -131,7 +223,17 @@ def add_WorkerServicer_to_server(servicer, server):
       'ComputeMatches': grpc.unary_unary_rpc_method_handler(
           servicer.ComputeMatches,
           request_deserializer=worker__pb2.WorkerComputeMatchesRequest.FromString,
-          response_serializer=worker__pb2.WorkerComputeMatchesReponse.SerializeToString,
+          response_serializer=worker__pb2.WorkerComputeMatchesResponse.SerializeToString,
+      ),
+      'IncrementalSFM': grpc.unary_unary_rpc_method_handler(
+          servicer.IncrementalSFM,
+          request_deserializer=worker__pb2.WorkerIncrementalSFMRequest.FromString,
+          response_serializer=worker__pb2.WorkerIncrementalSFMResponse.SerializeToString,
+      ),
+      'ComputeStructure': grpc.unary_unary_rpc_method_handler(
+          servicer.ComputeStructure,
+          request_deserializer=worker__pb2.WorkerComputeStructureRequest.FromString,
+          response_serializer=worker__pb2.WorkerComputeStructureResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
