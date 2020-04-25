@@ -8,6 +8,7 @@
 #define SQL_INSERT_IMAGE(t) "INSERT INTO " + t +  " VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE PATH = ?, FORMAT = ?"
 #define SQL_DELETE_IMAGE(t) "DELETE FROM "+ t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_IMAGES(t) "DELETE FROM "+ t + " WHERE RECONSTRUCTION_ID = ?"
+#define SQL_INSERT_UNDISTORTED(t) "UPDATE " + t + " SET DISTORTED_PATH = ? WHERE IMAGE_ID = ?"
 
 SQLImageStorage::SQLImageStorage(sql::Driver* driver, 
                                  std::shared_ptr<sql::Connection> con,
@@ -60,6 +61,7 @@ std::vector<ImageMetaData> SQLImageStorage::GetAll(std::string reconstruction_id
         img.set_path(res->getString("PATH"));
         images.push_back(img);
     }
+
 
     delete res;
     return images;
@@ -117,4 +119,21 @@ ImageData SQLImageStorage::Get(const std::string& image_id){
         img_data.set_data(data_str);
     }
     return img_data;
+}
+
+void SQLImageStorage::StoreUndistorted(const std::string& image_id, ImageData& undistored_data){
+    LOG(INFO) << "Storing undistorted image " << undistored_data.metadata().id() 
+              << " for reconstruction " << undistored_data.metadata().reconstruction();
+    // Store to filesystem
+    std::string rel_path = undistored_data.metadata().reconstruction() + 
+                                                  "/images/" + 
+                                                  undistored_data.metadata().id() + "." + undistored_data.metadata().format();
+    std::string path = this->_data_storage->StoreImage(undistored_data, rel_path);
+
+    // Store to DB
+    this->IssueUpdate(SQL_INSERT_IMAGE(this->_table), 
+        [this, image_id, path](sql::PreparedStatement *stmt){
+            stmt->setString(1, path);
+            stmt->setString(2, image_id);
+    });
 }

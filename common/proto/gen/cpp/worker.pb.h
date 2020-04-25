@@ -365,24 +365,11 @@ class WorkerComputeFeaturesResponse :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kSuccessFieldNumber = 1,
-  };
-  // bool success = 1;
-  void clear_success();
-  bool success() const;
-  void set_success(bool value);
-  private:
-  bool _internal_success() const;
-  void _internal_set_success(bool value);
-  public:
-
   // @@protoc_insertion_point(class_scope:WorkerComputeFeaturesResponse)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_worker_2eproto;
 };
@@ -646,24 +633,11 @@ class WorkerComputeMatchesResponse :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kSuccessFieldNumber = 1,
-  };
-  // bool success = 1;
-  void clear_success();
-  bool success() const;
-  void set_success(bool value);
-  private:
-  bool _internal_success() const;
-  void _internal_set_success(bool value);
-  public:
-
   // @@protoc_insertion_point(class_scope:WorkerComputeMatchesResponse)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_worker_2eproto;
 };
@@ -1188,24 +1162,11 @@ class WorkerAddImageResponse :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kSuccessFieldNumber = 1,
-  };
-  // bool success = 1;
-  void clear_success();
-  bool success() const;
-  void set_success(bool value);
-  private:
-  bool _internal_success() const;
-  void _internal_set_success(bool value);
-  public:
-
   // @@protoc_insertion_point(class_scope:WorkerAddImageResponse)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_worker_2eproto;
 };
@@ -1451,24 +1412,11 @@ class WorkerIncrementalSFMResponse :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kSuccessFieldNumber = 1,
-  };
-  // bool success = 1;
-  void clear_success();
-  bool success() const;
-  void set_success(bool value);
-  private:
-  bool _internal_success() const;
-  void _internal_set_success(bool value);
-  public:
-
   // @@protoc_insertion_point(class_scope:WorkerIncrementalSFMResponse)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_worker_2eproto;
 };
@@ -1714,24 +1662,11 @@ class WorkerComputeStructureResponse :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kSuccessFieldNumber = 1,
-  };
-  // bool success = 1;
-  void clear_success();
-  bool success() const;
-  void set_success(bool value);
-  private:
-  bool _internal_success() const;
-  void _internal_set_success(bool value);
-  public:
-
   // @@protoc_insertion_point(class_scope:WorkerComputeStructureResponse)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  bool success_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_worker_2eproto;
 };
@@ -1870,26 +1805,6 @@ inline void WorkerComputeFeaturesRequest::set_allocated_image_id(std::string* im
 
 // WorkerComputeFeaturesResponse
 
-// bool success = 1;
-inline void WorkerComputeFeaturesResponse::clear_success() {
-  success_ = false;
-}
-inline bool WorkerComputeFeaturesResponse::_internal_success() const {
-  return success_;
-}
-inline bool WorkerComputeFeaturesResponse::success() const {
-  // @@protoc_insertion_point(field_get:WorkerComputeFeaturesResponse.success)
-  return _internal_success();
-}
-inline void WorkerComputeFeaturesResponse::_internal_set_success(bool value) {
-  
-  success_ = value;
-}
-inline void WorkerComputeFeaturesResponse::set_success(bool value) {
-  _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:WorkerComputeFeaturesResponse.success)
-}
-
 // -------------------------------------------------------------------
 
 // WorkerComputeMatchesRequest
@@ -2017,26 +1932,6 @@ inline void WorkerComputeMatchesRequest::set_allocated_image_id(std::string* ima
 // -------------------------------------------------------------------
 
 // WorkerComputeMatchesResponse
-
-// bool success = 1;
-inline void WorkerComputeMatchesResponse::clear_success() {
-  success_ = false;
-}
-inline bool WorkerComputeMatchesResponse::_internal_success() const {
-  return success_;
-}
-inline bool WorkerComputeMatchesResponse::success() const {
-  // @@protoc_insertion_point(field_get:WorkerComputeMatchesResponse.success)
-  return _internal_success();
-}
-inline void WorkerComputeMatchesResponse::_internal_set_success(bool value) {
-  
-  success_ = value;
-}
-inline void WorkerComputeMatchesResponse::set_success(bool value) {
-  _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:WorkerComputeMatchesResponse.success)
-}
 
 // -------------------------------------------------------------------
 
@@ -2254,26 +2149,6 @@ inline void WorkerAddImageRequest::set_allocated_image_id(std::string* image_id)
 
 // WorkerAddImageResponse
 
-// bool success = 1;
-inline void WorkerAddImageResponse::clear_success() {
-  success_ = false;
-}
-inline bool WorkerAddImageResponse::_internal_success() const {
-  return success_;
-}
-inline bool WorkerAddImageResponse::success() const {
-  // @@protoc_insertion_point(field_get:WorkerAddImageResponse.success)
-  return _internal_success();
-}
-inline void WorkerAddImageResponse::_internal_set_success(bool value) {
-  
-  success_ = value;
-}
-inline void WorkerAddImageResponse::set_success(bool value) {
-  _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:WorkerAddImageResponse.success)
-}
-
 // -------------------------------------------------------------------
 
 // WorkerIncrementalSFMRequest
@@ -2342,26 +2217,6 @@ inline void WorkerIncrementalSFMRequest::set_allocated_reconstruction_id(std::st
 
 // WorkerIncrementalSFMResponse
 
-// bool success = 1;
-inline void WorkerIncrementalSFMResponse::clear_success() {
-  success_ = false;
-}
-inline bool WorkerIncrementalSFMResponse::_internal_success() const {
-  return success_;
-}
-inline bool WorkerIncrementalSFMResponse::success() const {
-  // @@protoc_insertion_point(field_get:WorkerIncrementalSFMResponse.success)
-  return _internal_success();
-}
-inline void WorkerIncrementalSFMResponse::_internal_set_success(bool value) {
-  
-  success_ = value;
-}
-inline void WorkerIncrementalSFMResponse::set_success(bool value) {
-  _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:WorkerIncrementalSFMResponse.success)
-}
-
 // -------------------------------------------------------------------
 
 // WorkerComputeStructureRequest
@@ -2429,26 +2284,6 @@ inline void WorkerComputeStructureRequest::set_allocated_reconstruction_id(std::
 // -------------------------------------------------------------------
 
 // WorkerComputeStructureResponse
-
-// bool success = 1;
-inline void WorkerComputeStructureResponse::clear_success() {
-  success_ = false;
-}
-inline bool WorkerComputeStructureResponse::_internal_success() const {
-  return success_;
-}
-inline bool WorkerComputeStructureResponse::success() const {
-  // @@protoc_insertion_point(field_get:WorkerComputeStructureResponse.success)
-  return _internal_success();
-}
-inline void WorkerComputeStructureResponse::_internal_set_success(bool value) {
-  
-  success_ = value;
-}
-inline void WorkerComputeStructureResponse::set_success(bool value) {
-  _internal_set_success(value);
-  // @@protoc_insertion_point(field_set:WorkerComputeStructureResponse.success)
-}
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop

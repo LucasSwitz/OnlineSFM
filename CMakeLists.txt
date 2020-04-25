@@ -3,6 +3,9 @@ project(ReconstructionServer CXX)
 set(CMAKE_BUILD_TYPE DEBUG)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)  
 include_directories(common/proto/gen/cpp 
+                    depends/openMVS/openMVS_build
+                    depends/openMVG/src/software/SfM/export/
+                    depends/
                     src/core
                     src/gateway
                     src/index/src
@@ -53,7 +56,7 @@ file(GLOB WORKER_POOL_MANAGER_SOURCES
 )
 
 file(GLOB WORKER_SOURCES
-    src/worker/*.cpp
+    src/worker/src/*.cpp
 )
 
 add_library(core ${CORE_SOURCES})

@@ -9,4 +9,19 @@ build: proto src/*
 	cmake ..; \
 	make server
 docker: src/*
-	docker image build . --tag rserver
+	docker image build . --tag gateway
+
+worker_docker: src/worker/* src/core/*
+	docker build -t worker -f src/worker/Dockerfile .
+
+core: src/core/*
+	mkdir -p build; \
+	cd build; \
+	cmake ..; \
+	make core
+
+worker: src/worker/* core
+	mkdir -p build; \
+	cd build; \
+	cmake ..; \
+	make worker

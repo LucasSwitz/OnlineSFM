@@ -8,6 +8,7 @@
 #include "config.h"
 #include "reconstruction.h"
 #include "remote_reconstruction_agent.h"
+#include "expotential_backoff.h"
 #include <cppconn/driver.h>
 #include <mutex>
 
@@ -18,9 +19,18 @@ std::shared_ptr<ReconstructionContext> RemoteReconstructionContext(const std::st
         sql_driver_mux.lock();
         sql::Driver* driver(get_driver_instance());
         sql_driver_mux.unlock();
-        std::shared_ptr<sql::Connection> connection(driver->connect(CONFIG_GET_STRING("sql.address"), 
-                                                                CONFIG_GET_STRING("sql.user"), 
-                                                                CONFIG_GET_STRING("sql.password")));
+        std::shared_ptr<sql::Connection> connection;
+        ExpotentialBackoff("MySQL Connector", [&connection, driver]()mutable{
+            try{
+                connection = std::shared_ptr<sql::Connection>(driver->connect(CONFIG_GET_STRING("sql.address"), 
+                                                                    CONFIG_GET_STRING("sql.user"), 
+                                                                    CONFIG_GET_STRING("sql.password")));
+                return connection.get() != nullptr;
+            } catch(...){
+                return false;
+            }
+        }, 
+        100);
         connection->setSchema(CONFIG_GET_STRING("sql.db"));
         auto intrinsics_storage = std::make_shared<SQLCameraIntrinsicsStorage>(
                                                         driver,

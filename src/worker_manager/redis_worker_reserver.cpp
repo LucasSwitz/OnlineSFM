@@ -27,49 +27,38 @@ void RedisWorkerReserver::AddNewWorker(const std::string& address, uint32_t core
 }
 
 std::string RedisWorkerReserver::ReserveWorker(){
-    Optional<std::pair<std::string, double>> smallest;
-    try {
-        smallest = this->_redis->zpopmin(CAPACITY_SET_KEY);
-    }catch(const std::exception& e){
-        LOG(ERROR) << "Error getting available workers. Trying again.";
-        using namespace std::chrono_literals;
-        std::this_thread::sleep_for(1s);
-        this->_tx = this->_redis->transaction();
-        return this->ReserveWorker();
-    }
-
-    if(!smallest){
-        LOG(ERROR) << "No Workers available. Trying again in 1 second";
-        using namespace std::chrono_literals;
-        std::this_thread::sleep_for(1s);
-        return this->ReserveWorker();
-    }
-
-    std::string address = smallest->first;
-    float capacity = smallest->second;
-
-    if(capacity >= 1.0){
-        throw WorkersAtMaxCapacityException();
-    }
-
+    std::string address;
     auto r = this->_tx.redis();
     while(true){
         try{
-            r.watch(AVAILBLE_KEY+address);\
+            r.watch(CAPACITY_SET_KEY);
+            std::unordered_map<std::string, double> addr_dict;
+            this->_redis->zrange(CAPACITY_SET_KEY, 0, 0, std::inserter(addr_dict, addr_dict.begin()));
+            if(addr_dict.size() == 0){
+                LOG(ERROR) << "No Workers available. Trying again in 1 second";
+                using namespace std::chrono_literals;
+                std::this_thread::sleep_for(1s);
+                return this->ReserveWorker();
+            }
+            address = addr_dict.begin()->first;
+            float capacity =  addr_dict.begin()->second;
+            if(capacity >= 1.0)
+                throw  WorkersAtMaxCapacityException();
+            r.watch(AVAILBLE_KEY+address);
             r.watch(USED_KEY+address);
             int max_cores = std::stoi(*r.get(AVAILBLE_KEY+address));
             int used_cores = std::stoi(*r.get(USED_KEY+address)) + 1;
             float capacity_used = float(used_cores) / max_cores;
             this->_tx.zadd(CAPACITY_SET_KEY, address, capacity_used)
-              .set(USED_KEY+address, std::to_string(used_cores))
-              .exec();
+                     .set(USED_KEY+address, std::to_string(used_cores))
+                     .exec();
             break;
         } catch (const WatchError &err){
-            continue;
-        } catch(const std::exception& e){
             this->_tx = this->_redis->transaction();
             r = this->_tx.redis();
             continue;
+        } catch(const std::exception& e){
+            throw;
         }
     }
     return address;
@@ -79,8 +68,9 @@ void RedisWorkerReserver::ReleaseWorker(const std::string& address){
     auto r = this->_tx.redis();
     while(true){
         try{
+            r.watch(CAPACITY_SET_KEY);
             r.watch(AVAILBLE_KEY+address);
-            r.get(USED_KEY+address);
+            r.watch(USED_KEY+address);
             int max_cores = std::stoi(*r.get(AVAILBLE_KEY+address));
             int used_cores = std::stoi(*r.get(USED_KEY+address)) - 1;
             float capacity_used = float(used_cores) / max_cores;
@@ -89,11 +79,36 @@ void RedisWorkerReserver::ReleaseWorker(const std::string& address){
               .exec();
             break;
         } catch (const WatchError &err){
-            continue;
-        } catch(const std::exception& e){
             this->_tx = this->_redis->transaction();
             r = this->_tx.redis();
             continue;
+        } catch(const std::exception& e){
+            throw;
+        }
+    }
+}
+
+void RedisWorkerReserver::RemoveWorker(const std::string& address){
+    auto r = this->_tx.redis();
+    while(true){
+        try{
+            r.watch(CAPACITY_SET_KEY);
+            r.watch(AVAILBLE_KEY+address);
+            r.watch(USED_KEY+address);
+            int max_cores = std::stoi(*r.get(AVAILBLE_KEY+address));
+            int used_cores = std::stoi(*r.get(USED_KEY+address)) - 1;
+            float capacity_used = float(used_cores) / max_cores;
+            this->_tx.zrem(CAPACITY_SET_KEY, address)
+              .del(USED_KEY+address)
+              .del(AVAILBLE_KEY+address)
+              .exec();
+            break;
+        } catch (const WatchError &err){
+            this->_tx = this->_redis->transaction();
+            r = this->_tx.redis();
+            continue;
+        } catch(const std::exception& e){
+            throw;
         }
     }
 }

@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0cworker.proto\"K\n\x1cWorkerComputeFeaturesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"0\n\x1dWorkerComputeFeaturesResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"J\n\x1bWorkerComputeMatchesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"/\n\x1cWorkerComputeMatchesResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"7\n\x15RegisterWorkerRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05\x63ores\x18\x02 \x01(\x05\"\x18\n\x16RegisterWorkerResponse\"D\n\x15WorkerAddImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\")\n\x16WorkerAddImageResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"8\n\x1bWorkerIncrementalSFMRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"/\n\x1cWorkerIncrementalSFMResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\":\n\x1dWorkerComputeStructureRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"1\n\x1eWorkerComputeStructureResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xd2\x03\n\x11WorkerPoolManager\x12;\n\x08Register\x12\x16.RegisterWorkerRequest\x1a\x17.RegisterWorkerResponse\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponse2\x8a\x03\n\x06Worker\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponseb\x06proto3'
+  serialized_pb=b'\n\x0cworker.proto\"K\n\x1cWorkerComputeFeaturesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x1f\n\x1dWorkerComputeFeaturesResponse\"J\n\x1bWorkerComputeMatchesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x1e\n\x1cWorkerComputeMatchesResponse\"7\n\x15RegisterWorkerRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05\x63ores\x18\x02 \x01(\x05\"\x18\n\x16RegisterWorkerResponse\"D\n\x15WorkerAddImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x18\n\x16WorkerAddImageResponse\"8\n\x1bWorkerIncrementalSFMRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1e\n\x1cWorkerIncrementalSFMResponse\":\n\x1dWorkerComputeStructureRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\" \n\x1eWorkerComputeStructureResponse2\xd2\x03\n\x11WorkerPoolManager\x12;\n\x08Register\x12\x16.RegisterWorkerRequest\x1a\x17.RegisterWorkerResponse\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponse2\x8a\x03\n\x06Worker\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponseb\x06proto3'
 )
 
 
@@ -69,13 +69,6 @@ _WORKERCOMPUTEFEATURESRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='success', full_name='WorkerComputeFeaturesResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -89,7 +82,7 @@ _WORKERCOMPUTEFEATURESRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=93,
-  serialized_end=141,
+  serialized_end=124,
 )
 
 
@@ -126,8 +119,8 @@ _WORKERCOMPUTEMATCHESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=143,
-  serialized_end=217,
+  serialized_start=126,
+  serialized_end=200,
 )
 
 
@@ -138,13 +131,6 @@ _WORKERCOMPUTEMATCHESRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='success', full_name='WorkerComputeMatchesResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -157,8 +143,8 @@ _WORKERCOMPUTEMATCHESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=219,
-  serialized_end=266,
+  serialized_start=202,
+  serialized_end=232,
 )
 
 
@@ -195,8 +181,8 @@ _REGISTERWORKERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=268,
-  serialized_end=323,
+  serialized_start=234,
+  serialized_end=289,
 )
 
 
@@ -219,8 +205,8 @@ _REGISTERWORKERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=325,
-  serialized_end=349,
+  serialized_start=291,
+  serialized_end=315,
 )
 
 
@@ -257,8 +243,8 @@ _WORKERADDIMAGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=351,
-  serialized_end=419,
+  serialized_start=317,
+  serialized_end=385,
 )
 
 
@@ -269,13 +255,6 @@ _WORKERADDIMAGERESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='success', full_name='WorkerAddImageResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -288,8 +267,8 @@ _WORKERADDIMAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=421,
-  serialized_end=462,
+  serialized_start=387,
+  serialized_end=411,
 )
 
 
@@ -319,8 +298,8 @@ _WORKERINCREMENTALSFMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=464,
-  serialized_end=520,
+  serialized_start=413,
+  serialized_end=469,
 )
 
 
@@ -331,13 +310,6 @@ _WORKERINCREMENTALSFMRESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='success', full_name='WorkerIncrementalSFMResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -350,8 +322,8 @@ _WORKERINCREMENTALSFMRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=522,
-  serialized_end=569,
+  serialized_start=471,
+  serialized_end=501,
 )
 
 
@@ -381,8 +353,8 @@ _WORKERCOMPUTESTRUCTUREREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=571,
-  serialized_end=629,
+  serialized_start=503,
+  serialized_end=561,
 )
 
 
@@ -393,13 +365,6 @@ _WORKERCOMPUTESTRUCTURERESPONSE = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='success', full_name='WorkerComputeStructureResponse.success', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -412,8 +377,8 @@ _WORKERCOMPUTESTRUCTURERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=631,
-  serialized_end=680,
+  serialized_start=563,
+  serialized_end=595,
 )
 
 DESCRIPTOR.message_types_by_name['WorkerComputeFeaturesRequest'] = _WORKERCOMPUTEFEATURESREQUEST
@@ -522,8 +487,8 @@ _WORKERPOOLMANAGER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=683,
-  serialized_end=1149,
+  serialized_start=598,
+  serialized_end=1064,
   methods=[
   _descriptor.MethodDescriptor(
     name='Register',
@@ -591,8 +556,8 @@ _WORKER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=1152,
-  serialized_end=1546,
+  serialized_start=1067,
+  serialized_end=1461,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddImage',

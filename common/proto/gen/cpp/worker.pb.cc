@@ -247,7 +247,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::WorkerComputeFeaturesResponse, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -260,7 +259,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::WorkerComputeMatchesResponse, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::RegisterWorkerRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -285,7 +283,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::WorkerAddImageResponse, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::WorkerIncrementalSFMRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -297,7 +294,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::WorkerIncrementalSFMResponse, success_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::WorkerComputeStructureRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -309,21 +305,20 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::WorkerComputeStructureResponse, success_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::WorkerComputeFeaturesRequest)},
   { 7, -1, sizeof(::WorkerComputeFeaturesResponse)},
-  { 13, -1, sizeof(::WorkerComputeMatchesRequest)},
-  { 20, -1, sizeof(::WorkerComputeMatchesResponse)},
-  { 26, -1, sizeof(::RegisterWorkerRequest)},
-  { 33, -1, sizeof(::RegisterWorkerResponse)},
-  { 38, -1, sizeof(::WorkerAddImageRequest)},
-  { 45, -1, sizeof(::WorkerAddImageResponse)},
-  { 51, -1, sizeof(::WorkerIncrementalSFMRequest)},
-  { 57, -1, sizeof(::WorkerIncrementalSFMResponse)},
-  { 63, -1, sizeof(::WorkerComputeStructureRequest)},
-  { 69, -1, sizeof(::WorkerComputeStructureResponse)},
+  { 12, -1, sizeof(::WorkerComputeMatchesRequest)},
+  { 19, -1, sizeof(::WorkerComputeMatchesResponse)},
+  { 24, -1, sizeof(::RegisterWorkerRequest)},
+  { 31, -1, sizeof(::RegisterWorkerResponse)},
+  { 36, -1, sizeof(::WorkerAddImageRequest)},
+  { 43, -1, sizeof(::WorkerAddImageResponse)},
+  { 48, -1, sizeof(::WorkerIncrementalSFMRequest)},
+  { 54, -1, sizeof(::WorkerIncrementalSFMResponse)},
+  { 59, -1, sizeof(::WorkerComputeStructureRequest)},
+  { 65, -1, sizeof(::WorkerComputeStructureResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -344,43 +339,41 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_worker_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\014worker.proto\"K\n\034WorkerComputeFeaturesR"
   "equest\022\031\n\021reconstruction_id\030\001 \001(\t\022\020\n\010ima"
-  "ge_id\030\002 \001(\t\"0\n\035WorkerComputeFeaturesResp"
-  "onse\022\017\n\007success\030\001 \001(\010\"J\n\033WorkerComputeMa"
-  "tchesRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022"
-  "\020\n\010image_id\030\002 \001(\t\"/\n\034WorkerComputeMatche"
-  "sResponse\022\017\n\007success\030\001 \001(\010\"7\n\025RegisterWo"
-  "rkerRequest\022\017\n\007address\030\001 \001(\t\022\r\n\005cores\030\002 "
-  "\001(\005\"\030\n\026RegisterWorkerResponse\"D\n\025WorkerA"
-  "ddImageRequest\022\031\n\021reconstruction_id\030\001 \001("
-  "\t\022\020\n\010image_id\030\002 \001(\t\")\n\026WorkerAddImageRes"
-  "ponse\022\017\n\007success\030\001 \001(\010\"8\n\033WorkerIncremen"
-  "talSFMRequest\022\031\n\021reconstruction_id\030\001 \001(\t"
-  "\"/\n\034WorkerIncrementalSFMResponse\022\017\n\007succ"
-  "ess\030\001 \001(\010\":\n\035WorkerComputeStructureReque"
-  "st\022\031\n\021reconstruction_id\030\001 \001(\t\"1\n\036WorkerC"
-  "omputeStructureResponse\022\017\n\007success\030\001 \001(\010"
-  "2\322\003\n\021WorkerPoolManager\022;\n\010Register\022\026.Reg"
-  "isterWorkerRequest\032\027.RegisterWorkerRespo"
-  "nse\022;\n\010AddImage\022\026.WorkerAddImageRequest\032"
-  "\027.WorkerAddImageResponse\022P\n\017ComputeFeatu"
-  "res\022\035.WorkerComputeFeaturesRequest\032\036.Wor"
-  "kerComputeFeaturesResponse\022M\n\016ComputeMat"
-  "ches\022\034.WorkerComputeMatchesRequest\032\035.Wor"
-  "kerComputeMatchesResponse\022M\n\016Incremental"
-  "SFM\022\034.WorkerIncrementalSFMRequest\032\035.Work"
-  "erIncrementalSFMResponse\022S\n\020ComputeStruc"
-  "ture\022\036.WorkerComputeStructureRequest\032\037.W"
-  "orkerComputeStructureResponse2\212\003\n\006Worker"
-  "\022;\n\010AddImage\022\026.WorkerAddImageRequest\032\027.W"
-  "orkerAddImageResponse\022P\n\017ComputeFeatures"
-  "\022\035.WorkerComputeFeaturesRequest\032\036.Worker"
-  "ComputeFeaturesResponse\022M\n\016ComputeMatche"
-  "s\022\034.WorkerComputeMatchesRequest\032\035.Worker"
-  "ComputeMatchesResponse\022M\n\016IncrementalSFM"
-  "\022\034.WorkerIncrementalSFMRequest\032\035.WorkerI"
-  "ncrementalSFMResponse\022S\n\020ComputeStructur"
-  "e\022\036.WorkerComputeStructureRequest\032\037.Work"
-  "erComputeStructureResponseb\006proto3"
+  "ge_id\030\002 \001(\t\"\037\n\035WorkerComputeFeaturesResp"
+  "onse\"J\n\033WorkerComputeMatchesRequest\022\031\n\021r"
+  "econstruction_id\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t"
+  "\"\036\n\034WorkerComputeMatchesResponse\"7\n\025Regi"
+  "sterWorkerRequest\022\017\n\007address\030\001 \001(\t\022\r\n\005co"
+  "res\030\002 \001(\005\"\030\n\026RegisterWorkerResponse\"D\n\025W"
+  "orkerAddImageRequest\022\031\n\021reconstruction_i"
+  "d\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t\"\030\n\026WorkerAddIm"
+  "ageResponse\"8\n\033WorkerIncrementalSFMReque"
+  "st\022\031\n\021reconstruction_id\030\001 \001(\t\"\036\n\034WorkerI"
+  "ncrementalSFMResponse\":\n\035WorkerComputeSt"
+  "ructureRequest\022\031\n\021reconstruction_id\030\001 \001("
+  "\t\" \n\036WorkerComputeStructureResponse2\322\003\n\021"
+  "WorkerPoolManager\022;\n\010Register\022\026.Register"
+  "WorkerRequest\032\027.RegisterWorkerResponse\022;"
+  "\n\010AddImage\022\026.WorkerAddImageRequest\032\027.Wor"
+  "kerAddImageResponse\022P\n\017ComputeFeatures\022\035"
+  ".WorkerComputeFeaturesRequest\032\036.WorkerCo"
+  "mputeFeaturesResponse\022M\n\016ComputeMatches\022"
+  "\034.WorkerComputeMatchesRequest\032\035.WorkerCo"
+  "mputeMatchesResponse\022M\n\016IncrementalSFM\022\034"
+  ".WorkerIncrementalSFMRequest\032\035.WorkerInc"
+  "rementalSFMResponse\022S\n\020ComputeStructure\022"
+  "\036.WorkerComputeStructureRequest\032\037.Worker"
+  "ComputeStructureResponse2\212\003\n\006Worker\022;\n\010A"
+  "ddImage\022\026.WorkerAddImageRequest\032\027.Worker"
+  "AddImageResponse\022P\n\017ComputeFeatures\022\035.Wo"
+  "rkerComputeFeaturesRequest\032\036.WorkerCompu"
+  "teFeaturesResponse\022M\n\016ComputeMatches\022\034.W"
+  "orkerComputeMatchesRequest\032\035.WorkerCompu"
+  "teMatchesResponse\022M\n\016IncrementalSFM\022\034.Wo"
+  "rkerIncrementalSFMRequest\032\035.WorkerIncrem"
+  "entalSFMResponse\022S\n\020ComputeStructure\022\036.W"
+  "orkerComputeStructureRequest\032\037.WorkerCom"
+  "puteStructureResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_worker_2eproto_deps[1] = {
 };
@@ -401,7 +394,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_wor
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_worker_2eproto_once;
 static bool descriptor_table_worker_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_worker_2eproto = {
-  &descriptor_table_worker_2eproto_initialized, descriptor_table_protodef_worker_2eproto, "worker.proto", 1554,
+  &descriptor_table_worker_2eproto_initialized, descriptor_table_protodef_worker_2eproto, "worker.proto", 1469,
   &descriptor_table_worker_2eproto_once, descriptor_table_worker_2eproto_sccs, descriptor_table_worker_2eproto_deps, 12, 0,
   schemas, file_default_instances, TableStruct_worker_2eproto::offsets,
   file_level_metadata_worker_2eproto, 12, file_level_enum_descriptors_worker_2eproto, file_level_service_descriptors_worker_2eproto,
@@ -665,12 +658,10 @@ WorkerComputeFeaturesResponse::WorkerComputeFeaturesResponse(const WorkerCompute
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
   // @@protoc_insertion_point(copy_constructor:WorkerComputeFeaturesResponse)
 }
 
 void WorkerComputeFeaturesResponse::SharedCtor() {
-  success_ = false;
 }
 
 WorkerComputeFeaturesResponse::~WorkerComputeFeaturesResponse() {
@@ -696,7 +687,6 @@ void WorkerComputeFeaturesResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  success_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -706,16 +696,6 @@ const char* WorkerComputeFeaturesResponse::_InternalParse(const char* ptr, ::PRO
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
-    switch (tag >> 3) {
-      // bool success = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -723,8 +703,6 @@ const char* WorkerComputeFeaturesResponse::_InternalParse(const char* ptr, ::PRO
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
-      }
-    }  // switch
   }  // while
 success:
   return ptr;
@@ -739,12 +717,6 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeFeaturesResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -761,11 +733,6 @@ size_t WorkerComputeFeaturesResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -798,9 +765,6 @@ void WorkerComputeFeaturesResponse::MergeFrom(const WorkerComputeFeaturesRespons
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.success() != 0) {
-    _internal_set_success(from._internal_success());
-  }
 }
 
 void WorkerComputeFeaturesResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -824,7 +788,6 @@ bool WorkerComputeFeaturesResponse::IsInitialized() const {
 void WorkerComputeFeaturesResponse::InternalSwap(WorkerComputeFeaturesResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(success_, other->success_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeFeaturesResponse::GetMetadata() const {
@@ -1087,12 +1050,10 @@ WorkerComputeMatchesResponse::WorkerComputeMatchesResponse(const WorkerComputeMa
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
   // @@protoc_insertion_point(copy_constructor:WorkerComputeMatchesResponse)
 }
 
 void WorkerComputeMatchesResponse::SharedCtor() {
-  success_ = false;
 }
 
 WorkerComputeMatchesResponse::~WorkerComputeMatchesResponse() {
@@ -1118,7 +1079,6 @@ void WorkerComputeMatchesResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  success_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -1128,16 +1088,6 @@ const char* WorkerComputeMatchesResponse::_InternalParse(const char* ptr, ::PROT
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
-    switch (tag >> 3) {
-      // bool success = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -1145,8 +1095,6 @@ const char* WorkerComputeMatchesResponse::_InternalParse(const char* ptr, ::PROT
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
-      }
-    }  // switch
   }  // while
 success:
   return ptr;
@@ -1161,12 +1109,6 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeMatchesResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -1183,11 +1125,6 @@ size_t WorkerComputeMatchesResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -1220,9 +1157,6 @@ void WorkerComputeMatchesResponse::MergeFrom(const WorkerComputeMatchesResponse&
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.success() != 0) {
-    _internal_set_success(from._internal_success());
-  }
 }
 
 void WorkerComputeMatchesResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1246,7 +1180,6 @@ bool WorkerComputeMatchesResponse::IsInitialized() const {
 void WorkerComputeMatchesResponse::InternalSwap(WorkerComputeMatchesResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(success_, other->success_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeMatchesResponse::GetMetadata() const {
@@ -1889,12 +1822,10 @@ WorkerAddImageResponse::WorkerAddImageResponse(const WorkerAddImageResponse& fro
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
   // @@protoc_insertion_point(copy_constructor:WorkerAddImageResponse)
 }
 
 void WorkerAddImageResponse::SharedCtor() {
-  success_ = false;
 }
 
 WorkerAddImageResponse::~WorkerAddImageResponse() {
@@ -1920,7 +1851,6 @@ void WorkerAddImageResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  success_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -1930,16 +1860,6 @@ const char* WorkerAddImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_N
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
-    switch (tag >> 3) {
-      // bool success = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -1947,8 +1867,6 @@ const char* WorkerAddImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_N
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
-      }
-    }  // switch
   }  // while
 success:
   return ptr;
@@ -1963,12 +1881,6 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:WorkerAddImageResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -1985,11 +1897,6 @@ size_t WorkerAddImageResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -2022,9 +1929,6 @@ void WorkerAddImageResponse::MergeFrom(const WorkerAddImageResponse& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.success() != 0) {
-    _internal_set_success(from._internal_success());
-  }
 }
 
 void WorkerAddImageResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -2048,7 +1952,6 @@ bool WorkerAddImageResponse::IsInitialized() const {
 void WorkerAddImageResponse::InternalSwap(WorkerAddImageResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(success_, other->success_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerAddImageResponse::GetMetadata() const {
@@ -2272,12 +2175,10 @@ WorkerIncrementalSFMResponse::WorkerIncrementalSFMResponse(const WorkerIncrement
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
   // @@protoc_insertion_point(copy_constructor:WorkerIncrementalSFMResponse)
 }
 
 void WorkerIncrementalSFMResponse::SharedCtor() {
-  success_ = false;
 }
 
 WorkerIncrementalSFMResponse::~WorkerIncrementalSFMResponse() {
@@ -2303,7 +2204,6 @@ void WorkerIncrementalSFMResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  success_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -2313,16 +2213,6 @@ const char* WorkerIncrementalSFMResponse::_InternalParse(const char* ptr, ::PROT
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
-    switch (tag >> 3) {
-      // bool success = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -2330,8 +2220,6 @@ const char* WorkerIncrementalSFMResponse::_InternalParse(const char* ptr, ::PROT
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
-      }
-    }  // switch
   }  // while
 success:
   return ptr;
@@ -2346,12 +2234,6 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:WorkerIncrementalSFMResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -2368,11 +2250,6 @@ size_t WorkerIncrementalSFMResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -2405,9 +2282,6 @@ void WorkerIncrementalSFMResponse::MergeFrom(const WorkerIncrementalSFMResponse&
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.success() != 0) {
-    _internal_set_success(from._internal_success());
-  }
 }
 
 void WorkerIncrementalSFMResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -2431,7 +2305,6 @@ bool WorkerIncrementalSFMResponse::IsInitialized() const {
 void WorkerIncrementalSFMResponse::InternalSwap(WorkerIncrementalSFMResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(success_, other->success_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerIncrementalSFMResponse::GetMetadata() const {
@@ -2655,12 +2528,10 @@ WorkerComputeStructureResponse::WorkerComputeStructureResponse(const WorkerCompu
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  success_ = from.success_;
   // @@protoc_insertion_point(copy_constructor:WorkerComputeStructureResponse)
 }
 
 void WorkerComputeStructureResponse::SharedCtor() {
-  success_ = false;
 }
 
 WorkerComputeStructureResponse::~WorkerComputeStructureResponse() {
@@ -2686,7 +2557,6 @@ void WorkerComputeStructureResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  success_ = false;
   _internal_metadata_.Clear();
 }
 
@@ -2696,16 +2566,6 @@ const char* WorkerComputeStructureResponse::_InternalParse(const char* ptr, ::PR
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
-    switch (tag >> 3) {
-      // bool success = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
           ctx->SetLastTag(tag);
           goto success;
@@ -2713,8 +2573,6 @@ const char* WorkerComputeStructureResponse::_InternalParse(const char* ptr, ::PR
         ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
         CHK_(ptr != nullptr);
         continue;
-      }
-    }  // switch
   }  // while
 success:
   return ptr;
@@ -2729,12 +2587,6 @@ failure:
   // @@protoc_insertion_point(serialize_to_array_start:WorkerComputeStructureResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -2751,11 +2603,6 @@ size_t WorkerComputeStructureResponse::ByteSizeLong() const {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // bool success = 1;
-  if (this->success() != 0) {
-    total_size += 1 + 1;
-  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
@@ -2788,9 +2635,6 @@ void WorkerComputeStructureResponse::MergeFrom(const WorkerComputeStructureRespo
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.success() != 0) {
-    _internal_set_success(from._internal_success());
-  }
 }
 
 void WorkerComputeStructureResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -2814,7 +2658,6 @@ bool WorkerComputeStructureResponse::IsInitialized() const {
 void WorkerComputeStructureResponse::InternalSwap(WorkerComputeStructureResponse* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
-  swap(success_, other->success_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WorkerComputeStructureResponse::GetMetadata() const {

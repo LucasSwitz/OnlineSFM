@@ -121,11 +121,6 @@ SparsePointCloudData SparseReconstruction::Data(){
         return SparsePointCloudData();
 }
 
-
-bool Reconstruction::HasReconstructedOnce(){
-    return !this->_sparse_storage->GetMetaByReconstruction(this->_id).reconstruction().compare(this->_id);
-}
-
 void Reconstruction::_SetupMVS(){
     /*SparsePointCloudMetaData spc_data = this->_sparse_storage->GetMetaByReconstruction(this->_id);
     std::string reconstruction_dir = CONFIG_GET_STRING("storage.root") + "/" + this->_id;
@@ -181,9 +176,8 @@ bool Reconstruction::ComputeStructure(){
     return reconstruction_agent->ComputeStructure();
 }
 
-void Reconstruction::AddImage(const std::string& image_id, bool index){
+bool Reconstruction::AddImage(const std::string& image_id, bool index){
     LOG(INFO) << "Adding image: " << image_id;
-
     if(index){
         auto indexing_client = GetIndexingClient(CONFIG_GET_STRING("index.address"));
         //TODO: Wrap this shit
@@ -193,14 +187,13 @@ void Reconstruction::AddImage(const std::string& image_id, bool index){
         IndexImageResponse resp;
         grpc::ClientContext context;
         LOG(INFO) << "Indexing image: " << image_id;
-        indexing_client->IndexImage(&context, req, &resp);
+        auto status =indexing_client->IndexImage(&context, req, &resp);
+        if(!status.ok()){
+            LOG(ERROR) << "Failed to index image: " << image_id;
+            return false;
+        }
     }
-
-    if(!reconstruction_agent->AddImage(image_id)){
-        LOG(ERROR) << "Failed to add image " << image_id;
-    }else{
-        //this->_session_backlog->Incr(this->_id);
-    }
+    return reconstruction_agent->AddImage(image_id);
 }
 
 void Reconstruction::_ExportWorkingMVS(){
@@ -222,12 +215,12 @@ bool Reconstruction::IsRunningMVS(){
     return this->_running_mvs;
 }
 
-void Reconstruction::ComputeFeatures(const std::set<std::string>& images){
-    this->reconstruction_agent->ComputeFeatures(images);
+bool Reconstruction::ComputeFeatures(const std::set<std::string>& images){
+    return this->reconstruction_agent->ComputeFeatures(images);
 }
 
-void Reconstruction::ComputeMatches(const std::set<std::string>& images){
-    this->reconstruction_agent->ComputeMatches(images);
+bool Reconstruction::ComputeMatches(const std::set<std::string>& images){
+    return this->reconstruction_agent->ComputeMatches(images);
 }
 
 void Reconstruction::SetAgentConfigFields(const std::string& agent_name, const std::string& config_json){

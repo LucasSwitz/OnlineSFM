@@ -49,12 +49,12 @@ class ReconstructionServer : public ReconstructionService::Service {
             try {
                 ReconstructionFetcher rf;
                 rf.Fetch(RemoteReconstructionContext(uuid))->StoreData(new_reconstruction);
+                LOG(INFO) << "Made new reconstruction " << uuid;
+                return Status::OK;
             } catch(std::exception& e){
                 LOG(ERROR) << e.what();
+                return Status::CANCELLED;
             }
-
-            LOG(INFO) << "Made new reconstruction " << uuid;
-            return Status::OK;
         }
 
         Status ReconstructionUploadImage(ServerContext* context, 
@@ -72,12 +72,19 @@ class ReconstructionServer : public ReconstructionService::Service {
                 ReconstructionFetcher rf;
                 auto reconstruction = rf.Fetch(RemoteReconstructionContext(final_image.metadata().reconstruction()));
                 std::string image_id = reconstruction->StoreImage(final_image);
-                reconstruction->ComputeFeatures({image_id});
-                reconstruction->AddImage(image_id);
-
-                if(request.compute_matches()){
-                    reconstruction->ComputeMatches({image_id});
+                if(!reconstruction->ComputeFeatures({image_id})){
+                    LOG(ERROR) << "Failed to compute features for " << image_id;
+                    return Status::CANCELLED;
                 }
+                if(!reconstruction->AddImage(image_id)){
+                    LOG(ERROR) << "Failed to add image " << image_id;
+                    return Status::CANCELLED;
+                }
+                if(request.compute_matches() && !reconstruction->ComputeMatches({image_id})){
+                    LOG(ERROR) << "Failed compute matches for " << image_id;
+                    return Status::CANCELLED;
+                }
+                
                 response->set_image_id(image_id);
                 
             } catch(std::exception& e){
@@ -93,7 +100,10 @@ class ReconstructionServer : public ReconstructionService::Service {
             ReconstructionFetcher rf;
             try {
                 auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
-                reconstruction->ComputeMatches({request->image_id()});    
+                if(!reconstruction->ComputeMatches({request->image_id()})){
+                    LOG(ERROR) << "Failed compute matches for " << request->image_id();
+                    return Status::CANCELLED;
+                }   
                 return Status::OK;            
             } catch (const std::exception& e){
                 LOG(ERROR) << e.what();
@@ -107,10 +117,15 @@ class ReconstructionServer : public ReconstructionService::Service {
             ReconstructionFetcher rf;
             try {
                 auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
-                bool success = reconstruction->SparseReconstruct();
-                if(success)
-                    success &= reconstruction->ComputeStructure();
-                response->set_success(success);
+                if(!reconstruction->SparseReconstruct()){
+                    LOG(ERROR) << "Failed sparse reconstruct for " << request->reconstruction_id();
+                    return Status::CANCELLED;
+                }
+
+                if(!reconstruction->ComputeStructure()){
+                    LOG(ERROR) << "Failed compute structure for " << request->reconstruction_id();
+                    return Status::CANCELLED;
+                }
                 return Status::OK;
             } catch (const std::exception& e){
                 LOG(ERROR) << e.what();
@@ -280,6 +295,7 @@ class ReconstructionServer : public ReconstructionService::Service {
             return Status::OK;
         }
 
+        //TODO: Maybe remove this. I don't think this will actually be used that often.
         Status ReconstructionUploadImageBatch(ServerContext* context, 
                                                 ServerReader<ReconstructionUploadImageBatchRequest>* reader, 
                                                 ReconstructionUploadImageBatchResponse* response){

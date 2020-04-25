@@ -27,13 +27,6 @@
 
 class OpenMVGReconstructionAgent : public ReconstructionAgent{
     public:
-        static std::shared_ptr<ReconstructionAgent> MakeDefault(const std::string& id, 
-                                                                std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage,
-                                                                std::shared_ptr<ConfigurationAdapter> config_adapter,
-                                                                sql::Driver* driver,
-                                                                std::shared_ptr<sql::Connection> connection,
-                                                                std::shared_ptr<ImageStorageAdapter> image_storage,
-                                                                std::shared_ptr<SparseStorageAdapter> sparse_storage);
         OpenMVGReconstructionAgent(const std::string& reconstruction_id, 
                                    std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage, 
                                    std::shared_ptr<OpenMVGStorageAdapter> openmvg_storage,
@@ -47,9 +40,10 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         bool ComputeFeatures(const std::set<std::string>& image_id);
         bool IncrementalSFM();
         bool ComputeStructure();
-        void Load(const std::string& sfm_data);
+        void DensifyPointCloud(const std::string& reconstruction_id);
         ~OpenMVGReconstructionAgent();
     private:
+        bool ExportToMVS();
         openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_image_paths);
         bool _GenerateImageFeatures(const std::string& image_path);
         std::unique_ptr<openMVG::sfm::SfM_Data> _sfm_data;

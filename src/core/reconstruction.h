@@ -116,23 +116,21 @@ class Reconstruction {
                        std::shared_ptr<ConfigurationAdapter> config_adapter,
                        std::shared_ptr<ReconstructionAgent> reconstruction_agent);
         ~Reconstruction();
-        void StoreData(const ReconstructionData& data);
-        void ComputeFeatures(const std::set<std::string>& images);
-        void ComputeMatches(const std::set<std::string>& images);
-        void AddImage(const std::string& image_id, bool index=false);
         std::string StoreImage(ImageData& image);
+        bool ComputeFeatures(const std::set<std::string>& images);
+        bool ComputeMatches(const std::set<std::string>& images);
+        bool AddImage(const std::string& image_id, bool index=false);
         bool SparseReconstruct();
+        void StoreData(const ReconstructionData& data);
         bool MVS(bool block = false);
-        bool Reconstruct(const std::set<std::string>& new_images);
-        bool HasReconstructedOnce();
         std::vector<Image> GetImages();
         bool ComputeStructure();
         Image GetImage(const std::string& id);
         SparseReconstruction GetSparse();
         OBJ GetOBJ();
-        void Delete();
         bool IsRunningMVS();
         const ReconstructionData& Data();
+        void Delete();
         void SetAgentConfigFields(const std::string& agent_name, const std::string& config_json);
         void SetConfigFields( const std::string& config_json);
         ConfigurationContainerPtr GetConfig();

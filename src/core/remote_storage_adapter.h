@@ -44,11 +44,10 @@ class RemoteStorageAdapter : public ImageDataStorage,
                 req.set_path(path);
                 try{
                     if(!stream->Write(req)){
-                        LOG(ERROR) << "Failed to write chunk";
-                        break;
+                        throw std::runtime_error("Failed to write chunk to remote storage");
                     }
                  }catch(const std::exception& e){
-                    LOG(ERROR) << e.what();
+                    throw;
                 }
             }
             stream->WritesDone();

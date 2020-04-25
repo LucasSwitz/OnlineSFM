@@ -13,18 +13,14 @@ RemoteReconstructionAgent::RemoteReconstructionAgent(const std::string& reconstr
 
 }
 
-std::shared_ptr<ReconstructionAgent> MakeDefault(const std::string& id){
-    return std::make_shared<RemoteReconstructionAgent>(id, CONFIG_GET_STRING("worker_pool.address"));
-}
-
 bool RemoteReconstructionAgent::AddImage(const std::string& image_id){
     ClientContext ctx;
     WorkerAddImageRequest req;
     WorkerAddImageResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
     req.set_image_id(image_id);
-    this->_client.AddImage(&ctx, req, &resp);
-    return resp.success();
+    auto status = this->_client.AddImage(&ctx, req, &resp);
+    return status.ok();
 }
 
 bool RemoteReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_ids){
@@ -87,8 +83,8 @@ bool RemoteReconstructionAgent::IncrementalSFM(){
     WorkerIncrementalSFMRequest req;
     WorkerIncrementalSFMResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
-    this->_client.IncrementalSFM(&ctx, req, &resp);
-    return resp.success();
+    auto status = this->_client.IncrementalSFM(&ctx, req, &resp);
+    return status.ok();
 }
 
 bool RemoteReconstructionAgent::ComputeStructure(){
@@ -96,6 +92,6 @@ bool RemoteReconstructionAgent::ComputeStructure(){
     WorkerComputeStructureRequest req;
     WorkerComputeStructureResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
-    this->_client.ComputeStructure(&ctx, req, &resp);
-    return resp.success();
+    auto status = this->_client.ComputeStructure(&ctx, req, &resp);
+    return status.ok();
 }

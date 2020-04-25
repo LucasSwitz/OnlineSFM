@@ -13,6 +13,7 @@ class SQLImageStorage : public ImageStorageAdapter, public SQLStorage  {
         ImageMetaData GetMeta(const std::string& image_id);
         std::vector<ImageMetaData> GetAll(std::string reconstruction_id);
         int Store(const ImageData& image_data);
+        void StoreUndistorted(const std::string& image_id, ImageData& undistored_data);
         int Delete(const std::string& image_id);
         int DeleteByReconstruction(const std::string& reconstruction_id);
         ImageData Get(const std::string& image_id);

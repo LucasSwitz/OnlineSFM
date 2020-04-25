@@ -26,7 +26,7 @@ class StorageServer : public Storage::Service {
     public:
         StorageServer() : _storage(CONFIG_GET_STRING("storage.root")){}
 
-        virtual ::grpc::Status Store(ServerContext* context, 
+        virtual Status Store(ServerContext* context, 
                                      ServerReader<StoreItemRequest>* stream, 
                                      StoreItemResponse* response){
             LOG(INFO) << "Storing new file";
@@ -39,7 +39,7 @@ class StorageServer : public Storage::Service {
             return Status::OK;
         }
 
-        virtual ::grpc::Status Get(ServerContext* context, 
+        virtual Status Get(ServerContext* context, 
                                    const GetItemRequest* request, 
                                    ServerWriter<GetItemResponse>* writer){
             LOG(INFO) << "Getting " << request->path();

@@ -27,7 +27,6 @@ class WorkerServer : public Worker::Service {
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
             reconstruction->ComputeFeatures({request->image_id()});
-            response->set_success(true);
             return Status::OK;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
@@ -43,7 +42,6 @@ class WorkerServer : public Worker::Service {
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
             reconstruction->AddImage({request->image_id()}, true);
-            response->set_success(true);
             return Status::OK;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
@@ -59,7 +57,6 @@ class WorkerServer : public Worker::Service {
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
             reconstruction->ComputeMatches({request->image_id()});
-            response->set_success(true);
             return Status::OK;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
@@ -74,7 +71,7 @@ class WorkerServer : public Worker::Service {
         try{
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
-            response->set_success(reconstruction->SparseReconstruct());
+            reconstruction->SparseReconstruct();
             return Status::OK;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
@@ -89,7 +86,7 @@ class WorkerServer : public Worker::Service {
         try{
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
-            response->set_success(reconstruction->ComputeStructure());
+            reconstruction->ComputeStructure();
             return Status::OK;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
@@ -102,7 +99,7 @@ int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
     WorkerServer service;
-    std::string server_address(CONFIG_GET_STRING("worker.address"));
+    std::string server_address(argv[2]);
     LOG(INFO) << "Starting server at address " << server_address; 
     grpc::EnableDefaultHealthCheckService(true);
     ServerBuilder builder;

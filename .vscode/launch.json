@@ -12,7 +12,7 @@
             "name": "server",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/server",
+            "program": "/home/gumbo00/OnlineSFM/build/gateway",
             "args": ["/home/gumbo00/OnlineSFM/build/config.json"],
             "cwd": "${workspaceFolder}",
             "environment": [],

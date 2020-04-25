@@ -1,0 +1,8 @@
+1. Have Reconstruction extend ReconstructionAgent
+2. Check if a focal profile is known before attempting to do anything with an image.
+5. right now we are uploading all images aynchronously, 
+                        we could instead upload in bulk via a stream, 
+                        using one connection to the gateway and spawn asyncronous requests for reconstruction.
+                        Will need a thread pool to handle each image. 
+8. Should look into downsampling images
+9. add retries for all connectors

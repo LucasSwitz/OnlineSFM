@@ -6,7 +6,7 @@ message WorkerComputeFeaturesRequest {
 };
 
 message WorkerComputeFeaturesResponse {
-    bool success = 1;
+    
 };
 
 message WorkerComputeMatchesRequest {
@@ -15,7 +15,7 @@ message WorkerComputeMatchesRequest {
 };
 
 message WorkerComputeMatchesResponse{
-    bool success = 1;
+    
 }
 
 message RegisterWorkerRequest{
@@ -33,7 +33,7 @@ message WorkerAddImageRequest {
 };
 
 message  WorkerAddImageResponse {
-    bool success = 1;
+    
 };
 
 message  WorkerIncrementalSFMRequest {
@@ -41,7 +41,7 @@ message  WorkerIncrementalSFMRequest {
 };
 
 message  WorkerIncrementalSFMResponse {
-    bool success = 1;
+    
 };
 
 message  WorkerComputeStructureRequest {
@@ -49,7 +49,7 @@ message  WorkerComputeStructureRequest {
 };
 
 message  WorkerComputeStructureResponse {
-    bool success = 1;
+    
 };
 
 service WorkerPoolManager {

@@ -2,6 +2,8 @@
 #include "worker.grpc.pb.h"
 
 #include <grpcpp/grpcpp.h>
+#include <grpcpp/impl/codegen/status_code_enum.h>
+
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>
@@ -16,101 +18,107 @@ using grpc::ServerContext;
 using grpc::Status;
 using grpc::ServerReader;
 using grpc::ServerWriter;
+using namespace grpc;
+
+#include "expotential_backoff.h"
+
+
+std::shared_ptr<sw::redis::Redis> make_redis(){
+    std::shared_ptr<sw::redis::Redis> redis;
+    ExpotentialBackoff("redis",[&redis]() mutable{
+        try{
+            redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
+            redis->ping();
+            return true;
+        }catch(...){
+            return false;
+        }
+    }, 100);
+
+    return redis;
+}
+
+
+template<typename T>
+Status worker_scope(const std::string& f_name, T f, unsigned int max_retry){
+    std::string worker_address;
+    std::shared_ptr<RedisWorkerReserver> reserver;
+    try{ 
+        auto reserver = std::make_unique<RedisWorkerReserver>(make_redis());
+        auto worker_address = reserver->ReserveWorker();
+        auto worker = GetWorkerClient(worker_address);
+        Status status;
+        ExpotentialBackoff(f_name, [worker, &f, &status, worker_address]() mutable {
+                grpc::ClientContext ctx;
+                status = f(ctx, worker);
+                return status.error_code() != StatusCode::DEADLINE_EXCEEDED && 
+                       status.error_code() != StatusCode::UNAVAILABLE;
+        }, max_retry);
+        reserver->ReleaseWorker(worker_address);
+        return status;
+    }catch(const ExpotentialBackoffFailure& e){
+        // This worker is dead. Get a new one and try again.
+        reserver->RemoveWorker(worker_address);
+        return worker_scope(f_name, f, max_retry);
+    }catch(const std::exception& e){
+        if(!worker_address.empty()){
+            reserver->ReleaseWorker(worker_address);
+        }
+        LOG(ERROR) << e.what();
+        return Status::CANCELLED;
+    }
+}
+
 
 class WorkerPoolManagerServer : public WorkerPoolManager::Service {
     virtual Status ComputeFeatures(ServerContext* context, 
-                                      const WorkerComputeFeaturesRequest* request, 
-                                      WorkerComputeFeaturesResponse* response){
-        try{
-            LOG(INFO) << "Pooling ComputeFeatures: " << request->image_id();
-            auto redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
-            auto reserver = std::make_unique<RedisWorkerReserver>(redis);
-            auto worker_address = reserver->ReserveWorker();
-            auto worker = GetWorkerClient(worker_address);
-            grpc::ClientContext ctx;
-            worker->ComputeFeatures(&ctx, *request, response);
-            reserver->ReleaseWorker(worker_address);
-            return Status::OK;
-         }catch(const std::exception& e){
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
-        }
+                                   const WorkerComputeFeaturesRequest* request, 
+                                   WorkerComputeFeaturesResponse* response){
+        LOG(INFO) << "Pooling ComputeFeatures: " << request->image_id();
+        return worker_scope("ComputeFeatures", [request, response](grpc::ClientContext& ctx, 
+                                                                   std::shared_ptr<Worker::Stub> worker) mutable{
+            return worker->ComputeFeatures(&ctx, *request, response);
+        }, 3);
     }
 
     virtual Status ComputeMatches(ServerContext* context, 
-                                          const WorkerComputeMatchesRequest* request, 
-                                          WorkerComputeMatchesResponse* response){
-        try{
-            LOG(INFO) << "Pooling ComputeMatches: " << request->image_id();
-            auto redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
-            auto reserver = std::make_unique<RedisWorkerReserver>(redis);
-            auto worker_address = reserver->ReserveWorker();
-            auto worker = GetWorkerClient(worker_address);
-            grpc::ClientContext ctx;
-            worker->ComputeMatches(&ctx, *request, response);
-            reserver->ReleaseWorker(worker_address);
-            return Status::OK;
-         }catch(const std::exception& e){
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
-        }
+                                  const WorkerComputeMatchesRequest* request, 
+                                  WorkerComputeMatchesResponse* response){
+        LOG(INFO) << "Pooling ComputeMatches: " << request->image_id();
+        return worker_scope("ComputeMatches", [request, response](grpc::ClientContext& ctx, 
+                                                                  std::shared_ptr<Worker::Stub> worker) mutable{
+            return worker->ComputeMatches(&ctx, *request, response);
+        }, 3);
     }
 
     virtual Status AddImage(ServerContext* context, 
-                                    const WorkerAddImageRequest* request, 
-                                    WorkerAddImageResponse* response){
-        try{ 
-            LOG(INFO) << "Pooling AddImage: " << request->image_id();
-            auto redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
-            auto reserver = std::make_unique<RedisWorkerReserver>(redis);
-            auto worker_address = reserver->ReserveWorker();
-            auto worker = GetWorkerClient(worker_address);
-            grpc::ClientContext ctx;
-            worker->AddImage(&ctx, *request, response);
-            reserver->ReleaseWorker(worker_address);
-            return Status::OK;
-         }catch(const std::exception& e){
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
-        }
+                            const WorkerAddImageRequest* request, 
+                            WorkerAddImageResponse* response){
+        LOG(INFO) << "Pooling AddImage: " << request->image_id();
+        return worker_scope("AddImage", [request, response](grpc::ClientContext& ctx, 
+                                                            std::shared_ptr<Worker::Stub> worker) mutable{
+            return worker->AddImage(&ctx, *request, response);
+        }, 3);
     }
 
     virtual Status IncrementalSFM(ServerContext* context, 
                                   const ::WorkerIncrementalSFMRequest* request, 
                                   WorkerIncrementalSFMResponse* response){
         LOG(INFO) << "Pooling IncrementalSFM: " << request->reconstruction_id();
-        try{ 
-            auto redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
-            auto reserver = std::make_unique<RedisWorkerReserver>(redis);
-            auto worker_address = reserver->ReserveWorker();
-            auto worker = GetWorkerClient(worker_address);
-            grpc::ClientContext ctx;
-            worker->IncrementalSFM(&ctx, *request, response);
-            reserver->ReleaseWorker(worker_address);
-            return Status::OK;
-         }catch(const std::exception& e){
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
-        }
+        return worker_scope("IncrementalSFM", [request, response](grpc::ClientContext& ctx, 
+                                                                  std::shared_ptr<Worker::Stub> worker) mutable{
+            return worker->IncrementalSFM(&ctx, *request, response);
+        }, 3);
     }
 
     virtual Status ComputeStructure(ServerContext* context, 
                                     const WorkerComputeStructureRequest* request, 
                                     WorkerComputeStructureResponse* response){
         LOG(INFO) << "Pooling ComputeStructure: " << request->reconstruction_id();
-        try{ 
-            auto redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
-            auto reserver = std::make_unique<RedisWorkerReserver>(redis);
-            auto worker_address = reserver->ReserveWorker();
-            auto worker = GetWorkerClient(worker_address);
-            grpc::ClientContext ctx;
-            worker->ComputeStructure(&ctx, *request, response);
-            reserver->ReleaseWorker(worker_address);
-            return Status::OK;
-         }catch(const std::exception& e){
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
-        }
+        return worker_scope("ComputeStructure", [request, response](grpc::ClientContext& ctx, 
+                                                                    std::shared_ptr<Worker::Stub> worker) mutable{
+            return worker->ComputeStructure(&ctx, *request, response);
+        }, 3);
     }
 
     virtual Status Register(ServerContext* context, 
@@ -119,8 +127,7 @@ class WorkerPoolManagerServer : public WorkerPoolManager::Service {
                 
         LOG(INFO) << "Adding Worker: " << request->address();
         try{ 
-            auto redis = std::make_shared<sw::redis::Redis>(CONFIG_GET_STRING("redis.address"));
-            auto reserver = std::make_unique<RedisWorkerReserver>(redis);
+            auto reserver = std::make_unique<RedisWorkerReserver>(make_redis());
             reserver->AddNewWorker(request->address(), request->cores());
             return Status::OK;
          }catch(const std::exception& e){
