@@ -14,12 +14,7 @@ int main(int argc, char** argv){
     std::string pass = argv[4];
     std::string db = argv[5];
     std::string table = argv[6];
-    sql::Driver* driver(get_driver_instance());
-    std::shared_ptr<sql::Connection> connection(driver->connect(address, 
-                                                                  user, 
-                                                                  pass));
-    connection->setSchema(db);
-    SQLCameraIntrinsicsStorage intrinsics_storage(driver, connection, table);
+    SQLCameraIntrinsicsStorage intrinsics_storage(table);
 
     std::vector<Datasheet> vec_database;
     std::cout << "Loading DB from: " << path_to_db;

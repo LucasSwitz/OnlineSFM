@@ -13,6 +13,7 @@ class RemoteReconstructionAgent : public ReconstructionAgent{
         bool ComputeMatches(const  std::set<std::string>& image_paths);
         bool IncrementalSFM();
         bool ComputeStructure();
+        bool MVS();
     private:
         WorkerPoolManager::Stub _client;
         std::string _reconstruction_id;

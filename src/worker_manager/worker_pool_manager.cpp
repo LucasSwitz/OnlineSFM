@@ -22,8 +22,11 @@ using namespace grpc;
 
 #include "expotential_backoff.h"
 
+std::shared_ptr<sw::redis::Redis> global_redis;
 
 std::shared_ptr<sw::redis::Redis> make_redis(){
+    sw::redis::ConnectionPoolOptions opts;
+    opts.size = 100;
     std::shared_ptr<sw::redis::Redis> redis;
     ExpotentialBackoff("redis",[&redis]() mutable{
         try{
@@ -40,12 +43,12 @@ std::shared_ptr<sw::redis::Redis> make_redis(){
 
 
 template<typename T>
-Status worker_scope(const std::string& f_name, T f, unsigned int max_retry){
+Status worker_scope(const std::string& f_name, T f, unsigned int max_retry, int num_cores=1){
     std::string worker_address;
     std::shared_ptr<RedisWorkerReserver> reserver;
     try{ 
-        auto reserver = std::make_unique<RedisWorkerReserver>(make_redis());
-        auto worker_address = reserver->ReserveWorker();
+        auto reserver = std::make_unique<RedisWorkerReserver>(global_redis);
+        auto worker_address = reserver->ReserveWorker(num_cores);
         auto worker = GetWorkerClient(worker_address);
         Status status;
         ExpotentialBackoff(f_name, [worker, &f, &status, worker_address]() mutable {
@@ -54,11 +57,16 @@ Status worker_scope(const std::string& f_name, T f, unsigned int max_retry){
                 return status.error_code() != StatusCode::DEADLINE_EXCEEDED && 
                        status.error_code() != StatusCode::UNAVAILABLE;
         }, max_retry);
-        reserver->ReleaseWorker(worker_address);
+        reserver->ReleaseWorker(worker_address, num_cores);
+        if(status.error_code() == StatusCode::UNIMPLEMENTED){
+            reserver->RemoveWorker(worker_address);
+            return worker_scope(f_name, f, max_retry);
+        }
         return status;
     }catch(const ExpotentialBackoffFailure& e){
         // This worker is dead. Get a new one and try again.
-        reserver->RemoveWorker(worker_address);
+        if(reserver && !worker_address.empty())
+            reserver->RemoveWorker(worker_address);
         return worker_scope(f_name, f, max_retry);
     }catch(const std::exception& e){
         if(!worker_address.empty()){
@@ -121,13 +129,23 @@ class WorkerPoolManagerServer : public WorkerPoolManager::Service {
         }, 3);
     }
 
+    virtual Status MVS(ServerContext* context, 
+                       const WorkerMVSRequest* request, 
+                       WorkerMVSResponse* response){
+        LOG(INFO) << "Pooling MVS: " << request->reconstruction_id();
+        return worker_scope("ComputeStructure", [request, response](grpc::ClientContext& ctx, 
+                                                                    std::shared_ptr<Worker::Stub> worker) mutable{
+            return worker->MVS(&ctx, *request, response);
+        }, 3, -1);
+    }
+
     virtual Status Register(ServerContext* context, 
                                           const RegisterWorkerRequest* request, 
                                           RegisterWorkerResponse* response){
                 
         LOG(INFO) << "Adding Worker: " << request->address();
         try{ 
-            auto reserver = std::make_unique<RedisWorkerReserver>(make_redis());
+            auto reserver = std::make_unique<RedisWorkerReserver>(global_redis);
             reserver->AddNewWorker(request->address(), request->cores());
             return Status::OK;
          }catch(const std::exception& e){
@@ -147,6 +165,7 @@ int main(int argc, char* argv[]){
     ServerBuilder builder;
     builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
     builder.RegisterService(&service);
+    global_redis = make_redis();
     std::shared_ptr<Server> server(builder.BuildAndStart());
     LOG(INFO) << "Server waiting for connections...";
     server->Wait();

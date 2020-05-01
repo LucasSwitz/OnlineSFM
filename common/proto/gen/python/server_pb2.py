@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0cserver.proto\"Q\n\rImageMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x04 \x01(\t\";\n\tImageData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12 \n\x08metadata\x18\x02 \x01(\x0b\x32\x0e.ImageMetaData\"Q\n\x14SparsePointCloudData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12+\n\x08metadata\x18\x02 \x01(\x0b\x32\x19.SparsePointCloudMetaData\"b\n\x18SparsePointCloudMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x10\n\x08mvs_path\x18\x03 \x01(\t\x12\x10\n\x08ply_path\x18\x04 \x01(\t\"g\n\x0bOBJMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x14\n\x0ctexture_path\x18\x04 \x01(\t\x12\x10\n\x08mtl_path\x18\x05 \x01(\t\"c\n\x07OBJData\x12\x10\n\x08obj_data\x18\x01 \x01(\x0c\x12\x14\n\x0ctexture_data\x18\x02 \x01(\x0c\x12\x10\n\x08mtl_data\x18\x03 \x01(\x0c\x12\x1e\n\x08metadata\x18\x04 \x01(\x0b\x32\x0c.OBJMetaData\"\xd0\x01\n\x12ReconstructionData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04root\x18\x02 \x01(\t\x12\x0e\n\x06images\x18\x03 \x03(\t\x12\x1d\n\x15sparse_reconstruction\x18\x04 \x01(\t\x12\x0b\n\x03obj\x18\x05 \x01(\t\x12\x13\n\x0bimages_path\x18\x06 \x01(\t\x12\x10\n\x08sfm_path\x18\x07 \x01(\t\x12\x10\n\x08mvs_path\x18\x08 \x01(\t\x12\x15\n\rfeatures_path\x18\t \x01(\t\x12\x14\n\x0cmatches_path\x18\n \x01(\t\"F\n!ReconstructionUploadImageResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x10\n\x08image_id\x18\x02 \x01(\t\"q\n ReconstructionUploadImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x17\n\x0f\x63ompute_matches\x18\x02 \x01(\x08\x12\x19\n\x05image\x18\x03 \x01(\x0b\x32\n.ImageData\"\x1a\n\x18NewReconstructionRequest\"6\n\x19NewReconstructionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"5\n\x18SparseReconstructRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"*\n\rGetOBJRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"8\n\x0eGetOBJResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\x03obj\x18\x02 \x01(\x0b\x32\x08.OBJData\"?\n\x19SparseReconstructResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x11\n\terror_msg\x18\x02 \x01(\t\" \n\x11ReconstructionOBJ\x12\x0b\n\x03obj\x18\x01 \x01(\x0c\")\n\x1b\x44\x65leteReconstructionRequest\x12\n\n\x02id\x18\x01 \x01(\t\";\n\x1c\x44\x65leteReconstructionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\n\n\x02id\x18\x02 \x01(\t\"\xa5\x01\n\x10\x43\x61meraIntrinsics\x12\r\n\x05model\x18\x01 \x01(\t\x12\r\n\x05maker\x18\x02 \x01(\t\x12\x15\n\rnumeric_model\x18\x03 \x01(\t\x12\x13\n\x0bsensor_size\x18\x04 \x01(\x02\x12\x12\n\nfocus_mode\x18\x05 \x01(\t\x12\x1d\n\x15horizontal_view_angle\x18\x06 \x01(\x02\x12\x14\n\x0cjpeg_quality\x18\x07 \x01(\x05\"T\n\x10HandhsakeRequest\x12\x12\n\nidentifier\x18\x01 \x01(\t\x12,\n\x11\x63\x61mera_intrinsics\x18\x02 \x01(\x0b\x32\x11.CameraIntrinsics\"$\n\x11HandshakeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"0\n\x13StartSessionRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"E\n\x14StartSessionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"(\n\x12StopSessionRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\")\n\x13StopSessionResponse\x12\x12\n\nsession_id\x18\x01 \x01(\t\"e\n\x16SessionAddImageRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x37\n\x0cupload_image\x18\x02 \x01(\x0b\x32!.ReconstructionUploadImageRequest\"\x19\n\x17SessionAddImageResponse\"-\n\x10GetSparseRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\":\n\x11GetSparseResponse\x12%\n\x06sparse\x18\x01 \x01(\x0b\x32\x15.SparsePointCloudData\";\n\x1eGetReconstructionConfigRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"6\n\x1fGetReconstructionConfigResponse\x12\x13\n\x0b\x63onfig_json\x18\x01 \x01(\t\"N\n%ReconstructionUploadImageBatchRequest\x12\x0b\n\x03idx\x18\x01 \x01(\x05\x12\x18\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\n.ImageData\"A\n&ReconstructionUploadImageBatchResponse\x12\x17\n\x0fimages_uploaded\x18\x01 \x01(\x05\"\'\n\nMVSRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1e\n\x0bMVSResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"a\n\x1bSetAgentConfigFieldsRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nagent_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63onfig_json\x18\x03 \x01(\t\"\x1e\n\x1cSetAgentConfigFieldsResponse\"V\n$SetReconstructionConfigFieldsRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x13\n\x0b\x63onfig_json\x18\x02 \x01(\t\"\'\n%SetReconstructionConfigFieldsResponse\"F\n\x15GetAgentConfigRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nagent_name\x18\x02 \x01(\t\"-\n\x16GetAgentCOnfigResponse\x12\x13\n\x0b\x63onfig_json\x18\x01 \x01(\t\"D\n\x15\x43omputeMatchesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x18\n\x16\x43omputeMatchesResponse2\x84\n\n\x15ReconstructionService\x12\x34\n\tHandshake\x12\x11.HandhsakeRequest\x1a\x12.HandshakeResponse\"\x00\x12\x66\n\x19ReconstructionUploadImage\x12!.ReconstructionUploadImageRequest\x1a\".ReconstructionUploadImageResponse\"\x00(\x01\x12\x41\n\x0e\x43omputeMatches\x12\x16.ComputeMatchesRequest\x1a\x17.ComputeMatchesResponse\x12J\n\x11SparseReconstruct\x12\x19.SparseReconstructRequest\x1a\x1a.SparseReconstructResponse\x12+\n\x06GetOBJ\x12\x0e.GetOBJRequest\x1a\x0f.GetOBJResponse0\x01\x12\x34\n\tGetSparse\x12\x11.GetSparseRequest\x1a\x12.GetSparseResponse0\x01\x12J\n\x11NewReconstruction\x12\x19.NewReconstructionRequest\x1a\x1a.NewReconstructionResponse\x12S\n\x14\x44\x65leteReconstruction\x12\x1c.DeleteReconstructionRequest\x1a\x1d.DeleteReconstructionResponse\x12;\n\x0cStartSession\x12\x14.StartSessionRequest\x1a\x15.StartSessionResponse\x12\x38\n\x0bStopSession\x12\x13.StopSessionRequest\x1a\x14.StopSessionResponse\x12\x46\n\x0fSessionAddImage\x12\x17.SessionAddImageRequest\x1a\x18.SessionAddImageResponse(\x01\x12\\\n\x17GetReconstructionConfig\x12\x1f.GetReconstructionConfigRequest\x1a .GetReconstructionConfigResponse\x12\x41\n\x0eGetAgentConfig\x12\x16.GetAgentConfigRequest\x1a\x17.GetAgentCOnfigResponse\x12s\n\x1eReconstructionUploadImageBatch\x12&.ReconstructionUploadImageBatchRequest\x1a\'.ReconstructionUploadImageBatchResponse(\x01\x12 \n\x03MVS\x12\x0b.MVSRequest\x1a\x0c.MVSResponse\x12S\n\x14SetAgentConfigFields\x12\x1c.SetAgentConfigFieldsRequest\x1a\x1d.SetAgentConfigFieldsResponse\x12n\n\x1dSetReconstructionConfigFields\x12%.SetReconstructionConfigFieldsRequest\x1a&.SetReconstructionConfigFieldsResponseb\x06proto3'
+  serialized_pb=b'\n\x0cserver.proto\"k\n\rImageMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x04 \x01(\t\x12\x18\n\x10undistorted_path\x18\x05 \x01(\t\";\n\tImageData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12 \n\x08metadata\x18\x02 \x01(\x0b\x32\x0e.ImageMetaData\"Q\n\x14SparsePointCloudData\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12+\n\x08metadata\x18\x02 \x01(\x0b\x32\x19.SparsePointCloudMetaData\"b\n\x18SparsePointCloudMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x10\n\x08mvs_path\x18\x03 \x01(\t\x12\x10\n\x08ply_path\x18\x04 \x01(\t\"g\n\x0bOBJMetaData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x16\n\x0ereconstruction\x18\x02 \x01(\t\x12\x0c\n\x04path\x18\x03 \x01(\t\x12\x14\n\x0ctexture_path\x18\x04 \x01(\t\x12\x10\n\x08mtl_path\x18\x05 \x01(\t\"c\n\x07OBJData\x12\x10\n\x08obj_data\x18\x01 \x01(\x0c\x12\x14\n\x0ctexture_data\x18\x02 \x01(\x0c\x12\x10\n\x08mtl_data\x18\x03 \x01(\x0c\x12\x1e\n\x08metadata\x18\x04 \x01(\x0b\x32\x0c.OBJMetaData\"\xd0\x01\n\x12ReconstructionData\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04root\x18\x02 \x01(\t\x12\x0e\n\x06images\x18\x03 \x03(\t\x12\x1d\n\x15sparse_reconstruction\x18\x04 \x01(\t\x12\x0b\n\x03obj\x18\x05 \x01(\t\x12\x13\n\x0bimages_path\x18\x06 \x01(\t\x12\x10\n\x08sfm_path\x18\x07 \x01(\t\x12\x10\n\x08mvs_path\x18\x08 \x01(\t\x12\x15\n\rfeatures_path\x18\t \x01(\t\x12\x14\n\x0cmatches_path\x18\n \x01(\t\"F\n!ReconstructionUploadImageResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x10\n\x08image_id\x18\x02 \x01(\t\"q\n ReconstructionUploadImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x17\n\x0f\x63ompute_matches\x18\x02 \x01(\x08\x12\x19\n\x05image\x18\x03 \x01(\x0b\x32\n.ImageData\"\x1a\n\x18NewReconstructionRequest\"6\n\x19NewReconstructionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"5\n\x18SparseReconstructRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"*\n\rGetOBJRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"8\n\x0eGetOBJResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x15\n\x03obj\x18\x02 \x01(\x0b\x32\x08.OBJData\"?\n\x19SparseReconstructResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x11\n\terror_msg\x18\x02 \x01(\t\" \n\x11ReconstructionOBJ\x12\x0b\n\x03obj\x18\x01 \x01(\x0c\")\n\x1b\x44\x65leteReconstructionRequest\x12\n\n\x02id\x18\x01 \x01(\t\";\n\x1c\x44\x65leteReconstructionResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\n\n\x02id\x18\x02 \x01(\t\"\xa5\x01\n\x10\x43\x61meraIntrinsics\x12\r\n\x05model\x18\x01 \x01(\t\x12\r\n\x05maker\x18\x02 \x01(\t\x12\x15\n\rnumeric_model\x18\x03 \x01(\t\x12\x13\n\x0bsensor_size\x18\x04 \x01(\x02\x12\x12\n\nfocus_mode\x18\x05 \x01(\t\x12\x1d\n\x15horizontal_view_angle\x18\x06 \x01(\x02\x12\x14\n\x0cjpeg_quality\x18\x07 \x01(\x05\"T\n\x10HandhsakeRequest\x12\x12\n\nidentifier\x18\x01 \x01(\t\x12,\n\x11\x63\x61mera_intrinsics\x18\x02 \x01(\x0b\x32\x11.CameraIntrinsics\"$\n\x11HandshakeResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"0\n\x13StartSessionRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"E\n\x14StartSessionResponse\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nsession_id\x18\x02 \x01(\t\"(\n\x12StopSessionRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\")\n\x13StopSessionResponse\x12\x12\n\nsession_id\x18\x01 \x01(\t\"e\n\x16SessionAddImageRequest\x12\x12\n\nsession_id\x18\x01 \x01(\t\x12\x37\n\x0cupload_image\x18\x02 \x01(\x0b\x32!.ReconstructionUploadImageRequest\"\x19\n\x17SessionAddImageResponse\"-\n\x10GetSparseRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\":\n\x11GetSparseResponse\x12%\n\x06sparse\x18\x01 \x01(\x0b\x32\x15.SparsePointCloudData\";\n\x1eGetReconstructionConfigRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"6\n\x1fGetReconstructionConfigResponse\x12\x13\n\x0b\x63onfig_json\x18\x01 \x01(\t\"N\n%ReconstructionUploadImageBatchRequest\x12\x0b\n\x03idx\x18\x01 \x01(\x05\x12\x18\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\n.ImageData\"A\n&ReconstructionUploadImageBatchResponse\x12\x17\n\x0fimages_uploaded\x18\x01 \x01(\x05\"\'\n\nMVSRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1e\n\x0bMVSResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"a\n\x1bSetAgentConfigFieldsRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nagent_name\x18\x02 \x01(\t\x12\x13\n\x0b\x63onfig_json\x18\x03 \x01(\t\"\x1e\n\x1cSetAgentConfigFieldsResponse\"V\n$SetReconstructionConfigFieldsRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x13\n\x0b\x63onfig_json\x18\x02 \x01(\t\"\'\n%SetReconstructionConfigFieldsResponse\"F\n\x15GetAgentConfigRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x12\n\nagent_name\x18\x02 \x01(\t\"-\n\x16GetAgentCOnfigResponse\x12\x13\n\x0b\x63onfig_json\x18\x01 \x01(\t\"D\n\x15\x43omputeMatchesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x18\n\x16\x43omputeMatchesResponse2\x84\n\n\x15ReconstructionService\x12\x34\n\tHandshake\x12\x11.HandhsakeRequest\x1a\x12.HandshakeResponse\"\x00\x12\x66\n\x19ReconstructionUploadImage\x12!.ReconstructionUploadImageRequest\x1a\".ReconstructionUploadImageResponse\"\x00(\x01\x12\x41\n\x0e\x43omputeMatches\x12\x16.ComputeMatchesRequest\x1a\x17.ComputeMatchesResponse\x12J\n\x11SparseReconstruct\x12\x19.SparseReconstructRequest\x1a\x1a.SparseReconstructResponse\x12+\n\x06GetOBJ\x12\x0e.GetOBJRequest\x1a\x0f.GetOBJResponse0\x01\x12\x34\n\tGetSparse\x12\x11.GetSparseRequest\x1a\x12.GetSparseResponse0\x01\x12J\n\x11NewReconstruction\x12\x19.NewReconstructionRequest\x1a\x1a.NewReconstructionResponse\x12S\n\x14\x44\x65leteReconstruction\x12\x1c.DeleteReconstructionRequest\x1a\x1d.DeleteReconstructionResponse\x12;\n\x0cStartSession\x12\x14.StartSessionRequest\x1a\x15.StartSessionResponse\x12\x38\n\x0bStopSession\x12\x13.StopSessionRequest\x1a\x14.StopSessionResponse\x12\x46\n\x0fSessionAddImage\x12\x17.SessionAddImageRequest\x1a\x18.SessionAddImageResponse(\x01\x12\\\n\x17GetReconstructionConfig\x12\x1f.GetReconstructionConfigRequest\x1a .GetReconstructionConfigResponse\x12\x41\n\x0eGetAgentConfig\x12\x16.GetAgentConfigRequest\x1a\x17.GetAgentCOnfigResponse\x12s\n\x1eReconstructionUploadImageBatch\x12&.ReconstructionUploadImageBatchRequest\x1a\'.ReconstructionUploadImageBatchResponse(\x01\x12 \n\x03MVS\x12\x0b.MVSRequest\x1a\x0c.MVSResponse\x12S\n\x14SetAgentConfigFields\x12\x1c.SetAgentConfigFieldsRequest\x1a\x1d.SetAgentConfigFieldsResponse\x12n\n\x1dSetReconstructionConfigFields\x12%.SetReconstructionConfigFieldsRequest\x1a&.SetReconstructionConfigFieldsResponseb\x06proto3'
 )
 
 
@@ -59,6 +59,13 @@ _IMAGEMETADATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='undistorted_path', full_name='ImageMetaData.undistorted_path', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -72,7 +79,7 @@ _IMAGEMETADATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=16,
-  serialized_end=97,
+  serialized_end=123,
 )
 
 
@@ -109,8 +116,8 @@ _IMAGEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=99,
-  serialized_end=158,
+  serialized_start=125,
+  serialized_end=184,
 )
 
 
@@ -147,8 +154,8 @@ _SPARSEPOINTCLOUDDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=160,
-  serialized_end=241,
+  serialized_start=186,
+  serialized_end=267,
 )
 
 
@@ -199,8 +206,8 @@ _SPARSEPOINTCLOUDMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=243,
-  serialized_end=341,
+  serialized_start=269,
+  serialized_end=367,
 )
 
 
@@ -258,8 +265,8 @@ _OBJMETADATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=343,
-  serialized_end=446,
+  serialized_start=369,
+  serialized_end=472,
 )
 
 
@@ -310,8 +317,8 @@ _OBJDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=448,
-  serialized_end=547,
+  serialized_start=474,
+  serialized_end=573,
 )
 
 
@@ -404,8 +411,8 @@ _RECONSTRUCTIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=550,
-  serialized_end=758,
+  serialized_start=576,
+  serialized_end=784,
 )
 
 
@@ -442,8 +449,8 @@ _RECONSTRUCTIONUPLOADIMAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=760,
-  serialized_end=830,
+  serialized_start=786,
+  serialized_end=856,
 )
 
 
@@ -487,8 +494,8 @@ _RECONSTRUCTIONUPLOADIMAGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=832,
-  serialized_end=945,
+  serialized_start=858,
+  serialized_end=971,
 )
 
 
@@ -511,8 +518,8 @@ _NEWRECONSTRUCTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=947,
-  serialized_end=973,
+  serialized_start=973,
+  serialized_end=999,
 )
 
 
@@ -542,8 +549,8 @@ _NEWRECONSTRUCTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=975,
-  serialized_end=1029,
+  serialized_start=1001,
+  serialized_end=1055,
 )
 
 
@@ -573,8 +580,8 @@ _SPARSERECONSTRUCTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1031,
-  serialized_end=1084,
+  serialized_start=1057,
+  serialized_end=1110,
 )
 
 
@@ -604,8 +611,8 @@ _GETOBJREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1086,
-  serialized_end=1128,
+  serialized_start=1112,
+  serialized_end=1154,
 )
 
 
@@ -642,8 +649,8 @@ _GETOBJRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1130,
-  serialized_end=1186,
+  serialized_start=1156,
+  serialized_end=1212,
 )
 
 
@@ -680,8 +687,8 @@ _SPARSERECONSTRUCTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1188,
-  serialized_end=1251,
+  serialized_start=1214,
+  serialized_end=1277,
 )
 
 
@@ -711,8 +718,8 @@ _RECONSTRUCTIONOBJ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1253,
-  serialized_end=1285,
+  serialized_start=1279,
+  serialized_end=1311,
 )
 
 
@@ -742,8 +749,8 @@ _DELETERECONSTRUCTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1287,
-  serialized_end=1328,
+  serialized_start=1313,
+  serialized_end=1354,
 )
 
 
@@ -780,8 +787,8 @@ _DELETERECONSTRUCTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1330,
-  serialized_end=1389,
+  serialized_start=1356,
+  serialized_end=1415,
 )
 
 
@@ -853,8 +860,8 @@ _CAMERAINTRINSICS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1392,
-  serialized_end=1557,
+  serialized_start=1418,
+  serialized_end=1583,
 )
 
 
@@ -891,8 +898,8 @@ _HANDHSAKEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1559,
-  serialized_end=1643,
+  serialized_start=1585,
+  serialized_end=1669,
 )
 
 
@@ -922,8 +929,8 @@ _HANDSHAKERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1645,
-  serialized_end=1681,
+  serialized_start=1671,
+  serialized_end=1707,
 )
 
 
@@ -953,8 +960,8 @@ _STARTSESSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1683,
-  serialized_end=1731,
+  serialized_start=1709,
+  serialized_end=1757,
 )
 
 
@@ -991,8 +998,8 @@ _STARTSESSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1733,
-  serialized_end=1802,
+  serialized_start=1759,
+  serialized_end=1828,
 )
 
 
@@ -1022,8 +1029,8 @@ _STOPSESSIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1804,
-  serialized_end=1844,
+  serialized_start=1830,
+  serialized_end=1870,
 )
 
 
@@ -1053,8 +1060,8 @@ _STOPSESSIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1846,
-  serialized_end=1887,
+  serialized_start=1872,
+  serialized_end=1913,
 )
 
 
@@ -1091,8 +1098,8 @@ _SESSIONADDIMAGEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1889,
-  serialized_end=1990,
+  serialized_start=1915,
+  serialized_end=2016,
 )
 
 
@@ -1115,8 +1122,8 @@ _SESSIONADDIMAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1992,
-  serialized_end=2017,
+  serialized_start=2018,
+  serialized_end=2043,
 )
 
 
@@ -1146,8 +1153,8 @@ _GETSPARSEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2019,
-  serialized_end=2064,
+  serialized_start=2045,
+  serialized_end=2090,
 )
 
 
@@ -1177,8 +1184,8 @@ _GETSPARSERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2066,
-  serialized_end=2124,
+  serialized_start=2092,
+  serialized_end=2150,
 )
 
 
@@ -1208,8 +1215,8 @@ _GETRECONSTRUCTIONCONFIGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2126,
-  serialized_end=2185,
+  serialized_start=2152,
+  serialized_end=2211,
 )
 
 
@@ -1239,8 +1246,8 @@ _GETRECONSTRUCTIONCONFIGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2187,
-  serialized_end=2241,
+  serialized_start=2213,
+  serialized_end=2267,
 )
 
 
@@ -1277,8 +1284,8 @@ _RECONSTRUCTIONUPLOADIMAGEBATCHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2243,
-  serialized_end=2321,
+  serialized_start=2269,
+  serialized_end=2347,
 )
 
 
@@ -1308,8 +1315,8 @@ _RECONSTRUCTIONUPLOADIMAGEBATCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2323,
-  serialized_end=2388,
+  serialized_start=2349,
+  serialized_end=2414,
 )
 
 
@@ -1339,8 +1346,8 @@ _MVSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2390,
-  serialized_end=2429,
+  serialized_start=2416,
+  serialized_end=2455,
 )
 
 
@@ -1370,8 +1377,8 @@ _MVSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2431,
-  serialized_end=2461,
+  serialized_start=2457,
+  serialized_end=2487,
 )
 
 
@@ -1415,8 +1422,8 @@ _SETAGENTCONFIGFIELDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2463,
-  serialized_end=2560,
+  serialized_start=2489,
+  serialized_end=2586,
 )
 
 
@@ -1439,8 +1446,8 @@ _SETAGENTCONFIGFIELDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2562,
-  serialized_end=2592,
+  serialized_start=2588,
+  serialized_end=2618,
 )
 
 
@@ -1477,8 +1484,8 @@ _SETRECONSTRUCTIONCONFIGFIELDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2594,
-  serialized_end=2680,
+  serialized_start=2620,
+  serialized_end=2706,
 )
 
 
@@ -1501,8 +1508,8 @@ _SETRECONSTRUCTIONCONFIGFIELDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2682,
-  serialized_end=2721,
+  serialized_start=2708,
+  serialized_end=2747,
 )
 
 
@@ -1539,8 +1546,8 @@ _GETAGENTCONFIGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2723,
-  serialized_end=2793,
+  serialized_start=2749,
+  serialized_end=2819,
 )
 
 
@@ -1570,8 +1577,8 @@ _GETAGENTCONFIGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2795,
-  serialized_end=2840,
+  serialized_start=2821,
+  serialized_end=2866,
 )
 
 
@@ -1608,8 +1615,8 @@ _COMPUTEMATCHESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2842,
-  serialized_end=2910,
+  serialized_start=2868,
+  serialized_end=2936,
 )
 
 
@@ -1632,8 +1639,8 @@ _COMPUTEMATCHESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2912,
-  serialized_end=2936,
+  serialized_start=2938,
+  serialized_end=2962,
 )
 
 _IMAGEDATA.fields_by_name['metadata'].message_type = _IMAGEMETADATA
@@ -1999,8 +2006,8 @@ _RECONSTRUCTIONSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2939,
-  serialized_end=4223,
+  serialized_start=2965,
+  serialized_end=4249,
   methods=[
   _descriptor.MethodDescriptor(
     name='Handshake',

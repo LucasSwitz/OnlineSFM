@@ -5,9 +5,8 @@
 #define SQL_DELETE_CAMERA_INTRINSIC(t) "DELETE FROM " + t + " WHERE MODEL = ?"
 
 
-SQLCameraIntrinsicsStorage::SQLCameraIntrinsicsStorage(sql::Driver* driver, 
-                                                       std::shared_ptr<sql::Connection> con,
-                                                       const std::string& table) : SQLStorage(driver, con),
+SQLCameraIntrinsicsStorage::SQLCameraIntrinsicsStorage(
+                                                       const std::string& table) :
                                                                                    _table(table){
     
 }
@@ -39,11 +38,12 @@ void SQLCameraIntrinsicsStorage::Delete(const std::string& model){
 }
 
 CameraIntrinsics SQLCameraIntrinsicsStorage::Get(const std::string& model){
+    auto connection_loan = this->GetConnection();
     std::string model_lower = model;
     std::transform(model_lower.begin(), model_lower.end(), model_lower.begin(), ::tolower);
     std::string maker = ExtractMaker(model_lower);
     std::string model_numeric = ExtractNumericModel(model_lower);
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_CAMERA_INTRINSIC(this->_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_CAMERA_INTRINSIC(this->_table), connection_loan.con, 
         [model, maker, model_numeric](sql::PreparedStatement *stmt){
             stmt->setString(1, model);
             stmt->setString(2, maker);

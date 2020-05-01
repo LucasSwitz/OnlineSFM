@@ -819,6 +819,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::ImageMetaData, reconstruction_),
   PROTOBUF_FIELD_OFFSET(::ImageMetaData, path_),
   PROTOBUF_FIELD_OFFSET(::ImageMetaData, format_),
+  PROTOBUF_FIELD_OFFSET(::ImageMetaData, undistorted_path_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ImageData, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1111,48 +1112,48 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_server_2eproto::offsets[] PROT
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::ImageMetaData)},
-  { 9, -1, sizeof(::ImageData)},
-  { 16, -1, sizeof(::SparsePointCloudData)},
-  { 23, -1, sizeof(::SparsePointCloudMetaData)},
-  { 32, -1, sizeof(::OBJMetaData)},
-  { 42, -1, sizeof(::OBJData)},
-  { 51, -1, sizeof(::ReconstructionData)},
-  { 66, -1, sizeof(::ReconstructionUploadImageResponse)},
-  { 73, -1, sizeof(::ReconstructionUploadImageRequest)},
-  { 81, -1, sizeof(::NewReconstructionRequest)},
-  { 86, -1, sizeof(::NewReconstructionResponse)},
-  { 92, -1, sizeof(::SparseReconstructRequest)},
-  { 98, -1, sizeof(::GetOBJRequest)},
-  { 104, -1, sizeof(::GetOBJResponse)},
-  { 111, -1, sizeof(::SparseReconstructResponse)},
-  { 118, -1, sizeof(::ReconstructionOBJ)},
-  { 124, -1, sizeof(::DeleteReconstructionRequest)},
-  { 130, -1, sizeof(::DeleteReconstructionResponse)},
-  { 137, -1, sizeof(::CameraIntrinsics)},
-  { 149, -1, sizeof(::HandhsakeRequest)},
-  { 156, -1, sizeof(::HandshakeResponse)},
-  { 162, -1, sizeof(::StartSessionRequest)},
-  { 168, -1, sizeof(::StartSessionResponse)},
-  { 175, -1, sizeof(::StopSessionRequest)},
-  { 181, -1, sizeof(::StopSessionResponse)},
-  { 187, -1, sizeof(::SessionAddImageRequest)},
-  { 194, -1, sizeof(::SessionAddImageResponse)},
-  { 199, -1, sizeof(::GetSparseRequest)},
-  { 205, -1, sizeof(::GetSparseResponse)},
-  { 211, -1, sizeof(::GetReconstructionConfigRequest)},
-  { 217, -1, sizeof(::GetReconstructionConfigResponse)},
-  { 223, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
-  { 230, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
-  { 236, -1, sizeof(::MVSRequest)},
-  { 242, -1, sizeof(::MVSResponse)},
-  { 248, -1, sizeof(::SetAgentConfigFieldsRequest)},
-  { 256, -1, sizeof(::SetAgentConfigFieldsResponse)},
-  { 261, -1, sizeof(::SetReconstructionConfigFieldsRequest)},
-  { 268, -1, sizeof(::SetReconstructionConfigFieldsResponse)},
-  { 273, -1, sizeof(::GetAgentConfigRequest)},
-  { 280, -1, sizeof(::GetAgentCOnfigResponse)},
-  { 286, -1, sizeof(::ComputeMatchesRequest)},
-  { 293, -1, sizeof(::ComputeMatchesResponse)},
+  { 10, -1, sizeof(::ImageData)},
+  { 17, -1, sizeof(::SparsePointCloudData)},
+  { 24, -1, sizeof(::SparsePointCloudMetaData)},
+  { 33, -1, sizeof(::OBJMetaData)},
+  { 43, -1, sizeof(::OBJData)},
+  { 52, -1, sizeof(::ReconstructionData)},
+  { 67, -1, sizeof(::ReconstructionUploadImageResponse)},
+  { 74, -1, sizeof(::ReconstructionUploadImageRequest)},
+  { 82, -1, sizeof(::NewReconstructionRequest)},
+  { 87, -1, sizeof(::NewReconstructionResponse)},
+  { 93, -1, sizeof(::SparseReconstructRequest)},
+  { 99, -1, sizeof(::GetOBJRequest)},
+  { 105, -1, sizeof(::GetOBJResponse)},
+  { 112, -1, sizeof(::SparseReconstructResponse)},
+  { 119, -1, sizeof(::ReconstructionOBJ)},
+  { 125, -1, sizeof(::DeleteReconstructionRequest)},
+  { 131, -1, sizeof(::DeleteReconstructionResponse)},
+  { 138, -1, sizeof(::CameraIntrinsics)},
+  { 150, -1, sizeof(::HandhsakeRequest)},
+  { 157, -1, sizeof(::HandshakeResponse)},
+  { 163, -1, sizeof(::StartSessionRequest)},
+  { 169, -1, sizeof(::StartSessionResponse)},
+  { 176, -1, sizeof(::StopSessionRequest)},
+  { 182, -1, sizeof(::StopSessionResponse)},
+  { 188, -1, sizeof(::SessionAddImageRequest)},
+  { 195, -1, sizeof(::SessionAddImageResponse)},
+  { 200, -1, sizeof(::GetSparseRequest)},
+  { 206, -1, sizeof(::GetSparseResponse)},
+  { 212, -1, sizeof(::GetReconstructionConfigRequest)},
+  { 218, -1, sizeof(::GetReconstructionConfigResponse)},
+  { 224, -1, sizeof(::ReconstructionUploadImageBatchRequest)},
+  { 231, -1, sizeof(::ReconstructionUploadImageBatchResponse)},
+  { 237, -1, sizeof(::MVSRequest)},
+  { 243, -1, sizeof(::MVSResponse)},
+  { 249, -1, sizeof(::SetAgentConfigFieldsRequest)},
+  { 257, -1, sizeof(::SetAgentConfigFieldsResponse)},
+  { 262, -1, sizeof(::SetReconstructionConfigFieldsRequest)},
+  { 269, -1, sizeof(::SetReconstructionConfigFieldsResponse)},
+  { 274, -1, sizeof(::GetAgentConfigRequest)},
+  { 281, -1, sizeof(::GetAgentCOnfigResponse)},
+  { 287, -1, sizeof(::ComputeMatchesRequest)},
+  { 294, -1, sizeof(::ComputeMatchesResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1202,112 +1203,113 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014server.proto\"Q\n\rImageMetaData\022\n\n\002id\030\001 "
+  "\n\014server.proto\"k\n\rImageMetaData\022\n\n\002id\030\001 "
   "\001(\t\022\026\n\016reconstruction\030\002 \001(\t\022\014\n\004path\030\003 \001("
-  "\t\022\016\n\006format\030\004 \001(\t\";\n\tImageData\022\014\n\004data\030\001"
-  " \001(\014\022 \n\010metadata\030\002 \001(\0132\016.ImageMetaData\"Q"
-  "\n\024SparsePointCloudData\022\014\n\004data\030\001 \001(\014\022+\n\010"
-  "metadata\030\002 \001(\0132\031.SparsePointCloudMetaDat"
-  "a\"b\n\030SparsePointCloudMetaData\022\n\n\002id\030\001 \001("
-  "\t\022\026\n\016reconstruction\030\002 \001(\t\022\020\n\010mvs_path\030\003 "
-  "\001(\t\022\020\n\010ply_path\030\004 \001(\t\"g\n\013OBJMetaData\022\n\n\002"
-  "id\030\001 \001(\t\022\026\n\016reconstruction\030\002 \001(\t\022\014\n\004path"
-  "\030\003 \001(\t\022\024\n\014texture_path\030\004 \001(\t\022\020\n\010mtl_path"
-  "\030\005 \001(\t\"c\n\007OBJData\022\020\n\010obj_data\030\001 \001(\014\022\024\n\014t"
-  "exture_data\030\002 \001(\014\022\020\n\010mtl_data\030\003 \001(\014\022\036\n\010m"
-  "etadata\030\004 \001(\0132\014.OBJMetaData\"\320\001\n\022Reconstr"
-  "uctionData\022\n\n\002id\030\001 \001(\t\022\014\n\004root\030\002 \001(\t\022\016\n\006"
-  "images\030\003 \003(\t\022\035\n\025sparse_reconstruction\030\004 "
-  "\001(\t\022\013\n\003obj\030\005 \001(\t\022\023\n\013images_path\030\006 \001(\t\022\020\n"
-  "\010sfm_path\030\007 \001(\t\022\020\n\010mvs_path\030\010 \001(\t\022\025\n\rfea"
-  "tures_path\030\t \001(\t\022\024\n\014matches_path\030\n \001(\t\"F"
-  "\n!ReconstructionUploadImageResponse\022\017\n\007s"
-  "uccess\030\001 \001(\010\022\020\n\010image_id\030\002 \001(\t\"q\n Recons"
-  "tructionUploadImageRequest\022\031\n\021reconstruc"
-  "tion_id\030\001 \001(\t\022\027\n\017compute_matches\030\002 \001(\010\022\031"
-  "\n\005image\030\003 \001(\0132\n.ImageData\"\032\n\030NewReconstr"
-  "uctionRequest\"6\n\031NewReconstructionRespon"
-  "se\022\031\n\021reconstruction_id\030\001 \001(\t\"5\n\030SparseR"
-  "econstructRequest\022\031\n\021reconstruction_id\030\001"
-  " \001(\t\"*\n\rGetOBJRequest\022\031\n\021reconstruction_"
-  "id\030\001 \001(\t\"8\n\016GetOBJResponse\022\017\n\007success\030\001 "
-  "\001(\010\022\025\n\003obj\030\002 \001(\0132\010.OBJData\"\?\n\031SparseReco"
-  "nstructResponse\022\017\n\007success\030\001 \001(\010\022\021\n\terro"
-  "r_msg\030\002 \001(\t\" \n\021ReconstructionOBJ\022\013\n\003obj\030"
-  "\001 \001(\014\")\n\033DeleteReconstructionRequest\022\n\n\002"
-  "id\030\001 \001(\t\";\n\034DeleteReconstructionResponse"
-  "\022\017\n\007success\030\001 \001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n\020Camera"
-  "Intrinsics\022\r\n\005model\030\001 \001(\t\022\r\n\005maker\030\002 \001(\t"
-  "\022\025\n\rnumeric_model\030\003 \001(\t\022\023\n\013sensor_size\030\004"
-  " \001(\002\022\022\n\nfocus_mode\030\005 \001(\t\022\035\n\025horizontal_v"
-  "iew_angle\030\006 \001(\002\022\024\n\014jpeg_quality\030\007 \001(\005\"T\n"
-  "\020HandhsakeRequest\022\022\n\nidentifier\030\001 \001(\t\022,\n"
-  "\021camera_intrinsics\030\002 \001(\0132\021.CameraIntrins"
-  "ics\"$\n\021HandshakeResponse\022\017\n\007success\030\001 \001("
-  "\010\"0\n\023StartSessionRequest\022\031\n\021reconstructi"
-  "on_id\030\001 \001(\t\"E\n\024StartSessionResponse\022\031\n\021r"
-  "econstruction_id\030\001 \001(\t\022\022\n\nsession_id\030\002 \001"
-  "(\t\"(\n\022StopSessionRequest\022\022\n\nsession_id\030\001"
-  " \001(\t\")\n\023StopSessionResponse\022\022\n\nsession_i"
-  "d\030\001 \001(\t\"e\n\026SessionAddImageRequest\022\022\n\nses"
-  "sion_id\030\001 \001(\t\0227\n\014upload_image\030\002 \001(\0132!.Re"
-  "constructionUploadImageRequest\"\031\n\027Sessio"
-  "nAddImageResponse\"-\n\020GetSparseRequest\022\031\n"
-  "\021reconstruction_id\030\001 \001(\t\":\n\021GetSparseRes"
-  "ponse\022%\n\006sparse\030\001 \001(\0132\025.SparsePointCloud"
-  "Data\";\n\036GetReconstructionConfigRequest\022\031"
-  "\n\021reconstruction_id\030\001 \001(\t\"6\n\037GetReconstr"
-  "uctionConfigResponse\022\023\n\013config_json\030\001 \001("
-  "\t\"N\n%ReconstructionUploadImageBatchReque"
-  "st\022\013\n\003idx\030\001 \001(\005\022\030\n\004data\030\002 \001(\0132\n.ImageDat"
-  "a\"A\n&ReconstructionUploadImageBatchRespo"
-  "nse\022\027\n\017images_uploaded\030\001 \001(\005\"\'\n\nMVSReque"
-  "st\022\031\n\021reconstruction_id\030\001 \001(\t\"\036\n\013MVSResp"
-  "onse\022\017\n\007success\030\001 \001(\010\"a\n\033SetAgentConfigF"
-  "ieldsRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022"
-  "\022\n\nagent_name\030\002 \001(\t\022\023\n\013config_json\030\003 \001(\t"
-  "\"\036\n\034SetAgentConfigFieldsResponse\"V\n$SetR"
-  "econstructionConfigFieldsRequest\022\031\n\021reco"
-  "nstruction_id\030\001 \001(\t\022\023\n\013config_json\030\002 \001(\t"
-  "\"\'\n%SetReconstructionConfigFieldsRespons"
-  "e\"F\n\025GetAgentConfigRequest\022\031\n\021reconstruc"
-  "tion_id\030\001 \001(\t\022\022\n\nagent_name\030\002 \001(\t\"-\n\026Get"
-  "AgentCOnfigResponse\022\023\n\013config_json\030\001 \001(\t"
-  "\"D\n\025ComputeMatchesRequest\022\031\n\021reconstruct"
-  "ion_id\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t\"\030\n\026Comput"
-  "eMatchesResponse2\204\n\n\025ReconstructionServi"
-  "ce\0224\n\tHandshake\022\021.HandhsakeRequest\032\022.Han"
-  "dshakeResponse\"\000\022f\n\031ReconstructionUpload"
-  "Image\022!.ReconstructionUploadImageRequest"
-  "\032\".ReconstructionUploadImageResponse\"\000(\001"
-  "\022A\n\016ComputeMatches\022\026.ComputeMatchesReque"
-  "st\032\027.ComputeMatchesResponse\022J\n\021SparseRec"
-  "onstruct\022\031.SparseReconstructRequest\032\032.Sp"
-  "arseReconstructResponse\022+\n\006GetOBJ\022\016.GetO"
-  "BJRequest\032\017.GetOBJResponse0\001\0224\n\tGetSpars"
-  "e\022\021.GetSparseRequest\032\022.GetSparseResponse"
-  "0\001\022J\n\021NewReconstruction\022\031.NewReconstruct"
-  "ionRequest\032\032.NewReconstructionResponse\022S"
-  "\n\024DeleteReconstruction\022\034.DeleteReconstru"
-  "ctionRequest\032\035.DeleteReconstructionRespo"
-  "nse\022;\n\014StartSession\022\024.StartSessionReques"
-  "t\032\025.StartSessionResponse\0228\n\013StopSession\022"
-  "\023.StopSessionRequest\032\024.StopSessionRespon"
-  "se\022F\n\017SessionAddImage\022\027.SessionAddImageR"
-  "equest\032\030.SessionAddImageResponse(\001\022\\\n\027Ge"
-  "tReconstructionConfig\022\037.GetReconstructio"
-  "nConfigRequest\032 .GetReconstructionConfig"
-  "Response\022A\n\016GetAgentConfig\022\026.GetAgentCon"
-  "figRequest\032\027.GetAgentCOnfigResponse\022s\n\036R"
-  "econstructionUploadImageBatch\022&.Reconstr"
-  "uctionUploadImageBatchRequest\032\'.Reconstr"
-  "uctionUploadImageBatchResponse(\001\022 \n\003MVS\022"
-  "\013.MVSRequest\032\014.MVSResponse\022S\n\024SetAgentCo"
-  "nfigFields\022\034.SetAgentConfigFieldsRequest"
-  "\032\035.SetAgentConfigFieldsResponse\022n\n\035SetRe"
-  "constructionConfigFields\022%.SetReconstruc"
-  "tionConfigFieldsRequest\032&.SetReconstruct"
-  "ionConfigFieldsResponseb\006proto3"
+  "\t\022\016\n\006format\030\004 \001(\t\022\030\n\020undistorted_path\030\005 "
+  "\001(\t\";\n\tImageData\022\014\n\004data\030\001 \001(\014\022 \n\010metada"
+  "ta\030\002 \001(\0132\016.ImageMetaData\"Q\n\024SparsePointC"
+  "loudData\022\014\n\004data\030\001 \001(\014\022+\n\010metadata\030\002 \001(\013"
+  "2\031.SparsePointCloudMetaData\"b\n\030SparsePoi"
+  "ntCloudMetaData\022\n\n\002id\030\001 \001(\t\022\026\n\016reconstru"
+  "ction\030\002 \001(\t\022\020\n\010mvs_path\030\003 \001(\t\022\020\n\010ply_pat"
+  "h\030\004 \001(\t\"g\n\013OBJMetaData\022\n\n\002id\030\001 \001(\t\022\026\n\016re"
+  "construction\030\002 \001(\t\022\014\n\004path\030\003 \001(\t\022\024\n\014text"
+  "ure_path\030\004 \001(\t\022\020\n\010mtl_path\030\005 \001(\t\"c\n\007OBJD"
+  "ata\022\020\n\010obj_data\030\001 \001(\014\022\024\n\014texture_data\030\002 "
+  "\001(\014\022\020\n\010mtl_data\030\003 \001(\014\022\036\n\010metadata\030\004 \001(\0132"
+  "\014.OBJMetaData\"\320\001\n\022ReconstructionData\022\n\n\002"
+  "id\030\001 \001(\t\022\014\n\004root\030\002 \001(\t\022\016\n\006images\030\003 \003(\t\022\035"
+  "\n\025sparse_reconstruction\030\004 \001(\t\022\013\n\003obj\030\005 \001"
+  "(\t\022\023\n\013images_path\030\006 \001(\t\022\020\n\010sfm_path\030\007 \001("
+  "\t\022\020\n\010mvs_path\030\010 \001(\t\022\025\n\rfeatures_path\030\t \001"
+  "(\t\022\024\n\014matches_path\030\n \001(\t\"F\n!Reconstructi"
+  "onUploadImageResponse\022\017\n\007success\030\001 \001(\010\022\020"
+  "\n\010image_id\030\002 \001(\t\"q\n ReconstructionUpload"
+  "ImageRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022"
+  "\027\n\017compute_matches\030\002 \001(\010\022\031\n\005image\030\003 \001(\0132"
+  "\n.ImageData\"\032\n\030NewReconstructionRequest\""
+  "6\n\031NewReconstructionResponse\022\031\n\021reconstr"
+  "uction_id\030\001 \001(\t\"5\n\030SparseReconstructRequ"
+  "est\022\031\n\021reconstruction_id\030\001 \001(\t\"*\n\rGetOBJ"
+  "Request\022\031\n\021reconstruction_id\030\001 \001(\t\"8\n\016Ge"
+  "tOBJResponse\022\017\n\007success\030\001 \001(\010\022\025\n\003obj\030\002 \001"
+  "(\0132\010.OBJData\"\?\n\031SparseReconstructRespons"
+  "e\022\017\n\007success\030\001 \001(\010\022\021\n\terror_msg\030\002 \001(\t\" \n"
+  "\021ReconstructionOBJ\022\013\n\003obj\030\001 \001(\014\")\n\033Delet"
+  "eReconstructionRequest\022\n\n\002id\030\001 \001(\t\";\n\034De"
+  "leteReconstructionResponse\022\017\n\007success\030\001 "
+  "\001(\010\022\n\n\002id\030\002 \001(\t\"\245\001\n\020CameraIntrinsics\022\r\n\005"
+  "model\030\001 \001(\t\022\r\n\005maker\030\002 \001(\t\022\025\n\rnumeric_mo"
+  "del\030\003 \001(\t\022\023\n\013sensor_size\030\004 \001(\002\022\022\n\nfocus_"
+  "mode\030\005 \001(\t\022\035\n\025horizontal_view_angle\030\006 \001("
+  "\002\022\024\n\014jpeg_quality\030\007 \001(\005\"T\n\020HandhsakeRequ"
+  "est\022\022\n\nidentifier\030\001 \001(\t\022,\n\021camera_intrin"
+  "sics\030\002 \001(\0132\021.CameraIntrinsics\"$\n\021Handsha"
+  "keResponse\022\017\n\007success\030\001 \001(\010\"0\n\023StartSess"
+  "ionRequest\022\031\n\021reconstruction_id\030\001 \001(\t\"E\n"
+  "\024StartSessionResponse\022\031\n\021reconstruction_"
+  "id\030\001 \001(\t\022\022\n\nsession_id\030\002 \001(\t\"(\n\022StopSess"
+  "ionRequest\022\022\n\nsession_id\030\001 \001(\t\")\n\023StopSe"
+  "ssionResponse\022\022\n\nsession_id\030\001 \001(\t\"e\n\026Ses"
+  "sionAddImageRequest\022\022\n\nsession_id\030\001 \001(\t\022"
+  "7\n\014upload_image\030\002 \001(\0132!.ReconstructionUp"
+  "loadImageRequest\"\031\n\027SessionAddImageRespo"
+  "nse\"-\n\020GetSparseRequest\022\031\n\021reconstructio"
+  "n_id\030\001 \001(\t\":\n\021GetSparseResponse\022%\n\006spars"
+  "e\030\001 \001(\0132\025.SparsePointCloudData\";\n\036GetRec"
+  "onstructionConfigRequest\022\031\n\021reconstructi"
+  "on_id\030\001 \001(\t\"6\n\037GetReconstructionConfigRe"
+  "sponse\022\023\n\013config_json\030\001 \001(\t\"N\n%Reconstru"
+  "ctionUploadImageBatchRequest\022\013\n\003idx\030\001 \001("
+  "\005\022\030\n\004data\030\002 \001(\0132\n.ImageData\"A\n&Reconstru"
+  "ctionUploadImageBatchResponse\022\027\n\017images_"
+  "uploaded\030\001 \001(\005\"\'\n\nMVSRequest\022\031\n\021reconstr"
+  "uction_id\030\001 \001(\t\"\036\n\013MVSResponse\022\017\n\007succes"
+  "s\030\001 \001(\010\"a\n\033SetAgentConfigFieldsRequest\022\031"
+  "\n\021reconstruction_id\030\001 \001(\t\022\022\n\nagent_name\030"
+  "\002 \001(\t\022\023\n\013config_json\030\003 \001(\t\"\036\n\034SetAgentCo"
+  "nfigFieldsResponse\"V\n$SetReconstructionC"
+  "onfigFieldsRequest\022\031\n\021reconstruction_id\030"
+  "\001 \001(\t\022\023\n\013config_json\030\002 \001(\t\"\'\n%SetReconst"
+  "ructionConfigFieldsResponse\"F\n\025GetAgentC"
+  "onfigRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022"
+  "\022\n\nagent_name\030\002 \001(\t\"-\n\026GetAgentCOnfigRes"
+  "ponse\022\023\n\013config_json\030\001 \001(\t\"D\n\025ComputeMat"
+  "chesRequest\022\031\n\021reconstruction_id\030\001 \001(\t\022\020"
+  "\n\010image_id\030\002 \001(\t\"\030\n\026ComputeMatchesRespon"
+  "se2\204\n\n\025ReconstructionService\0224\n\tHandshak"
+  "e\022\021.HandhsakeRequest\032\022.HandshakeResponse"
+  "\"\000\022f\n\031ReconstructionUploadImage\022!.Recons"
+  "tructionUploadImageRequest\032\".Reconstruct"
+  "ionUploadImageResponse\"\000(\001\022A\n\016ComputeMat"
+  "ches\022\026.ComputeMatchesRequest\032\027.ComputeMa"
+  "tchesResponse\022J\n\021SparseReconstruct\022\031.Spa"
+  "rseReconstructRequest\032\032.SparseReconstruc"
+  "tResponse\022+\n\006GetOBJ\022\016.GetOBJRequest\032\017.Ge"
+  "tOBJResponse0\001\0224\n\tGetSparse\022\021.GetSparseR"
+  "equest\032\022.GetSparseResponse0\001\022J\n\021NewRecon"
+  "struction\022\031.NewReconstructionRequest\032\032.N"
+  "ewReconstructionResponse\022S\n\024DeleteRecons"
+  "truction\022\034.DeleteReconstructionRequest\032\035"
+  ".DeleteReconstructionResponse\022;\n\014StartSe"
+  "ssion\022\024.StartSessionRequest\032\025.StartSessi"
+  "onResponse\0228\n\013StopSession\022\023.StopSessionR"
+  "equest\032\024.StopSessionResponse\022F\n\017SessionA"
+  "ddImage\022\027.SessionAddImageRequest\032\030.Sessi"
+  "onAddImageResponse(\001\022\\\n\027GetReconstructio"
+  "nConfig\022\037.GetReconstructionConfigRequest"
+  "\032 .GetReconstructionConfigResponse\022A\n\016Ge"
+  "tAgentConfig\022\026.GetAgentConfigRequest\032\027.G"
+  "etAgentCOnfigResponse\022s\n\036ReconstructionU"
+  "ploadImageBatch\022&.ReconstructionUploadIm"
+  "ageBatchRequest\032\'.ReconstructionUploadIm"
+  "ageBatchResponse(\001\022 \n\003MVS\022\013.MVSRequest\032\014"
+  ".MVSResponse\022S\n\024SetAgentConfigFields\022\034.S"
+  "etAgentConfigFieldsRequest\032\035.SetAgentCon"
+  "figFieldsResponse\022n\n\035SetReconstructionCo"
+  "nfigFields\022%.SetReconstructionConfigFiel"
+  "dsRequest\032&.SetReconstructionConfigField"
+  "sResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_server_2eproto_deps[1] = {
 };
@@ -1359,7 +1361,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_server_2eproto_once;
 static bool descriptor_table_server_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_server_2eproto = {
-  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 4231,
+  &descriptor_table_server_2eproto_initialized, descriptor_table_protodef_server_2eproto, "server.proto", 4257,
   &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 43, 0,
   schemas, file_default_instances, TableStruct_server_2eproto::offsets,
   file_level_metadata_server_2eproto, 43, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
@@ -1401,6 +1403,10 @@ ImageMetaData::ImageMetaData(const ImageMetaData& from)
   if (!from._internal_format().empty()) {
     format_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.format_);
   }
+  undistorted_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_undistorted_path().empty()) {
+    undistorted_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.undistorted_path_);
+  }
   // @@protoc_insertion_point(copy_constructor:ImageMetaData)
 }
 
@@ -1410,6 +1416,7 @@ void ImageMetaData::SharedCtor() {
   reconstruction_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   format_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  undistorted_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 ImageMetaData::~ImageMetaData() {
@@ -1422,6 +1429,7 @@ void ImageMetaData::SharedDtor() {
   reconstruction_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   format_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  undistorted_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void ImageMetaData::SetCachedSize(int size) const {
@@ -1443,6 +1451,7 @@ void ImageMetaData::Clear() {
   reconstruction_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   format_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  undistorted_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -1486,6 +1495,15 @@ const char* ImageMetaData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           auto str = _internal_mutable_format();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ImageMetaData.format"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string undistorted_path = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          auto str = _internal_mutable_undistorted_path();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ImageMetaData.undistorted_path"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1555,6 +1573,16 @@ failure:
         4, this->_internal_format(), target);
   }
 
+  // string undistorted_path = 5;
+  if (this->undistorted_path().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_undistorted_path().data(), static_cast<int>(this->_internal_undistorted_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ImageMetaData.undistorted_path");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_undistorted_path(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -1597,6 +1625,13 @@ size_t ImageMetaData::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_format());
+  }
+
+  // string undistorted_path = 5;
+  if (this->undistorted_path().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_undistorted_path());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1646,6 +1681,10 @@ void ImageMetaData::MergeFrom(const ImageMetaData& from) {
 
     format_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.format_);
   }
+  if (from.undistorted_path().size() > 0) {
+
+    undistorted_path_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.undistorted_path_);
+  }
 }
 
 void ImageMetaData::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -1676,6 +1715,8 @@ void ImageMetaData::InternalSwap(ImageMetaData* other) {
   path_.Swap(&other->path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   format_.Swap(&other->format_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  undistorted_path_.Swap(&other->undistorted_path_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }
 

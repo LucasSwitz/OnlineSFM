@@ -1,5 +1,3 @@
-
-
 #include "openmvg_reconstruction_agent.h"
 
 #include "openMVG/cameras/Camera_Common.hpp"
@@ -180,7 +178,8 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
                                                        std::shared_ptr<ConfigurationAdapter> configuration_adapter,
                                                        std::shared_ptr<RegionsStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_storage,
                                                        std::shared_ptr<ImageStorageAdapter> image_storage,
-                                                       std::shared_ptr<SparseStorageAdapter> sparse_storage):
+                                                       std::shared_ptr<SparseStorageAdapter> sparse_storage,
+                                                       std::shared_ptr<OBJStorageAdapter> obj_storage):
                                                                                   _reconstruction_id(reconstruction_id), 
                                                                                   _intrinsics_storage(intrinsics_storage),
                                                                                   _openmvg_storage(openmvg_storage),
@@ -188,12 +187,15 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
                                                                                   _regions_storage(regions_storage),
                                                                                   _image_storage(image_storage),
                                                                                   _openmvg_images_storage(image_storage),
-                                                                                  _sparse_storage(sparse_storage){
+                                                                                  _sparse_storage(sparse_storage),
+                                                                                  _obj_storage(obj_storage){
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
 }
 
 bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
-  std::string image_path = this->_image_storage->GetMeta(image_id).path();
+  PrecisionTimer t("AddImage");
+  ImageMetaData img_meta = this->_image_storage->GetMeta(image_id);
+  std::string image_path = img_meta.path();
   int i_User_camera_model = PINHOLE_CAMERA_RADIAL3;
   std::shared_ptr<View> v;
 
@@ -222,10 +224,13 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   }
 
   ImageHeader imgHeader;
-  if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
-      std::cout
-          << sImFilenamePart << " Failed to read header" << "\n";
-      return false; // image cannot be read
+  {
+    PrecisionTimer t("ReadImageHeader");
+    if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
+        std::cout
+            << sImFilenamePart << " Failed to read header" << "\n";
+        return false; // image cannot be read
+    }
   }
 
   width = imgHeader.width;
@@ -237,6 +242,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   // If not manually provided or wrongly provided
   if (focal == -1)
   {
+    PrecisionTimer t("ReadExifData");
     std::unique_ptr<Exif_IO> exifReader(new Exif_IO_EasyExif);
     exifReader->open(image_path);
 
@@ -309,6 +315,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   }
   
   if(intrinsic){
+    PrecisionTimer t("StoreViewAndIntrinsic");
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
     this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, image_id, v, intrinsic);
   }else{
@@ -320,17 +327,30 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   GroupSharedIntrinsics(*this->_sfm_data);
 
   // Undistort image and store undistorted
-  /*Image<unsigned char> imageRGB, imageRGB_ud;
-  this->_openmvg_images_storage.ReadImage(image_id, &imageRGB); 
-  UndistortImage(imageRGB, intrinsic.get(), imageRGB_ud, BLACK);
-  ImageData img_undistorted;
-  ImageMetaData meta_undistorted;
-  meta_undistorted.set_reconstruction(this->_reconstruction_id);
-  meta_undistorted.set_id(GetUUID());
-  img_undistorted.mutable_metadata()->CopyFrom(meta_undistorted);
-  memcpy(img_undistorted.mutable_data()->data(), imageRGB.data(), imageRGB.size()); 
-  this->_image_storage->StoreUndistorted(image_id, img_undistorted);
-  return true;*/
+  /*Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
+  {
+    {
+      PrecisionTimer t("ReadImageToUndistort");
+      this->_openmvg_images_storage.ReadImage(image_id, &imageRGB); 
+    }
+    ImageData img_undistorted;
+    ImageMetaData meta_undistorted;
+    {
+      PrecisionTimer t("UndistortImage");
+      UndistortImage(imageRGB, intrinsic.get(), imageRGB_ud, BLACK);
+    }
+
+    this->_openmvg_images_storage.WriteImageToMemory(img_undistorted.mutable_data(), imageRGB_ud);
+    meta_undistorted.set_reconstruction(this->_reconstruction_id);
+    meta_undistorted.set_id(GetUUID());
+    meta_undistorted.set_format(img_meta.format());
+    img_undistorted.mutable_metadata()->CopyFrom(meta_undistorted);
+    {
+      PrecisionTimer t("StoreUndistortedImage");
+      this->_image_storage->StoreUndistorted(image_id, img_undistorted);
+    }
+  }*/
+  return true;
 }
 
 std::unique_ptr<features::Regions> Init_region_type_from_json(const std::string& json)
@@ -345,6 +365,7 @@ std::unique_ptr<features::Regions> Init_region_type_from_json(const std::string&
 }
 
 bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_ids){
+  PrecisionTimer t("ComputeFeatures");
   LOG(INFO) << "Computing features for " << image_ids.size() << " new images";
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
@@ -459,8 +480,11 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       std::string image_id = std::get<0>(*iter);
       std::string image_path = std::get<1>(*iter);
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
-      if (!this->_openmvg_images_storage.ReadImage(image_id, &imageGray))
-          continue;
+      {
+        PrecisionTimer t("ReadImage");
+        if (!this->_openmvg_images_storage.ReadImage(image_id, &imageGray))
+            continue;
+      }
 
       Image<unsigned char> * mask = nullptr; // The mask is null by default
 
@@ -503,13 +527,20 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
       // Compute features and descriptors and export them to files and now sql. TODO: Remove file storage.
       // TODO: this casting bullshit is dangerous and disgusting. Needs be be fixed asap. 
-      auto sift_regions = std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type>(
-        dynamic_cast<SIFT_Anatomy_Image_describer::Regions_type*>(image_describer->Describe(imageGray, mask).release()));
+      std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type> sift_regions; 
+      {
+        PrecisionTimer t("DescribeRegions");
+        sift_regions = std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type>(
+          dynamic_cast<SIFT_Anatomy_Image_describer::Regions_type*>(image_describer->Describe(imageGray, mask).release()));
+      }
       if (!sift_regions){
           LOG(ERROR) << "Failed to compute regions for " << image_id;
           return false;
       }
-      this->_regions_storage->Store(this->_reconstruction_id, image_id, std::move(sift_regions));
+      {
+        PrecisionTimer t("ReadImage");
+        this->_regions_storage->Store(this->_reconstruction_id, image_id, std::move(sift_regions));
+      }
     }
     return true;
   }
@@ -517,7 +548,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
 
 bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_ids){
   // Update our SFM data to get all the images to match with
-
+  PrecisionTimer t("ComputeMatches");
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
     this->_reconstruction_id,
     "openmvg",
@@ -525,11 +556,17 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   );
   std::string sGeometricModel = config->get_string("geometric_model");
   float fDistRatio = config->get_double("dist_ratio");
-  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method");
+  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method"); //FASTCASTCADEHASHER had some threading problems?
   bool bGuided_matching = config->get_bool("guided_matching");
   int imax_iteration = config->get_int("max_iterations");
   int ui_max_cache_size = config->get_int("ui_max_cache_size");
-  Pair_Set pairs = this->_GatherMatchesToCompute(new_image_ids);
+
+  Pair_Set pairs;
+  {
+    PrecisionTimer t("GatherMatchesToCompute");
+    pairs = this->_GatherMatchesToCompute(new_image_ids);
+  }
+
   EGeometricModel eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
 
   switch (sGeometricModel[0])
@@ -620,10 +657,16 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     return false;
   }
 
-  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider 
+  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider
     = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
-  regions_provider->load_from_storage(this->_reconstruction_id);
-  collectionMatcher->Match(regions_provider, pairs, map_PutativesMatches);
+  {
+    PrecisionTimer t("LoadRegions");
+    regions_provider->load_from_storage(this->_reconstruction_id);
+  }
+  {
+    PrecisionTimer t("MatchRegions");
+    collectionMatcher->Match(regions_provider, pairs, map_PutativesMatches);
+  }
 
   //---------------------------------------
   // b. Geometric filtering of putative matches
@@ -633,76 +676,81 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   PairWiseMatches geometric_matches;
   std::unique_ptr<ImageCollectionGeometricFilter> filter_ptr(
     new ImageCollectionGeometricFilter(this->_sfm_data.get(), regions_provider));
-
-  if (filter_ptr)
   {
-    const double d_distance_ratio = 0.6;
-    switch (eGeometricModelToCompute)
+    PrecisionTimer t("FilterRegions");
+    if (filter_ptr)
     {
-      case HOMOGRAPHY_MATRIX:
+      const double d_distance_ratio = 0.6;
+      switch (eGeometricModelToCompute)
       {
-        const bool bGeometric_only_guided_matching = true;
-        filter_ptr->Robust_model_estimation(
-          GeometricFilter_HMatrix_AC(4.0, imax_iteration),
-          map_PutativesMatches, bGuided_matching,
-          bGeometric_only_guided_matching ? -1.0 : d_distance_ratio);
-         geometric_matches = filter_ptr->Get_geometric_matches();
-      }
-      break;
-      case FUNDAMENTAL_MATRIX:
-      {
-        filter_ptr->Robust_model_estimation(
-          GeometricFilter_FMatrix_AC(4.0, imax_iteration),
-          map_PutativesMatches, bGuided_matching, d_distance_ratio);
-          geometric_matches = filter_ptr->Get_geometric_matches();
-      }
-      break;
-      case ESSENTIAL_MATRIX:
-      {
-        filter_ptr->Robust_model_estimation(
-          GeometricFilter_EMatrix_AC(4.0, imax_iteration),
-          map_PutativesMatches, bGuided_matching, d_distance_ratio);
-         geometric_matches = filter_ptr->Get_geometric_matches();
-
-        //-- Perform an additional check to remove pairs with poor overlap
-        std::vector<PairWiseMatches::key_type> vec_toRemove;
-        for (const auto & pairwisematches_it : geometric_matches)
+        case HOMOGRAPHY_MATRIX:
         {
-          const size_t putativePhotometricCount = map_PutativesMatches.find(pairwisematches_it.first)->second.size();
-          const size_t putativeGeometricCount = pairwisematches_it.second.size();
-          const float ratio = putativeGeometricCount / static_cast<float>(putativePhotometricCount);
-          if (putativeGeometricCount < 50 || ratio < .3f)  {
-            // the pair will be removed
-            vec_toRemove.push_back(pairwisematches_it.first);
+          const bool bGeometric_only_guided_matching = true;
+          filter_ptr->Robust_model_estimation(
+            GeometricFilter_HMatrix_AC(4.0, imax_iteration),
+            map_PutativesMatches, bGuided_matching,
+            bGeometric_only_guided_matching ? -1.0 : d_distance_ratio);
+          geometric_matches = filter_ptr->Get_geometric_matches();
+        }
+        break;
+        case FUNDAMENTAL_MATRIX:
+        {
+          filter_ptr->Robust_model_estimation(
+            GeometricFilter_FMatrix_AC(4.0, imax_iteration),
+            map_PutativesMatches, bGuided_matching, d_distance_ratio);
+            geometric_matches = filter_ptr->Get_geometric_matches();
+        }
+        break;
+        case ESSENTIAL_MATRIX:
+        {
+          filter_ptr->Robust_model_estimation(
+            GeometricFilter_EMatrix_AC(4.0, imax_iteration),
+            map_PutativesMatches, bGuided_matching, d_distance_ratio);
+          geometric_matches = filter_ptr->Get_geometric_matches();
+
+          //-- Perform an additional check to remove pairs with poor overlap
+          std::vector<PairWiseMatches::key_type> vec_toRemove;
+          for (const auto & pairwisematches_it : geometric_matches)
+          {
+            const size_t putativePhotometricCount = map_PutativesMatches.find(pairwisematches_it.first)->second.size();
+            const size_t putativeGeometricCount = pairwisematches_it.second.size();
+            const float ratio = putativeGeometricCount / static_cast<float>(putativePhotometricCount);
+            if (putativeGeometricCount < 50 || ratio < .3f)  {
+              // the pair will be removed
+              vec_toRemove.push_back(pairwisematches_it.first);
+            }
+          }
+          //-- remove discarded pairs
+          for (const auto & pair_to_remove_it : vec_toRemove)
+          {
+            geometric_matches.erase(pair_to_remove_it);
           }
         }
-        //-- remove discarded pairs
-        for (const auto & pair_to_remove_it : vec_toRemove)
+        break;
+        case ESSENTIAL_MATRIX_ANGULAR:
         {
-          geometric_matches.erase(pair_to_remove_it);
+          filter_ptr->Robust_model_estimation(
+            GeometricFilter_ESphericalMatrix_AC_Angular(4.0, imax_iteration),
+            map_PutativesMatches, bGuided_matching);
+          geometric_matches = filter_ptr->Get_geometric_matches();
         }
+        break;
+        case ESSENTIAL_MATRIX_ORTHO:
+        {
+          filter_ptr->Robust_model_estimation(
+            GeometricFilter_EOMatrix_RA(2.0, imax_iteration),
+            map_PutativesMatches, bGuided_matching, d_distance_ratio);
+          geometric_matches = filter_ptr->Get_geometric_matches();
+        }
+        break;
       }
-      break;
-      case ESSENTIAL_MATRIX_ANGULAR:
-      {
-        filter_ptr->Robust_model_estimation(
-          GeometricFilter_ESphericalMatrix_AC_Angular(4.0, imax_iteration),
-          map_PutativesMatches, bGuided_matching);
-         geometric_matches = filter_ptr->Get_geometric_matches();
-      }
-      break;
-      case ESSENTIAL_MATRIX_ORTHO:
-      {
-        filter_ptr->Robust_model_estimation(
-          GeometricFilter_EOMatrix_RA(2.0, imax_iteration),
-          map_PutativesMatches, bGuided_matching, d_distance_ratio);
-        geometric_matches = filter_ptr->Get_geometric_matches();
-      }
-      break;
     }
   }
   LOG(INFO) << "Storing " << geometric_matches.size() << " new matches for reconstruction " << this->_reconstruction_id;
-  this->_openmvg_storage->StoreMatches(this->_reconstruction_id, sGeometricModel[0], geometric_matches);
+  {
+    PrecisionTimer t("StoreMatches");
+    this->_openmvg_storage->StoreMatches(this->_reconstruction_id, sGeometricModel[0], geometric_matches);
+  }
   return true;
 }
 
@@ -996,10 +1044,9 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   spc_meta_data.set_reconstruction(this->_reconstruction_id);
   spc_data.mutable_metadata()->CopyFrom(spc_meta_data);
   this->_sparse_storage->Store(spc_data);
-
+  this->_openmvg_storage->StoreLandmarks(this->_reconstruction_id, this->_sfm_data->structure);
   return true;
 }
-#include "openmvs_ext.h"
 
 /*void OpenMVGReconstructionAgent::DensifyPointCloud(const std::string& reconstruction_id){
   int nFusionMode;
@@ -1026,41 +1073,69 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   //TODO: Store scene elsewhere
 	//scene.Save(baseFileName+_T(".mvs"), (ARCHIVE_TYPE)nArchiveType);
 	//scene.pointcloud.Save(baseFileName+_T(".ply"));
+}
+
+#include "openMVS/openMVS/libs/MVS.h"
+#include "openMVS/libs/MVS/Image.h"
+
+/*bool OpenMVGReconstructionAgent::ComputeDepthMap(const std::string image_id){
+  auto image_data = this->_image_storage->Get(image_id);
+  /*
+       TODO:
+       - need to load the relevant scene data. 
+       - The platforms array should just contain the platform relevant to this photo
+       - need to set platformID, cameraID, poseID, height, and width
+  MVS::Image image;
+  std::copy(image_data.data().begin(), image_data.data().end(), image.image.begin());
+  
+  const unsigned nMaxResolution(image.RecomputeMaxResolution(OPTDENSE::nResolutionLevel, 
+                                                             OPTDENSE::nMinResolution, 
+                                                             OPTDENSE::nMaxResolution));
+	if (!image.ResizeImage(nMaxResolution)) {
+
+	}
+  image.UpdateCamera(platforms);
+  if (OPTDENSE::nNumViews == 1 && !data.depthMaps.SelectViews(data.images, imagesMap, data.neighborsMap)) {
+    VERBOSE("error: no valid images to be dense reconstructed");
+    return false;
+  }
+  DenseReconstructionEstimate((void*)&data);
+  DenseReconstructionFilter((void*)&data);
 }*/
 
 OpenMVGReconstructionAgent::~OpenMVGReconstructionAgent(){}
+#define _USE_EIGEN
+#include "InterfaceMVS.h"
+#include "filesystem_storer.h"
 
-/*template<typename _Tp>
-bool SerializeSave(const _Tp& obj, std::ostream& stream, uint32_t version=MVSI_PROJECT_VER) {  
-	if (version > 0) {
-		// save project ID
-		stream.write(MVSI_PROJECT_ID, 4);
-		// save project version
-		stream.write((const char*)&version, sizeof(uint32_t));
-		// reserve some bytes
-		const uint32_t reserved(0);
-		stream.write((const char*)&reserved, sizeof(uint32_t));
-	}
-	// serialize out the current state
-	ARCHIVE::ArchiveSave serializer(stream, version);
-	serializer & obj;
-	return true;
-}
-
-bool ExportToOpenMVS(
-  const SfM_Data & sfm_data,
-  std::vector<char>& mvs_raw
-  )
+bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
 {
+  auto sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
+  auto all_image_meta = this->_image_storage->GetAll(this->_reconstruction_id);
+  FileSystemStorer image_storer(this->_reconstruction_id + "/images");
+  //Copy all remote files here
+  for(auto& image_meta : all_image_meta){
+    auto image_data = this->_image_storage->GetUndistorted(image_meta.id());
+    image_storer.Store(image_data.data(), image_meta.id() + "." + image_meta.format());
+    image_meta.set_path("images/" + image_meta.id() + "." + image_meta.format());
+  }
+  std::unordered_map<std::string, std::string> image_path_to_id;
+  for(auto image_meta : all_image_meta){
+    image_path_to_id[image_meta.path()] = image_meta.id();
+  }
+  std::unordered_map<IndexT, std::string> image_viewid_to_path;
+  for(auto image_meta : all_image_meta){
+    image_viewid_to_path[this->_openmvg_storage->GetViewIdxByImageID(image_meta.id())] = image_meta.path();
+  }
   MVS::Interface scene;
   size_t nPoses(0);
-  const uint32_t nViews((uint32_t)sfm_data.GetViews().size());
+  const uint32_t nViews((uint32_t)sfm_data->GetViews().size());
 
   // OpenMVG can have not contiguous index, use a map to create the required OpenMVS contiguous ID index
   std::map<openMVG::IndexT, uint32_t> map_intrinsic, map_view;
 
   // define a platform with all the intrinsic group
-  for (const auto& intrinsic: sfm_data.GetIntrinsics())
+  for (const auto& intrinsic: sfm_data->GetIntrinsics())
   {
     if (isPinhole(intrinsic.second->getType()))
     {
@@ -1081,25 +1156,19 @@ bool ExportToOpenMVS(
 
   // define images & poses
   scene.images.reserve(nViews);
-  for (const auto& view : sfm_data.GetViews())
+  for (const auto& view : sfm_data->GetViews())
   {
     map_view[view.first] = scene.images.size();
     MVS::Interface::Image image;
-    const std::string srcImage = stlplus::create_filespec(sfm_data.s_root_path, view.second->s_Img_path);
-    //image.name = stlplus::create_filespec(sOutDir, view.second->s_Img_path);
+    image.name = image_viewid_to_path[view.first];
     image.platformID = map_intrinsic.at(view.second->id_intrinsic);
     MVS::Interface::Platform& platform = scene.platforms[image.platformID];
     image.cameraID = 0;
-    if (!stlplus::is_file(srcImage))
-    {
-      std::cout << "Cannot read the corresponding image: " << srcImage << std::endl;
-      return EXIT_FAILURE;
-    }
-    if (sfm_data.IsPoseAndIntrinsicDefined(view.second.get()))
+    if (sfm_data->IsPoseAndIntrinsicDefined(view.second.get()))
     {
       MVS::Interface::Platform::Pose pose;
       image.poseID = platform.poses.size();
-      const openMVG::geometry::Pose3 poseMVG(sfm_data.GetPoseOrDie(view.second.get()));
+      const openMVG::geometry::Pose3 poseMVG(sfm_data->GetPoseOrDie(view.second.get()));
       pose.R = poseMVG.rotation();
       pose.C = poseMVG.center();
       platform.poses.push_back(pose);
@@ -1109,15 +1178,13 @@ bool ExportToOpenMVS(
     {
       // image have not valid pose, so set an undefined pose
       image.poseID = NO_ID;
-      // just copy the image
-      //stlplus::file_copy(srcImage, image.name);
     }
     scene.images.emplace_back(image);
   }
 
   // define structure
-  scene.vertices.reserve(sfm_data.GetLandmarks().size());
-  for (const auto& vertex: sfm_data.GetLandmarks())
+  scene.vertices.reserve(sfm_data->GetLandmarks().size());
+  for (const auto& vertex: sfm_data->GetLandmarks())
   {
     const Landmark & landmark = vertex.second;
     MVS::Interface::Vertex vert;
@@ -1168,7 +1235,8 @@ bool ExportToOpenMVS(
       }
       // read image meta-data
       ImageHeader imageHeader;
-      ReadImageHeader(pImage->name.c_str(), &imageHeader);
+      string id = image_path_to_id[pImage->name.c_str()];
+      this->_openmvg_images_storage.ReadImageHeader(id, &imageHeader);
       const double fScale(1.0/std::max(imageHeader.width, imageHeader.height));
       camera.K(0, 0) *= fScale;
       camera.K(1, 1) *= fScale;
@@ -1176,27 +1244,71 @@ bool ExportToOpenMVS(
       camera.K(1, 2) *= fScale;
     }
   }
-
-  std::ostringstream ostream;
-  if (!SerializeSave(scene, ostream))
+  if (!MVS::ARCHIVE::SerializeSave(scene, path))
     return false;
 
-  std::cout
-    << "Scene saved to OpenMVS interface format:\n"
-    << " #platforms: " << scene.platforms.size() << std::endl;
-    for (int i = 0; i < scene.platforms.size(); ++i)
-    {
-      std::cout << "  platform ( " << i << " ) #cameras: " << scene.platforms[i].cameras.size() << std::endl;
-    }
-  std::cout
-    << "  " << scene.images.size() << " images (" << nPoses << " calibrated)\n"
-    << "  " << scene.vertices.size() << " Landmarks\n";
   return true;
 }
 
-bool OpenMVGReconstructionAgent::ExportToMVS(){
-  auto sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
+#include <boost/filesystem.hpp>
+#include "openmvs.h"
+#include "filesystem_storer.h"
 
+void GetOBJDataFromWorkpace(const std::string workspace, OBJData& obj_data){
+  FileSystemStorer file_reader("");
+  std::string obj_path = workspace + "/scene_dense_mesh_refine_texture.obj";
+  std::string texture_path = workspace + "/scene_dense_mesh_refine_texture_material_0_map_Kd.jpg";
+  std::string mtl_path = workspace + "/scene_dense_mesh_refine_texture.mtl";
 
- 
-}*/
+  std::vector<char> buff;
+  file_reader.Read(obj_path, buff);
+  obj_data.set_obj_data(std::string(buff.begin(), buff.end()));
+  buff.clear();
+
+  file_reader.Read(texture_path, buff);
+  obj_data.set_texture_data(std::string(buff.begin(), buff.end()));
+  buff.clear();
+
+  file_reader.Read(mtl_path, buff);
+  obj_data.set_mtl_data(std::string(buff.begin(), buff.end()));
+}
+
+bool OpenMVGReconstructionAgent::MVS(){
+  std::string mvs_path = "scene.mvs";
+  CleanAndMakeDir(this->_reconstruction_id);
+  this->ExportToMVS(this->_reconstruction_id + "/" + mvs_path);
+  
+  std::string dense_scene_path = "scene_dense.mvs";
+  std::string dense_mesh_scene_path = "scene_dense_mesh.mvs";
+  std::string dense_mesh_refined_scene_path = "scene_dense_mesh_refine.mvs";
+  std::string dense_mesh_refined_textured_path = "scene_dense_mesh_refine_texture.mvs";
+  std::string obj_path = "scene_dense_mesh_refine_texture.obj";
+  std::string texture_path = "scene_dense_mesh_refine_texture_material_0_map_Kd.jpg";
+  std::string mtl_path = "scene_dense_mesh_refine_texture.mtl";
+  LOG(INFO) << "Creating Dense Point Cloud for " << _reconstruction_id;
+  if(!OpenMVSDensifyPointCloud(this->_reconstruction_id, mvs_path, 1)){
+      return false;
+  }
+  LOG(INFO) << "Reconstructing Mesh for " << _reconstruction_id;
+  if(!OpenMVSReconstructMesh(this->_reconstruction_id, dense_scene_path)){
+      return false;
+  }
+  LOG(INFO) << "Refining Mesh for " << _reconstruction_id;
+  if(!OpenMVSRefineMesh(this->_reconstruction_id, dense_mesh_scene_path, CONFIG_GET_INT("worker.cores"))){
+      return false;
+  }
+  LOG(INFO) << "Texturing Mesh for " << _reconstruction_id;
+  if(!OpenMVSTextureMesh(this->_reconstruction_id, dense_mesh_refined_scene_path)){
+      return false;
+  }
+
+  OBJData obj_data;
+  OBJMetaData obj_metadata;
+  GetOBJDataFromWorkpace(_reconstruction_id, obj_data);
+  obj_metadata.set_reconstruction(this->_reconstruction_id);
+  obj_metadata.set_path(this->_reconstruction_id + "/MVS/" + obj_path);
+  obj_metadata.set_mtl_path(this->_reconstruction_id + "/MVS/" + mtl_path);
+  obj_metadata.set_texture_path(this->_reconstruction_id + "/MVS/" + texture_path);
+  obj_data.mutable_metadata()->CopyFrom(obj_metadata);
+  this->_obj_storage->Store(obj_data);
+}

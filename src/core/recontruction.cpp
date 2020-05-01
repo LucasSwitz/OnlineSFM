@@ -131,39 +131,9 @@ void Reconstruction::_SetupMVS(){
     this->_working_mvs_dir = mvs_dir;*/
 }
 
-bool Reconstruction::MVS(bool block){
-    /*if(!this->_running_mvs){
-        this->_SetupMVS();
-        this->_running_mvs = true;
-        if(!block){
-            this->_mvs_thread = new std::thread(&Reconstruction::_MVS, this);    
-            return true;
-        }else{
-            return this->_MVS();
-        }
-    }*/
-}
-
-bool Reconstruction::_MVS(){
-    /*OpenMVSStrategy mvs;
-    std::vector<OBJMetaData> old =  this->_obj_storage->GetAll(this->_id);
-    OBJMetaData obj_meta;
-    if(old.empty()){
-        obj_meta.set_reconstruction(this->_id);
-        obj_meta.set_id(GetUUID());
-    }else{
-        obj_meta = old[0];
-    }
-    if(mvs.DoMVS(this->_id, this->_working_mvs_dir, obj_meta)){
-        this->_obj_storage->Store(obj_meta);
-        LOG(INFO) << "MVS Finished successfully for " << this->_id;
-        _ExportWorkingMVS();
-        return true;
-    }else{
-        LOG(ERROR) << "MVS Failed for " << this->_id;
-        return false;
-    }
-    this->_running_mvs = false;*/
+bool Reconstruction::MVS(){
+    LOG(INFO) << "Starting MVS for " << this->_id;
+    return reconstruction_agent->MVS();
 }
 
 bool Reconstruction::SparseReconstruct(){
@@ -173,6 +143,7 @@ bool Reconstruction::SparseReconstruct(){
 
 bool Reconstruction::ComputeStructure(){
     LOG(INFO) << "Starting compute structure for " << this->_id;
+    std::vector<char> mvs_raw;
     return reconstruction_agent->ComputeStructure();
 }
 
@@ -187,7 +158,7 @@ bool Reconstruction::AddImage(const std::string& image_id, bool index){
         IndexImageResponse resp;
         grpc::ClientContext context;
         LOG(INFO) << "Indexing image: " << image_id;
-        auto status =indexing_client->IndexImage(&context, req, &resp);
+        auto status = indexing_client->IndexImage(&context, req, &resp);
         if(!status.ok()){
             LOG(ERROR) << "Failed to index image: " << image_id;
             return false;

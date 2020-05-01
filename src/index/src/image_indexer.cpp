@@ -7,17 +7,10 @@
 #include "sql_regions_storage.h"
 
 std::unique_ptr<ImageIndexer> ImageIndexerFactory::GetImageIndexer(std::shared_ptr<VisualVocabularyIndex> index){
-    sql::Driver* driver(get_driver_instance());
-    std::shared_ptr<sql::Connection> connection(driver->connect(CONFIG_GET_STRING("sql.address"), 
-                                                                CONFIG_GET_STRING("sql.user"), 
-                                                                CONFIG_GET_STRING("sql.password")));
-    connection->setSchema(CONFIG_GET_STRING("sql.db"));
     return std::make_unique<ImageIndexer>(
-        std::make_shared<SQLRegionsStorage<openMVG::features::SIFT_Anatomy_Image_describer::Regions_type>>(driver,
-                                               connection,  
+        std::make_shared<SQLRegionsStorage<openMVG::features::SIFT_Anatomy_Image_describer::Regions_type>>(
                                                CONFIG_GET_STRING("sql.regions_table")),
-        std::make_shared<SQLDescriptorStorage>(driver,
-                                               connection, 
+        std::make_shared<SQLDescriptorStorage>(
                                                CONFIG_GET_STRING("sql.words_table")),
         index
     );

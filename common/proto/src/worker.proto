@@ -52,6 +52,14 @@ message  WorkerComputeStructureResponse {
     
 };
 
+message WorkerMVSRequest {
+    string reconstruction_id = 1;
+};
+
+message WorkerMVSResponse {
+
+};
+
 service WorkerPoolManager {
     rpc Register(RegisterWorkerRequest) returns (RegisterWorkerResponse);
     rpc AddImage(WorkerAddImageRequest) returns (WorkerAddImageResponse);
@@ -59,6 +67,7 @@ service WorkerPoolManager {
     rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesResponse);
     rpc IncrementalSFM( WorkerIncrementalSFMRequest) returns (WorkerIncrementalSFMResponse);
     rpc ComputeStructure(WorkerComputeStructureRequest) returns (WorkerComputeStructureResponse);
+    rpc MVS(WorkerMVSRequest) returns (WorkerMVSResponse);
 }
 
 service Worker {
@@ -67,4 +76,5 @@ service Worker {
     rpc ComputeMatches(WorkerComputeMatchesRequest) returns (WorkerComputeMatchesResponse);
     rpc IncrementalSFM(WorkerIncrementalSFMRequest) returns (WorkerIncrementalSFMResponse);
     rpc ComputeStructure(WorkerComputeStructureRequest) returns (WorkerComputeStructureResponse);
+    rpc MVS(WorkerMVSRequest) returns (WorkerMVSResponse);
 }

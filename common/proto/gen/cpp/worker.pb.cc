@@ -62,6 +62,14 @@ class WorkerComputeStructureResponseDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerComputeStructureResponse> _instance;
 } _WorkerComputeStructureResponse_default_instance_;
+class WorkerMVSRequestDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerMVSRequest> _instance;
+} _WorkerMVSRequest_default_instance_;
+class WorkerMVSResponseDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<WorkerMVSResponse> _instance;
+} _WorkerMVSResponse_default_instance_;
 static void InitDefaultsscc_info_RegisterWorkerRequest_worker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -230,7 +238,35 @@ static void InitDefaultsscc_info_WorkerIncrementalSFMResponse_worker_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerIncrementalSFMResponse_worker_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerIncrementalSFMResponse_worker_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_worker_2eproto[12];
+static void InitDefaultsscc_info_WorkerMVSRequest_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerMVSRequest_default_instance_;
+    new (ptr) ::WorkerMVSRequest();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerMVSRequest::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerMVSRequest_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerMVSRequest_worker_2eproto}, {}};
+
+static void InitDefaultsscc_info_WorkerMVSResponse_worker_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::_WorkerMVSResponse_default_instance_;
+    new (ptr) ::WorkerMVSResponse();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::WorkerMVSResponse::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_WorkerMVSResponse_worker_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_WorkerMVSResponse_worker_2eproto}, {}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_worker_2eproto[14];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_worker_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_worker_2eproto = nullptr;
 
@@ -305,6 +341,17 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_worker_2eproto::offsets[] PROT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerMVSRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::WorkerMVSRequest, reconstruction_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::WorkerMVSResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::WorkerComputeFeaturesRequest)},
@@ -319,6 +366,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 54, -1, sizeof(::WorkerIncrementalSFMResponse)},
   { 59, -1, sizeof(::WorkerComputeStructureRequest)},
   { 65, -1, sizeof(::WorkerComputeStructureResponse)},
+  { 70, -1, sizeof(::WorkerMVSRequest)},
+  { 76, -1, sizeof(::WorkerMVSResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -334,6 +383,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerIncrementalSFMResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeStructureRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerComputeStructureResponse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerMVSRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::_WorkerMVSResponse_default_instance_),
 };
 
 const char descriptor_table_protodef_worker_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -351,33 +402,37 @@ const char descriptor_table_protodef_worker_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "st\022\031\n\021reconstruction_id\030\001 \001(\t\"\036\n\034WorkerI"
   "ncrementalSFMResponse\":\n\035WorkerComputeSt"
   "ructureRequest\022\031\n\021reconstruction_id\030\001 \001("
-  "\t\" \n\036WorkerComputeStructureResponse2\322\003\n\021"
-  "WorkerPoolManager\022;\n\010Register\022\026.Register"
-  "WorkerRequest\032\027.RegisterWorkerResponse\022;"
-  "\n\010AddImage\022\026.WorkerAddImageRequest\032\027.Wor"
-  "kerAddImageResponse\022P\n\017ComputeFeatures\022\035"
-  ".WorkerComputeFeaturesRequest\032\036.WorkerCo"
-  "mputeFeaturesResponse\022M\n\016ComputeMatches\022"
-  "\034.WorkerComputeMatchesRequest\032\035.WorkerCo"
-  "mputeMatchesResponse\022M\n\016IncrementalSFM\022\034"
-  ".WorkerIncrementalSFMRequest\032\035.WorkerInc"
-  "rementalSFMResponse\022S\n\020ComputeStructure\022"
-  "\036.WorkerComputeStructureRequest\032\037.Worker"
-  "ComputeStructureResponse2\212\003\n\006Worker\022;\n\010A"
-  "ddImage\022\026.WorkerAddImageRequest\032\027.Worker"
-  "AddImageResponse\022P\n\017ComputeFeatures\022\035.Wo"
-  "rkerComputeFeaturesRequest\032\036.WorkerCompu"
-  "teFeaturesResponse\022M\n\016ComputeMatches\022\034.W"
-  "orkerComputeMatchesRequest\032\035.WorkerCompu"
-  "teMatchesResponse\022M\n\016IncrementalSFM\022\034.Wo"
-  "rkerIncrementalSFMRequest\032\035.WorkerIncrem"
-  "entalSFMResponse\022S\n\020ComputeStructure\022\036.W"
-  "orkerComputeStructureRequest\032\037.WorkerCom"
-  "puteStructureResponseb\006proto3"
+  "\t\" \n\036WorkerComputeStructureResponse\"-\n\020W"
+  "orkerMVSRequest\022\031\n\021reconstruction_id\030\001 \001"
+  "(\t\"\023\n\021WorkerMVSResponse2\200\004\n\021WorkerPoolMa"
+  "nager\022;\n\010Register\022\026.RegisterWorkerReques"
+  "t\032\027.RegisterWorkerResponse\022;\n\010AddImage\022\026"
+  ".WorkerAddImageRequest\032\027.WorkerAddImageR"
+  "esponse\022P\n\017ComputeFeatures\022\035.WorkerCompu"
+  "teFeaturesRequest\032\036.WorkerComputeFeature"
+  "sResponse\022M\n\016ComputeMatches\022\034.WorkerComp"
+  "uteMatchesRequest\032\035.WorkerComputeMatches"
+  "Response\022M\n\016IncrementalSFM\022\034.WorkerIncre"
+  "mentalSFMRequest\032\035.WorkerIncrementalSFMR"
+  "esponse\022S\n\020ComputeStructure\022\036.WorkerComp"
+  "uteStructureRequest\032\037.WorkerComputeStruc"
+  "tureResponse\022,\n\003MVS\022\021.WorkerMVSRequest\032\022"
+  ".WorkerMVSResponse2\270\003\n\006Worker\022;\n\010AddImag"
+  "e\022\026.WorkerAddImageRequest\032\027.WorkerAddIma"
+  "geResponse\022P\n\017ComputeFeatures\022\035.WorkerCo"
+  "mputeFeaturesRequest\032\036.WorkerComputeFeat"
+  "uresResponse\022M\n\016ComputeMatches\022\034.WorkerC"
+  "omputeMatchesRequest\032\035.WorkerComputeMatc"
+  "hesResponse\022M\n\016IncrementalSFM\022\034.WorkerIn"
+  "crementalSFMRequest\032\035.WorkerIncrementalS"
+  "FMResponse\022S\n\020ComputeStructure\022\036.WorkerC"
+  "omputeStructureRequest\032\037.WorkerComputeSt"
+  "ructureResponse\022,\n\003MVS\022\021.WorkerMVSReques"
+  "t\032\022.WorkerMVSResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_worker_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_worker_2eproto_sccs[12] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_worker_2eproto_sccs[14] = {
   &scc_info_RegisterWorkerRequest_worker_2eproto.base,
   &scc_info_RegisterWorkerResponse_worker_2eproto.base,
   &scc_info_WorkerAddImageRequest_worker_2eproto.base,
@@ -390,14 +445,16 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_wor
   &scc_info_WorkerComputeStructureResponse_worker_2eproto.base,
   &scc_info_WorkerIncrementalSFMRequest_worker_2eproto.base,
   &scc_info_WorkerIncrementalSFMResponse_worker_2eproto.base,
+  &scc_info_WorkerMVSRequest_worker_2eproto.base,
+  &scc_info_WorkerMVSResponse_worker_2eproto.base,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_worker_2eproto_once;
 static bool descriptor_table_worker_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_worker_2eproto = {
-  &descriptor_table_worker_2eproto_initialized, descriptor_table_protodef_worker_2eproto, "worker.proto", 1469,
-  &descriptor_table_worker_2eproto_once, descriptor_table_worker_2eproto_sccs, descriptor_table_worker_2eproto_deps, 12, 0,
+  &descriptor_table_worker_2eproto_initialized, descriptor_table_protodef_worker_2eproto, "worker.proto", 1629,
+  &descriptor_table_worker_2eproto_once, descriptor_table_worker_2eproto_sccs, descriptor_table_worker_2eproto_deps, 14, 0,
   schemas, file_default_instances, TableStruct_worker_2eproto::offsets,
-  file_level_metadata_worker_2eproto, 12, file_level_enum_descriptors_worker_2eproto, file_level_service_descriptors_worker_2eproto,
+  file_level_metadata_worker_2eproto, 14, file_level_enum_descriptors_worker_2eproto, file_level_service_descriptors_worker_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -2665,6 +2722,359 @@ void WorkerComputeStructureResponse::InternalSwap(WorkerComputeStructureResponse
 }
 
 
+// ===================================================================
+
+void WorkerMVSRequest::InitAsDefaultInstance() {
+}
+class WorkerMVSRequest::_Internal {
+ public:
+};
+
+WorkerMVSRequest::WorkerMVSRequest()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerMVSRequest)
+}
+WorkerMVSRequest::WorkerMVSRequest(const WorkerMVSRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+  // @@protoc_insertion_point(copy_constructor:WorkerMVSRequest)
+}
+
+void WorkerMVSRequest::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_WorkerMVSRequest_worker_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+WorkerMVSRequest::~WorkerMVSRequest() {
+  // @@protoc_insertion_point(destructor:WorkerMVSRequest)
+  SharedDtor();
+}
+
+void WorkerMVSRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void WorkerMVSRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerMVSRequest& WorkerMVSRequest::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerMVSRequest_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerMVSRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerMVSRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerMVSRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string reconstruction_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "WorkerMVSRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerMVSRequest::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerMVSRequest)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "WorkerMVSRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerMVSRequest)
+  return target;
+}
+
+size_t WorkerMVSRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerMVSRequest)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerMVSRequest::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerMVSRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerMVSRequest* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerMVSRequest>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerMVSRequest)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerMVSRequest)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerMVSRequest::MergeFrom(const WorkerMVSRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerMVSRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
+}
+
+void WorkerMVSRequest::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerMVSRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerMVSRequest::CopyFrom(const WorkerMVSRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerMVSRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerMVSRequest::IsInitialized() const {
+  return true;
+}
+
+void WorkerMVSRequest::InternalSwap(WorkerMVSRequest* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerMVSRequest::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void WorkerMVSResponse::InitAsDefaultInstance() {
+}
+class WorkerMVSResponse::_Internal {
+ public:
+};
+
+WorkerMVSResponse::WorkerMVSResponse()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:WorkerMVSResponse)
+}
+WorkerMVSResponse::WorkerMVSResponse(const WorkerMVSResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:WorkerMVSResponse)
+}
+
+void WorkerMVSResponse::SharedCtor() {
+}
+
+WorkerMVSResponse::~WorkerMVSResponse() {
+  // @@protoc_insertion_point(destructor:WorkerMVSResponse)
+  SharedDtor();
+}
+
+void WorkerMVSResponse::SharedDtor() {
+}
+
+void WorkerMVSResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const WorkerMVSResponse& WorkerMVSResponse::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_WorkerMVSResponse_worker_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void WorkerMVSResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:WorkerMVSResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear();
+}
+
+const char* WorkerMVSResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* WorkerMVSResponse::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:WorkerMVSResponse)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:WorkerMVSResponse)
+  return target;
+}
+
+size_t WorkerMVSResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:WorkerMVSResponse)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void WorkerMVSResponse::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:WorkerMVSResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const WorkerMVSResponse* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<WorkerMVSResponse>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:WorkerMVSResponse)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:WorkerMVSResponse)
+    MergeFrom(*source);
+  }
+}
+
+void WorkerMVSResponse::MergeFrom(const WorkerMVSResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:WorkerMVSResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+}
+
+void WorkerMVSResponse::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:WorkerMVSResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WorkerMVSResponse::CopyFrom(const WorkerMVSResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:WorkerMVSResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WorkerMVSResponse::IsInitialized() const {
+  return true;
+}
+
+void WorkerMVSResponse::InternalSwap(WorkerMVSResponse* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata WorkerMVSResponse::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::WorkerComputeFeaturesRequest* Arena::CreateMaybeMessage< ::WorkerComputeFeaturesRequest >(Arena* arena) {
@@ -2702,6 +3112,12 @@ template<> PROTOBUF_NOINLINE ::WorkerComputeStructureRequest* Arena::CreateMaybe
 }
 template<> PROTOBUF_NOINLINE ::WorkerComputeStructureResponse* Arena::CreateMaybeMessage< ::WorkerComputeStructureResponse >(Arena* arena) {
   return Arena::CreateInternal< ::WorkerComputeStructureResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerMVSRequest* Arena::CreateMaybeMessage< ::WorkerMVSRequest >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerMVSRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::WorkerMVSResponse* Arena::CreateMaybeMessage< ::WorkerMVSResponse >(Arena* arena) {
+  return Arena::CreateInternal< ::WorkerMVSResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

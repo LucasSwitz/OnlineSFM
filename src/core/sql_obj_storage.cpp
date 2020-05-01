@@ -7,16 +7,17 @@
 #define SQL_DELETE_OBJ(t) "DELETE FROM " + t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_OBJS(t) "DELETE FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 
-SQLOBJStorage::SQLOBJStorage(sql::Driver* driver, 
-                             std::shared_ptr<sql::Connection> con,
-                             const std::string& table) : FileSystemStorer(CONFIG_GET_STRING("storage.root")),
-                                                         SQLStorage(driver, con),
-                                                         _table(table){
+SQLOBJStorage::SQLOBJStorage(
+                             const std::string& table,
+                             std::shared_ptr<OBJDataStorage> data_storage) :
+                                                         _table(table),
+                                                         _data_storage(data_storage){
 
 }
 
 OBJMetaData SQLOBJStorage::GetMeta(const std::string& obj_id){
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_OBJ(this->_table), 
+    auto connection_loan = this->GetConnection();
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_OBJ(this->_table), connection_loan.con,
         [obj_id](sql::PreparedStatement *stmt){
             stmt->setString(1, obj_id);
     });
@@ -38,7 +39,8 @@ OBJData SQLOBJStorage::Get(const std::string& obj_id){
     OBJData obj_data;
     obj_data.mutable_metadata()->CopyFrom(meta);
     std::vector<char> raw_data;
-    if(this->Read(meta.path(), raw_data)){
+
+    if(this->_data_storage->GetOBJ(meta.path(), raw_data)){
         LOG(INFO) << "Read OBJ of " << raw_data.size() << " bytes";
         std::string data_str(raw_data.begin(), raw_data.end()); 
         obj_data.set_obj_data(data_str);
@@ -46,7 +48,7 @@ OBJData SQLOBJStorage::Get(const std::string& obj_id){
         LOG(ERROR) << "Failed to read OBJ file of " << obj_id;
     }
     raw_data.clear();
-    if(this->Read(meta.texture_path(), raw_data)){
+    if(this->_data_storage->GetTexture(meta.texture_path(), raw_data)){
         LOG(INFO) << "Read Texture of" << raw_data.size() << " bytes";
         std::string data_str(raw_data.begin(), raw_data.end()); 
         obj_data.set_texture_data(data_str);
@@ -54,7 +56,7 @@ OBJData SQLOBJStorage::Get(const std::string& obj_id){
         LOG(ERROR) << "Failed to read Texture of  " << obj_id;
     }
     raw_data.clear();
-    if(this->Read(meta.mtl_path(), raw_data)){
+    if(this->_data_storage->GetMTL(meta.mtl_path(), raw_data)){
         LOG(INFO) << "Read MTL of " << raw_data.size() << " bytes";
         std::string data_str(raw_data.begin(), raw_data.end()); 
         obj_data.set_mtl_data(data_str);
@@ -65,8 +67,9 @@ OBJData SQLOBJStorage::Get(const std::string& obj_id){
 }
 
 std::vector<OBJMetaData> SQLOBJStorage::GetAll(const std::string& reconstruction_id){
+    auto connection_loan = this->GetConnection();
     LOG(INFO) << "Retrieving all OBJs for reconstruction " << reconstruction_id;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_OBJ(this->_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_OBJ(this->_table), connection_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -92,25 +95,31 @@ std::vector<OBJMetaData> SQLOBJStorage::GetAll(const std::string& reconstruction
 }
 
 
-int SQLOBJStorage::Store(const OBJMetaData& obj_data){
-    LOG(INFO) << "Storing OBJ Data for " << obj_data.reconstruction();
+int SQLOBJStorage::Store(const OBJData& obj_data){
+    LOG(INFO) << "Storing OBJ Data for " << obj_data.metadata().reconstruction();
+    std::string obj_path;
+    std::string mtl_path;
+    std::string texture_path;
+    this->_data_storage->StoreOBJ(obj_data, &obj_path, &mtl_path, &texture_path);
     this->IssueUpdate(SQL_INSERT_OBJ(this->_table), 
-        [this, obj_data](sql::PreparedStatement *stmt){
-            stmt->setString(1, obj_data.id());
-            stmt->setString(2, obj_data.reconstruction());
-            stmt->setString(3, obj_data.path());
-            stmt->setString(4, obj_data.texture_path());
-            stmt->setString(5, obj_data.mtl_path());
-            stmt->setString(6, obj_data.path());
-            stmt->setString(7, obj_data.texture_path());
-            stmt->setString(8, obj_data.mtl_path());
+        [this, obj_data, obj_path, mtl_path, texture_path](sql::PreparedStatement *stmt){
+            stmt->setString(1, obj_data.metadata().id());
+            stmt->setString(2, obj_data.metadata().reconstruction());
+            stmt->setString(3, obj_path);
+            stmt->setString(4, texture_path);
+            stmt->setString(5, mtl_path);
+            stmt->setString(6, obj_path);
+            stmt->setString(7, texture_path);
+            stmt->setString(8, mtl_path);
     });
 }
 
 int SQLOBJStorage::Delete(const std::string& obj_id){
     LOG(INFO) << "Deleting OBJ Data " << obj_id;
     OBJMetaData obj_meta = GetMeta(obj_id);
-    FileSystemStorer::DeleteItem(obj_meta.path());
+    this->_data_storage->DeleteOBJ(obj_meta.path());
+    this->_data_storage->DeleteMTL(obj_meta.mtl_path());
+    this->_data_storage->DeleteTexture(obj_meta.texture_path());
     this->IssueUpdate(SQL_DELETE_OBJ(this->_table), 
         [obj_id](sql::PreparedStatement *stmt){
             stmt->setString(1, obj_id);
@@ -120,7 +129,9 @@ int SQLOBJStorage::Delete(const std::string& obj_id){
 int SQLOBJStorage::DeleteByReconstruction(const std::string& reconstruction_id){
     std::vector<OBJMetaData> objs = GetAll(reconstruction_id);
     for(OBJMetaData obj: objs){
-        FileSystemStorer::DeleteItem(obj.path());
+        this->_data_storage->DeleteOBJ(obj.path());
+        this->_data_storage->DeleteMTL(obj.mtl_path());
+        this->_data_storage->DeleteTexture(obj.texture_path());
     }
     this->IssueUpdate(SQL_DELETE_ALL_OBJS(this->_table), 
         [this, reconstruction_id](sql::PreparedStatement *stmt){

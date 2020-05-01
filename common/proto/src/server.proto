@@ -5,6 +5,7 @@ message ImageMetaData {
     string reconstruction = 2;
     string path = 3;
     string format = 4;
+    string undistorted_path = 5;
 };
 
 message ImageData {

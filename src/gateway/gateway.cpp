@@ -21,9 +21,7 @@
 #include "redis_sfm_backlog.h"
 #include "remote.h"
 
-/*
-    TODO: 
-*/
+#include "sql_storage.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -134,13 +132,13 @@ class ReconstructionServer : public ReconstructionService::Service {
         }
 
         Status MVS(ServerContext* context, 
-                    const MVSRequest* request, 
-                    MVSResponse* response){
+                   const MVSRequest* request, 
+                   MVSResponse* response){
             ReconstructionFetcher rf;
+            LOG(INFO) << "Doing MVS for " << request->reconstruction_id();
             try {
                 auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
-                response->set_success(reconstruction->MVS(true));
-                
+                response->set_success(reconstruction->MVS());
                 return Status::OK;
             } catch (const std::exception& e){
                 LOG(ERROR) << e.what();
@@ -402,6 +400,7 @@ class ReconstructionServer : public ReconstructionService::Service {
 int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
+    SQLStorage::InitConnectionPool(10);
     mkdir(CONFIG_GET_STRING("storage.root").c_str(), 0777);
     ReconstructionServer service(4);
     std::string server_address(CONFIG_GET_STRING("grpc_server.server_address"));

@@ -76,6 +76,13 @@ class WorkerPoolManager final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
     }
+    virtual ::grpc::Status MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::WorkerMVSResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>> AsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>>(AsyncMVSRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>> PrepareAsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>>(PrepareAsyncMVSRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -151,6 +158,18 @@ class WorkerPoolManager final {
       #else
       virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     typedef class experimental_async_interface async_interface;
@@ -172,6 +191,8 @@ class WorkerPoolManager final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>* AsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>* PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -217,6 +238,13 @@ class WorkerPoolManager final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
+    ::grpc::Status MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::WorkerMVSResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>> AsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>>(AsyncMVSRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>> PrepareAsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>>(PrepareAsyncMVSRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -293,6 +321,18 @@ class WorkerPoolManager final {
       #else
       void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) override;
+      void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -316,12 +356,15 @@ class WorkerPoolManager final {
     ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* AsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Register_;
     const ::grpc::internal::RpcMethod rpcmethod_AddImage_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeFeatures_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeMatches_;
     const ::grpc::internal::RpcMethod rpcmethod_IncrementalSFM_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeStructure_;
+    const ::grpc::internal::RpcMethod rpcmethod_MVS_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -335,6 +378,7 @@ class WorkerPoolManager final {
     virtual ::grpc::Status ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response);
     virtual ::grpc::Status IncrementalSFM(::grpc::ServerContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response);
     virtual ::grpc::Status ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response);
+    virtual ::grpc::Status MVS(::grpc::ServerContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Register : public BaseClass {
@@ -456,7 +500,27 @@ class WorkerPoolManager final {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Register<WithAsyncMethod_AddImage<WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_IncrementalSFM<WithAsyncMethod_ComputeStructure<Service > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_MVS() {
+      ::grpc::Service::MarkMethodAsync(6);
+    }
+    ~WithAsyncMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestMVS(::grpc::ServerContext* context, ::WorkerMVSRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerMVSResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Register<WithAsyncMethod_AddImage<WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_IncrementalSFM<WithAsyncMethod_ComputeStructure<WithAsyncMethod_MVS<Service > > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Register : public BaseClass {
    private:
@@ -739,11 +803,58 @@ class WorkerPoolManager final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_MVS() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(6,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerMVSRequest, ::WorkerMVSResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response) { return this->MVS(context, request, response); }));}
+    void SetMessageAllocatorFor_MVS(
+        ::grpc::experimental::MessageAllocator< ::WorkerMVSRequest, ::WorkerMVSResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(6);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerMVSRequest, ::WorkerMVSResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* MVS(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* MVS(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Register<ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_Register<ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<ExperimentalWithCallbackMethod_MVS<Service > > > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_Register<ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_Register<ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<ExperimentalWithCallbackMethod_MVS<Service > > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Register : public BaseClass {
    private:
@@ -842,6 +953,23 @@ class WorkerPoolManager final {
     }
     // disable synchronous version of this method
     ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_MVS() {
+      ::grpc::Service::MarkMethodGeneric(6);
+    }
+    ~WithGenericMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -964,6 +1092,26 @@ class WorkerPoolManager final {
     }
     void RequestComputeStructure(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_MVS() {
+      ::grpc::Service::MarkMethodRaw(6);
+    }
+    ~WithRawMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestMVS(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(6, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1195,6 +1343,44 @@ class WorkerPoolManager final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_MVS() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(6,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->MVS(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* MVS(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* MVS(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Register : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -1314,9 +1500,29 @@ class WorkerPoolManager final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedComputeStructure(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeStructureRequest,::WorkerComputeStructureResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_MVS() {
+      ::grpc::Service::MarkMethodStreamed(6,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerMVSRequest, ::WorkerMVSResponse>(std::bind(&WithStreamedUnaryMethod_MVS<BaseClass>::StreamedMVS, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedMVS(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerMVSRequest,::WorkerMVSResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<WithStreamedUnaryMethod_MVS<Service > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Register<WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<WithStreamedUnaryMethod_MVS<Service > > > > > > > StreamedService;
 };
 
 class Worker final {
@@ -1361,6 +1567,13 @@ class Worker final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
+    virtual ::grpc::Status MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::WorkerMVSResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>> AsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>>(AsyncMVSRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>> PrepareAsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>>(PrepareAsyncMVSRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
@@ -1425,6 +1638,18 @@ class Worker final {
       #else
       virtual void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     typedef class experimental_async_interface async_interface;
@@ -1444,6 +1669,8 @@ class Worker final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>* AsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::WorkerMVSResponse>* PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -1482,6 +1709,13 @@ class Worker final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>> PrepareAsyncComputeStructure(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>>(PrepareAsyncComputeStructureRaw(context, request, cq));
+    }
+    ::grpc::Status MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::WorkerMVSResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>> AsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>>(AsyncMVSRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>> PrepareAsyncMVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>>(PrepareAsyncMVSRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -1546,6 +1780,18 @@ class Worker final {
       #else
       void ComputeStructure(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerComputeStructureResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) override;
+      void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -1567,11 +1813,14 @@ class Worker final {
     ::grpc::ClientAsyncResponseReader< ::WorkerIncrementalSFMResponse>* PrepareAsyncIncrementalSFMRaw(::grpc::ClientContext* context, const ::WorkerIncrementalSFMRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* AsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::WorkerComputeStructureResponse>* PrepareAsyncComputeStructureRaw(::grpc::ClientContext* context, const ::WorkerComputeStructureRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* AsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_AddImage_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeFeatures_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeMatches_;
     const ::grpc::internal::RpcMethod rpcmethod_IncrementalSFM_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeStructure_;
+    const ::grpc::internal::RpcMethod rpcmethod_MVS_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -1584,6 +1833,7 @@ class Worker final {
     virtual ::grpc::Status ComputeMatches(::grpc::ServerContext* context, const ::WorkerComputeMatchesRequest* request, ::WorkerComputeMatchesResponse* response);
     virtual ::grpc::Status IncrementalSFM(::grpc::ServerContext* context, const ::WorkerIncrementalSFMRequest* request, ::WorkerIncrementalSFMResponse* response);
     virtual ::grpc::Status ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response);
+    virtual ::grpc::Status MVS(::grpc::ServerContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_AddImage : public BaseClass {
@@ -1685,7 +1935,27 @@ class Worker final {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_AddImage<WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_IncrementalSFM<WithAsyncMethod_ComputeStructure<Service > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_MVS() {
+      ::grpc::Service::MarkMethodAsync(5);
+    }
+    ~WithAsyncMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestMVS(::grpc::ServerContext* context, ::WorkerMVSRequest* request, ::grpc::ServerAsyncResponseWriter< ::WorkerMVSResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_AddImage<WithAsyncMethod_ComputeFeatures<WithAsyncMethod_ComputeMatches<WithAsyncMethod_IncrementalSFM<WithAsyncMethod_ComputeStructure<WithAsyncMethod_MVS<Service > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_AddImage : public BaseClass {
    private:
@@ -1921,11 +2191,58 @@ class Worker final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_MVS() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(5,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::WorkerMVSRequest, ::WorkerMVSResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response) { return this->MVS(context, request, response); }));}
+    void SetMessageAllocatorFor_MVS(
+        ::grpc::experimental::MessageAllocator< ::WorkerMVSRequest, ::WorkerMVSResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(5);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::WorkerMVSRequest, ::WorkerMVSResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* MVS(
+      ::grpc::CallbackServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* MVS(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<ExperimentalWithCallbackMethod_MVS<Service > > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<Service > > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_AddImage<ExperimentalWithCallbackMethod_ComputeFeatures<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_IncrementalSFM<ExperimentalWithCallbackMethod_ComputeStructure<ExperimentalWithCallbackMethod_MVS<Service > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_AddImage : public BaseClass {
    private:
@@ -2007,6 +2324,23 @@ class Worker final {
     }
     // disable synchronous version of this method
     ::grpc::Status ComputeStructure(::grpc::ServerContext* /*context*/, const ::WorkerComputeStructureRequest* /*request*/, ::WorkerComputeStructureResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_MVS() {
+      ::grpc::Service::MarkMethodGeneric(5);
+    }
+    ~WithGenericMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2109,6 +2443,26 @@ class Worker final {
     }
     void RequestComputeStructure(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_MVS() {
+      ::grpc::Service::MarkMethodRaw(5);
+    }
+    ~WithRawMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestMVS(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(5, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2302,6 +2656,44 @@ class Worker final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_MVS() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(5,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->MVS(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* MVS(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* MVS(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_AddImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -2401,9 +2793,29 @@ class Worker final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedComputeStructure(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerComputeStructureRequest,::WorkerComputeStructureResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_MVS : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_MVS() {
+      ::grpc::Service::MarkMethodStreamed(5,
+        new ::grpc::internal::StreamedUnaryHandler< ::WorkerMVSRequest, ::WorkerMVSResponse>(std::bind(&WithStreamedUnaryMethod_MVS<BaseClass>::StreamedMVS, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_MVS() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status MVS(::grpc::ServerContext* /*context*/, const ::WorkerMVSRequest* /*request*/, ::WorkerMVSResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedMVS(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::WorkerMVSRequest,::WorkerMVSResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<WithStreamedUnaryMethod_MVS<Service > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<Service > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_AddImage<WithStreamedUnaryMethod_ComputeFeatures<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_IncrementalSFM<WithStreamedUnaryMethod_ComputeStructure<WithStreamedUnaryMethod_MVS<Service > > > > > > StreamedService;
 };
 
 

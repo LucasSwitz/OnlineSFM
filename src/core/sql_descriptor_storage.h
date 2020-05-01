@@ -18,9 +18,7 @@ class SQLDescriptorStorage : public SQLStorage,
                              public DescriptorStorage<SIFT_Descriptor> {
     public:
         SQLDescriptorStorage(
-                   sql::Driver* driver, 
-                   std::shared_ptr<sql::Connection> con,
-                   const std::string& table) : SQLStorage(driver, con), 
+                   const std::string& table) :
                                                _table(table){
                     
         }
@@ -46,8 +44,9 @@ class SQLDescriptorStorage : public SQLStorage,
         }
 
         SIFT_Descriptor_count_map GetAllDescriptors(const std::string& image_id){
+            auto connection_loan = this->GetConnection();
             SIFT_Descriptor_count_map descs;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_DESCRIPTORS(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_DESCRIPTORS(this->_table), connection_loan.con,
                 [image_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, image_id);
                 });
@@ -62,8 +61,9 @@ class SQLDescriptorStorage : public SQLStorage,
         }
 
         std::vector<std::string> GetImagesWithDescriptors(const SIFT_Vector& desc){
+            auto connection_loan = this->GetConnection();
             std::vector<std::string> image_ids;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS(this->_table), connection_loan.con,
                 [desc](sql::PreparedStatement *stmt){
                     stmt->setString(1, split_SIFT_Vector(desc));
                 });
@@ -75,8 +75,9 @@ class SQLDescriptorStorage : public SQLStorage,
         }
 
         SIFT_Descriptor_count_map GetDescriptorFrequencies(const SIFT_Vector& desc){
+            auto connection_loan = this->GetConnection();
             SIFT_Descriptor_count_map map;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_DESCRIPTOR_FREQUENCY(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_DESCRIPTOR_FREQUENCY(this->_table), connection_loan.con,
                 [desc](sql::PreparedStatement *stmt){
                     stmt->setString(1, split_SIFT_Vector(desc));
                 });
@@ -91,8 +92,9 @@ class SQLDescriptorStorage : public SQLStorage,
         }
 
         std::unordered_map<std::string, SIFT_Descriptor_count_map> GetAllWithCommonDescriptors(const std::string& image_id){
+            auto connection_loan = this->GetConnection();
             std::unordered_map<std::string, SIFT_Descriptor_count_map> map;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(this->_table), connection_loan.con,
                 [image_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, image_id);
                 });
@@ -115,8 +117,9 @@ class SQLDescriptorStorage : public SQLStorage,
         }
 
         unsigned int GetImageCount(){
+            auto connection_loan = this->GetConnection();
             int total;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_UNIQUE_IMAGE_COUNT(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_UNIQUE_IMAGE_COUNT(this->_table), connection_loan.con,
                 [](sql::PreparedStatement *stmt){});
             if(res->next()){
                 total =  res->getUInt64("TOTAL");
@@ -126,8 +129,9 @@ class SQLDescriptorStorage : public SQLStorage,
         }
 
         SIFT_Descriptor_count_map GetGlobalDescriptorFrequenciesByImage(const std::string& image_id){
+            auto connection_loan = this->GetConnection();
            SIFT_Descriptor_count_map map;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_GLOBAL_DESCRIPTOR_FREQUENCIES_BY_IMAGE(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_GLOBAL_DESCRIPTOR_FREQUENCIES_BY_IMAGE(this->_table), connection_loan.con, 
                 [image_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, image_id);
             });

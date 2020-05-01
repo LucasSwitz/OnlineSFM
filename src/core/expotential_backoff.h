@@ -18,7 +18,7 @@ void ExpotentialBackoff(const std::string& name, T f, unsigned int max_retry){
     auto delay = 1s;
     do{
         if(!f()){
-            LOG(ERROR) << "Failed to connect to: " << name << ". Trying again in " << delay.count() << " seconds";
+            LOG(ERROR) << "Failed to connect for: " << name << ". Trying again in " << delay.count() << " seconds";
             std::this_thread::sleep_for(delay);
             delay *= 2;
             continue;

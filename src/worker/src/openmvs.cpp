@@ -41,17 +41,18 @@ bool ExecuteMVSBinary(const std::string& binary_name, char** argv){
 }
 
 bool OpenMVSDensifyPointCloud(const std::string& working_dir, const std::string& mvs_path, int fusion_mode){
-    std::string threads = std::to_string(CONFIG_GET_INT("reconstruction.threads"));
+    std::string threads = std::to_string(CONFIG_GET_INT("worker.cores"));
     char* argv[] = {"DensifyPointCloud",
                     "-w", cc(working_dir),
                     "--max-threads", cc(threads),
+                    "--resolution-level", "3",
                     cc(mvs_path),
                     NULL};
     return ExecuteMVSBinary("DensifyPointCloud", argv);
 }
 
 bool OpenMVSReconstructMesh(const std::string& working_dir, const std::string& dense_mvs_path){
-    std::string threads = std::to_string(CONFIG_GET_INT("reconstruction.threads"));
+    std::string threads = std::to_string(CONFIG_GET_INT("worker.cores"));
     char* argv[] = {"ReconstructMesh",
                     "-w", cc(working_dir),
                     "--max-threads", cc(threads),
@@ -62,7 +63,7 @@ bool OpenMVSReconstructMesh(const std::string& working_dir, const std::string& d
 
 bool OpenMVSRefineMesh(const std::string& working_dir, const std::string& dense_mesh_mvs_path, int max_face_area){
     std::string face_area = std::to_string(max_face_area);
-    std::string threads = std::to_string(CONFIG_GET_INT("reconstruction.threads"));
+    std::string threads = std::to_string(CONFIG_GET_INT("worker.cores"));
     char* argv[] = {"RefineMesh",
                     "-w", cc(working_dir),
                     "--max-threads", cc(threads),
@@ -73,7 +74,7 @@ bool OpenMVSRefineMesh(const std::string& working_dir, const std::string& dense_
 }
 
 bool OpenMVSTextureMesh(const std::string& working_dir, const std::string& dense_mesh_refine_mvs_path){
-    std::string threads = std::to_string(CONFIG_GET_INT("reconstruction.threads"));
+    std::string threads = std::to_string(CONFIG_GET_INT("worker.cores"));
     char* argv[] = {"TextureMesh",
                     "-w", cc(working_dir),
                     "--max-threads", cc(threads),

@@ -1,18 +1,5 @@
 #include "image_storage_openmvg_adapter.h"
 
-struct my_error_mgr {
-  struct jpeg_error_mgr pub;
-  jmp_buf setjmp_buffer;
-};
-
-METHODDEF(void)
-jpeg_error (j_common_ptr cinfo)
-{
-  my_error_mgr *myerr = (my_error_mgr*) (cinfo->err);
-  (*cinfo->err->output_message) (cinfo);
-  longjmp(myerr->setjmp_buffer, 1);
-}
-
 int ReadJpgMemory(unsigned char* data,
                   size_t size,
                   std::vector<unsigned char> * ptr,
@@ -87,6 +74,59 @@ bool Read_JPG_ImageHeaderMemory(unsigned char* data,
   return bStatus;
 }
 
+int WriteJpgMemory(unsigned char** dest,
+            unsigned long* size,
+            const std::vector<unsigned char> & array,
+            int w,
+            int h,
+            int depth,
+            int quality) {
+    if (quality < 0 || quality > 100)
+        std::cerr << "Error: The quality parameter should be between 0 and 100";
+
+    struct jpeg_compress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+
+    cinfo.err = jpeg_std_error(&jerr);
+    jpeg_create_compress(&cinfo); 
+    jpeg_mem_dest(&cinfo, dest, size);
+
+    cinfo.image_width = w;
+    cinfo.image_height = h;
+    cinfo.input_components = depth;
+
+    if (cinfo.input_components==3) {
+        cinfo.in_color_space = JCS_RGB;
+    } else if (cinfo.input_components==1) {
+        cinfo.in_color_space = JCS_GRAYSCALE;
+    } else {
+        std::cerr << "Error: Unsupported number of channels in file";
+        jpeg_destroy_compress(&cinfo);
+        return 0;
+    }
+
+    jpeg_set_defaults(&cinfo);
+    jpeg_set_quality(&cinfo, quality, TRUE);
+    jpeg_start_compress(&cinfo, TRUE);
+
+    const unsigned char *ptr = &array[0];
+    int row_bytes = cinfo.image_width*cinfo.input_components;
+
+    JSAMPLE *row = new JSAMPLE[row_bytes];
+
+    while (cinfo.next_scanline < cinfo.image_height) {
+        std::memcpy(&row[0], &ptr[0], row_bytes * sizeof(unsigned char));
+        jpeg_write_scanlines(&cinfo, &row, 1);
+        ptr += row_bytes;
+    }
+
+    delete [] row;
+
+    jpeg_finish_compress(&cinfo);
+    jpeg_destroy_compress(&cinfo);
+    return 1;
+}
+
 ImageStorageOpenMVGAdapter::ImageStorageOpenMVGAdapter(std::shared_ptr<ImageStorageAdapter> storage) : _image_storage(storage){
             
 
@@ -97,41 +137,4 @@ bool ImageStorageOpenMVGAdapter::ReadImageHeader(const std::string& image_id,  o
     ImageData image_data = this->_image_storage->Get(image_id);
     std::vector<unsigned char> image_bytes(image_data.data().begin(), image_data.data().end());
     return Read_JPG_ImageHeaderMemory(image_bytes.data(), image_bytes.size(), hdr);
-}
-
-int ImageStorageOpenMVGAdapter::ReadImage(const std::string& image_id, openMVG::image::Image<unsigned char> * im){
-    auto meta = this->_image_storage->GetMeta(image_id);
-    ImageData image_data = this->_image_storage->Get(image_id);
-    std::vector<unsigned char> image_bytes(image_data.data().begin(), image_data.data().end());
-    std::vector<unsigned char> ptr;
-    int w, h, depth;
-    const int res = ReadJpgMemory(image_bytes.data(), image_bytes.size(), &ptr, &w, &h, &depth);
-    if ( res == 1 && depth == 1 )
-    {
-        //convert raw array to Image
-        ( *im ) = Eigen::Map<openMVG::image::Image<unsigned char>::Base>( &ptr[0], h, w );
-    }
-    else if ( res == 1 && depth == 3 )
-    {
-        //-- Must convert RGB to gray
-        openMVG::image::RGBColor * ptrCol = reinterpret_cast<openMVG::image::RGBColor*>( &ptr[0] );
-        openMVG::image::Image<openMVG::image::RGBColor> rgbColIm;
-        rgbColIm = Eigen::Map<openMVG::image::Image<openMVG::image::RGBColor>::Base>( ptrCol, h, w );
-        //convert RGB to gray
-        ConvertPixelType( rgbColIm, im );
-    }
-    else if ( res == 1 && depth == 4 )
-    {
-        //-- Must convert RGBA to gray
-        openMVG::image::RGBAColor * ptrCol = reinterpret_cast< openMVG::image::RGBAColor*>( &ptr[0] );
-        openMVG::image::Image<openMVG::image::RGBAColor> rgbaColIm;
-        rgbaColIm = Eigen::Map<openMVG::image::Image<openMVG::image::RGBAColor>::Base>( ptrCol, h, w );
-        //convert RGBA to gray
-        ConvertPixelType( rgbaColIm, im );
-    }
-    else if ( depth != 1 )
-    {
-        return 0;
-    }
-    return res;
 }

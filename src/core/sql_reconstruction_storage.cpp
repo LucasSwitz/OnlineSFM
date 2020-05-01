@@ -6,9 +6,8 @@
 #define SQL_GET_RECONSTRUCTION(t) "SELECT * FROM " + t + " WHERE ID = ?"
 #define SQL_DELETE_RECONSTRUCTION(t) "DELETE FROM " + t + " WHERE ID = ?"
 
-SQLReconstructionStorage::SQLReconstructionStorage(sql::Driver* driver, 
-                                                   std::shared_ptr<sql::Connection> con,
-                                                   const std::string& table) : SQLStorage(driver, con),
+SQLReconstructionStorage::SQLReconstructionStorage(
+                                                   const std::string& table) : 
                                                                                     _table(table){
     
 }
@@ -33,9 +32,10 @@ void SQLReconstructionStorage::Store(const ReconstructionData& data){
 }
 
 ReconstructionData SQLReconstructionStorage::Get(const std::string& id){
+    auto connection_loan = this->GetConnection();
     sql::ResultSet* res;
     try{
-        res = this->IssueQuery(SQL_GET_RECONSTRUCTION(this->_table), 
+        res = this->IssueQuery(SQL_GET_RECONSTRUCTION(this->_table), connection_loan.con,
             [id](sql::PreparedStatement *stmt){
                 stmt->setString(1, id);
         });

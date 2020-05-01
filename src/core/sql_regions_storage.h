@@ -20,9 +20,7 @@ class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
         typedef typename RegionsStorage<T>::image_region_map image_region_map;
         
         SQLRegionsStorage(
-                       sql::Driver* driver, 
-                       std::shared_ptr<sql::Connection> connection,
-                       const std::string& table) : SQLStorage(driver, connection), _table(table){}
+                       const std::string& table) : _table(table){}
 
     
         void Store(const std::string& reconstruction_id, 
@@ -61,8 +59,9 @@ class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
 
         std::shared_ptr<T> GetAllRegions(const std::string& reconstruction_id, 
                         const std::string& image_id){
+            auto connection_loan = this->GetConnection();
             std::shared_ptr<T> regions = std::make_shared<T>();
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_REGIONS_IMAGE(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_REGIONS_IMAGE(this->_table), connection_loan.con,
                 [reconstruction_id, image_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, reconstruction_id);
                     stmt->setString(2, image_id);
@@ -85,8 +84,9 @@ class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
         }
 
         image_region_map GetAllRegionsReconstruction(const std::string& reconstruction_id){
+            auto connection_loan = this->GetConnection();
             image_region_map regions_map;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_REGIONS_RECONSTRUCTION(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_REGIONS_RECONSTRUCTION(this->_table), connection_loan.con,
                 [reconstruction_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, reconstruction_id);
                 });
@@ -112,8 +112,9 @@ class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
         }
 
        DescsT GetAllDescriptors(const std::string& reconstruction_id, const std::string& image_id){
+            auto connection_loan = this->GetConnection();
             DescsT descriptors;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_DESCRIPTORS(this->_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_DESCRIPTORS(this->_table), connection_loan.con,
                 [reconstruction_id, image_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, reconstruction_id);
                     stmt->setString(2, image_id);

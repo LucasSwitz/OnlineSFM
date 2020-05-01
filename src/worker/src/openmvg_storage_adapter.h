@@ -35,4 +35,7 @@ class OpenMVGStorageAdapter {
         virtual openMVG::IndexT GetViewIdxByImageID(const std::string& image_id) = 0;
         virtual ~OpenMVGStorageAdapter(){};
         virtual std::unique_ptr<std::unordered_map<std::string, openMVG::IndexT>> GetAllViewIdxByImageID(const std::vector<std::string>& image_ids) = 0;
+        virtual void StoreLandmarks(const std::string& reconstruction_id, 
+                                               const openMVG::sfm::Landmarks& landmarks) = 0;
+        virtual openMVG::sfm::Landmarks GetLandmarks(const std::string& reconstruction_id) = 0;
 };

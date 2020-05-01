@@ -21,6 +21,7 @@
         "openmvg_matches_table" : "OPENMVG_MATCHES",
         "openmvg_meta_table" : "OPENMVG_META",
         "openmvg_poses_table" : "OPENMVG_POSES",
+        "openmvg_landmarks_table" : "OPENMVG_LANDMARKS",
         "regions_table" : "IMAGE_REGIONS",
         "words_table" : "IMAGE_WORDS"
     },

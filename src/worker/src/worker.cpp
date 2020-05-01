@@ -7,7 +7,9 @@
 #include <glog/logging.h>
 
 #include "reconstruction.h"
-#include "config.h"
+#include "sql_storage.h"
+#include "config.h" 
+#include "util.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -93,11 +95,28 @@ class WorkerServer : public Worker::Service {
             return Status::CANCELLED;
         }
     }
+
+    virtual Status MVS(ServerContext* context, 
+                       const WorkerMVSRequest* request, 
+                       WorkerMVSResponse* response){
+        LOG(INFO) << "MVS: " << request->reconstruction_id();
+        try{
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
+            if(reconstruction->MVS())
+                return Status::OK;
+            return Status::CANCELLED;
+         }catch(const std::exception& e){
+            LOG(ERROR) << e.what();
+            return Status::CANCELLED;
+        }
+    }
 };
 
 int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
+    SQLStorage::InitConnectionPool(30);
     WorkerServer service;
     std::string server_address(argv[2]);
     LOG(INFO) << "Starting server at address " << server_address; 

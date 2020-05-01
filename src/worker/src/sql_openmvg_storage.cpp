@@ -1,9 +1,12 @@
 #include "sql_openmvg_storage.h"
-#include <cereal/archives/json.hpp>
 #include <glog/logging.h>
 #include "openMVG/sfm/sfm_data_io_cereal.hpp"
+#include "openMVG/sfm/sfm_landmark.hpp"
+#include "openMVG/sfm/sfm_data_io.hpp"
 #include "openMVG/cameras/cameras_io.hpp"
 #include "openMVG/geometry/pose3_io.hpp"
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/archives/json.hpp>
 
 #define SQL_GET_ALL_VIEWS(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ? ORDER BY VIEW_IDX ASC"
 #define SQL_GET_ALL_INTRINSICS(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ? ORDER BY INTRINSICS_IDX ASC"
@@ -27,28 +30,33 @@
 
 #define SQL_GET_VIEW_IDX_BY_IMAGE_ID(t) "SELECT VIEW_IDX FROM " + t + " WHERE IMAGE_ID = (?)"
 
+#define SQL_INSERT_OPENMVG_LANDMARK(t) "INSERT INTO " + t + " VALUES (?,?,?)"
+#define SQL_GET_OPENMVG_LANDMARKS(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
+
+
 using namespace openMVG;
 using namespace openMVG::cameras;
 using namespace openMVG::sfm;
 
 SQLOpenMVGStorage::SQLOpenMVGStorage(
-                   sql::Driver* driver, 
-                   std::shared_ptr<sql::Connection> con,
                    const std::string& views_table,
                    const std::string& intrinsics_table,
                    const std::string& matches_table,
                    const std::string& meta_table,
-                   const std::string& poses_table): SQLStorage(driver, con),
+                   const std::string& poses_table,
+                   const std::string& landmarks_table):
                                                     _views_table(views_table),
                                                     _intrinsics_table(intrinsics_table),
                                                     _matches_table(matches_table),
                                                     _meta_table(meta_table),
-                                                    _poses_table(poses_table){
+                                                    _poses_table(poses_table),
+                                                    _landmarks_table(landmarks_table){
 
 }
 
  Views SQLOpenMVGStorage::GetViews(const std::string& reconstruction_id){
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_VIEWS(this->_views_table), 
+    auto con_loan = this->GetConnection();
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_VIEWS(this->_views_table), con_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -80,7 +88,8 @@ SQLOpenMVGStorage::SQLOpenMVGStorage(
 }
 
  Intrinsics SQLOpenMVGStorage::GetIntrinsics(const std::string& reconstruction_id){
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_INTRINSICS(this->_intrinsics_table), 
+    auto con_loan = this->GetConnection();
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_INTRINSICS(this->_intrinsics_table), con_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -137,13 +146,14 @@ void SQLOpenMVGStorage::StoreViewAndIntrinsic(const std::string& reconstruction_
                                               const std::string& image_id,
                                               const std::shared_ptr<View> view,
                                               const std::shared_ptr<IntrinsicBase> intrinsic){
+    auto con_loan = this->GetConnection();
     bool store_intrinsic = false;
     int64_t intrinsic_idx = -1;
     int intrinsic_type = -1;
 
     std::size_t intrinsic_hash = intrinsic->hashValue();
 
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_INTRINSIC_BY_HASH(this->_intrinsics_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_INTRINSIC_BY_HASH(this->_intrinsics_table), con_loan.con,
         [reconstruction_id, intrinsic_hash](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
             stmt->setInt64(2, intrinsic_hash);
@@ -272,13 +282,16 @@ std::unique_ptr<SfM_Data> SQLOpenMVGStorage::GetSFMData(const std::string& recon
             sfm_data->intrinsics = this->GetIntrinsics(reconstruction_id);
         if(mask & ESfM_Data::EXTRINSICS)
             sfm_data->poses = this->GetPoses(reconstruction_id);
+        if(mask & ESfM_Data::STRUCTURE)
+            sfm_data->structure = this->GetLandmarks(reconstruction_id);
         return sfm_data;
 }
 
 
 PairWiseMatches SQLOpenMVGStorage::GetMatches(const std::string& reconstruction_id){
+    auto con_loan = this->GetConnection();
     PairWiseMatches pariwise_matches;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_MATCHES(this->_matches_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_MATCHES(this->_matches_table), con_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -313,8 +326,9 @@ void SQLOpenMVGStorage::StoreMeta(const std::string& reconstruction_id, const Op
 }
 
 OpenMVGMetadata SQLOpenMVGStorage::GetMeta(const std::string& reconstruction_id){
+    auto con_loan = this->GetConnection();
     OpenMVGMetadata meta;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_OPENMVG_META(this->_meta_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_OPENMVG_META(this->_meta_table), con_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -358,8 +372,9 @@ OpenMVGMetadata SQLOpenMVGStorage::GetMeta(const std::string& reconstruction_id)
 }
 
 Poses SQLOpenMVGStorage::GetPoses(const std::string& reconstruction_id){
+    auto con_loan = this->GetConnection();
     Poses poses;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_OPENMVG_POSES(this->_poses_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_OPENMVG_POSES(this->_poses_table), con_loan.con, 
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -387,8 +402,9 @@ Poses SQLOpenMVGStorage::GetPoses(const std::string& reconstruction_id){
 
 
 openMVG::IndexT SQLOpenMVGStorage::GetViewIdxByImageID(const std::string& image_id){
+    auto con_loan = this->GetConnection();
     IndexT index = -1;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_views_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_views_table), con_loan.con,
         [this, image_id](sql::PreparedStatement *stmt){
             stmt->setString(1, image_id);
     });
@@ -409,7 +425,7 @@ std::unique_ptr<std::unordered_map<std::string, IndexT>> SQLOpenMVGStorage::GetA
     std::unique_ptr<std::unordered_map<std::string, IndexT>> idx_map = std::make_unique<std::unordered_map<std::string, IndexT>>();
     this->Transaction([this, &image_ids, &idx_map](std::shared_ptr<sql::Connection> con) mutable{
         for(std::string image_id : image_ids){
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_views_table), 
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_VIEW_IDX_BY_IMAGE_ID(this->_views_table), con,
             [image_id, &idx_map](sql::PreparedStatement *stmt) mutable{
                 stmt->setString(1, image_id);
             });
@@ -423,4 +439,65 @@ std::unique_ptr<std::unordered_map<std::string, IndexT>> SQLOpenMVGStorage::GetA
         }
     });
     return idx_map;
+}
+
+void SQLOpenMVGStorage::StoreLandmarks(const std::string& reconstruction_id, 
+                                       const openMVG::sfm::Landmarks& landmarks){
+    for(auto e : landmarks){
+        IndexT track_id = e.first;
+        Landmark landmark = e.second;
+        std::ostringstream stream;
+        {
+        cereal::JSONOutputArchive archive_out(stream);
+        archive_out(cereal::make_nvp("landmark", landmark));
+        }
+        std::string landmarks_data = stream.str();
+        std::istringstream* blob_stream = new std::istringstream(landmarks_data);
+
+        this->IssueUpdate(SQL_INSERT_OPENMVG_LANDMARK(this->_landmarks_table), 
+            [this, reconstruction_id, track_id, blob_stream](sql::PreparedStatement* pstmt){
+            pstmt->setString(1, reconstruction_id);
+            pstmt->setInt64(2, track_id);
+            pstmt->setBlob(3, blob_stream);
+        });
+        delete blob_stream;
+    }
+}
+
+#include "openMVG/sfm/sfm_landmark_io.hpp"
+
+#include <cereal/types/map.hpp>
+#include <cereal/types/string.hpp>
+#include <cereal/types/unordered_map.hpp>
+#include <cereal/types/vector.hpp>
+
+Landmarks SQLOpenMVGStorage::GetLandmarks(const std::string& reconstruction_id){
+    auto con_loan = this->GetConnection();
+    Landmarks landmarks;
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_OPENMVG_LANDMARKS(this->_landmarks_table), con_loan.con,
+        [this, reconstruction_id](sql::PreparedStatement *stmt){
+            stmt->setString(1, reconstruction_id);
+    });
+
+    if(!res){
+        LOG(ERROR) << "Failure to retrieve results";
+        return landmarks;
+    }
+
+    while(res->next()){
+        Landmark landmark;
+        std::stringstream is(res->getString("DATA"));
+        IndexT track = res->getInt64("TRACK");
+        try{
+            {
+            cereal::JSONInputArchive archive_in(is);
+            archive_in(cereal::make_nvp("landmark", landmark));
+            }
+            landmarks[track] = landmark;
+        }catch(std::exception& e){
+            LOG(ERROR) << e.what();
+        }
+    }
+    delete res;
+    return landmarks;
 }

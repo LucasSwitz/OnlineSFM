@@ -341,6 +341,7 @@ class ImageMetaData :
     kReconstructionFieldNumber = 2,
     kPathFieldNumber = 3,
     kFormatFieldNumber = 4,
+    kUndistortedPathFieldNumber = 5,
   };
   // string id = 1;
   void clear_id();
@@ -406,6 +407,22 @@ class ImageMetaData :
   std::string* _internal_mutable_format();
   public:
 
+  // string undistorted_path = 5;
+  void clear_undistorted_path();
+  const std::string& undistorted_path() const;
+  void set_undistorted_path(const std::string& value);
+  void set_undistorted_path(std::string&& value);
+  void set_undistorted_path(const char* value);
+  void set_undistorted_path(const char* value, size_t size);
+  std::string* mutable_undistorted_path();
+  std::string* release_undistorted_path();
+  void set_allocated_undistorted_path(std::string* undistorted_path);
+  private:
+  const std::string& _internal_undistorted_path() const;
+  void _internal_set_undistorted_path(const std::string& value);
+  std::string* _internal_mutable_undistorted_path();
+  public:
+
   // @@protoc_insertion_point(class_scope:ImageMetaData)
  private:
   class _Internal;
@@ -415,6 +432,7 @@ class ImageMetaData :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr format_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr undistorted_path_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
@@ -6908,6 +6926,66 @@ inline void ImageMetaData::set_allocated_format(std::string* format) {
   }
   format_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), format);
   // @@protoc_insertion_point(field_set_allocated:ImageMetaData.format)
+}
+
+// string undistorted_path = 5;
+inline void ImageMetaData::clear_undistorted_path() {
+  undistorted_path_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& ImageMetaData::undistorted_path() const {
+  // @@protoc_insertion_point(field_get:ImageMetaData.undistorted_path)
+  return _internal_undistorted_path();
+}
+inline void ImageMetaData::set_undistorted_path(const std::string& value) {
+  _internal_set_undistorted_path(value);
+  // @@protoc_insertion_point(field_set:ImageMetaData.undistorted_path)
+}
+inline std::string* ImageMetaData::mutable_undistorted_path() {
+  // @@protoc_insertion_point(field_mutable:ImageMetaData.undistorted_path)
+  return _internal_mutable_undistorted_path();
+}
+inline const std::string& ImageMetaData::_internal_undistorted_path() const {
+  return undistorted_path_.GetNoArena();
+}
+inline void ImageMetaData::_internal_set_undistorted_path(const std::string& value) {
+  
+  undistorted_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void ImageMetaData::set_undistorted_path(std::string&& value) {
+  
+  undistorted_path_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:ImageMetaData.undistorted_path)
+}
+inline void ImageMetaData::set_undistorted_path(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  undistorted_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:ImageMetaData.undistorted_path)
+}
+inline void ImageMetaData::set_undistorted_path(const char* value, size_t size) {
+  
+  undistorted_path_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:ImageMetaData.undistorted_path)
+}
+inline std::string* ImageMetaData::_internal_mutable_undistorted_path() {
+  
+  return undistorted_path_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* ImageMetaData::release_undistorted_path() {
+  // @@protoc_insertion_point(field_release:ImageMetaData.undistorted_path)
+  
+  return undistorted_path_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void ImageMetaData::set_allocated_undistorted_path(std::string* undistorted_path) {
+  if (undistorted_path != nullptr) {
+    
+  } else {
+    
+  }
+  undistorted_path_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), undistorted_path);
+  // @@protoc_insertion_point(field_set_allocated:ImageMetaData.undistorted_path)
 }
 
 // -------------------------------------------------------------------

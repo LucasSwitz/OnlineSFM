@@ -47,7 +47,7 @@ struct TableStruct_worker_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[14]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -90,6 +90,12 @@ extern WorkerIncrementalSFMRequestDefaultTypeInternal _WorkerIncrementalSFMReque
 class WorkerIncrementalSFMResponse;
 class WorkerIncrementalSFMResponseDefaultTypeInternal;
 extern WorkerIncrementalSFMResponseDefaultTypeInternal _WorkerIncrementalSFMResponse_default_instance_;
+class WorkerMVSRequest;
+class WorkerMVSRequestDefaultTypeInternal;
+extern WorkerMVSRequestDefaultTypeInternal _WorkerMVSRequest_default_instance_;
+class WorkerMVSResponse;
+class WorkerMVSResponseDefaultTypeInternal;
+extern WorkerMVSResponseDefaultTypeInternal _WorkerMVSResponse_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::RegisterWorkerRequest* Arena::CreateMaybeMessage<::RegisterWorkerRequest>(Arena*);
 template<> ::RegisterWorkerResponse* Arena::CreateMaybeMessage<::RegisterWorkerResponse>(Arena*);
@@ -103,6 +109,8 @@ template<> ::WorkerComputeStructureRequest* Arena::CreateMaybeMessage<::WorkerCo
 template<> ::WorkerComputeStructureResponse* Arena::CreateMaybeMessage<::WorkerComputeStructureResponse>(Arena*);
 template<> ::WorkerIncrementalSFMRequest* Arena::CreateMaybeMessage<::WorkerIncrementalSFMRequest>(Arena*);
 template<> ::WorkerIncrementalSFMResponse* Arena::CreateMaybeMessage<::WorkerIncrementalSFMResponse>(Arena*);
+template<> ::WorkerMVSRequest* Arena::CreateMaybeMessage<::WorkerMVSRequest>(Arena*);
+template<> ::WorkerMVSResponse* Arena::CreateMaybeMessage<::WorkerMVSResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
@@ -1670,6 +1678,256 @@ class WorkerComputeStructureResponse :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_worker_2eproto;
 };
+// -------------------------------------------------------------------
+
+class WorkerMVSRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:WorkerMVSRequest) */ {
+ public:
+  WorkerMVSRequest();
+  virtual ~WorkerMVSRequest();
+
+  WorkerMVSRequest(const WorkerMVSRequest& from);
+  WorkerMVSRequest(WorkerMVSRequest&& from) noexcept
+    : WorkerMVSRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline WorkerMVSRequest& operator=(const WorkerMVSRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WorkerMVSRequest& operator=(WorkerMVSRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WorkerMVSRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const WorkerMVSRequest* internal_default_instance() {
+    return reinterpret_cast<const WorkerMVSRequest*>(
+               &_WorkerMVSRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(WorkerMVSRequest& a, WorkerMVSRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(WorkerMVSRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WorkerMVSRequest* New() const final {
+    return CreateMaybeMessage<WorkerMVSRequest>(nullptr);
+  }
+
+  WorkerMVSRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WorkerMVSRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WorkerMVSRequest& from);
+  void MergeFrom(const WorkerMVSRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WorkerMVSRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "WorkerMVSRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_worker_2eproto);
+    return ::descriptor_table_worker_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:WorkerMVSRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_worker_2eproto;
+};
+// -------------------------------------------------------------------
+
+class WorkerMVSResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:WorkerMVSResponse) */ {
+ public:
+  WorkerMVSResponse();
+  virtual ~WorkerMVSResponse();
+
+  WorkerMVSResponse(const WorkerMVSResponse& from);
+  WorkerMVSResponse(WorkerMVSResponse&& from) noexcept
+    : WorkerMVSResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline WorkerMVSResponse& operator=(const WorkerMVSResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline WorkerMVSResponse& operator=(WorkerMVSResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const WorkerMVSResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const WorkerMVSResponse* internal_default_instance() {
+    return reinterpret_cast<const WorkerMVSResponse*>(
+               &_WorkerMVSResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(WorkerMVSResponse& a, WorkerMVSResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(WorkerMVSResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline WorkerMVSResponse* New() const final {
+    return CreateMaybeMessage<WorkerMVSResponse>(nullptr);
+  }
+
+  WorkerMVSResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<WorkerMVSResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const WorkerMVSResponse& from);
+  void MergeFrom(const WorkerMVSResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(WorkerMVSResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "WorkerMVSResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_worker_2eproto);
+    return ::descriptor_table_worker_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:WorkerMVSResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_worker_2eproto;
+};
 // ===================================================================
 
 
@@ -2285,9 +2543,81 @@ inline void WorkerComputeStructureRequest::set_allocated_reconstruction_id(std::
 
 // WorkerComputeStructureResponse
 
+// -------------------------------------------------------------------
+
+// WorkerMVSRequest
+
+// string reconstruction_id = 1;
+inline void WorkerMVSRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& WorkerMVSRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:WorkerMVSRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void WorkerMVSRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:WorkerMVSRequest.reconstruction_id)
+}
+inline std::string* WorkerMVSRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:WorkerMVSRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& WorkerMVSRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void WorkerMVSRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void WorkerMVSRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:WorkerMVSRequest.reconstruction_id)
+}
+inline void WorkerMVSRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:WorkerMVSRequest.reconstruction_id)
+}
+inline void WorkerMVSRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:WorkerMVSRequest.reconstruction_id)
+}
+inline std::string* WorkerMVSRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* WorkerMVSRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:WorkerMVSRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void WorkerMVSRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:WorkerMVSRequest.reconstruction_id)
+}
+
+// -------------------------------------------------------------------
+
+// WorkerMVSResponse
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

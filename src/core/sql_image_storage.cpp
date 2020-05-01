@@ -5,24 +5,22 @@
 
 #define SQL_GET_IMAGE(t) "SELECT * FROM " + t + " WHERE ID = ? "
 #define SQL_GET_ALL_IMAGES(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
-#define SQL_INSERT_IMAGE(t) "INSERT INTO " + t +  " VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE PATH = ?, FORMAT = ?"
+#define SQL_INSERT_IMAGE(t) "INSERT INTO " + t +  " VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE PATH = ?, FORMAT = ?"
 #define SQL_DELETE_IMAGE(t) "DELETE FROM "+ t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_IMAGES(t) "DELETE FROM "+ t + " WHERE RECONSTRUCTION_ID = ?"
-#define SQL_INSERT_UNDISTORTED(t) "UPDATE " + t + " SET DISTORTED_PATH = ? WHERE IMAGE_ID = ?"
+#define SQL_INSERT_UNDISTORTED(t) "UPDATE " + t + " SET UNDISTORTED_PATH = ? WHERE ID = ?"
 
-SQLImageStorage::SQLImageStorage(sql::Driver* driver, 
-                                 std::shared_ptr<sql::Connection> con,
+SQLImageStorage::SQLImageStorage(
                                  std::shared_ptr<ImageDataStorage> data_storage,
                                  const std::string& table) : 
                                                             _data_storage(data_storage),
-                                                            SQLStorage(driver, con),
                                                             _table(table){
 }
 
 ImageMetaData SQLImageStorage::GetMeta(const std::string& image_id){
-    LOG(INFO) << "Retrieving Image " << image_id;
+    auto connection_loan = this->GetConnection();
     ImageMetaData image;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_IMAGE(this->_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_IMAGE(this->_table), connection_loan.con,
         [this, image_id](sql::PreparedStatement *stmt){
             stmt->setString(1, image_id);
     });
@@ -36,14 +34,17 @@ ImageMetaData SQLImageStorage::GetMeta(const std::string& image_id){
         image.set_id(res->getString("ID"));
         image.set_reconstruction(res->getString("RECONSTRUCTION_ID"));
         image.set_path(res->getString("PATH"));
+        image.set_undistorted_path(res->getString("UNDISTORTED_PATH"));
+        image.set_format(res->getString("FORMAT"));
     }
     delete res;
     return image;
 }
 
 std::vector<ImageMetaData> SQLImageStorage::GetAll(std::string reconstruction_id){
-    LOG(INFO) << "Retrieving all image for reconstruction " << reconstruction_id;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_IMAGES(this->_table), 
+    auto connection_loan = this->GetConnection();
+    LOG(INFO) << "Retrieving all image metadata for reconstruction " << reconstruction_id;
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_IMAGES(this->_table), connection_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });
@@ -59,10 +60,9 @@ std::vector<ImageMetaData> SQLImageStorage::GetAll(std::string reconstruction_id
         img.set_id(res->getString("ID"));
         img.set_reconstruction(res->getString("RECONSTRUCTION_ID"));
         img.set_path(res->getString("PATH"));
+        img.set_format(res->getString("FORMAT"));
         images.push_back(img);
     }
-
-
     delete res;
     return images;
 }
@@ -82,8 +82,9 @@ int SQLImageStorage::Store(const ImageData& image_data){
             stmt->setString(2, image_data.metadata().reconstruction());
             stmt->setString(3, path);
             stmt->setString(4, image_data.metadata().format());
-            stmt->setString(5, path);
-            stmt->setString(6, image_data.metadata().format());
+            stmt->setString(5, "");
+            stmt->setString(6, path);
+            stmt->setString(7, image_data.metadata().format());
     });
     //TODO return a status code or something
 }
@@ -129,11 +130,21 @@ void SQLImageStorage::StoreUndistorted(const std::string& image_id, ImageData& u
                                                   "/images/" + 
                                                   undistored_data.metadata().id() + "." + undistored_data.metadata().format();
     std::string path = this->_data_storage->StoreImage(undistored_data, rel_path);
-
     // Store to DB
-    this->IssueUpdate(SQL_INSERT_IMAGE(this->_table), 
+    this->IssueUpdate(SQL_INSERT_UNDISTORTED(this->_table), 
         [this, image_id, path](sql::PreparedStatement *stmt){
             stmt->setString(1, path);
             stmt->setString(2, image_id);
     });
+}
+
+ImageData SQLImageStorage::GetUndistorted(const std::string& image_id){
+    ImageMetaData meta = this->GetMeta(image_id);
+    ImageData img_data;
+    std::vector<char> raw_data;
+    if(this->_data_storage->GetImage(meta.undistorted_path(), raw_data)){
+        std::string data_str(raw_data.begin(), raw_data.end());
+        img_data.set_data(data_str);
+    }
+    return img_data;
 }

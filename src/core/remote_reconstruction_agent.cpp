@@ -95,3 +95,12 @@ bool RemoteReconstructionAgent::ComputeStructure(){
     auto status = this->_client.ComputeStructure(&ctx, req, &resp);
     return status.ok();
 }
+
+bool RemoteReconstructionAgent::MVS(){
+    ClientContext ctx;
+    WorkerMVSRequest req;
+    WorkerMVSResponse resp;
+    req.set_reconstruction_id(this->_reconstruction_id);
+    auto status = this->_client.MVS(&ctx, req, &resp);
+    return status.ok();
+}

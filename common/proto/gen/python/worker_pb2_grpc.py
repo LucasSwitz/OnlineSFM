@@ -44,6 +44,11 @@ class WorkerPoolManagerStub(object):
         request_serializer=worker__pb2.WorkerComputeStructureRequest.SerializeToString,
         response_deserializer=worker__pb2.WorkerComputeStructureResponse.FromString,
         )
+    self.MVS = channel.unary_unary(
+        '/WorkerPoolManager/MVS',
+        request_serializer=worker__pb2.WorkerMVSRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerMVSResponse.FromString,
+        )
 
 
 class WorkerPoolManagerServicer(object):
@@ -92,6 +97,13 @@ class WorkerPoolManagerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def MVS(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_WorkerPoolManagerServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -124,6 +136,11 @@ def add_WorkerPoolManagerServicer_to_server(servicer, server):
           servicer.ComputeStructure,
           request_deserializer=worker__pb2.WorkerComputeStructureRequest.FromString,
           response_serializer=worker__pb2.WorkerComputeStructureResponse.SerializeToString,
+      ),
+      'MVS': grpc.unary_unary_rpc_method_handler(
+          servicer.MVS,
+          request_deserializer=worker__pb2.WorkerMVSRequest.FromString,
+          response_serializer=worker__pb2.WorkerMVSResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
@@ -166,6 +183,11 @@ class WorkerStub(object):
         request_serializer=worker__pb2.WorkerComputeStructureRequest.SerializeToString,
         response_deserializer=worker__pb2.WorkerComputeStructureResponse.FromString,
         )
+    self.MVS = channel.unary_unary(
+        '/Worker/MVS',
+        request_serializer=worker__pb2.WorkerMVSRequest.SerializeToString,
+        response_deserializer=worker__pb2.WorkerMVSResponse.FromString,
+        )
 
 
 class WorkerServicer(object):
@@ -207,6 +229,13 @@ class WorkerServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def MVS(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_WorkerServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -234,6 +263,11 @@ def add_WorkerServicer_to_server(servicer, server):
           servicer.ComputeStructure,
           request_deserializer=worker__pb2.WorkerComputeStructureRequest.FromString,
           response_serializer=worker__pb2.WorkerComputeStructureResponse.SerializeToString,
+      ),
+      'MVS': grpc.unary_unary_rpc_method_handler(
+          servicer.MVS,
+          request_deserializer=worker__pb2.WorkerMVSRequest.FromString,
+          response_serializer=worker__pb2.WorkerMVSResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

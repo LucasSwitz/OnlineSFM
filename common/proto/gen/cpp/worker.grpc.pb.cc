@@ -27,6 +27,7 @@ static const char* WorkerPoolManager_method_names[] = {
   "/WorkerPoolManager/ComputeMatches",
   "/WorkerPoolManager/IncrementalSFM",
   "/WorkerPoolManager/ComputeStructure",
+  "/WorkerPoolManager/MVS",
 };
 
 std::unique_ptr< WorkerPoolManager::Stub> WorkerPoolManager::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -42,6 +43,7 @@ WorkerPoolManager::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
   , rpcmethod_ComputeMatches_(WorkerPoolManager_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_IncrementalSFM_(WorkerPoolManager_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ComputeStructure_(WorkerPoolManager_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_MVS_(WorkerPoolManager_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status WorkerPoolManager::Stub::Register(::grpc::ClientContext* context, const ::RegisterWorkerRequest& request, ::RegisterWorkerResponse* response) {
@@ -212,6 +214,34 @@ void WorkerPoolManager::Stub::experimental_async::ComputeStructure(::grpc::Clien
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeStructureResponse>::Create(channel_.get(), cq, rpcmethod_ComputeStructure_, context, request, false);
 }
 
+::grpc::Status WorkerPoolManager::Stub::MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::WorkerMVSResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_MVS_, context, request, response);
+}
+
+void WorkerPoolManager::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, std::move(f));
+}
+
+void WorkerPoolManager::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, reactor);
+}
+
+void WorkerPoolManager::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* WorkerPoolManager::Stub::AsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerMVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* WorkerPoolManager::Stub::PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerMVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, false);
+}
+
 WorkerPoolManager::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WorkerPoolManager_method_names[0],
@@ -243,6 +273,11 @@ WorkerPoolManager::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(
           std::mem_fn(&WorkerPoolManager::Service::ComputeStructure), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      WorkerPoolManager_method_names[6],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< WorkerPoolManager::Service, ::WorkerMVSRequest, ::WorkerMVSResponse>(
+          std::mem_fn(&WorkerPoolManager::Service::MVS), this)));
 }
 
 WorkerPoolManager::Service::~Service() {
@@ -290,6 +325,13 @@ WorkerPoolManager::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+::grpc::Status WorkerPoolManager::Service::MVS(::grpc::ServerContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
 
 static const char* Worker_method_names[] = {
   "/Worker/AddImage",
@@ -297,6 +339,7 @@ static const char* Worker_method_names[] = {
   "/Worker/ComputeMatches",
   "/Worker/IncrementalSFM",
   "/Worker/ComputeStructure",
+  "/Worker/MVS",
 };
 
 std::unique_ptr< Worker::Stub> Worker::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -311,6 +354,7 @@ Worker::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   , rpcmethod_ComputeMatches_(Worker_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_IncrementalSFM_(Worker_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ComputeStructure_(Worker_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_MVS_(Worker_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Worker::Stub::AddImage(::grpc::ClientContext* context, const ::WorkerAddImageRequest& request, ::WorkerAddImageResponse* response) {
@@ -453,6 +497,34 @@ void Worker::Stub::experimental_async::ComputeStructure(::grpc::ClientContext* c
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerComputeStructureResponse>::Create(channel_.get(), cq, rpcmethod_ComputeStructure_, context, request, false);
 }
 
+::grpc::Status Worker::Stub::MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::WorkerMVSResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_MVS_, context, request, response);
+}
+
+void Worker::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, std::move(f));
+}
+
+void Worker::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, reactor);
+}
+
+void Worker::Stub::experimental_async::MVS(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::WorkerMVSResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_MVS_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* Worker::Stub::AsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerMVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, true);
+}
+
+::grpc::ClientAsyncResponseReader< ::WorkerMVSResponse>* Worker::Stub::PrepareAsyncMVSRaw(::grpc::ClientContext* context, const ::WorkerMVSRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::WorkerMVSResponse>::Create(channel_.get(), cq, rpcmethod_MVS_, context, request, false);
+}
+
 Worker::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Worker_method_names[0],
@@ -479,6 +551,11 @@ Worker::Service::Service() {
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerComputeStructureRequest, ::WorkerComputeStructureResponse>(
           std::mem_fn(&Worker::Service::ComputeStructure), this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Worker_method_names[5],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Worker::Service, ::WorkerMVSRequest, ::WorkerMVSResponse>(
+          std::mem_fn(&Worker::Service::MVS), this)));
 }
 
 Worker::Service::~Service() {
@@ -513,6 +590,13 @@ Worker::Service::~Service() {
 }
 
 ::grpc::Status Worker::Service::ComputeStructure(::grpc::ServerContext* context, const ::WorkerComputeStructureRequest* request, ::WorkerComputeStructureResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Worker::Service::MVS(::grpc::ServerContext* context, const ::WorkerMVSRequest* request, ::WorkerMVSResponse* response) {
   (void) context;
   (void) request;
   (void) response;

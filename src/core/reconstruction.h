@@ -122,7 +122,7 @@ class Reconstruction {
         bool AddImage(const std::string& image_id, bool index=false);
         bool SparseReconstruct();
         void StoreData(const ReconstructionData& data);
-        bool MVS(bool block = false);
+        bool MVS();
         std::vector<Image> GetImages();
         bool ComputeStructure();
         Image GetImage(const std::string& id);

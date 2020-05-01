@@ -13,7 +13,10 @@ using json = nlohmann::json;
 static int get_next_first_object(json* parent, const std::string& path, json** object){  
     int pos;
     if((pos = path.find(".")) != std::string::npos){
-        *object = &(*parent)[path.substr(0, pos)];
+        std::string k = path.substr(0, pos);
+        if(parent->find(k) == parent->end())
+            throw std::runtime_error("Config element not found: " + path); 
+        *object = &(*parent)[k];
         return pos+1;
     }
     *object = parent;
@@ -36,6 +39,8 @@ class ConfigManager {
                 path_cp = path_cp.substr(last_index, path_cp.size());
                 parent = object;
             }
+            if(object->find(path_cp) == object->end())
+                throw std::runtime_error("Config element not found: " + path);
             return (*object)[path_cp].get<T>();
         }  
 

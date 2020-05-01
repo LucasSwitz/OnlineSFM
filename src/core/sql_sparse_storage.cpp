@@ -8,11 +8,9 @@
 #define SQL_DELETE_SPARSE(t) "DELETE FROM " + t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_SPARSES(t) "DELETE FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 
-SQLSparseStorage::SQLSparseStorage(sql::Driver* driver, 
-                                   std::shared_ptr<sql::Connection> con,
+SQLSparseStorage::SQLSparseStorage(
                                    const std::string& table,
                                    std::shared_ptr<SPCDataStorage> data_storage) :
-                                                               SQLStorage(driver, con),
                                                                _table(table),
                                                                _data_storage(data_storage){
                                     
@@ -36,7 +34,8 @@ SparsePointCloudData SQLSparseStorage::Get(const std::string& sparse_id){
 
 
 SparsePointCloudMetaData SQLSparseStorage::GetMeta(const std::string& sparse_id){
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_SPARSE(this->_table), 
+    auto connection_loan = this->GetConnection();
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_SPARSE(this->_table), connection_loan.con,
         [sparse_id](sql::PreparedStatement *stmt){
             stmt->setString(1, sparse_id);
     });
@@ -83,8 +82,9 @@ void SQLSparseStorage::Delete(const std::string& sparse_id){
 }
 
 std::vector<SparsePointCloudMetaData> SQLSparseStorage::GetAll(const std::string& reconstruction_id){
+    auto connection_loan = this->GetConnection();
     LOG(INFO) << "Retrieving all Sparses for reconstruction " << reconstruction_id;
-    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_SPARSE(this->_table), 
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_SPARSE(this->_table), connection_loan.con,
         [this, reconstruction_id](sql::PreparedStatement *stmt){
             stmt->setString(1, reconstruction_id);
     });

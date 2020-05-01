@@ -93,7 +93,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/gumbo00/OnlineSFM/build/worker",
-            "args": ["config.json"],
+            "args": ["config.json", "0.0.0.0:9994"],
             "cwd": "${workspaceFolder}/build",
             "environment": [],
             "externalConsole": false,

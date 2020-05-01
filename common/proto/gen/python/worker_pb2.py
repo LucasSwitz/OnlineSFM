@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0cworker.proto\"K\n\x1cWorkerComputeFeaturesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x1f\n\x1dWorkerComputeFeaturesResponse\"J\n\x1bWorkerComputeMatchesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x1e\n\x1cWorkerComputeMatchesResponse\"7\n\x15RegisterWorkerRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05\x63ores\x18\x02 \x01(\x05\"\x18\n\x16RegisterWorkerResponse\"D\n\x15WorkerAddImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x18\n\x16WorkerAddImageResponse\"8\n\x1bWorkerIncrementalSFMRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1e\n\x1cWorkerIncrementalSFMResponse\":\n\x1dWorkerComputeStructureRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\" \n\x1eWorkerComputeStructureResponse2\xd2\x03\n\x11WorkerPoolManager\x12;\n\x08Register\x12\x16.RegisterWorkerRequest\x1a\x17.RegisterWorkerResponse\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponse2\x8a\x03\n\x06Worker\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponseb\x06proto3'
+  serialized_pb=b'\n\x0cworker.proto\"K\n\x1cWorkerComputeFeaturesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x1f\n\x1dWorkerComputeFeaturesResponse\"J\n\x1bWorkerComputeMatchesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x1e\n\x1cWorkerComputeMatchesResponse\"7\n\x15RegisterWorkerRequest\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x01(\t\x12\r\n\x05\x63ores\x18\x02 \x01(\x05\"\x18\n\x16RegisterWorkerResponse\"D\n\x15WorkerAddImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x18\n\x16WorkerAddImageResponse\"8\n\x1bWorkerIncrementalSFMRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1e\n\x1cWorkerIncrementalSFMResponse\":\n\x1dWorkerComputeStructureRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\" \n\x1eWorkerComputeStructureResponse\"-\n\x10WorkerMVSRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x13\n\x11WorkerMVSResponse2\x80\x04\n\x11WorkerPoolManager\x12;\n\x08Register\x12\x16.RegisterWorkerRequest\x1a\x17.RegisterWorkerResponse\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponse\x12,\n\x03MVS\x12\x11.WorkerMVSRequest\x1a\x12.WorkerMVSResponse2\xb8\x03\n\x06Worker\x12;\n\x08\x41\x64\x64Image\x12\x16.WorkerAddImageRequest\x1a\x17.WorkerAddImageResponse\x12P\n\x0f\x43omputeFeatures\x12\x1d.WorkerComputeFeaturesRequest\x1a\x1e.WorkerComputeFeaturesResponse\x12M\n\x0e\x43omputeMatches\x12\x1c.WorkerComputeMatchesRequest\x1a\x1d.WorkerComputeMatchesResponse\x12M\n\x0eIncrementalSFM\x12\x1c.WorkerIncrementalSFMRequest\x1a\x1d.WorkerIncrementalSFMResponse\x12S\n\x10\x43omputeStructure\x12\x1e.WorkerComputeStructureRequest\x1a\x1f.WorkerComputeStructureResponse\x12,\n\x03MVS\x12\x11.WorkerMVSRequest\x1a\x12.WorkerMVSResponseb\x06proto3'
 )
 
 
@@ -381,6 +381,61 @@ _WORKERCOMPUTESTRUCTURERESPONSE = _descriptor.Descriptor(
   serialized_end=595,
 )
 
+
+_WORKERMVSREQUEST = _descriptor.Descriptor(
+  name='WorkerMVSRequest',
+  full_name='WorkerMVSRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='reconstruction_id', full_name='WorkerMVSRequest.reconstruction_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=597,
+  serialized_end=642,
+)
+
+
+_WORKERMVSRESPONSE = _descriptor.Descriptor(
+  name='WorkerMVSResponse',
+  full_name='WorkerMVSResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=644,
+  serialized_end=663,
+)
+
 DESCRIPTOR.message_types_by_name['WorkerComputeFeaturesRequest'] = _WORKERCOMPUTEFEATURESREQUEST
 DESCRIPTOR.message_types_by_name['WorkerComputeFeaturesResponse'] = _WORKERCOMPUTEFEATURESRESPONSE
 DESCRIPTOR.message_types_by_name['WorkerComputeMatchesRequest'] = _WORKERCOMPUTEMATCHESREQUEST
@@ -393,6 +448,8 @@ DESCRIPTOR.message_types_by_name['WorkerIncrementalSFMRequest'] = _WORKERINCREME
 DESCRIPTOR.message_types_by_name['WorkerIncrementalSFMResponse'] = _WORKERINCREMENTALSFMRESPONSE
 DESCRIPTOR.message_types_by_name['WorkerComputeStructureRequest'] = _WORKERCOMPUTESTRUCTUREREQUEST
 DESCRIPTOR.message_types_by_name['WorkerComputeStructureResponse'] = _WORKERCOMPUTESTRUCTURERESPONSE
+DESCRIPTOR.message_types_by_name['WorkerMVSRequest'] = _WORKERMVSREQUEST
+DESCRIPTOR.message_types_by_name['WorkerMVSResponse'] = _WORKERMVSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 WorkerComputeFeaturesRequest = _reflection.GeneratedProtocolMessageType('WorkerComputeFeaturesRequest', (_message.Message,), {
@@ -479,6 +536,20 @@ WorkerComputeStructureResponse = _reflection.GeneratedProtocolMessageType('Worke
   })
 _sym_db.RegisterMessage(WorkerComputeStructureResponse)
 
+WorkerMVSRequest = _reflection.GeneratedProtocolMessageType('WorkerMVSRequest', (_message.Message,), {
+  'DESCRIPTOR' : _WORKERMVSREQUEST,
+  '__module__' : 'worker_pb2'
+  # @@protoc_insertion_point(class_scope:WorkerMVSRequest)
+  })
+_sym_db.RegisterMessage(WorkerMVSRequest)
+
+WorkerMVSResponse = _reflection.GeneratedProtocolMessageType('WorkerMVSResponse', (_message.Message,), {
+  'DESCRIPTOR' : _WORKERMVSRESPONSE,
+  '__module__' : 'worker_pb2'
+  # @@protoc_insertion_point(class_scope:WorkerMVSResponse)
+  })
+_sym_db.RegisterMessage(WorkerMVSResponse)
+
 
 
 _WORKERPOOLMANAGER = _descriptor.ServiceDescriptor(
@@ -487,8 +558,8 @@ _WORKERPOOLMANAGER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=598,
-  serialized_end=1064,
+  serialized_start=666,
+  serialized_end=1178,
   methods=[
   _descriptor.MethodDescriptor(
     name='Register',
@@ -544,6 +615,15 @@ _WORKERPOOLMANAGER = _descriptor.ServiceDescriptor(
     output_type=_WORKERCOMPUTESTRUCTURERESPONSE,
     serialized_options=None,
   ),
+  _descriptor.MethodDescriptor(
+    name='MVS',
+    full_name='WorkerPoolManager.MVS',
+    index=6,
+    containing_service=None,
+    input_type=_WORKERMVSREQUEST,
+    output_type=_WORKERMVSRESPONSE,
+    serialized_options=None,
+  ),
 ])
 _sym_db.RegisterServiceDescriptor(_WORKERPOOLMANAGER)
 
@@ -556,8 +636,8 @@ _WORKER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=1067,
-  serialized_end=1461,
+  serialized_start=1181,
+  serialized_end=1621,
   methods=[
   _descriptor.MethodDescriptor(
     name='AddImage',
@@ -602,6 +682,15 @@ _WORKER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_WORKERCOMPUTESTRUCTUREREQUEST,
     output_type=_WORKERCOMPUTESTRUCTURERESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='MVS',
+    full_name='Worker.MVS',
+    index=5,
+    containing_service=None,
+    input_type=_WORKERMVSREQUEST,
+    output_type=_WORKERMVSRESPONSE,
     serialized_options=None,
   ),
 ])
