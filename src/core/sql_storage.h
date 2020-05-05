@@ -22,7 +22,7 @@ class SQLStorage {
         static void InitConnectionPool(unsigned int size);
         virtual ~SQLStorage();
     protected:
-        MySQLConnectionLoan GetConnection();
+        ConnectionLoan<sql::Connection> GetConnection();
     private:
         static std::unique_ptr<MySQLConnectionPool> _connection_pool;
 };

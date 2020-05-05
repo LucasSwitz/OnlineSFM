@@ -62,6 +62,7 @@ file(GLOB WORKER_SOURCES
 add_library(core ${CORE_SOURCES})
 set_property(TARGET core PROPERTY CXX_STANDARD 14)
 target_link_libraries(core 
+                     elasticlient
                      mongocxx 
                      bsoncxx
                      stlplus3

@@ -107,6 +107,28 @@
             ],
             "preLaunchTask": "",
             "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "upload intrinsics",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/gumbo00/OnlineSFM/build/upload_intrinsics_tool",
+            "args": ["/home/gumbo00/OnlineSFM/depends/openMVG/src/openMVG/exif/sensor_width_database/sensor_width_camera_database.txt", 
+                     "tcp://127.0.0.1:3306",
+                     "root", "password", "reconstruction", "CAMERA_INTRINSICS"],
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "",
+            "miDebuggerPath": "/usr/bin/gdb"
         }
     ]
 }

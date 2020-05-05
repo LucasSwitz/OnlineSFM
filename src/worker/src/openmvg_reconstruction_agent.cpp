@@ -225,7 +225,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
 
   ImageHeader imgHeader;
   {
-    PrecisionTimer t("ReadImageHeader");
+    PrecisionTimer t("AddImage.ReadImageHeader");
     if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
         std::cout
             << sImFilenamePart << " Failed to read header" << "\n";
@@ -242,7 +242,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   // If not manually provided or wrongly provided
   if (focal == -1)
   {
-    PrecisionTimer t("ReadExifData");
+    PrecisionTimer t("AddImage.ReadExifData");
     std::unique_ptr<Exif_IO> exifReader(new Exif_IO_EasyExif);
     exifReader->open(image_path);
 
@@ -315,7 +315,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   }
   
   if(intrinsic){
-    PrecisionTimer t("StoreViewAndIntrinsic");
+    PrecisionTimer t("AddImage.StoreViewAndIntrinsic");
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
     this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, image_id, v, intrinsic);
   }else{
@@ -481,7 +481,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       std::string image_path = std::get<1>(*iter);
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
       {
-        PrecisionTimer t("ReadImage");
+        PrecisionTimer t("ComputeFeatures.ReadImage");
         if (!this->_openmvg_images_storage.ReadImage(image_id, &imageGray))
             continue;
       }
@@ -529,7 +529,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       // TODO: this casting bullshit is dangerous and disgusting. Needs be be fixed asap. 
       std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type> sift_regions; 
       {
-        PrecisionTimer t("DescribeRegions");
+        PrecisionTimer t("ComputeFeatures.DescribeRegions");
         sift_regions = std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type>(
           dynamic_cast<SIFT_Anatomy_Image_describer::Regions_type*>(image_describer->Describe(imageGray, mask).release()));
       }
@@ -538,7 +538,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
           return false;
       }
       {
-        PrecisionTimer t("ReadImage");
+        PrecisionTimer t("ComputeFeatures.StoreFeatures");
         this->_regions_storage->Store(this->_reconstruction_id, image_id, std::move(sift_regions));
       }
     }
@@ -563,7 +563,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
 
   Pair_Set pairs;
   {
-    PrecisionTimer t("GatherMatchesToCompute");
+    PrecisionTimer t("ComputeMatches.GatherMatchesToCompute");
     pairs = this->_GatherMatchesToCompute(new_image_ids);
   }
 
@@ -592,7 +592,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   }
   ConfigurationContainerPtr image_describer = config->get_container("image_describer");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_json(image_describer->jsonify());
-  if (!regions_type)
+  if (!regions_type.get())
   {
     throw std::runtime_error("Invalid or null regions type");
   }
@@ -660,11 +660,11 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider
     = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
   {
-    PrecisionTimer t("LoadRegions");
+    PrecisionTimer t("ComputeMatches.LoadRegions");
     regions_provider->load_from_storage(this->_reconstruction_id);
   }
   {
-    PrecisionTimer t("MatchRegions");
+    PrecisionTimer t("ComputeMatches.MatchRegions");
     collectionMatcher->Match(regions_provider, pairs, map_PutativesMatches);
   }
 
@@ -677,7 +677,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   std::unique_ptr<ImageCollectionGeometricFilter> filter_ptr(
     new ImageCollectionGeometricFilter(this->_sfm_data.get(), regions_provider));
   {
-    PrecisionTimer t("FilterRegions");
+    PrecisionTimer t("ComputeMatches.FilterRegions");
     if (filter_ptr)
     {
       const double d_distance_ratio = 0.6;
@@ -748,7 +748,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   }
   LOG(INFO) << "Storing " << geometric_matches.size() << " new matches for reconstruction " << this->_reconstruction_id;
   {
-    PrecisionTimer t("StoreMatches");
+    PrecisionTimer t("ComputeMatches.StoreMatches");
     this->_openmvg_storage->StoreMatches(this->_reconstruction_id, sGeometricModel[0], geometric_matches);
   }
   return true;

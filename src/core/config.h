@@ -3,6 +3,8 @@
 #define CONFIG_GET_BOOL(path) ConfigManager::Instance()->Get<bool>(path)
 #define CONFIG_GET_DOUBLE(path) ConfigManager::Instance()->Get<double>(path)
 #define CONFIG_GET_INT(path) ConfigManager::Instance()->Get<int>(path)
+#define CONFIG_GET_LIST(path) ConfigManager::Instance()->Get<std::vector<std::string>>(path)
+
 #define CONFIG_LOAD(path) ConfigManager::Instance()->Load(path)
 
 #include <string>
@@ -28,7 +30,9 @@ class ConfigManager {
         static ConfigManager* Instance();
         std::string GetString(const std::string& path);
         bool Load(const std::string& path);
-
+        void Set(json& j){
+            _config = j;
+        }
         template <class T>
         T Get(const std::string& path){
             std::string path_cp(path);
@@ -42,7 +46,7 @@ class ConfigManager {
             if(object->find(path_cp) == object->end())
                 throw std::runtime_error("Config element not found: " + path);
             return (*object)[path_cp].get<T>();
-        }  
+        }
 
     private:
         ConfigManager(){};

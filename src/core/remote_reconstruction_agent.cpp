@@ -3,13 +3,13 @@
 #include "worker.pb.h"
 #include <glog/logging.h>
 #include "config.h"
+#include "grpc_service_provider.h"
 
 using namespace grpc;
 
 RemoteReconstructionAgent::RemoteReconstructionAgent(const std::string& reconstruction_id,
-                                                     const std::string& address) : _client(grpc::CreateChannel(address, 
-                                                                                           grpc::InsecureChannelCredentials())),
-                                                                                   _reconstruction_id(reconstruction_id){
+                                                     const std::string& address) : _reconstruction_id(reconstruction_id), 
+                                                                                   _address(address){
 
 }
 
@@ -19,7 +19,7 @@ bool RemoteReconstructionAgent::AddImage(const std::string& image_id){
     WorkerAddImageResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
     req.set_image_id(image_id);
-    auto status = this->_client.AddImage(&ctx, req, &resp);
+    auto status = GRPC_PROVIDER->Get<WorkerPoolManager>(this->_address)->AddImage(&ctx, req, &resp);
     return status.ok();
 }
 
@@ -35,7 +35,7 @@ bool RemoteReconstructionAgent::ComputeFeatures(const std::set<std::string>& ima
         req.set_reconstruction_id(this->_reconstruction_id);
         req.set_image_id(image_id);
         std::unique_ptr<ClientAsyncResponseReader<WorkerComputeFeaturesResponse> > rpc(
-            this->_client.AsyncComputeFeatures(&ctx, req, &cq));
+            GRPC_PROVIDER->Get<WorkerPoolManager>(this->_address)->AsyncComputeFeatures(&ctx, req, &cq));
         rpc->Finish(&responses[i], &statuses[i], (void*)(i+1));
     }
     bool all_ok = true;
@@ -62,7 +62,7 @@ bool RemoteReconstructionAgent::ComputeMatches(const  std::set<std::string>& ima
         req.set_reconstruction_id(this->_reconstruction_id);
         req.set_image_id(image_id);
         std::unique_ptr<ClientAsyncResponseReader<WorkerComputeMatchesResponse> > rpc(
-            this->_client.AsyncComputeMatches(&ctx, req, &cq));
+            GRPC_PROVIDER->Get<WorkerPoolManager>(this->_address)->AsyncComputeMatches(&ctx, req, &cq));
         rpc->Finish(&responses[i], &statuses[i], (void*)(i+1));
     }
     bool all_ok = true;
@@ -83,7 +83,7 @@ bool RemoteReconstructionAgent::IncrementalSFM(){
     WorkerIncrementalSFMRequest req;
     WorkerIncrementalSFMResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
-    auto status = this->_client.IncrementalSFM(&ctx, req, &resp);
+    auto status = GRPC_PROVIDER->Get<WorkerPoolManager>(this->_address)->IncrementalSFM(&ctx, req, &resp);
     return status.ok();
 }
 
@@ -92,7 +92,7 @@ bool RemoteReconstructionAgent::ComputeStructure(){
     WorkerComputeStructureRequest req;
     WorkerComputeStructureResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
-    auto status = this->_client.ComputeStructure(&ctx, req, &resp);
+    auto status = GRPC_PROVIDER->Get<WorkerPoolManager>(this->_address)->ComputeStructure(&ctx, req, &resp);
     return status.ok();
 }
 
@@ -101,6 +101,6 @@ bool RemoteReconstructionAgent::MVS(){
     WorkerMVSRequest req;
     WorkerMVSResponse resp;
     req.set_reconstruction_id(this->_reconstruction_id);
-    auto status = this->_client.MVS(&ctx, req, &resp);
+    auto status = GRPC_PROVIDER->Get<WorkerPoolManager>(this->_address)->MVS(&ctx, req, &resp);
     return status.ok();
 }

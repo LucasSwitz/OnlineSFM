@@ -1,0 +1,8 @@
+{
+    "properties" : {
+        "name" : {"type" : "keyword"},
+        "time" : {"type" : "long"},
+        "duration" : {"type" : "long"},
+        "percent" : {"type": "float"}
+    }
+}

@@ -15,6 +15,6 @@ class RemoteReconstructionAgent : public ReconstructionAgent{
         bool ComputeStructure();
         bool MVS();
     private:
-        WorkerPoolManager::Stub _client;
         std::string _reconstruction_id;
+        std::string _address;
 };

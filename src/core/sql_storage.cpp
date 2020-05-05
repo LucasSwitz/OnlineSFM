@@ -94,7 +94,7 @@ void SQLStorage::Transaction(std::function<void(std::shared_ptr<sql::Connection>
     }
 }
 
-MySQLConnectionLoan SQLStorage::GetConnection(){
+ConnectionLoan<sql::Connection> SQLStorage::GetConnection(){
     return this->_connection_pool->Get();
 }
 

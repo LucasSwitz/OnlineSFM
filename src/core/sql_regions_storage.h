@@ -55,6 +55,10 @@ class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
                     });
                 }
             });
+
+            for(auto is : ifeature_stream_list){
+                delete is;
+            }
         }
 
         std::shared_ptr<T> GetAllRegions(const std::string& reconstruction_id, 

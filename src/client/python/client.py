@@ -62,21 +62,26 @@ class OnlineSFMReconstruction:
 
     def upload_directory(self, directory_path):
         files = glob(directory_path+"/*")
-        upload_futures = []
-        for image_path in files:
-            chunked = []
-            with open(image_path, "rb") as image:
-                meta = ImageMetaData(reconstruction=self._id, format=os.path.splitext(image_path)[1][1:])
-                image_bytes = image.read()
-                for i in range(0, len(image_bytes), CHUNK_SIZE):
-                    chunked.append(ReconstructionUploadImageRequest(reconstruction_id = self._id,
-                                                                    compute_matches = False,
-                                                                    image = ImageData(metadata=meta, 
-                                                                                      data=image_bytes[i:i+CHUNK_SIZE])))
-            upload_futures.append(self._client.ReconstructionUploadImage.future(iter(chunked), timeout=1000))
         image_ids = []
-        for future in upload_futures:
-            image_ids.append(future.result().image_id)
+
+        print("Uploading Images")
+        for i in range(0, len(files), 10):
+            upload_futures = []
+            for image_path in files[i:i+10]:
+                chunked = []
+                with open(image_path, "rb") as image:
+                    meta = ImageMetaData(reconstruction=self._id, format=os.path.splitext(image_path)[1][1:])
+                    image_bytes = image.read()
+                    for i in range(0, len(image_bytes), CHUNK_SIZE):
+                        chunked.append(ReconstructionUploadImageRequest(reconstruction_id = self._id,
+                                                                        compute_matches = False,
+                                                                        image = ImageData(metadata=meta, 
+                                                                                        data=image_bytes[i:i+CHUNK_SIZE])))
+                
+                upload_futures.append(self._client.ReconstructionUploadImage.future(iter(chunked), timeout=1000))
+            for future in upload_futures:
+                image_ids.append(future.result().image_id)
+
         matches_futures = []
         for image_id in image_ids:
             matches_futures.append(self._client.ComputeMatches.future(ComputeMatchesRequest(reconstruction_id = self._id, 

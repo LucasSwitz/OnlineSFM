@@ -10,6 +10,7 @@
 #include "sql_storage.h"
 #include "config.h" 
 #include "util.h"
+#include "grpc_service_provider.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -28,8 +29,10 @@ class WorkerServer : public Worker::Service {
          try{
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
-            reconstruction->ComputeFeatures({request->image_id()});
-            return Status::OK;
+            if(reconstruction->ComputeFeatures({request->image_id()})){
+                return Status::OK;
+            }
+            return Status::CANCELLED;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
             return Status::CANCELLED;
@@ -43,8 +46,10 @@ class WorkerServer : public Worker::Service {
         try{
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
-            reconstruction->AddImage({request->image_id()}, true);
-            return Status::OK;
+            if(reconstruction->AddImage({request->image_id()}, true)){
+                return Status::OK;
+            }
+            return Status::CANCELLED;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
             return Status::CANCELLED;
@@ -58,8 +63,10 @@ class WorkerServer : public Worker::Service {
          try{
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
-            reconstruction->ComputeMatches({request->image_id()});
-            return Status::OK;
+            if(reconstruction->ComputeMatches({request->image_id()})){
+                return Status::OK;
+            }
+            return Status::CANCELLED;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
             return Status::CANCELLED;
@@ -116,7 +123,12 @@ class WorkerServer : public Worker::Service {
 int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
-    SQLStorage::InitConnectionPool(30);
+    SQLStorage::InitConnectionPool(10);
+    TimerDumper::Init(CONFIG_GET_LIST("elastic.hosts"),
+                      CONFIG_GET_STRING("elastic.timer_index"),
+                      CONFIG_GET_STRING("elastic.timer_doc_type"),
+                      CONFIG_GET_INT("elastic.timer_interval"));
+    TimerDumper::Instance()->Start();
     WorkerServer service;
     std::string server_address(argv[2]);
     LOG(INFO) << "Starting server at address " << server_address; 
@@ -127,14 +139,14 @@ int main(int argc, char* argv[]){
     std::shared_ptr<Server> server(builder.BuildAndStart());
     
     LOG(INFO) << "Registering self with pool manager ...";
-    WorkerPoolManager::Stub manager = WorkerPoolManager::Stub(grpc::CreateChannel(CONFIG_GET_STRING("worker_pool.address"),
-                             grpc::InsecureChannelCredentials()));
+    auto manager = GRPC_PROVIDER->Get<WorkerPoolManager>(CONFIG_GET_STRING("worker_pool.address"));
+
     grpc::ClientContext ctx;
     RegisterWorkerRequest req;
     RegisterWorkerResponse resp;
     req.set_address(server_address);
     req.set_cores(CONFIG_GET_INT("worker.cores"));
-    manager.Register(&ctx, req, &resp);
+    manager->Register(&ctx, req, &resp);
     LOG(INFO) << "Server waiting for connections...";
     server->Wait();
     return 1;

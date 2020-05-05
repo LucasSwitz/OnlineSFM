@@ -15,7 +15,7 @@ namespace sfm {
                                        std::unique_ptr<openMVG::features::Regions> regions_type) : _regions_storage(regions_storage),
                                                                                 _openmvg_storage(openmvg_storage){
                     this->region_type_ = std::move(regions_type);
-                }
+            }
             void load_from_storage(const std::string& reconstruction_id){
                  auto regions_map = this->_regions_storage->GetAllRegionsReconstruction(reconstruction_id);
                  std::vector<std::string> image_ids;
