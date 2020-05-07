@@ -192,6 +192,25 @@ OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& recons
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
 }
 
+#include <chrono>
+static void LogImageAdd(const std::string& reconstruction_id, 
+                        const std::string& image_id, 
+                        const std::string& camera_model, 
+                        bool intrinsic_found){
+    json j;
+    j["reconstruction_id"] = reconstruction_id;
+    j["image_id"] = image_id;
+    j["camera_model"] = camera_model;
+    j["instrinic_found"] = intrinsic_found;
+    j["time"] = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+
+    std::stringstream ss;
+    ss << j;
+    ELASTIC_DUMP(CONFIG_GET_STRING("elastic.images_index"), 
+                 CONFIG_GET_STRING("elastic.images_doc_type"), 
+                 ss.str());
+}
+
 bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   PrecisionTimer t("AddImage");
   ImageMetaData img_meta = this->_image_storage->GetMeta(image_id);
@@ -238,6 +257,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   ppx = width / 2.0;
   ppy = height / 2.0;
   CameraIntrinsics intrinsics;
+  std::string sCamModel;
 
   // If not manually provided or wrongly provided
   if (focal == -1)
@@ -252,7 +272,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
 
     if (bHaveValidExifMetadata) // If image contains meta data
     {
-      const std::string sCamModel = exifReader->getModel();
+      sCamModel = exifReader->getModel();
       // Handle case where focal length is equal to 0
       if (exifReader->getFocal() == 0.0f)
       {
@@ -272,9 +292,12 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
           }
           else
           {
+              LogImageAdd(this->_reconstruction_id, image_id, sCamModel, false);
               throw CameraIntrinsicNotFoundException(sCamModel);
           }
       }
+    }else{
+      throw CameraIntrinsicNotFoundException("Invalid Exif Data");
     }
   }
   // Build intrinsic parameter related to the view
@@ -315,10 +338,12 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   }
   
   if(intrinsic){
+    LogImageAdd(this->_reconstruction_id, image_id, sCamModel, true);
     PrecisionTimer t("AddImage.StoreViewAndIntrinsic");
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
     this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, image_id, v, intrinsic);
   }else{
+    LogImageAdd(this->_reconstruction_id, image_id, sCamModel, false);
     LOG(ERROR) << "Null Intrinsic for image " << sImFilenamePart;
     return false; 
   }
@@ -400,7 +425,7 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
   /*const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   if (stlplus::is_file(sImage_describer))
   {
-    // Dynamically load the image_describer from the file (will restore old used settings)
+    // Dynamically load the image_describer from the file (will restore olad used settings)
     std::ifstream stream(sImage_describer.c_str());
     if (!stream.is_open())
       return false;

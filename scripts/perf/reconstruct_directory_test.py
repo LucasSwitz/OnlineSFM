@@ -13,13 +13,16 @@ class ReconstructDirectoryTest(PerfTest):
         
     def run(self):
         try:
-            reconstruction = None
-            with self.timer("NewReconstruction"):
+            #bbd98d7e-857d-4532-9ba8-bd105c4a10e8
+            reconstruction = self._client.get_reconstruction("bbd98d7e-857d-4532-9ba8-bd105c4a10e8")
+            '''with self.timer("NewReconstruction"):
                 reconstruction = self._client.make_reconstruction()
             with self.timer("UploadDirectory"):
                 if len(self._config):
                     reconstruction.set_agent_configuration(self._config)
-                reconstruction.upload_directory(self._directory)
+                reconstruction.upload_directory(self._directory)'''
+            images = reconstruction.get_all_image_ids()
+            reconstruction.compute_matches(images)
             with self.timer("SparseReconstruction"):
                 reconstruction.do_sparse_reconstruction()
             sparse = None

@@ -11,6 +11,7 @@
 #include "config.h" 
 #include "util.h"
 #include "grpc_service_provider.h"
+#include "exceptions.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -46,10 +47,12 @@ class WorkerServer : public Worker::Service {
         try{
             ReconstructionFetcher rf;
             auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(request->reconstruction_id()));
-            if(reconstruction->AddImage({request->image_id()}, true)){
-                return Status::OK;
-            }
-            return Status::CANCELLED;
+            bool success = reconstruction->AddImage({request->image_id()}, true);
+            return Status::OK;
+         }catch(const CameraIntrinsicNotFoundException& e){
+            LOG(INFO) << e.what();
+            // todo: log intrinsic not found
+            return Status::OK;
          }catch(const std::exception& e){
             LOG(ERROR) << e.what();
             return Status::CANCELLED;
@@ -124,11 +127,9 @@ int main(int argc, char* argv[]){
     google::InitGoogleLogging(argv[0]);
     CONFIG_LOAD(argv[1]);
     SQLStorage::InitConnectionPool(10);
-    TimerDumper::Init(CONFIG_GET_LIST("elastic.hosts"),
-                      CONFIG_GET_STRING("elastic.timer_index"),
-                      CONFIG_GET_STRING("elastic.timer_doc_type"),
-                      CONFIG_GET_INT("elastic.timer_interval"));
-    TimerDumper::Instance()->Start();
+    ElasticDumper::Init(CONFIG_GET_LIST("elastic.hosts"),
+                       CONFIG_GET_INT("elastic.timer_interval"));
+    ElasticDumper::Instance()->Start();
     WorkerServer service;
     std::string server_address(argv[2]);
     LOG(INFO) << "Starting server at address " << server_address; 

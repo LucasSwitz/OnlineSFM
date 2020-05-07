@@ -67,6 +67,7 @@ class Image {
         Image(const std::string& id, std::shared_ptr<ImageStorageAdapter> storage_adapter);
         ImageData Data();
         void Delete();
+        std::string ID();
     private:
         std::string _id;
         std::shared_ptr<ImageStorageAdapter> _storage_adapter;

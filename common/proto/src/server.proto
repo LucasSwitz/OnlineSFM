@@ -220,6 +220,14 @@ message ComputeMatchesResponse {
 
 };
 
+message GetAllImagesRequest{
+    string reconstruction_id = 1;
+};
+
+message GetAllImagesResponse {
+    repeated string images = 1;
+};
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
     rpc ReconstructionUploadImage(stream ReconstructionUploadImageRequest) returns (ReconstructionUploadImageResponse){};
@@ -238,4 +246,5 @@ service ReconstructionService {
     rpc MVS(MVSRequest) returns (MVSResponse);
     rpc SetAgentConfigFields(SetAgentConfigFieldsRequest) returns (SetAgentConfigFieldsResponse);
     rpc SetReconstructionConfigFields(SetReconstructionConfigFieldsRequest) returns (SetReconstructionConfigFieldsResponse);
+    rpc GetAllImages(GetAllImagesRequest) returns (GetAllImagesResponse);
 }

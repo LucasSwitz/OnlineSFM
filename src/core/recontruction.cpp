@@ -94,6 +94,10 @@ void Image::Delete(){
     this->_storage_adapter->Delete(this->_id);
 }
 
+std::string Image::ID(){
+    return this->_id;
+}
+
 OBJ::OBJ(const std::string& id, std::shared_ptr<OBJStorageAdapter> obj_storage) : _id(id), _storage_adapter(obj_storage){
 
 }

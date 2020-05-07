@@ -1,6 +1,9 @@
 #include "util.h"
 #include <fstream>
 #include <elasticlient/bulk.h>
+#include "config.h"
+
+
 
 TimerStackMap PrecisionTimer::timer_stacks;
 std::mutex PrecisionTimer::_stacks_mutex;
@@ -41,7 +44,7 @@ std::vector<std::string> ToJson(const TimerDescriptor& desc){
     json root;
     root["name"] = desc.name;
     root["time"] = desc.start;
-    root["duration"] = desc.duration;
+    root["duration"] = desc.duration/1000;
     root["percent"] = desc.percent;
     std::vector<std::string> descs;
     for(auto c : desc.children){
@@ -65,7 +68,13 @@ void Finalize(TimerDescriptor& desc){
 
 void PrecisionTimer::Export(TimerDescriptor& desc){
     //Finalize(desc);
-    TimerDumper::Instance()->Dump(desc);
+    auto descs = ToJson(desc);
+    std::for_each(descs.begin(), descs.end(), [](const auto& e){
+        ELASTIC_DUMP(CONFIG_GET_STRING("elastic.timers_index"), 
+                     CONFIG_GET_STRING("elastic.timer_doc_type"),
+                     e);
+     }
+    );
 }
 
 #include <elasticlient/logging.h>
@@ -75,62 +84,66 @@ void logCallback(elasticlient::LogLevel logLevel, const std::string &msg) {
         LOG(INFO) << (unsigned) logLevel << ": " << msg << std::endl;
 }
 
-std::shared_ptr<TimerDumper> TimerDumper::_instance;
-TimerDumper::TimerDumper(const std::vector<std::string>& hosts, 
-                         const std::string& index, 
-                         const std::string& doc_type, 
-                         unsigned int interval) : _client(std::make_shared<elasticlient::Client>(hosts)), _index(index), _doc_type(doc_type), _interval(interval){
+std::shared_ptr<ElasticDumper> ElasticDumper::_instance;
+ElasticDumper::ElasticDumper(const std::vector<std::string>& hosts,
+                             unsigned int interval) : _client(std::make_shared<elasticlient::Client>(hosts)),  _interval(interval){
     elasticlient::setLogFunction(logCallback);
 }
 
-void TimerDumper::Init(const std::vector<std::string>& hosts, 
-          const std::string& index, 
-          const std::string& doc_type, 
+void ElasticDumper::Init(const std::vector<std::string>& hosts, 
           unsigned int interval){
-    if(!TimerDumper::_instance.get()){
-        TimerDumper::_instance = std::make_shared<TimerDumper>(hosts, index, doc_type, interval);
+    if(!ElasticDumper::_instance.get()){
+        ElasticDumper::_instance = std::make_shared<ElasticDumper>(hosts, interval);
     }
 }
 
-std::shared_ptr<TimerDumper> TimerDumper::Instance(){
-    if(!TimerDumper::_instance.get()){
+std::shared_ptr<ElasticDumper> ElasticDumper::Instance(){
+    if(!ElasticDumper::_instance.get()){
         throw std::runtime_error("TimerDumper not initialized");
     }
-    return TimerDumper::_instance;
+    return ElasticDumper::_instance;
 }
 
-void TimerDumper::Dump(const TimerDescriptor& desc){    
+void ElasticDumper::Dump(const std::string& index, const std::string& doc_type, const std::string& doc){    
     std::lock_guard<std::mutex> l(this->_docs_mutex);
-    auto new_json = ToJson(desc);
-    this->_docs.insert(this->_docs.end(), new_json.begin(), new_json.end());
+    if(this->_docs.find(index) == this->_docs.end()){
+        this->_docs[index] = std::vector<std::tuple<std::string, std::string>>();
+    }
+    this->_docs[index].push_back({doc_type, doc});
 }
 
-void TimerDumper::Start(){
-    this->_dump_thread = std::make_shared<std::thread>(&TimerDumper::_Dump, this);
+void ElasticDumper::Start(){
+    this->_dump_thread = std::make_shared<std::thread>(&ElasticDumper::_Dump, this);
 }
 
 #include <cpr/response.h>
 #include <glog/logging.h>
-void TimerDumper::_Dump(){
+void ElasticDumper::_Dump(){
     this->_running = true;
     while(this->_running){
         std::unique_lock<std::mutex> l(this->_docs_mutex);
         if(this->_docs.size()){
-            elasticlient::Bulk bulk_indexer(this->_client);
-            elasticlient::SameIndexBulkData bulk(this->_index, this->_docs.size());
-            for(std::string& doc : this->_docs){
-                bulk.indexDocument(this->_doc_type, GetUUID(), doc);
+            for(auto indexes : this->_docs){
+                auto index = indexes.first;
+                auto& docs_type = indexes.second;
+                elasticlient::Bulk bulk_indexer(this->_client);
+                elasticlient::SameIndexBulkData bulk(index, this->_docs.size());
+                for(auto& doc_type : docs_type){
+                    auto type = std::get<0>(doc_type);
+                    auto doc = std::get<1>(doc_type);
+                    bulk.indexDocument(type, GetUUID(), doc);
+                }
+                auto errors = bulk_indexer.perform(bulk);
+                bulk.clear();
             }
-            this->_docs.clear();
-            auto errors = bulk_indexer.perform(bulk);
-            bulk.clear();
         }
+        this->_docs.clear();
         l.unlock();
         std::this_thread::sleep_for(std::chrono::milliseconds(this->_interval));
     }
 }
 
-TimerDumper::~TimerDumper(){
+ElasticDumper::~ElasticDumper(){
     this->_running = false;
     if(this->_dump_thread.get()){
         this->_dump_thread->join();

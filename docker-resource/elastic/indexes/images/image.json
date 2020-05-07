@@ -1,0 +1,9 @@
+{
+    "properties" : {
+        "image_id" : {"type" : "keyword"},
+        "reconstruction_id" : {"type" : "keyword"},
+        "camera_model" : {"type" : "keyword"},
+        "instrinsic_found" : {"type" : "boolean"},
+        "time" : {"type" : "date", "format":"epoch_millis"}
+    }
+}

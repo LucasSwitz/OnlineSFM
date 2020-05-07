@@ -8,6 +8,8 @@
 #include <mutex>
 #include <elasticlient/client.h>
 
+#define ELASTIC_DUMP(i,t,d) ElasticDumper::Instance()->Dump(i,t,d)
+
 struct TimerDescriptor{
     TimerDescriptor(const std::string& name) : name(name){}
     void AddChild(TimerDescriptor timer){
@@ -35,28 +37,20 @@ class PrecisionTimer{
         static std::mutex _stacks_mutex;
 };
 
-class TimerDumper {
+class ElasticDumper {
     public: 
-        void Dump(const TimerDescriptor& desc);
+        void Dump(const std::string& index, const std::string& doc_type, const std::string& doc);
         void Start();
-        ~TimerDumper();
-        static void Init(const std::vector<std::string>& hosts, 
-                    const std::string& index, 
-                    const std::string& doc_type, 
-                    unsigned int interval);
-        static std::shared_ptr<TimerDumper> Instance();
-        TimerDumper(const std::vector<std::string>& hosts, 
-            const std::string& index, 
-            const std::string& doc_type, 
-            unsigned int interval);
+        ~ElasticDumper();
+        static void Init(const std::vector<std::string>& hosts, unsigned int interval);
+        static std::shared_ptr<ElasticDumper> Instance();
+        ElasticDumper(const std::vector<std::string>& hosts, unsigned int interval);
     private:
-        std::string _index;
-        std::string _doc_type;
-        std::vector<std::string> _docs;
+        std::unordered_map<std::string, std::vector<std::tuple<std::string, std::string>>> _docs;
         std::shared_ptr<elasticlient::Client> _client;
         std::shared_ptr<std::thread> _dump_thread;
         std::mutex _docs_mutex;
-        static std::shared_ptr<TimerDumper> _instance;
+        static std::shared_ptr<ElasticDumper> _instance;
         unsigned int _interval;
         bool _running = false;
         void _Dump();

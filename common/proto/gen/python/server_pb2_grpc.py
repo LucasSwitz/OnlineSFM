@@ -99,6 +99,11 @@ class ReconstructionServiceStub(object):
         request_serializer=server__pb2.SetReconstructionConfigFieldsRequest.SerializeToString,
         response_deserializer=server__pb2.SetReconstructionConfigFieldsResponse.FromString,
         )
+    self.GetAllImages = channel.unary_unary(
+        '/ReconstructionService/GetAllImages',
+        request_serializer=server__pb2.GetAllImagesRequest.SerializeToString,
+        response_deserializer=server__pb2.GetAllImagesResponse.FromString,
+        )
 
 
 class ReconstructionServiceServicer(object):
@@ -224,6 +229,13 @@ class ReconstructionServiceServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def GetAllImages(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ReconstructionServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -311,6 +323,11 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
           servicer.SetReconstructionConfigFields,
           request_deserializer=server__pb2.SetReconstructionConfigFieldsRequest.FromString,
           response_serializer=server__pb2.SetReconstructionConfigFieldsResponse.SerializeToString,
+      ),
+      'GetAllImages': grpc.unary_unary_rpc_method_handler(
+          servicer.GetAllImages,
+          request_deserializer=server__pb2.GetAllImagesRequest.FromString,
+          response_serializer=server__pb2.GetAllImagesResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

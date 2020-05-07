@@ -382,14 +382,31 @@ class ReconstructionServer : public ReconstructionService::Service {
                                             const SetReconstructionConfigFieldsRequest* request, 
                                             SetReconstructionConfigFieldsResponse* response){
             try {
-            ReconstructionFetcher rf;
-            auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
-            reconstruction->SetConfigFields(request->config_json());
-            return Status::OK;
-        } catch (const std::exception& e){
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
+                ReconstructionFetcher rf;
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
+                reconstruction->SetConfigFields(request->config_json());
+                return Status::OK;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
         }
+
+        Status GetAllImages(ServerContext* context, 
+                                            const GetAllImagesRequest* request, 
+                                            GetAllImagesResponse* response){
+            try {
+                ReconstructionFetcher rf;
+                auto reconstruction = rf.Fetch(RemoteReconstructionContext(request->reconstruction_id()));
+                auto images = reconstruction->GetImages();
+                for(auto image : images){
+                    response->add_images(image.ID());
+                }
+                return Status::OK;
+            } catch (const std::exception& e){
+                LOG(ERROR) << e.what();
+                return Status::CANCELLED;
+            }
         }
 
     private:

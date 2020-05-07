@@ -47,7 +47,7 @@ struct TableStruct_server_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[43]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[45]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -75,6 +75,12 @@ extern GetAgentCOnfigResponseDefaultTypeInternal _GetAgentCOnfigResponse_default
 class GetAgentConfigRequest;
 class GetAgentConfigRequestDefaultTypeInternal;
 extern GetAgentConfigRequestDefaultTypeInternal _GetAgentConfigRequest_default_instance_;
+class GetAllImagesRequest;
+class GetAllImagesRequestDefaultTypeInternal;
+extern GetAllImagesRequestDefaultTypeInternal _GetAllImagesRequest_default_instance_;
+class GetAllImagesResponse;
+class GetAllImagesResponseDefaultTypeInternal;
+extern GetAllImagesResponseDefaultTypeInternal _GetAllImagesResponse_default_instance_;
 class GetOBJRequest;
 class GetOBJRequestDefaultTypeInternal;
 extern GetOBJRequestDefaultTypeInternal _GetOBJRequest_default_instance_;
@@ -191,6 +197,8 @@ template<> ::DeleteReconstructionRequest* Arena::CreateMaybeMessage<::DeleteReco
 template<> ::DeleteReconstructionResponse* Arena::CreateMaybeMessage<::DeleteReconstructionResponse>(Arena*);
 template<> ::GetAgentCOnfigResponse* Arena::CreateMaybeMessage<::GetAgentCOnfigResponse>(Arena*);
 template<> ::GetAgentConfigRequest* Arena::CreateMaybeMessage<::GetAgentConfigRequest>(Arena*);
+template<> ::GetAllImagesRequest* Arena::CreateMaybeMessage<::GetAllImagesRequest>(Arena*);
+template<> ::GetAllImagesResponse* Arena::CreateMaybeMessage<::GetAllImagesResponse>(Arena*);
 template<> ::GetOBJRequest* Arena::CreateMaybeMessage<::GetOBJRequest>(Arena*);
 template<> ::GetOBJResponse* Arena::CreateMaybeMessage<::GetOBJResponse>(Arena*);
 template<> ::GetReconstructionConfigRequest* Arena::CreateMaybeMessage<::GetReconstructionConfigRequest>(Arena*);
@@ -6677,6 +6685,284 @@ class ComputeMatchesResponse :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_server_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetAllImagesRequest :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetAllImagesRequest) */ {
+ public:
+  GetAllImagesRequest();
+  virtual ~GetAllImagesRequest();
+
+  GetAllImagesRequest(const GetAllImagesRequest& from);
+  GetAllImagesRequest(GetAllImagesRequest&& from) noexcept
+    : GetAllImagesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAllImagesRequest& operator=(const GetAllImagesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAllImagesRequest& operator=(GetAllImagesRequest&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetAllImagesRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetAllImagesRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAllImagesRequest*>(
+               &_GetAllImagesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    43;
+
+  friend void swap(GetAllImagesRequest& a, GetAllImagesRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetAllImagesRequest* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetAllImagesRequest* New() const final {
+    return CreateMaybeMessage<GetAllImagesRequest>(nullptr);
+  }
+
+  GetAllImagesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetAllImagesRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetAllImagesRequest& from);
+  void MergeFrom(const GetAllImagesRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetAllImagesRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetAllImagesRequest";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReconstructionIdFieldNumber = 1,
+  };
+  // string reconstruction_id = 1;
+  void clear_reconstruction_id();
+  const std::string& reconstruction_id() const;
+  void set_reconstruction_id(const std::string& value);
+  void set_reconstruction_id(std::string&& value);
+  void set_reconstruction_id(const char* value);
+  void set_reconstruction_id(const char* value, size_t size);
+  std::string* mutable_reconstruction_id();
+  std::string* release_reconstruction_id();
+  void set_allocated_reconstruction_id(std::string* reconstruction_id);
+  private:
+  const std::string& _internal_reconstruction_id() const;
+  void _internal_set_reconstruction_id(const std::string& value);
+  std::string* _internal_mutable_reconstruction_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetAllImagesRequest)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetAllImagesResponse :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:GetAllImagesResponse) */ {
+ public:
+  GetAllImagesResponse();
+  virtual ~GetAllImagesResponse();
+
+  GetAllImagesResponse(const GetAllImagesResponse& from);
+  GetAllImagesResponse(GetAllImagesResponse&& from) noexcept
+    : GetAllImagesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAllImagesResponse& operator=(const GetAllImagesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAllImagesResponse& operator=(GetAllImagesResponse&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const GetAllImagesResponse& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const GetAllImagesResponse* internal_default_instance() {
+    return reinterpret_cast<const GetAllImagesResponse*>(
+               &_GetAllImagesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    44;
+
+  friend void swap(GetAllImagesResponse& a, GetAllImagesResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetAllImagesResponse* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline GetAllImagesResponse* New() const final {
+    return CreateMaybeMessage<GetAllImagesResponse>(nullptr);
+  }
+
+  GetAllImagesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<GetAllImagesResponse>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const GetAllImagesResponse& from);
+  void MergeFrom(const GetAllImagesResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetAllImagesResponse* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "GetAllImagesResponse";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_server_2eproto);
+    return ::descriptor_table_server_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kImagesFieldNumber = 1,
+  };
+  // repeated string images = 1;
+  int images_size() const;
+  private:
+  int _internal_images_size() const;
+  public:
+  void clear_images();
+  const std::string& images(int index) const;
+  std::string* mutable_images(int index);
+  void set_images(int index, const std::string& value);
+  void set_images(int index, std::string&& value);
+  void set_images(int index, const char* value);
+  void set_images(int index, const char* value, size_t size);
+  std::string* add_images();
+  void add_images(const std::string& value);
+  void add_images(std::string&& value);
+  void add_images(const char* value);
+  void add_images(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& images() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_images();
+  private:
+  const std::string& _internal_images(int index) const;
+  std::string* _internal_add_images();
+  public:
+
+  // @@protoc_insertion_point(class_scope:GetAllImagesResponse)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> images_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_server_2eproto;
+};
 // ===================================================================
 
 
@@ -11430,9 +11716,155 @@ inline void ComputeMatchesRequest::set_allocated_image_id(std::string* image_id)
 
 // ComputeMatchesResponse
 
+// -------------------------------------------------------------------
+
+// GetAllImagesRequest
+
+// string reconstruction_id = 1;
+inline void GetAllImagesRequest::clear_reconstruction_id() {
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& GetAllImagesRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:GetAllImagesRequest.reconstruction_id)
+  return _internal_reconstruction_id();
+}
+inline void GetAllImagesRequest::set_reconstruction_id(const std::string& value) {
+  _internal_set_reconstruction_id(value);
+  // @@protoc_insertion_point(field_set:GetAllImagesRequest.reconstruction_id)
+}
+inline std::string* GetAllImagesRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:GetAllImagesRequest.reconstruction_id)
+  return _internal_mutable_reconstruction_id();
+}
+inline const std::string& GetAllImagesRequest::_internal_reconstruction_id() const {
+  return reconstruction_id_.GetNoArena();
+}
+inline void GetAllImagesRequest::_internal_set_reconstruction_id(const std::string& value) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void GetAllImagesRequest::set_reconstruction_id(std::string&& value) {
+  
+  reconstruction_id_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:GetAllImagesRequest.reconstruction_id)
+}
+inline void GetAllImagesRequest::set_reconstruction_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:GetAllImagesRequest.reconstruction_id)
+}
+inline void GetAllImagesRequest::set_reconstruction_id(const char* value, size_t size) {
+  
+  reconstruction_id_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:GetAllImagesRequest.reconstruction_id)
+}
+inline std::string* GetAllImagesRequest::_internal_mutable_reconstruction_id() {
+  
+  return reconstruction_id_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* GetAllImagesRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:GetAllImagesRequest.reconstruction_id)
+  
+  return reconstruction_id_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetAllImagesRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+  if (reconstruction_id != nullptr) {
+    
+  } else {
+    
+  }
+  reconstruction_id_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id);
+  // @@protoc_insertion_point(field_set_allocated:GetAllImagesRequest.reconstruction_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetAllImagesResponse
+
+// repeated string images = 1;
+inline int GetAllImagesResponse::_internal_images_size() const {
+  return images_.size();
+}
+inline int GetAllImagesResponse::images_size() const {
+  return _internal_images_size();
+}
+inline void GetAllImagesResponse::clear_images() {
+  images_.Clear();
+}
+inline std::string* GetAllImagesResponse::add_images() {
+  // @@protoc_insertion_point(field_add_mutable:GetAllImagesResponse.images)
+  return _internal_add_images();
+}
+inline const std::string& GetAllImagesResponse::_internal_images(int index) const {
+  return images_.Get(index);
+}
+inline const std::string& GetAllImagesResponse::images(int index) const {
+  // @@protoc_insertion_point(field_get:GetAllImagesResponse.images)
+  return _internal_images(index);
+}
+inline std::string* GetAllImagesResponse::mutable_images(int index) {
+  // @@protoc_insertion_point(field_mutable:GetAllImagesResponse.images)
+  return images_.Mutable(index);
+}
+inline void GetAllImagesResponse::set_images(int index, const std::string& value) {
+  // @@protoc_insertion_point(field_set:GetAllImagesResponse.images)
+  images_.Mutable(index)->assign(value);
+}
+inline void GetAllImagesResponse::set_images(int index, std::string&& value) {
+  // @@protoc_insertion_point(field_set:GetAllImagesResponse.images)
+  images_.Mutable(index)->assign(std::move(value));
+}
+inline void GetAllImagesResponse::set_images(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  images_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:GetAllImagesResponse.images)
+}
+inline void GetAllImagesResponse::set_images(int index, const char* value, size_t size) {
+  images_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:GetAllImagesResponse.images)
+}
+inline std::string* GetAllImagesResponse::_internal_add_images() {
+  return images_.Add();
+}
+inline void GetAllImagesResponse::add_images(const std::string& value) {
+  images_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:GetAllImagesResponse.images)
+}
+inline void GetAllImagesResponse::add_images(std::string&& value) {
+  images_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:GetAllImagesResponse.images)
+}
+inline void GetAllImagesResponse::add_images(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  images_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:GetAllImagesResponse.images)
+}
+inline void GetAllImagesResponse::add_images(const char* value, size_t size) {
+  images_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:GetAllImagesResponse.images)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+GetAllImagesResponse::images() const {
+  // @@protoc_insertion_point(field_list:GetAllImagesResponse.images)
+  return images_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+GetAllImagesResponse::mutable_images() {
+  // @@protoc_insertion_point(field_mutable_list:GetAllImagesResponse.images)
+  return &images_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

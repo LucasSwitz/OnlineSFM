@@ -12,7 +12,8 @@ from server_pb2 import (ImageData,
                         GetReconstructionConfigRequest,
                         GetAgentConfigRequest,
                         ReconstructionUploadImageRequest,
-                        ComputeMatchesRequest)
+                        ComputeMatchesRequest,
+                        GetAllImagesRequest)
 from server_pb2_grpc import ReconstructionServiceStub
 import sys
 import random
@@ -66,6 +67,7 @@ class OnlineSFMReconstruction:
 
         print("Uploading Images")
         for i in range(0, len(files), 10):
+            print(f"Uploaded {i} images")
             upload_futures = []
             for image_path in files[i:i+10]:
                 chunked = []
@@ -77,7 +79,6 @@ class OnlineSFMReconstruction:
                                                                         compute_matches = False,
                                                                         image = ImageData(metadata=meta, 
                                                                                         data=image_bytes[i:i+CHUNK_SIZE])))
-                
                 upload_futures.append(self._client.ReconstructionUploadImage.future(iter(chunked), timeout=1000))
             for future in upload_futures:
                 image_ids.append(future.result().image_id)
@@ -88,7 +89,19 @@ class OnlineSFMReconstruction:
                                                                                             image_id=image_id),timeout=10000))
         for match_future in matches_futures:
             match_future.result()
-        
+
+
+    def compute_matches(self, images):
+        matches_futures = []
+        for i in range(0, len(images), 10):
+            for image in images[i:i+10]:
+                matches_futures.append(self._client.ComputeMatches.future(ComputeMatchesRequest(reconstruction_id = self._id, 
+                                                                                            image_id=image),timeout=10000))
+        for match_future in matches_futures:
+            match_future.result()
+    
+    def get_all_image_ids(self):
+        return self._client.GetAllImages(GetAllImagesRequest(reconstruction_id=self._id)).images 
         
     def do_sparse_reconstruction(self):
         return self._client.SparseReconstruct(SparseReconstructRequest(reconstruction_id=self._id))
@@ -119,7 +132,6 @@ class OnlineSFMReconstruction:
         agent_name = config["reconstruction_agent"]
         return self.get_agent_config(agent_name)
 
-
     def get_agent_config(self, agent_name):
         aresp = self._client.GetAgentConfig(GetAgentConfigRequest(reconstruction_id=self._id, agent_name=agent_name))
         return json.loads(aresp.config_json)
@@ -133,7 +145,7 @@ class OnlineSFMClient:
         self._client = ReconstructionServiceStub(self._channel)
     
     def get_reconstruction(self, id):
-        pass
+        return OnlineSFMReconstruction(self._client, self._channel, id)
 
     def make_reconstruction(self):
         reconstruction_id = self._client.NewReconstruction(NewReconstructionRequest()).reconstruction_id
