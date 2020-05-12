@@ -9,6 +9,7 @@
 #define SQL_DELETE_IMAGE(t) "DELETE FROM "+ t + " WHERE ID = ?"
 #define SQL_DELETE_ALL_IMAGES(t) "DELETE FROM "+ t + " WHERE RECONSTRUCTION_ID = ?"
 #define SQL_INSERT_UNDISTORTED(t) "UPDATE " + t + " SET UNDISTORTED_PATH = ? WHERE ID = ?"
+#define SQL_GET_IMAGE_COUNT(t) "SELECT count(DISTINCT ID) as N FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 
 SQLImageStorage::SQLImageStorage(
                                  std::shared_ptr<ImageDataStorage> data_storage,
@@ -147,4 +148,24 @@ ImageData SQLImageStorage::GetUndistorted(const std::string& image_id){
         img_data.set_data(data_str);
     }
     return img_data;
+}
+
+unsigned int SQLImageStorage::GetImageCount(const std::string& reconstruction_id){
+    auto connection_loan = this->GetConnection();
+    unsigned int image_count = 0;
+    sql::ResultSet* res = this->IssueQuery(SQL_GET_IMAGE_COUNT(this->_table), connection_loan.con,
+        [this, reconstruction_id](sql::PreparedStatement *stmt){
+            stmt->setString(1, reconstruction_id);
+    });
+
+    if(!res){
+        LOG(ERROR) << "Failure to retrieve results";
+        return image_count;
+    }
+
+    if(res->next()){
+        image_count = res->getInt("N");
+    }
+    delete res;
+    return image_count;
 }

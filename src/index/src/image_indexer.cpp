@@ -41,6 +41,6 @@ void ImageIndexer::Index(const std::string& reconstruction_id, const std::string
     this->_word_storage->Store(reconstruction_id, image_id, word_sparse);
 }
 
-std::unordered_map<std::string, SIFT_Descriptor_count_map> ImageIndexer::GetSimilar(const std::string& image_id){
-    return this->_word_storage->GetAllWithCommonDescriptors(image_id);
+std::set<std::string> ImageIndexer::GetSimilar(const std::string& image_id, std::string* page_start, int page_size){
+    return this->_word_storage->GetAllWithCommonDescriptors(image_id, page_size, page_start);
 }

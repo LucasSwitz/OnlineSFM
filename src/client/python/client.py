@@ -97,8 +97,8 @@ class OnlineSFMReconstruction:
             for image in images[i:i+10]:
                 matches_futures.append(self._client.ComputeMatches.future(ComputeMatchesRequest(reconstruction_id = self._id, 
                                                                                             image_id=image),timeout=10000))
-        for match_future in matches_futures:
-            match_future.result()
+            for match_future in matches_futures:
+                match_future.result()
     
     def get_all_image_ids(self):
         return self._client.GetAllImages(GetAllImagesRequest(reconstruction_id=self._id)).images 

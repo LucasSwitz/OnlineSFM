@@ -24,6 +24,7 @@
 
 #include "openMVG/cameras/Cameras_Common_command_line_helper.hpp"
 #include "openMVG/sfm/pipelines/sequential/sequential_SfM2.hpp"
+#include "openMVG/sfm/pipelines/global/sfm_global_engine_relative_motions.hpp"
 #include "openMVG/sfm/pipelines/sequential/SfmSceneInitializerMaxPair.hpp"
 #include "openMVG/sfm/pipelines/sequential/SfmSceneInitializerStellar.hpp"
 #include "openMVG/sfm/pipelines/sfm_features_provider.hpp"
@@ -352,7 +353,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   GroupSharedIntrinsics(*this->_sfm_data);
 
   // Undistort image and store undistorted
-  /*Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
+  Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
   {
     {
       PrecisionTimer t("ReadImageToUndistort");
@@ -374,7 +375,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
       PrecisionTimer t("StoreUndistortedImage");
       this->_image_storage->StoreUndistorted(image_id, img_undistorted);
     }
-  }*/
+  }
   return true;
 }
 
@@ -581,15 +582,20 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   );
   std::string sGeometricModel = config->get_string("geometric_model");
   float fDistRatio = config->get_double("dist_ratio");
-  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method"); //FASTCASTCADEHASHER had some threading problems?
+  std::string sNearestMatchingMethod = "BRUTEFORCEL2";//config->get_string("nearest_matching_method"); //FASTCASTCADEHASHER had some threading problems?
   bool bGuided_matching = config->get_bool("guided_matching");
   int imax_iteration = config->get_int("max_iterations");
   int ui_max_cache_size = config->get_int("ui_max_cache_size");
-
+  std::vector<std::string> similar_image_ids(new_image_ids.begin(), new_image_ids.end());
   Pair_Set pairs;
   {
     PrecisionTimer t("ComputeMatches.GatherMatchesToCompute");
-    pairs = this->_GatherMatchesToCompute(new_image_ids);
+    pairs = this->_GatherMatchesToCompute(new_image_ids, similar_image_ids);
+  }
+
+  if(pairs.empty()){
+    LOG(INFO) << "No pairs to compare.";
+    return true;
   }
 
   EGeometricModel eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
@@ -686,7 +692,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
   {
     PrecisionTimer t("ComputeMatches.LoadRegions");
-    regions_provider->load_from_storage(this->_reconstruction_id);
+    regions_provider->load_from_storage(this->_reconstruction_id, similar_image_ids);
   }
   {
     PrecisionTimer t("ComputeMatches.MatchRegions");
@@ -779,7 +785,8 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   return true;
 }
 
-openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_ids){    
+openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_ids,   
+                                                                      std::vector<std::string>& relevant_matches){    
     std::set<IndexT> new_ids;
     openMVG::Pair_Set matches_to_compute;
     auto search_client =  GetIndexingClient(CONFIG_GET_STRING("index.address"));
@@ -789,21 +796,27 @@ openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std:
 
     for(const std::string& image_id : new_image_ids){
       LOG(INFO) << "Gathering matches for " << image_id;
+      IndexT view_idx_1 = this->_openmvg_storage->GetViewIdxByImageID(image_id);
+      if(view_idx_1 == -1){
+        LOG(INFO) << "Uncalibrated image " << image_id << ". No matches to compute.";
+        continue;
+      }
       grpc::ClientContext context;
       ClosestNRequest req;
       ClosestNResponse resp;
+      req.set_reconstruction_id(this->_reconstruction_id);
       req.set_image_id(image_id);
       req.set_n(10);
       search_client->ClosestN(&context, req, &resp);
       auto search_result = resp.image_ids();
-      IndexT view_idx_1 = this->_openmvg_storage->GetViewIdxByImageID(image_id);
       for(const std::string& similar_id : search_result){
         IndexT view_idx_2 = this->_openmvg_storage->GetViewIdxByImageID(similar_id);
+        if(view_idx_2 == -1) continue; // uncalibrated match
+        relevant_matches.push_back(similar_id);
         if(matches_to_compute.find({view_idx_2, view_idx_1}) == matches_to_compute.end())
           matches_to_compute.insert({view_idx_1, view_idx_2});
       }
     }
-
     return matches_to_compute;
 }
 
@@ -828,7 +841,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   matches_provider->pairWise_matches_ = std::move(this->_openmvg_storage->GetMatches(this->_reconstruction_id));
   std::shared_ptr<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> feats_provider 
     = std::make_shared<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage);
-  feats_provider->load_from_storage(this->_reconstruction_id);
+  feats_provider->load_from_storage(this->_reconstruction_id, CONFIG_GET_STRING("sql.openmvg_views_table"), CONFIG_GET_STRING("sql.openmvg_matches_table"));
   std::unique_ptr<SfMSceneInitializer> scene_initializer;
     
   if(!this->_sfm_data->poses.empty()){
@@ -846,8 +859,9 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   SequentialSfMReconstructionEngine2 sfmEngine(
     scene_initializer.get(),
     *this->_sfm_data,
-    "/tmp");
-
+    "/tmp",
+    "Reconstruction_Report.html");
+  // Configure the features_provider & the matches_provider
   sfmEngine.SetFeaturesProvider(feats_provider.get());
   sfmEngine.SetMatchesProvider(matches_provider.get());
 
@@ -1047,7 +1061,7 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   }
   std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider 
     = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
-  regions_provider->load_from_storage(this->_reconstruction_id);
+  regions_provider->load_from_storage(this->_reconstruction_id, CONFIG_GET_STRING("sql.openmvg_views_table"), CONFIG_GET_STRING("sql.openmvg_matches_table"));
 
   PairWiseMatches matches = this->_openmvg_storage->GetMatches(this->_reconstruction_id);
   Pair_Set pairs = getPairs(matches);

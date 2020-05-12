@@ -2,11 +2,12 @@
 
 #include "types.h"
 #include <vector>
-#include <unordered_map>
+#include <set>
 
 class Ranker{
     public:
         virtual ~Ranker(){};
-        virtual std::vector<std::string> Rank(const std::string& query, 
-                                              const std::unordered_map<std::string, SIFT_Descriptor_count_map>& res) = 0;
+        virtual std::vector<std::tuple<std::string, float>> Rank(const std::string& reconstruction_id,
+                                              const std::string& query, 
+                                              const std::set<std::string>& res) = 0;
 };

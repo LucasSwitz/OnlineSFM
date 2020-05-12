@@ -182,6 +182,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_index_2eproto::offsets[] PROTO
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ClosestNRequest, reconstruction_id_),
   PROTOBUF_FIELD_OFFSET(::ClosestNRequest, image_id_),
   PROTOBUF_FIELD_OFFSET(::ClosestNRequest, n_),
   ~0u,  // no _has_bits_
@@ -198,7 +199,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 18, -1, sizeof(::GetBagOfWordsRequest)},
   { 24, -1, sizeof(::GetBagOfWordsResponse)},
   { 30, -1, sizeof(::ClosestNRequest)},
-  { 37, -1, sizeof(::ClosestNResponse)},
+  { 38, -1, sizeof(::ClosestNResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -217,14 +218,15 @@ const char descriptor_table_protodef_index_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "id\030\001 \001(\t\022\020\n\010image_id\030\002 \001(\t\"\024\n\022IndexImage"
   "Response\"(\n\024GetBagOfWordsRequest\022\020\n\010imag"
   "e_id\030\001 \001(\t\"2\n\025GetBagOfWordsResponse\022\031\n\005w"
-  "ords\030\001 \003(\0132\n.IndexWord\".\n\017ClosestNReques"
-  "t\022\020\n\010image_id\030\001 \001(\t\022\t\n\001N\030\002 \001(\r\"%\n\020Closes"
-  "tNResponse\022\021\n\timage_ids\030\001 \003(\t2\277\001\n\025Visual"
-  "IndexingService\0225\n\nIndexImage\022\022.IndexIma"
-  "geRequest\032\023.IndexImageResponse\022>\n\rGetBag"
-  "OfWords\022\025.GetBagOfWordsRequest\032\026.GetBagO"
-  "fWordsResponse\022/\n\010ClosestN\022\020.ClosestNReq"
-  "uest\032\021.ClosestNResponseb\006proto3"
+  "ords\030\001 \003(\0132\n.IndexWord\"I\n\017ClosestNReques"
+  "t\022\031\n\021reconstruction_id\030\001 \001(\t\022\020\n\010image_id"
+  "\030\002 \001(\t\022\t\n\001N\030\003 \001(\r\"%\n\020ClosestNResponse\022\021\n"
+  "\timage_ids\030\001 \003(\t2\277\001\n\025VisualIndexingServi"
+  "ce\0225\n\nIndexImage\022\022.IndexImageRequest\032\023.I"
+  "ndexImageResponse\022>\n\rGetBagOfWords\022\025.Get"
+  "BagOfWordsRequest\032\026.GetBagOfWordsRespons"
+  "e\022/\n\010ClosestN\022\020.ClosestNRequest\032\021.Closes"
+  "tNResponseb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_index_2eproto_deps[1] = {
 };
@@ -240,7 +242,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ind
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_index_2eproto_once;
 static bool descriptor_table_index_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_index_2eproto = {
-  &descriptor_table_index_2eproto_initialized, descriptor_table_protodef_index_2eproto, "index.proto", 511,
+  &descriptor_table_index_2eproto_initialized, descriptor_table_protodef_index_2eproto, "index.proto", 538,
   &descriptor_table_index_2eproto_once, descriptor_table_index_2eproto_sccs, descriptor_table_index_2eproto_deps, 7, 0,
   schemas, file_default_instances, TableStruct_index_2eproto::offsets,
   file_level_metadata_index_2eproto, 7, file_level_enum_descriptors_index_2eproto, file_level_service_descriptors_index_2eproto,
@@ -1242,6 +1244,10 @@ ClosestNRequest::ClosestNRequest(const ClosestNRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_reconstruction_id().empty()) {
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
   image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_image_id().empty()) {
     image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
@@ -1252,6 +1258,7 @@ ClosestNRequest::ClosestNRequest(const ClosestNRequest& from)
 
 void ClosestNRequest::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_ClosestNRequest_index_2eproto.base);
+  reconstruction_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   n_ = 0u;
 }
@@ -1262,6 +1269,7 @@ ClosestNRequest::~ClosestNRequest() {
 }
 
 void ClosestNRequest::SharedDtor() {
+  reconstruction_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -1280,6 +1288,7 @@ void ClosestNRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  reconstruction_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   image_id_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   n_ = 0u;
   _internal_metadata_.Clear();
@@ -1292,18 +1301,27 @@ const char* ClosestNRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     CHK_(ptr);
     switch (tag >> 3) {
-      // string image_id = 1;
+      // string reconstruction_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_reconstruction_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ClosestNRequest.reconstruction_id"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string image_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_image_id();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ClosestNRequest.image_id"));
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // uint32 N = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+      // uint32 N = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           n_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
@@ -1334,20 +1352,30 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string image_id = 1;
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reconstruction_id().data(), static_cast<int>(this->_internal_reconstruction_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ClosestNRequest.reconstruction_id");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_reconstruction_id(), target);
+  }
+
+  // string image_id = 2;
   if (this->image_id().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_image_id().data(), static_cast<int>(this->_internal_image_id().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "ClosestNRequest.image_id");
     target = stream->WriteStringMaybeAliased(
-        1, this->_internal_image_id(), target);
+        2, this->_internal_image_id(), target);
   }
 
-  // uint32 N = 2;
+  // uint32 N = 3;
   if (this->n() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_n(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_n(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1366,14 +1394,21 @@ size_t ClosestNRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string image_id = 1;
+  // string reconstruction_id = 1;
+  if (this->reconstruction_id().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reconstruction_id());
+  }
+
+  // string image_id = 2;
   if (this->image_id().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_image_id());
   }
 
-  // uint32 N = 2;
+  // uint32 N = 3;
   if (this->n() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
@@ -1411,6 +1446,10 @@ void ClosestNRequest::MergeFrom(const ClosestNRequest& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from.reconstruction_id().size() > 0) {
+
+    reconstruction_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.reconstruction_id_);
+  }
   if (from.image_id().size() > 0) {
 
     image_id_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.image_id_);
@@ -1441,6 +1480,8 @@ bool ClosestNRequest::IsInitialized() const {
 void ClosestNRequest::InternalSwap(ClosestNRequest* other) {
   using std::swap;
   _internal_metadata_.Swap(&other->_internal_metadata_);
+  reconstruction_id_.Swap(&other->reconstruction_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   image_id_.Swap(&other->image_id_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(n_, other->n_);

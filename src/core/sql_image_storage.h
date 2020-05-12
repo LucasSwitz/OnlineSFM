@@ -17,6 +17,7 @@ class SQLImageStorage : public ImageStorageAdapter, public SQLStorage  {
         int DeleteByReconstruction(const std::string& reconstruction_id);
         ImageData Get(const std::string& image_id);
         ImageData GetUndistorted(const std::string& image_id);
+        unsigned int GetImageCount(const std::string& reconstruction_id);
     private:
         std::string _table;
         std::shared_ptr<ImageDataStorage> _data_storage = nullptr;

@@ -13,5 +13,6 @@ class ImageStorageAdapter {
         virtual int Delete(const std::string& image_id) = 0;
         virtual int DeleteByReconstruction(const std::string& reconstruction_id) = 0;
         virtual ImageData GetUndistorted(const std::string& image_id) = 0;
+        virtual unsigned int GetImageCount(const std::string& reconstruction_id) = 0;
         virtual ~ImageStorageAdapter(){};
 };

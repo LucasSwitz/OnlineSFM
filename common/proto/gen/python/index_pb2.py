@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0bindex.proto\"\x19\n\tIndexWord\x12\x0c\n\x04word\x18\x01 \x01(\x0c\"@\n\x11IndexImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12IndexImageResponse\"(\n\x14GetBagOfWordsRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\"2\n\x15GetBagOfWordsResponse\x12\x19\n\x05words\x18\x01 \x03(\x0b\x32\n.IndexWord\".\n\x0f\x43losestNRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\x12\t\n\x01N\x18\x02 \x01(\r\"%\n\x10\x43losestNResponse\x12\x11\n\timage_ids\x18\x01 \x03(\t2\xbf\x01\n\x15VisualIndexingService\x12\x35\n\nIndexImage\x12\x12.IndexImageRequest\x1a\x13.IndexImageResponse\x12>\n\rGetBagOfWords\x12\x15.GetBagOfWordsRequest\x1a\x16.GetBagOfWordsResponse\x12/\n\x08\x43losestN\x12\x10.ClosestNRequest\x1a\x11.ClosestNResponseb\x06proto3'
+  serialized_pb=b'\n\x0bindex.proto\"\x19\n\tIndexWord\x12\x0c\n\x04word\x18\x01 \x01(\x0c\"@\n\x11IndexImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12IndexImageResponse\"(\n\x14GetBagOfWordsRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\"2\n\x15GetBagOfWordsResponse\x12\x19\n\x05words\x18\x01 \x03(\x0b\x32\n.IndexWord\"I\n\x0f\x43losestNRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\x12\t\n\x01N\x18\x03 \x01(\r\"%\n\x10\x43losestNResponse\x12\x11\n\timage_ids\x18\x01 \x03(\t2\xbf\x01\n\x15VisualIndexingService\x12\x35\n\nIndexImage\x12\x12.IndexImageRequest\x1a\x13.IndexImageResponse\x12>\n\rGetBagOfWords\x12\x15.GetBagOfWordsRequest\x1a\x16.GetBagOfWordsResponse\x12/\n\x08\x43losestN\x12\x10.ClosestNRequest\x1a\x11.ClosestNResponseb\x06proto3'
 )
 
 
@@ -187,15 +187,22 @@ _CLOSESTNREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='image_id', full_name='ClosestNRequest.image_id', index=0,
+      name='reconstruction_id', full_name='ClosestNRequest.reconstruction_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='N', full_name='ClosestNRequest.N', index=1,
-      number=2, type=13, cpp_type=3, label=1,
+      name='image_id', full_name='ClosestNRequest.image_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='N', full_name='ClosestNRequest.N', index=2,
+      number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -213,7 +220,7 @@ _CLOSESTNREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=224,
-  serialized_end=270,
+  serialized_end=297,
 )
 
 
@@ -243,8 +250,8 @@ _CLOSESTNRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=272,
-  serialized_end=309,
+  serialized_start=299,
+  serialized_end=336,
 )
 
 _GETBAGOFWORDSRESPONSE.fields_by_name['words'].message_type = _INDEXWORD
@@ -314,8 +321,8 @@ _VISUALINDEXINGSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=312,
-  serialized_end=503,
+  serialized_start=339,
+  serialized_end=530,
   methods=[
   _descriptor.MethodDescriptor(
     name='IndexImage',

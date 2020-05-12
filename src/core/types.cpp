@@ -1,8 +1,29 @@
 #include "types.h"
 #include <boost/algorithm/string/join.hpp>
+#include <functional>
+#include <numeric>
 
-double SIFT_Descriptor_weight_map_L2_Distance(const SIFT_Descriptor_weight_map& m1, const SIFT_Descriptor_weight_map& m2){
-    return 0.0;
+float SIFT_Descriptor_weight_map_L2_Distance(const SIFT_Descriptor_weight_map& m1, const SIFT_Descriptor_weight_map& m2){
+    auto& bigger = m1.size() > m2.size() ? m1 : m2;
+    auto& smaller = m1 == bigger ? m2 : m1;
+    float distance_2 = 0.0f;
+    for(auto e : bigger){
+        auto desc = e.first; 
+        float weight_1 = e.second;
+        float weight_2 = 0.0;
+        if(smaller.find(desc) != smaller.end()){
+            weight_2 = smaller.at(desc);
+        }
+        distance_2 += (weight_1-weight_2)*(weight_1-weight_2);
+    }
+    for(auto e : smaller){
+        auto desc = e.first;
+        auto weight = e.second;
+        if(bigger.find(desc) == bigger.end()){
+            distance_2+=weight;
+        }
+    }
+    return sqrt(distance_2);
 }
 
 std::string split_SIFT_Vector(const SIFT_Vector& descs){

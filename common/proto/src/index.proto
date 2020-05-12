@@ -22,8 +22,9 @@ message GetBagOfWordsResponse {
 }
 
 message ClosestNRequest{
-    string image_id = 1;
-    uint32 N = 2;
+    string reconstruction_id = 1;
+    string image_id = 2;
+    uint32 N = 3;
 };
 
 message ClosestNResponse {

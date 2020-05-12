@@ -14,6 +14,8 @@
 #include "search_engine.h"
 #include "tfidf_ranker.h"
 #include "sql_descriptor_storage.h"
+#include "sql_image_storage.h"
+#include "remote_storage_adapter.h"
 #include <cppconn/driver.h>
 
 using grpc::Server;
@@ -29,36 +31,51 @@ class VisualIndexingServer : public VisualIndexingService::Service {
     virtual ::grpc::Status IndexImage(ServerContext* context, 
                                       const IndexImageRequest* request, 
                                       IndexImageResponse* response){
-        auto image_indexer = 
-            ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
-        LOG(INFO) << "Indexing image " << request->image_id();
-        image_indexer->Index(request->reconstruction_id(), request->image_id());
-        return Status::OK;
+        try{
+            auto image_indexer = 
+                ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
+            LOG(INFO) << "Indexing image " << request->image_id();
+            image_indexer->Index(request->reconstruction_id(), request->image_id());
+            return Status::OK;
+        }catch(const std::exception& e){
+            LOG(ERROR) << e.what();
+        }
     }
 
     virtual ::grpc::Status GetBagOfWords(ServerContext* context, 
                                           const GetBagOfWordsRequest* request, 
                                           GetBagOfWordsResponse* response){
-        auto image_indexer = 
-            ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
-        return Status::OK;
+        try{
+            auto image_indexer = 
+                ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
+            return Status::OK;
+        }catch(const std::exception& e){
+            LOG(ERROR) << e.what();
+        }
     }
 
     virtual ::grpc::Status ClosestN(ServerContext* context, 
                                    const ClosestNRequest* request, 
                                    ClosestNResponse* response){
         LOG(INFO) << "Searching for " << request->n() << " closest images to " << request->image_id();
-        auto image_indexer = 
-            ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
-        std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
-                                               std::make_shared<SQLDescriptorStorage>(
-                                               CONFIG_GET_STRING("sql.words_table")));
-        SearchEngine search_engine(std::move(image_indexer), std::move(ranker));
-        auto results = search_engine.Search(request->image_id(), request->n());
-        for(auto result : results){
-            response->add_image_ids(result);
+        try{
+            auto image_indexer = 
+                ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
+            std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
+                                                    std::make_shared<SQLDescriptorStorage>(
+                                                    CONFIG_GET_STRING("sql.words_table")),
+                                                std::make_shared<SQLImageStorage>(
+                                                    std::make_shared<RemoteStorageAdapter>(CONFIG_GET_STRING("storage.address")),
+                                                    CONFIG_GET_STRING("sql.views_table")));
+            SearchEngine search_engine(std::move(image_indexer), std::move(ranker));
+            auto results = search_engine.Search(request->reconstruction_id(), request->image_id(), request->n());
+            for(auto result : results){
+                response->add_image_ids(result);
+            }
+            return Status::OK;
+        }catch(const std::exception& e){
+            LOG(ERROR) << e.what();
         }
-        return Status::OK;
     }
 };
 

@@ -49,7 +49,7 @@ class OpenMVGReconstructionAgent : public ReconstructionAgent{
         bool MVS();
     private:
         bool ExportToMVS(const std::string& path);
-        openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_image_paths);
+        openMVG::Pair_Set _GatherMatchesToCompute(const std::set<std::string>& new_image_paths, std::vector<std::string>& relevant_matches);
         bool _GenerateImageFeatures(const std::string& image_path);
         std::unique_ptr<openMVG::sfm::SfM_Data> _sfm_data;
         std::shared_ptr<ConfigurationAdapter> _configuration_adapter;

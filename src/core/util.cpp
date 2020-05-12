@@ -87,7 +87,7 @@ void logCallback(elasticlient::LogLevel logLevel, const std::string &msg) {
 std::shared_ptr<ElasticDumper> ElasticDumper::_instance;
 ElasticDumper::ElasticDumper(const std::vector<std::string>& hosts,
                              unsigned int interval) : _client(std::make_shared<elasticlient::Client>(hosts)),  _interval(interval){
-    elasticlient::setLogFunction(logCallback);
+    //elasticlient::setLogFunction(logCallback);
 }
 
 void ElasticDumper::Init(const std::vector<std::string>& hosts, 

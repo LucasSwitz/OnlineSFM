@@ -7,8 +7,9 @@
 
 #define SQL_INSERT_REGION(t) "INSERT INTO " + t + " VALUES (?,?,?,?)"
 #define SQL_GET_ALL_REGIONS_RECONSTRUCTION(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
-#define SQL_GET_ALL_REGIONS_IMAGE(t) "SELECT * FROM " + t + "WHERE RECONSTRUCTION_ID = ? AND IMAGE_ID = ?"
+#define SQL_GET_ALL_REGIONS_IMAGE(t) "SELECT * FROM " + t + " WHERE RECONSTRUCTION_ID = ? AND IMAGE_ID = ?"
 #define SQL_GET_ALL_DESCRIPTORS(t) "SELECT DESCRIPTOR FROM " + t + " WHERE RECONSTRUCTION_ID = ? AND IMAGE_ID = ?"
+#define SQL_GET_ALL_REGIONS_RECONSTRUCTION_FOR_MATCHES(t,v,m) "SELECT * FROM " + t + " as IR WHERE RECONSTRUCTION_ID = ? AND EXISTS (SELECT IMAGE_ID FROM " + v + " as VIEWS WHERE RECONSTRUCTION_ID = ? AND IR.IMAGE_ID = VIEWS.IMAGE_ID AND EXISTS (SELECT view_1 FROM " + m + " as MATCHES WHERE VIEWS.VIEW_IDX = MATCHES.VIEW_1 OR VIEWS.VIEW_IDX = MATCHES.VIEW_2))"
 
 template<typename T>
 class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
@@ -93,6 +94,37 @@ class SQLRegionsStorage : public SQLStorage, public RegionsStorage<T> {
             sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_REGIONS_RECONSTRUCTION(this->_table), connection_loan.con,
                 [reconstruction_id](sql::PreparedStatement *stmt){
                     stmt->setString(1, reconstruction_id);
+                });
+            while(res->next()){
+                DescriptorT descriptor;
+                FeatureT feature;
+                std::string desc_str = res->getString("DESCRIPTOR");
+                std::string image_id = res->getString("IMAGE_ID");
+                memcpy((char *)descriptor.data(), desc_str.data(), 128);
+                std::stringstream is(res->getString("FEATURE"));
+                {
+                    cereal::BinaryInputArchive archive_in(is);
+                    archive_in(feature);
+                }
+                if(regions_map.find(image_id) == regions_map.end()){
+                    regions_map[image_id] = std::make_shared<T>();
+                }
+                regions_map[image_id]->Descriptors().push_back(descriptor);
+                regions_map[image_id]->Features().push_back(feature);
+            }
+            delete res;
+            return regions_map;
+        }
+
+        image_region_map GetAllRegionsReconstructionForMatches(const std::string& reconstruction_id, 
+                                                               const std::string& views_table, 
+                                                               const std::string& matches_table){
+            auto connection_loan = this->GetConnection();
+            image_region_map regions_map;
+            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_REGIONS_RECONSTRUCTION_FOR_MATCHES(this->_table, views_table, matches_table), connection_loan.con,
+                [reconstruction_id](sql::PreparedStatement *stmt){
+                    stmt->setString(1, reconstruction_id);
+                    stmt->setString(2, reconstruction_id);
                 });
             while(res->next()){
                 DescriptorT descriptor;

@@ -5,15 +5,14 @@
 #include "util.h"
 #include <glog/logging.h>
 
-#define SQL_GET_DESCRIPTORS(t) "SELECT DESCRIPTOR, N FROM " + t + " WHERE IMAGE_ID = ?"
+#define SQL_GET_DESCRIPTORS(t) "SELECT DESCRIPTOR, N FROM " + t + " WHERE RECONSTRUCTION_ID = ? AND IMAGE_ID = ?"
 #define SQL_DELETE_DESCRIPTORS(t) "DELETE FROM "+ t + " WHERE IMAGE_ID = ?"
 #define SQL_STORE_DESCRIPTOR(t) "INSERT INTO " + t +  " VALUES (?,?,?,?)"
-#define SQL_GET_ALL_WITH_DESCRIPTORS(t) "SELECT DISTINCT IMAGE_ID FROM " + t +" WHERE DESCRIPTOR IN (?)"
 #define SQL_GET_DESCRIPTOR_FREQUENCY(t) "SELECT DESCRIPTOR, SUM(N) as N FROM " + t + " WHERE DESCRIPTOR IN (?) GROUP BY DESCRIPTOR"
-#define SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(t) "SELECT T2.IMAGE_ID, T2.DESCRIPTOR, T2.N FROM "+ t +" as T1, "+ t +" as T2 WHERE T1.IMAGE_ID = (?) AND T1.IMAGE_ID != T2.IMAGE_ID AND T1.RECONSTRUCTION_ID = T2.RECONSTRUCTION_ID AND T1.DESCRIPTOR = T2.DESCRIPTOR"
-#define SQL_GET_UNIQUE_IMAGE_COUNT(t) "SELECT COUNT(DISTINCT IMAGE_ID) as TOTAL FROM " + t
-#define SQL_GET_GLOBAL_DESCRIPTOR_FREQUENCIES_BY_IMAGE(t) "SELECT T2.DESCRIPTOR, SUM(T2.N) as N FROM "+ t +" as T1, "+ t +" as T2 WHERE T1.IMAGE_ID = (?) AND T1.DESCRIPTOR = T2.DESCRIPTOR GROUP BY T1.DESCRIPTOR"
-
+#define SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(t) "SELECT T1.IMAGE_ID FROM "+ t +" as T1 WHERE EXISTS (SELECT T2.IMAGE_ID FROM "+ t +" as T2 WHERE T2.IMAGE_ID = (?) AND T2.IMAGE_ID != T1.IMAGE_ID AND T2.RECONSTRUCTION_ID = T1.RECONSTRUCTION_ID AND T2.DESCRIPTOR = T1.DESCRIPTOR)"
+#define SQL_GET_UNIQUE_IMAGE_COUNT(t) "SELECT COUNT(DISTINCT IMAGE_ID) as TOTAL FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
+#define SQL_GET_GLOBAL_DESCRIPTOR_FREQUENCIES_BY_IMAGE(t) "SELECT T2.DESCRIPTOR, SUM(T2.N) as N FROM "+ t +" as T1, "+ t +" as T2 WHERE T1.RECONSTRUCTION_ID = T2.RECONSTRUCTION_ID AND T1.IMAGE_ID = (?) AND T1.DESCRIPTOR = T2.DESCRIPTOR GROUP BY T1.DESCRIPTOR"
+#define SQL_GET_ALL_WITH_DESCRIPTORS_COMMON_PAGED(t) "SELECT T2.IMAGE_ID, T2.DESCRIPTOR, T2.N FROM "+ t +" as T1, "+ t +" as T2 WHERE T1.IMAGE_ID = (?) AND T1.DESCRIPTOR > ? AND T1.IMAGE_ID != T2.IMAGE_ID AND T1.RECONSTRUCTION_ID = T2.RECONSTRUCTION_ID AND T1.DESCRIPTOR = T2.DESCRIPTOR ORDER BY T2.DESCRIPTOR ASC LIMIT ?"
 class SQLDescriptorStorage : public SQLStorage, 
                              public DescriptorStorage<SIFT_Descriptor> {
     public:
@@ -43,12 +42,13 @@ class SQLDescriptorStorage : public SQLStorage,
             });
         }
 
-        SIFT_Descriptor_count_map GetAllDescriptors(const std::string& image_id){
+        SIFT_Descriptor_count_map GetAllDescriptors(const std::string& reconstruction_id, const std::string& image_id){
             auto connection_loan = this->GetConnection();
             SIFT_Descriptor_count_map descs;
             sql::ResultSet* res = this->IssueQuery(SQL_GET_DESCRIPTORS(this->_table), connection_loan.con,
-                [image_id](sql::PreparedStatement *stmt){
-                    stmt->setString(1, image_id);
+                [image_id, reconstruction_id](sql::PreparedStatement *stmt){
+                    stmt->setString(1, reconstruction_id);
+                    stmt->setString(2, image_id);
                 });
             while(res->next()){
                 SIFT_Descriptor descriptor;
@@ -60,67 +60,48 @@ class SQLDescriptorStorage : public SQLStorage,
             return descs;
         }
 
-        std::vector<std::string> GetImagesWithDescriptors(const SIFT_Vector& desc){
+        std::set<std::string> GetAllWithCommonDescriptors(const std::string& image_id, int page_size, std::string* page_start){
             auto connection_loan = this->GetConnection();
-            std::vector<std::string> image_ids;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS(this->_table), connection_loan.con,
-                [desc](sql::PreparedStatement *stmt){
-                    stmt->setString(1, split_SIFT_Vector(desc));
-                });
-            while(res->next()){
-                image_ids.push_back(res->getString("IMAGE_ID"));
-            }
-            delete res;
-            return image_ids;
-        }
+            std::set<std::string> set;
 
-        SIFT_Descriptor_count_map GetDescriptorFrequencies(const SIFT_Vector& desc){
-            auto connection_loan = this->GetConnection();
-            SIFT_Descriptor_count_map map;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_DESCRIPTOR_FREQUENCY(this->_table), connection_loan.con,
-                [desc](sql::PreparedStatement *stmt){
-                    stmt->setString(1, split_SIFT_Vector(desc));
-                });
-            while(res->next()){
-                SIFT_Descriptor descriptor;
-                std::string desc_str = res->getString("DESCRIPTOR");
-                memcpy((char *)descriptor.data(), descriptor.data(), 128);
-                map[descriptor] = res->getUInt64("N");
+            sql::ResultSet* res = nullptr;
+            
+            if(!page_size){
+                res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(this->_table), connection_loan.con,
+                    [image_id](sql::PreparedStatement *stmt){
+                        stmt->setString(1, image_id);
+                    });
+            }else if(!page_start){
+                throw std::runtime_error("You must provide a page start");
+            }else{
+                res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS_COMMON_PAGED(this->_table), connection_loan.con,
+                    [image_id, page_start, page_size](sql::PreparedStatement *stmt){
+                        std::string desc_string((char*) page_start->data(), 128);
+                        stmt->setString(1, image_id);
+                        stmt->setString(2, desc_string);
+                        stmt->setInt(3, page_size);
+                    });
             }
-            delete res;
-            return map;
-        }
-
-        std::unordered_map<std::string, SIFT_Descriptor_count_map> GetAllWithCommonDescriptors(const std::string& image_id){
-            auto connection_loan = this->GetConnection();
-            std::unordered_map<std::string, SIFT_Descriptor_count_map> map;
-            sql::ResultSet* res = this->IssueQuery(SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(this->_table), connection_loan.con,
-                [image_id](sql::PreparedStatement *stmt){
-                    stmt->setString(1, image_id);
-                });
             if(!res){
                 LOG(ERROR) << "Failed to retrieve results";
-                return map;
+                return set;
             }
+            
             while(res->next()){
                 std::string image_id = res->getString("IMAGE_ID");
-                if(map.find(image_id) == map.end()){
-                    map[image_id] = SIFT_Descriptor_count_map();
-                }
-                SIFT_Descriptor descriptor;
-                std::string desc_str = res->getString("DESCRIPTOR");
-                memcpy((char *)descriptor.data(), desc_str.data(), 128);
-                map[image_id][descriptor] = res->getUInt64("N");
+                set.insert(image_id);
             }
             delete res;
-            return map;
+            return set;
         }
 
-        unsigned int GetImageCount(){
+        unsigned int GetImageCount(const std::string& reconstruction_id){
             auto connection_loan = this->GetConnection();
             int total;
             sql::ResultSet* res = this->IssueQuery(SQL_GET_UNIQUE_IMAGE_COUNT(this->_table), connection_loan.con,
-                [](sql::PreparedStatement *stmt){});
+                [reconstruction_id](sql::PreparedStatement *stmt){
+                    stmt->setString(1, reconstruction_id);
+                });
             if(res->next()){
                 total =  res->getUInt64("TOTAL");
             }

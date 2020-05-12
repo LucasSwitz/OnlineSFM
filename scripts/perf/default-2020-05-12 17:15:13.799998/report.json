@@ -1,0 +1,60 @@
+{
+ "test": "default",
+ "steps": {
+  "NewReconstruction": 12.273788452148438,
+  "UploadDirectory": 157372.85161018372,
+  "SparseReconstruction": 17588.124752044678,
+  "GetSparseReconstruction": 3.2265186309814453,
+  "MVS": 1479.2423248291016,
+  "GetAgentConfiguration": 5.788326263427734
+ },
+ "agent_config": {
+  "agent_name": "openmvg",
+  "brute_force": false,
+  "feature_preset": "",
+  "up_right": false,
+  "image_describer_method": "SIFT_ANATOMY",
+  "num_threads": 1,
+  "intrinsic_refinement_options": "ADJUST_ALL",
+  "user_camera_model": 3,
+  "use_motion_priors": false,
+  "triangulation_method": 3,
+  "max_reprojection_error": 4.0,
+  "ui_max_cache_size": 0,
+  "geometric_model": "f",
+  "dist_ratio": 0.8,
+  "nearest_matching_method": "CASCADEHASHINGL2",
+  "guided_matching": false,
+  "max_iterations": 2048,
+  "image_describer": {
+   "image_describer": {
+    "polymorphic_id": 2147483649,
+    "polymorphic_name": "SIFT_Anatomy_Image_describer",
+    "ptr_wrapper": {
+     "valid": 1,
+     "data": {
+      "params": {
+       "first_octave": 0,
+       "num_octaves": 6,
+       "num_scales": 3,
+       "edge_threshold": 10.0,
+       "peak_threshold": 0.03999999910593033,
+       "root_sift": true
+      }
+     }
+    }
+   },
+   "regions_type": {
+    "polymorphic_id": 2147483650,
+    "polymorphic_name": "SIFT_Regions",
+    "ptr_wrapper": {
+     "valid": 1,
+     "data": {
+      "value0": [],
+      "value1": []
+     }
+    }
+   }
+  }
+ }
+}
