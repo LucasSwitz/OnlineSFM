@@ -24,6 +24,7 @@
 
 #include "openMVG/cameras/Cameras_Common_command_line_helper.hpp"
 #include "openMVG/sfm/pipelines/sequential/sequential_SfM2.hpp"
+#include "openMVG/sfm/pipelines/sequential/sequential_SfM.hpp"
 #include "openMVG/sfm/pipelines/global/sfm_global_engine_relative_motions.hpp"
 #include "openMVG/sfm/pipelines/sequential/SfmSceneInitializerMaxPair.hpp"
 #include "openMVG/sfm/pipelines/sequential/SfmSceneInitializerStellar.hpp"
@@ -218,13 +219,27 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   std::string image_path = img_meta.path();
   int i_User_camera_model = PINHOLE_CAMERA_RADIAL3;
   std::shared_ptr<View> v;
+  double width = 1920;
+  double height = 1080;
+
+  ImageHeader imgHeader;
+  {
+    PrecisionTimer t("AddImage.ReadImageHeader");
+    if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
+        std::cout << " Failed to read header" << "\n";
+        return false; // image cannot be read
+    }
+  }
+
+  width = imgHeader.width;
+  height = imgHeader.height;
+
+  double ppx = width / 2.0;
+  double ppy = height / 2.0;
 
   // Expected properties for each image
-  double width = -1, height = -1, focal = -1, ppx = -1,  ppy = -1;
+  double focal = -1;
   const EINTRINSIC e_User_camera_model = EINTRINSIC(i_User_camera_model);
-
-  // Read meta data to fill camera parameter (w,h,focal,ppx,ppy) fields.
-  width = height = ppx = ppy = focal = -1.0;
 
   const std::string sImFilenamePart = stlplus::filename_part(image_path);
   // Test if the image format is supported:
@@ -243,20 +258,6 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
       return false;
   }
 
-  ImageHeader imgHeader;
-  {
-    PrecisionTimer t("AddImage.ReadImageHeader");
-    if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
-        std::cout
-            << sImFilenamePart << " Failed to read header" << "\n";
-        return false; // image cannot be read
-    }
-  }
-
-  width = imgHeader.width;
-  height = imgHeader.height;
-  ppx = width / 2.0;
-  ppy = height / 2.0;
   CameraIntrinsics intrinsics;
   std::string sCamModel;
 
@@ -353,7 +354,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   GroupSharedIntrinsics(*this->_sfm_data);
 
   // Undistort image and store undistorted
-  Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
+  /*Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
   {
     {
       PrecisionTimer t("ReadImageToUndistort");
@@ -375,7 +376,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
       PrecisionTimer t("StoreUndistortedImage");
       this->_image_storage->StoreUndistorted(image_id, img_undistorted);
     }
-  }
+  }*/
   return true;
 }
 
@@ -580,9 +581,9 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     "openmvg",
     nullptr
   );
-  std::string sGeometricModel = config->get_string("geometric_model");
+  std::string sGeometricModel = "e"; //config->get_string("geometric_model");
   float fDistRatio = config->get_double("dist_ratio");
-  std::string sNearestMatchingMethod = "BRUTEFORCEL2";//config->get_string("nearest_matching_method"); //FASTCASTCADEHASHER had some threading problems?
+  std::string sNearestMatchingMethod = config->get_string("nearest_matching_method"); //FASTCASTCADEHASHER had some threading problems?
   bool bGuided_matching = config->get_bool("guided_matching");
   int imax_iteration = config->get_int("max_iterations");
   int ui_max_cache_size = config->get_int("ui_max_cache_size");
@@ -851,7 +852,7 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
       matches_provider.get()));
   }else{
       LOG(INFO) << "Initializing using Stellar.";
-      scene_initializer.reset(new SfMSceneInitializerStellar(*this->_sfm_data,
+      scene_initializer.reset(new SfMSceneInitializerMaxPair(*this->_sfm_data,
       feats_provider.get(),
       matches_provider.get()));
   }

@@ -9,6 +9,7 @@
 #include "openMVG/image/image_container.hpp"
 #include "openMVG/image/image_converter.hpp"
 #include "openMVG/image/image_io.hpp"
+#include "openMVG/image/image_resampling.hpp"
 
 #include "image_data_storage.h"
 #include <vector>
@@ -55,7 +56,7 @@ class ImageStorageOpenMVGAdapter {
     public:
         ImageStorageOpenMVGAdapter(std::shared_ptr<ImageStorageAdapter> storage);
         bool ReadImageHeader(const std::string& image_id,  openMVG::image::ImageHeader * hdr );
-        int ReadImage(const std::string& image_id, openMVG::image::Image<unsigned char> * im){
+        int ReadImage(const std::string& image_id, openMVG::image::Image<unsigned char> * im, int width = 0, int height = 0){
             auto meta = this->_image_storage->GetMeta(image_id);
             ImageData image_data = this->_image_storage->Get(image_id);
             std::vector<unsigned char> image_bytes(image_data.data().begin(), image_data.data().end());
@@ -88,6 +89,22 @@ class ImageStorageOpenMVGAdapter {
             else if ( depth != 1 )
             {
                 return 0;
+            }
+
+            if(width && height){
+                std::vector<std::pair<float , float >> sampling_grid;
+                int w_incr = im->Width() / width;
+                int h_incr = im->Height() / height;
+                sampling_grid.reserve(width*height);
+                for (int i = 0; i < height; ++i){
+                    for (int j = 0; j < width; ++j){
+                        sampling_grid.emplace_back(i*w_incr, j*h_incr);
+                    }
+                }
+                openMVG::image::Sampler2d<openMVG::image::SamplerLinear> sampler;
+                openMVG::image::Image<unsigned char> imageOut;
+                openMVG::image::GenericRessample(*im, sampling_grid, width, height, sampler, imageOut);  
+                *im = imageOut;
             }
             return res;
         }

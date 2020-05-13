@@ -19,7 +19,7 @@ class ReconstructDirectoryTest(PerfTest):
         try:
             #bbd98d7e-857d-4532-9ba8-bd105c4a10e8
             #d93320ad-80b7-43e8-ac16-db13731b8fa4
-            reconstruction = self._client.get_reconstruction("cd4c437f-c56d-4564-bfaa-da59c0e419c1")
+            reconstruction = self._client.get_reconstruction("929e2965-2032-4d21-ad65-5224063dde7a")
             
             '''with self.timer("NewReconstruction"):
                 reconstruction = self._client.make_reconstruction()

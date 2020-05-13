@@ -24,7 +24,7 @@ int main(int argc, char** argv){
     Image<unsigned char> imageGray;
     std::atomic<bool> preemptive_exit(false);
     const unsigned int nb_max_thread = omp_get_max_threads();
-    int iNumThreads = 4;
+    int iNumThreads = 15;
 
     if (iNumThreads > 0) {
         omp_set_num_threads(iNumThreads);

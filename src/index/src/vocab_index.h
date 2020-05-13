@@ -70,7 +70,7 @@ class VisualVocabularyIndex {
 class VisualVocabularyGenerator {
     public:
         VisualVocabularyGenerator(){
-            auto params = KDTreeIndexParams();
+            auto params = KDTreeIndexParams(10);
             params["save_dataset"] = true;
             this->_index = std::make_unique<KDTreeIndex<SIFTDistance>>(Matrix<SIFTDistance::ElementType>(nullptr, 0, 128), params);
         }
