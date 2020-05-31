@@ -5,59 +5,92 @@ import storage_pb2 as storage__pb2
 
 
 class StorageStub(object):
-  # missing associated documentation comment in .proto file
-  pass
+    """Missing associated documentation comment in .proto file"""
 
-  def __init__(self, channel):
-    """Constructor.
+    def __init__(self, channel):
+        """Constructor.
 
-    Args:
-      channel: A grpc.Channel.
-    """
-    self.Store = channel.stream_unary(
-        '/Storage/Store',
-        request_serializer=storage__pb2.StoreItemRequest.SerializeToString,
-        response_deserializer=storage__pb2.StoreItemResponse.FromString,
-        )
-    self.Get = channel.unary_stream(
-        '/Storage/Get',
-        request_serializer=storage__pb2.GetItemRequest.SerializeToString,
-        response_deserializer=storage__pb2.GetItemResponse.FromString,
-        )
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.Store = channel.stream_unary(
+                '/Storage/Store',
+                request_serializer=storage__pb2.StoreItemRequest.SerializeToString,
+                response_deserializer=storage__pb2.StoreItemResponse.FromString,
+                )
+        self.Get = channel.unary_stream(
+                '/Storage/Get',
+                request_serializer=storage__pb2.GetItemRequest.SerializeToString,
+                response_deserializer=storage__pb2.GetItemResponse.FromString,
+                )
 
 
 class StorageServicer(object):
-  # missing associated documentation comment in .proto file
-  pass
+    """Missing associated documentation comment in .proto file"""
 
-  def Store(self, request_iterator, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+    def Store(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-  def Get(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+    def Get(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_StorageServicer_to_server(servicer, server):
-  rpc_method_handlers = {
-      'Store': grpc.stream_unary_rpc_method_handler(
-          servicer.Store,
-          request_deserializer=storage__pb2.StoreItemRequest.FromString,
-          response_serializer=storage__pb2.StoreItemResponse.SerializeToString,
-      ),
-      'Get': grpc.unary_stream_rpc_method_handler(
-          servicer.Get,
-          request_deserializer=storage__pb2.GetItemRequest.FromString,
-          response_serializer=storage__pb2.GetItemResponse.SerializeToString,
-      ),
-  }
-  generic_handler = grpc.method_handlers_generic_handler(
-      'Storage', rpc_method_handlers)
-  server.add_generic_rpc_handlers((generic_handler,))
+    rpc_method_handlers = {
+            'Store': grpc.stream_unary_rpc_method_handler(
+                    servicer.Store,
+                    request_deserializer=storage__pb2.StoreItemRequest.FromString,
+                    response_serializer=storage__pb2.StoreItemResponse.SerializeToString,
+            ),
+            'Get': grpc.unary_stream_rpc_method_handler(
+                    servicer.Get,
+                    request_deserializer=storage__pb2.GetItemRequest.FromString,
+                    response_serializer=storage__pb2.GetItemResponse.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'Storage', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class Storage(object):
+    """Missing associated documentation comment in .proto file"""
+
+    @staticmethod
+    def Store(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/Storage/Store',
+            storage__pb2.StoreItemRequest.SerializeToString,
+            storage__pb2.StoreItemResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def Get(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/Storage/Get',
+            storage__pb2.GetItemRequest.SerializeToString,
+            storage__pb2.GetItemResponse.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)

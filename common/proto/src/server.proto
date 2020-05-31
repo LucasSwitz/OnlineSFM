@@ -228,6 +228,30 @@ message GetAllImagesResponse {
     repeated string images = 1;
 };
 
+message GetImageRegionsResponse {
+    message FeatureList {
+        message Feature{
+            int32 x = 1;
+            int32 y = 2;
+        }
+        repeated Feature features = 1;
+    };
+    map<string, FeatureList> regions = 1;
+};
+
+message GetImageRegionsRequest {
+    string reconstruction_id = 1;
+    string image_id = 2;
+};
+
+message ScoreImagesRequest {
+  string reconstruction_id = 1;  
+};
+
+message ScoreImagesResponse {
+    
+};
+
 service ReconstructionService {
     rpc Handshake(HandhsakeRequest) returns (HandshakeResponse){};
     rpc ReconstructionUploadImage(stream ReconstructionUploadImageRequest) returns (ReconstructionUploadImageResponse){};
@@ -247,4 +271,6 @@ service ReconstructionService {
     rpc SetAgentConfigFields(SetAgentConfigFieldsRequest) returns (SetAgentConfigFieldsResponse);
     rpc SetReconstructionConfigFields(SetReconstructionConfigFieldsRequest) returns (SetReconstructionConfigFieldsResponse);
     rpc GetAllImages(GetAllImagesRequest) returns (GetAllImagesResponse);
+    rpc GetImageRegions(GetImageRegionsRequest) returns (GetImageRegionsResponse);
+    rpc ScoreImage(ScoreImagesRequest) returns (ScoreImagesResponse);
 }

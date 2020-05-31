@@ -1,0 +1,47 @@
+.search-bar label {
+  padding-right: 10px;
+}
+
+.image_panel {
+  display: block;
+  text-align: center;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.image_panel_image {
+  width: inherit;
+  max-width: 200px;
+  max-height: 180px;
+}
+
+.image_panel_title {
+  font-size: 10px;
+}
+
+.grid-container {
+  display: block;
+}
+
+.grid-item {
+  display: inline-block;
+  margin: 10px;
+}
+
+.searched-image-panel {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.searched-image-panel .image_panel {
+  max-width: 300px;
+  max-height: 300px;
+  margin: auto;
+}
+
+.searched-image-panel .image_panel_image {
+  max-width: 300px;
+  max-height: 300px;
+}

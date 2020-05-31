@@ -2,23 +2,26 @@
 
 using namespace sw::redis;
 
-RedisSFMBacklog::RedisSFMBacklog(const std::string& addr, 
-                                               const std::string& user, 
-                                               const std::string& pass): _redis(addr){
-
+RedisSFMBacklog::RedisSFMBacklog(const std::string &addr,
+                                 const std::string &user,
+                                 const std::string &pass) : _redis(addr)
+{
 }
 
-void RedisSFMBacklog::Clear(const std::string& session_id){
+void RedisSFMBacklog::Clear(const std::string &session_id)
+{
     this->_redis.set(session_id, 0);
 }
 
-void RedisSFMBacklog::Incr(const std::string& session_id, size_t incr){
+void RedisSFMBacklog::Incr(const std::string &session_id, size_t incr)
+{
     this->_redis.incrby(session_id, incr);
 }
 
-uint64_t RedisSFMBacklog::CheckCounter(const std::string& session_id){
+uint64_t RedisSFMBacklog::CheckCounter(const std::string &session_id)
+{
     sw::redis::OptionalString res = this->_redis.get(session_id);
-    if(!res->empty())
+    if (!res->empty())
         return std::stoi(*res);
     return 0;
 }

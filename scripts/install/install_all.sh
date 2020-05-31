@@ -6,6 +6,7 @@
 ./install_hiredis.sh
 ./install_libmongodbc.sh
 ./install_libmongodb.sh
+./install_nlohmann-json.sh
 ./install_mvg.sh
 ./install_mvs.sh
 ./install_protobuf.sh

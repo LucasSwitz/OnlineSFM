@@ -1,7 +1,0 @@
-{
- "test": "default",
- "steps": {
-  "SparseReconstruction": 8797.039031982422,
-  "GetSparseReconstruction": 3.065347671508789
- }
-}

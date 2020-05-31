@@ -14,28 +14,30 @@
 
 static std::mutex sql_driver_mux;
 
-std::shared_ptr<ReconstructionContext> RemoteReconstructionContext(const std::string& id){
-     try{ 
+std::shared_ptr<ReconstructionContext> RemoteReconstructionContext(const std::string &id)
+{
+    try
+    {
         auto intrinsics_storage = std::make_shared<SQLCameraIntrinsicsStorage>(
-                                                        CONFIG_GET_STRING("sql.intrinsics_table"));
+            CONFIG_GET_STRING("sql.intrinsics_table"));
         auto config_adapter = std::make_shared<MongoDBConfigurationAdapter>(
-                                                    CONFIG_GET_STRING("mongodb.uri"),
-                                                    CONFIG_GET_STRING("mongodb.db"),
-                                                    CONFIG_GET_STRING("mongodb.agents_collection"),
-                                                    CONFIG_GET_STRING("mongodb.default_agents_collection"),
-                                                    CONFIG_GET_STRING("mongodb.reconstructions_collections"));
+            CONFIG_GET_STRING("mongodb.uri"),
+            CONFIG_GET_STRING("mongodb.db"),
+            CONFIG_GET_STRING("mongodb.agents_collection"),
+            CONFIG_GET_STRING("mongodb.default_agents_collection"),
+            CONFIG_GET_STRING("mongodb.reconstructions_collections"));
         auto remote_storage = std::make_shared<RemoteStorageAdapter>(CONFIG_GET_STRING("storage.address"));
-        auto image_storage = std::make_shared<SQLImageStorage>( 
-                                                        remote_storage, 
-                                                        CONFIG_GET_STRING("sql.views_table"));
+        auto image_storage = std::make_shared<SQLImageStorage>(
+            remote_storage,
+            CONFIG_GET_STRING("sql.views_table"));
         auto sparse_storage = std::make_shared<SQLSparseStorage>(
-                                    CONFIG_GET_STRING("sql.sparse_table"),
-                                    remote_storage);
+            CONFIG_GET_STRING("sql.sparse_table"),
+            remote_storage);
         auto reconstruction_storage = std::make_shared<SQLReconstructionStorage>(
-                                CONFIG_GET_STRING("sql.reconstruction_table"));
+            CONFIG_GET_STRING("sql.reconstruction_table"));
         auto obj_storage = std::make_shared<SQLOBJStorage>(
-                                    CONFIG_GET_STRING("sql.obj_table"),
-                                    remote_storage);
+            CONFIG_GET_STRING("sql.obj_table"),
+            remote_storage);
         auto connection_context = std::make_shared<ReconstructionConnectionContext>(intrinsics_storage,
                                                                                     config_adapter,
                                                                                     remote_storage,
@@ -46,8 +48,9 @@ std::shared_ptr<ReconstructionContext> RemoteReconstructionContext(const std::st
                                                                                     obj_storage);
         auto reconstruction_agent = std::make_shared<RemoteReconstructionAgent>(id, CONFIG_GET_STRING("worker_pool.address"));
         return std::make_shared<ReconstructionContext>(id, connection_context, reconstruction_agent);
-     }catch(const std::exception& e){
-         throw;
-     }
-        
+    }
+    catch (const std::exception &e)
+    {
+        throw;
+    }
 }

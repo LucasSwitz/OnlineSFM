@@ -4,17 +4,19 @@ from client import OnlineSFMClient
 import sys
 import grpc
 
+
 class ReconstructDirectoryTest(PerfTest):
-    def __init__(self, name, server_addr, directory, config = {}):
+    def __init__(self, name, server_addr, directory, config={}):
         super(ReconstructDirectoryTest, self).__init__(name)
         self._client = OnlineSFMClient(server_addr)
         self._directory = directory
         self._config = config
-        
+
     def run(self):
         try:
             with self.timer("NewReconstruction"):
                 reconstruction = self._client.make_reconstruction()
+            print(reconstruction._id)
             with self.timer("UploadDirectory"):
                 if len(self._config):
                     reconstruction.set_agent_configuration(self._config)
@@ -34,7 +36,8 @@ class ReconstructDirectoryTest(PerfTest):
         except grpc.RpcError as rpc_error:
             print("Test failed with rpc_error")
             print(rpc_error)
-    
+
+
 if __name__ == "__main__":
     runner = PerfTestRunner()
     server = sys.argv[1]

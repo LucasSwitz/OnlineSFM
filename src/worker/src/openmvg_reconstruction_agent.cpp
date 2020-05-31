@@ -40,7 +40,6 @@
 #include <utility>
 #include <glog/logging.h>
 
-
 #include "openMVG/graph/graph.hpp"
 #include "openMVG/graph/graph_stats.hpp"
 #include "openMVG/features/akaze/image_describer_akaze.hpp"
@@ -115,58 +114,54 @@ using namespace std;
 enum EGeometricModel
 {
   FUNDAMENTAL_MATRIX = 0,
-  ESSENTIAL_MATRIX   = 1,
-  HOMOGRAPHY_MATRIX  = 2,
+  ESSENTIAL_MATRIX = 1,
+  HOMOGRAPHY_MATRIX = 2,
   ESSENTIAL_MATRIX_ANGULAR = 3,
   ESSENTIAL_MATRIX_ORTHO = 4
 };
 
-features::EDESCRIBER_PRESET stringToEnum(const std::string & sPreset)
+features::EDESCRIBER_PRESET stringToEnum(const std::string &sPreset)
 {
   features::EDESCRIBER_PRESET preset;
   if (sPreset == "NORMAL")
     preset = features::NORMAL_PRESET;
-  else
-  if (sPreset == "HIGH")
+  else if (sPreset == "HIGH")
     preset = features::HIGH_PRESET;
-  else
-  if (sPreset == "ULTRA")
+  else if (sPreset == "ULTRA")
     preset = features::ULTRA_PRESET;
   else
     preset = features::EDESCRIBER_PRESET(-1);
   return preset;
 };
 
-std::pair<bool, openMVG::Vec3> checkGPS
-(
-  const std::string & filename,
-  const int & GPS_to_XYZ_method = 0
-)
+std::pair<bool, openMVG::Vec3> checkGPS(
+    const std::string &filename,
+    const int &GPS_to_XYZ_method = 0)
 {
   std::pair<bool, openMVG::Vec3> val(false, openMVG::Vec3::Zero());
   std::unique_ptr<Exif_IO> exifReader(new Exif_IO_EasyExif);
   if (exifReader)
   {
     // Try to parse EXIF metada & check existence of EXIF data
-    if ( exifReader->open( filename ) && exifReader->doesHaveExifInfo() )
+    if (exifReader->open(filename) && exifReader->doesHaveExifInfo())
     {
       // Check existence of GPS coordinates
       double latitude, longitude, altitude;
-      if ( exifReader->GPSLatitude( &latitude ) &&
-           exifReader->GPSLongitude( &longitude ) &&
-           exifReader->GPSAltitude( &altitude ) )
+      if (exifReader->GPSLatitude(&latitude) &&
+          exifReader->GPSLongitude(&longitude) &&
+          exifReader->GPSAltitude(&altitude))
       {
         // Add ECEF or UTM XYZ position to the GPS position array
         val.first = true;
         switch (GPS_to_XYZ_method)
         {
-          case 1:
-            val.second = lla_to_utm( latitude, longitude, altitude );
-            break;
-          case 0:
-          default:
-            val.second = lla_to_ecef( latitude, longitude, altitude );
-            break;
+        case 1:
+          val.second = lla_to_utm(latitude, longitude, altitude);
+          break;
+        case 0:
+        default:
+          val.second = lla_to_ecef(latitude, longitude, altitude);
+          break;
         }
       }
     }
@@ -174,88 +169,92 @@ std::pair<bool, openMVG::Vec3> checkGPS
   return val;
 }
 
-OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string& reconstruction_id, 
+OpenMVGReconstructionAgent::OpenMVGReconstructionAgent(const std::string &reconstruction_id,
                                                        std::shared_ptr<CameraIntrinsicsStorage> intrinsics_storage,
                                                        std::shared_ptr<OpenMVGStorageAdapter> openmvg_storage,
                                                        std::shared_ptr<ConfigurationAdapter> configuration_adapter,
                                                        std::shared_ptr<RegionsStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_storage,
                                                        std::shared_ptr<ImageStorageAdapter> image_storage,
                                                        std::shared_ptr<SparseStorageAdapter> sparse_storage,
-                                                       std::shared_ptr<OBJStorageAdapter> obj_storage):
-                                                                                  _reconstruction_id(reconstruction_id), 
-                                                                                  _intrinsics_storage(intrinsics_storage),
-                                                                                  _openmvg_storage(openmvg_storage),
-                                                                                  _configuration_adapter(configuration_adapter),
-                                                                                  _regions_storage(regions_storage),
-                                                                                  _image_storage(image_storage),
-                                                                                  _openmvg_images_storage(image_storage),
-                                                                                  _sparse_storage(sparse_storage),
-                                                                                  _obj_storage(obj_storage){
+                                                       std::shared_ptr<OBJStorageAdapter> obj_storage) : _reconstruction_id(reconstruction_id),
+                                                                                                         _intrinsics_storage(intrinsics_storage),
+                                                                                                         _openmvg_storage(openmvg_storage),
+                                                                                                         _configuration_adapter(configuration_adapter),
+                                                                                                         _regions_storage(regions_storage),
+                                                                                                         _image_storage(image_storage),
+                                                                                                         _openmvg_images_storage(image_storage),
+                                                                                                         _sparse_storage(sparse_storage),
+                                                                                                         _obj_storage(obj_storage)
+{
   this->_sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
 }
 
 #include <chrono>
-static void LogImageAdd(const std::string& reconstruction_id, 
-                        const std::string& image_id, 
-                        const std::string& camera_model, 
-                        bool intrinsic_found){
-    json j;
-    j["reconstruction_id"] = reconstruction_id;
-    j["image_id"] = image_id;
-    j["camera_model"] = camera_model;
-    j["instrinic_found"] = intrinsic_found;
-    j["time"] = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+static void LogImageAdd(const std::string &reconstruction_id,
+                        const std::string &image_id,
+                        const std::string &camera_model,
+                        bool intrinsic_found)
+{
+  json j;
+  j["reconstruction_id"] = reconstruction_id;
+  j["image_id"] = image_id;
+  j["camera_model"] = camera_model;
+  j["instrinic_found"] = intrinsic_found;
+  j["time"] = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
-    std::stringstream ss;
-    ss << j;
-    ELASTIC_DUMP(CONFIG_GET_STRING("elastic.images_index"), 
-                 CONFIG_GET_STRING("elastic.images_doc_type"), 
-                 ss.str());
+  std::stringstream ss;
+  ss << j;
+  ELASTIC_DUMP(CONFIG_GET_STRING("elastic.images_index"),
+               CONFIG_GET_STRING("elastic.images_doc_type"),
+               ss.str());
 }
 
-bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
+bool OpenMVGReconstructionAgent::AddImage(const std::string &image_id)
+{
   PrecisionTimer t("AddImage");
   ImageMetaData img_meta = this->_image_storage->GetMeta(image_id);
   std::string image_path = img_meta.path();
   int i_User_camera_model = PINHOLE_CAMERA_RADIAL3;
   std::shared_ptr<View> v;
-  double width = 1920;
-  double height = 1080;
+
+  double width, height, focal = -1, ppx = -1, ppy = -1;
 
   ImageHeader imgHeader;
   {
     PrecisionTimer t("AddImage.ReadImageHeader");
-    if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader)){
-        std::cout << " Failed to read header" << "\n";
-        return false; // image cannot be read
+    if (!this->_openmvg_images_storage.ReadImageHeader(image_id, &imgHeader))
+    {
+      std::cout << " Failed to read header"
+                << "\n";
+      return false; // image cannot be read
     }
   }
 
   width = imgHeader.width;
   height = imgHeader.height;
 
-  double ppx = width / 2.0;
-  double ppy = height / 2.0;
+  ppx = width / 2.0;
+  ppy = height / 2.0;
 
   // Expected properties for each image
-  double focal = -1;
   const EINTRINSIC e_User_camera_model = EINTRINSIC(i_User_camera_model);
 
   const std::string sImFilenamePart = stlplus::filename_part(image_path);
   // Test if the image format is supported:
   if (openMVG::image::GetFormat(image_path.c_str()) == openMVG::image::Unknown)
   {
-      std::cout
-          << sImFilenamePart << ": Unkown image file format." << "\n";
-      return false; // image cannot be opened
+    std::cout
+        << sImFilenamePart << ": Unkown image file format."
+        << "\n";
+    return false; // image cannot be opened
   }
 
-  if (sImFilenamePart.find("mask.png") != std::string::npos
-      || sImFilenamePart.find("_mask.png") != std::string::npos)
+  if (sImFilenamePart.find("mask.png") != std::string::npos || sImFilenamePart.find("_mask.png") != std::string::npos)
   {
-      std::cout
-          << sImFilenamePart << " is a mask image" << "\n";
-      return false;
+    std::cout
+        << sImFilenamePart << " is a mask image"
+        << "\n";
+    return false;
   }
 
   CameraIntrinsics intrinsics;
@@ -269,8 +268,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
     exifReader->open(image_path);
 
     const bool bHaveValidExifMetadata =
-    exifReader->doesHaveExifInfo()
-    && !exifReader->getModel().empty();
+        exifReader->doesHaveExifInfo() && !exifReader->getModel().empty();
 
     if (bHaveValidExifMetadata) // If image contains meta data
     {
@@ -278,27 +276,30 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
       // Handle case where focal length is equal to 0
       if (exifReader->getFocal() == 0.0f)
       {
-          std::cout
-          << stlplus::basename_part(image_path) 
-          << ": Focal length is missing." << "\n";
-          focal = -1.0;
+        std::cout
+            << stlplus::basename_part(image_path)
+            << ": Focal length is missing."
+            << "\n";
+        focal = -1.0;
       }
       else
       {
-          intrinsics = this->_intrinsics_storage->Get(sCamModel);
-          if (!intrinsics.model().empty())
-          {
+        intrinsics = this->_intrinsics_storage->Get(sCamModel);
+        if (!intrinsics.model().empty())
+        {
           // The camera model was found in the database so we can compute it's approximated focal length
-            const double ccdw = intrinsics.sensor_size();
-            focal = std::max ( width, height ) * exifReader->getFocal() / ccdw;
-          }
-          else
-          {
-              LogImageAdd(this->_reconstruction_id, image_id, sCamModel, false);
-              throw CameraIntrinsicNotFoundException(sCamModel);
-          }
+          const double ccdw = intrinsics.sensor_size();
+          focal = std::max(width, height) * exifReader->getFocal() / ccdw;
+        }
+        else
+        {
+          LogImageAdd(this->_reconstruction_id, image_id, sCamModel, false);
+          throw CameraIntrinsicNotFoundException(sCamModel);
+        }
       }
-    }else{
+    }
+    else
+    {
       throw CameraIntrinsicNotFoundException("Invalid Exif Data");
     }
   }
@@ -306,48 +307,45 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   std::shared_ptr<IntrinsicBase> intrinsic;
   if (focal > 0 && ppx > 0 && ppy > 0 && width > 0 && height > 0)
   {
-      // Create the desired camera type
-      switch (e_User_camera_model)
-      {
-      case PINHOLE_CAMERA:
-          intrinsic = std::make_shared<Pinhole_Intrinsic>
-          (width, height, focal, ppx, ppy);
+    // Create the desired camera type
+    switch (e_User_camera_model)
+    {
+    case PINHOLE_CAMERA:
+      intrinsic = std::make_shared<Pinhole_Intrinsic>(width, height, focal, ppx, ppy);
       break;
-      case PINHOLE_CAMERA_RADIAL1:
-          intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K1>
-          (width, height, focal, ppx, ppy, 0.0); // setup no distortion as initial guess
+    case PINHOLE_CAMERA_RADIAL1:
+      intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K1>(width, height, focal, ppx, ppy, 0.0); // setup no distortion as initial guess
       break;
-      case PINHOLE_CAMERA_RADIAL3:
-          intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K3>
-          (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0);  // setup no distortion as initial guess
+    case PINHOLE_CAMERA_RADIAL3:
+      intrinsic = std::make_shared<Pinhole_Intrinsic_Radial_K3>(width, height, focal, ppx, ppy, 0.0, 0.0, 0.0); // setup no distortion as initial guess
       break;
-      case PINHOLE_CAMERA_BROWN:
-          intrinsic = std::make_shared<Pinhole_Intrinsic_Brown_T2>
-          (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
+    case PINHOLE_CAMERA_BROWN:
+      intrinsic = std::make_shared<Pinhole_Intrinsic_Brown_T2>(width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
       break;
-      case PINHOLE_CAMERA_FISHEYE:
-          intrinsic = std::make_shared<Pinhole_Intrinsic_Fisheye>
-          (width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
+    case PINHOLE_CAMERA_FISHEYE:
+      intrinsic = std::make_shared<Pinhole_Intrinsic_Fisheye>(width, height, focal, ppx, ppy, 0.0, 0.0, 0.0, 0.0); // setup no distortion as initial guess
       break;
-      case CAMERA_SPHERICAL:
-          intrinsic = std::make_shared<Intrinsic_Spherical>
-              (width, height);
+    case CAMERA_SPHERICAL:
+      intrinsic = std::make_shared<Intrinsic_Spherical>(width, height);
       break;
-      default:
-          std::cerr << "Error: unknown camera model: " << (int) e_User_camera_model << std::endl;
-          return false;
-      }
+    default:
+      std::cerr << "Error: unknown camera model: " << (int)e_User_camera_model << std::endl;
+      return false;
+    }
   }
-  
-  if(intrinsic){
+
+  if (intrinsic)
+  {
     LogImageAdd(this->_reconstruction_id, image_id, sCamModel, true);
     PrecisionTimer t("AddImage.StoreViewAndIntrinsic");
     v = std::make_shared<View>(sImFilenamePart, -1, -1, -1, width, height);
     this->_openmvg_storage->StoreViewAndIntrinsic(this->_reconstruction_id, image_id, v, intrinsic);
-  }else{
+  }
+  else
+  {
     LogImageAdd(this->_reconstruction_id, image_id, sCamModel, false);
     LOG(ERROR) << "Null Intrinsic for image " << sImFilenamePart;
-    return false; 
+    return false;
   }
 
   // Group camera that share common properties if desired (leads to more faster & stable BA).
@@ -358,7 +356,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   {
     {
       PrecisionTimer t("ReadImageToUndistort");
-      this->_openmvg_images_storage.ReadImage(image_id, &imageRGB); 
+      this->_openmvg_images_storage.ReadImage(image_id, &imageRGB);
     }
     ImageData img_undistorted;
     ImageMetaData meta_undistorted;
@@ -380,30 +378,29 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string& image_id){
   return true;
 }
 
-std::unique_ptr<features::Regions> Init_region_type_from_json(const std::string& json)
+std::unique_ptr<features::Regions> Init_region_type_from_json(const std::string &json)
 {
-    std::unique_ptr<Regions> regions_type;
-    std::istringstream stream(json);
-    {
-        cereal::JSONInputArchive archive(stream);
-        archive(cereal::make_nvp("regions_type", regions_type));
-    }
-    return regions_type;
+  std::unique_ptr<Regions> regions_type;
+  std::istringstream stream(json);
+  {
+    cereal::JSONInputArchive archive(stream);
+    archive(cereal::make_nvp("regions_type", regions_type));
+  }
+  return regions_type;
 }
 
-bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& image_ids){
+bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string> &image_ids)
+{
   PrecisionTimer t("ComputeFeatures");
   LOG(INFO) << "Computing features for " << image_ids.size() << " new images";
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
-    this->_reconstruction_id,
-    "openmvg",
-    nullptr
-  );
+      this->_reconstruction_id,
+      "openmvg",
+      nullptr);
   bool bUpRight = config->get_bool("up_right");
   std::string sImage_Describer_Method = config->get_string("image_describer_method");
   bool bForce = config->get_bool("brute_force");
   std::string sFeaturePreset = config->get_string("feature_preset");
-
 
   // b. Init the image_describer
   // - retrieve the used one in case of pre-computed features
@@ -419,11 +416,11 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
     cereal::JSONInputArchive archive(stream);
     archive(cereal::make_nvp("image_describer", image_describer));
   }
-  catch (const cereal::Exception & e)
+  catch (const cereal::Exception &e)
   {
     throw;
   }
-  
+
   /*const std::string sImage_describer = stlplus::create_filespec(this->_config.features_dir, "image_describer", "json");
   if (stlplus::is_file(sImage_describer))
   {
@@ -498,10 +495,12 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
     std::atomic<bool> preemptive_exit(false);
 
     std::unordered_map<std::string, std::string> id_path_map;
-    for(std::string id : image_ids){
+    for (std::string id : image_ids)
+    {
       id_path_map[id] = this->_image_storage->GetMeta(id).path();
     }
-    for(int i = 0; i < id_path_map.size(); ++i){
+    for (int i = 0; i < id_path_map.size(); ++i)
+    {
       auto iter = id_path_map.begin();
       std::advance(iter, i);
       std::string image_id = std::get<0>(*iter);
@@ -509,11 +508,11 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       LOG(INFO) << "Computing features for " << stlplus::basename_part(image_path);
       {
         PrecisionTimer t("ComputeFeatures.ReadImage");
-        if (!this->_openmvg_images_storage.ReadImage(image_id, &imageGray))
-            continue;
+        if (!this->_openmvg_images_storage.ReadImage(image_id, &imageGray, 2))
+          continue;
       }
 
-      Image<unsigned char> * mask = nullptr; // The mask is null by default
+      Image<unsigned char> *mask = nullptr; // The mask is null by default
 
       /*
         Image<unsigned char> imageMask;
@@ -553,17 +552,25 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
       }*/
 
       // Compute features and descriptors and export them to files and now sql. TODO: Remove file storage.
-      // TODO: this casting bullshit is dangerous and disgusting. Needs be be fixed asap. 
-      std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type> sift_regions; 
+      // TODO: this casting bullshit is dangerous and disgusting. Needs be be fixed asap.
+      std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type> sift_regions;
       {
         PrecisionTimer t("ComputeFeatures.DescribeRegions");
         sift_regions = std::unique_ptr<SIFT_Anatomy_Image_describer::Regions_type>(
-          dynamic_cast<SIFT_Anatomy_Image_describer::Regions_type*>(image_describer->Describe(imageGray, mask).release()));
+            dynamic_cast<SIFT_Anatomy_Image_describer::Regions_type *>(image_describer->Describe(imageGray, mask).release()));
       }
-      if (!sift_regions){
-          LOG(ERROR) << "Failed to compute regions for " << image_id;
-          return false;
+      if (!sift_regions)
+      {
+        LOG(ERROR) << "Failed to compute regions for " << image_id;
+        return false;
       }
+
+      for (int i = 0; i < sift_regions->Features().size(); ++i)
+      {
+        auto &feature = sift_regions->Features()[i];
+        sift_regions->Features()[i] = SIFT_Anatomy_Image_describer::Regions_type::FeatureT(feature.x() * 2, feature.y() * 2, feature.scale(), feature.orientation());
+      }
+
       {
         PrecisionTimer t("ComputeFeatures.StoreFeatures");
         this->_regions_storage->Store(this->_reconstruction_id, image_id, std::move(sift_regions));
@@ -573,15 +580,15 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string>& im
   }
 }
 
-bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new_image_ids){
+bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string> &new_image_ids)
+{
   // Update our SFM data to get all the images to match with
   PrecisionTimer t("ComputeMatches");
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
-    this->_reconstruction_id,
-    "openmvg",
-    nullptr
-  );
-  std::string sGeometricModel = "e"; //config->get_string("geometric_model");
+      this->_reconstruction_id,
+      "openmvg",
+      nullptr);
+  std::string sGeometricModel = config->get_string("geometric_model");
   float fDistRatio = config->get_double("dist_ratio");
   std::string sNearestMatchingMethod = config->get_string("nearest_matching_method"); //FASTCASTCADEHASHER had some threading problems?
   bool bGuided_matching = config->get_bool("guided_matching");
@@ -594,7 +601,8 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     pairs = this->_GatherMatchesToCompute(new_image_ids, similar_image_ids);
   }
 
-  if(pairs.empty()){
+  if (pairs.empty())
+  {
     LOG(INFO) << "No pairs to compare.";
     return true;
   }
@@ -603,24 +611,29 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
 
   switch (sGeometricModel[0])
   {
-    case 'f': case 'F':
-      eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
+  case 'f':
+  case 'F':
+    eGeometricModelToCompute = FUNDAMENTAL_MATRIX;
     break;
-    case 'e': case 'E':
-      eGeometricModelToCompute = ESSENTIAL_MATRIX;
+  case 'e':
+  case 'E':
+    eGeometricModelToCompute = ESSENTIAL_MATRIX;
     break;
-    case 'h': case 'H':
-      eGeometricModelToCompute = HOMOGRAPHY_MATRIX;
+  case 'h':
+  case 'H':
+    eGeometricModelToCompute = HOMOGRAPHY_MATRIX;
     break;
-    case 'a': case 'A':
-      eGeometricModelToCompute = ESSENTIAL_MATRIX_ANGULAR;
+  case 'a':
+  case 'A':
+    eGeometricModelToCompute = ESSENTIAL_MATRIX_ANGULAR;
     break;
-    case 'o': case 'O':
-      eGeometricModelToCompute = ESSENTIAL_MATRIX_ORTHO;
+  case 'o':
+  case 'O':
+    eGeometricModelToCompute = ESSENTIAL_MATRIX_ORTHO;
     break;
-    default:
-      std::cerr << "Unknown geometric model" << std::endl;
-      return false;
+  default:
+    std::cerr << "Unknown geometric model" << std::endl;
+    return false;
   }
   ConfigurationContainerPtr image_describer = config->get_container("image_describer");
   std::unique_ptr<Regions> regions_type = Init_region_type_from_json(image_describer->jsonify());
@@ -640,45 +653,38 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
       std::cout << "Using FAST_CASCADE_HASHING_L2 matcher" << std::endl;
       collectionMatcher.reset(new Cascade_Hashing_Matcher_Regions(fDistRatio));
     }
-    else
-    if (regions_type->IsBinary())
+    else if (regions_type->IsBinary())
     {
       std::cout << "Using BRUTE_FORCE_HAMMING matcher" << std::endl;
       collectionMatcher.reset(new Matcher_Regions(fDistRatio, BRUTE_FORCE_HAMMING));
     }
   }
-  else
-  if (sNearestMatchingMethod == "BRUTEFORCEL2")
+  else if (sNearestMatchingMethod == "BRUTEFORCEL2")
   {
     std::cout << "Using BRUTE_FORCE_L2 matcher" << std::endl;
     collectionMatcher.reset(new Matcher_Regions(fDistRatio, BRUTE_FORCE_L2));
   }
-  else
-  if (sNearestMatchingMethod == "BRUTEFORCEHAMMING")
+  else if (sNearestMatchingMethod == "BRUTEFORCEHAMMING")
   {
     std::cout << "Using BRUTE_FORCE_HAMMING matcher" << std::endl;
     collectionMatcher.reset(new Matcher_Regions(fDistRatio, BRUTE_FORCE_HAMMING));
   }
-  else
-  if (sNearestMatchingMethod == "HNSWL2")
+  else if (sNearestMatchingMethod == "HNSWL2")
   {
     std::cout << "Using HNSWL2 matcher" << std::endl;
     collectionMatcher.reset(new Matcher_Regions(fDistRatio, HNSW_L2));
   }
-  else
-  if (sNearestMatchingMethod == "ANNL2")
+  else if (sNearestMatchingMethod == "ANNL2")
   {
     std::cout << "Using ANN_L2 matcher" << std::endl;
     collectionMatcher.reset(new Matcher_Regions(fDistRatio, ANN_L2));
   }
-  else
-  if (sNearestMatchingMethod == "CASCADEHASHINGL2")
+  else if (sNearestMatchingMethod == "CASCADEHASHINGL2")
   {
     std::cout << "Using CASCADE_HASHING_L2 matcher" << std::endl;
     collectionMatcher.reset(new Matcher_Regions(fDistRatio, CASCADE_HASHING_L2));
   }
-  else
-  if (sNearestMatchingMethod == "FASTCASCADEHASHINGL2")
+  else if (sNearestMatchingMethod == "FASTCASCADEHASHINGL2")
   {
     std::cout << "Using FAST_CASCADE_HASHING_L2 matcher" << std::endl;
     collectionMatcher.reset(new Cascade_Hashing_Matcher_Regions(fDistRatio));
@@ -689,8 +695,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
     return false;
   }
 
-  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider
-    = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
+  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
   {
     PrecisionTimer t("ComputeMatches.LoadRegions");
     regions_provider->load_from_storage(this->_reconstruction_id, similar_image_ids);
@@ -707,7 +712,7 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   //---------------------------------------
   PairWiseMatches geometric_matches;
   std::unique_ptr<ImageCollectionGeometricFilter> filter_ptr(
-    new ImageCollectionGeometricFilter(this->_sfm_data.get(), regions_provider));
+      new ImageCollectionGeometricFilter(this->_sfm_data.get(), regions_provider));
   {
     PrecisionTimer t("ComputeMatches.FilterRegions");
     if (filter_ptr)
@@ -715,66 +720,67 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
       const double d_distance_ratio = 0.6;
       switch (eGeometricModelToCompute)
       {
-        case HOMOGRAPHY_MATRIX:
-        {
-          const bool bGeometric_only_guided_matching = true;
-          filter_ptr->Robust_model_estimation(
+      case HOMOGRAPHY_MATRIX:
+      {
+        const bool bGeometric_only_guided_matching = true;
+        filter_ptr->Robust_model_estimation(
             GeometricFilter_HMatrix_AC(4.0, imax_iteration),
             map_PutativesMatches, bGuided_matching,
             bGeometric_only_guided_matching ? -1.0 : d_distance_ratio);
-          geometric_matches = filter_ptr->Get_geometric_matches();
-        }
-        break;
-        case FUNDAMENTAL_MATRIX:
-        {
-          filter_ptr->Robust_model_estimation(
+        geometric_matches = filter_ptr->Get_geometric_matches();
+      }
+      break;
+      case FUNDAMENTAL_MATRIX:
+      {
+        filter_ptr->Robust_model_estimation(
             GeometricFilter_FMatrix_AC(4.0, imax_iteration),
             map_PutativesMatches, bGuided_matching, d_distance_ratio);
-            geometric_matches = filter_ptr->Get_geometric_matches();
-        }
-        break;
-        case ESSENTIAL_MATRIX:
-        {
-          filter_ptr->Robust_model_estimation(
+        geometric_matches = filter_ptr->Get_geometric_matches();
+      }
+      break;
+      case ESSENTIAL_MATRIX:
+      {
+        filter_ptr->Robust_model_estimation(
             GeometricFilter_EMatrix_AC(4.0, imax_iteration),
             map_PutativesMatches, bGuided_matching, d_distance_ratio);
-          geometric_matches = filter_ptr->Get_geometric_matches();
+        geometric_matches = filter_ptr->Get_geometric_matches();
 
-          //-- Perform an additional check to remove pairs with poor overlap
-          std::vector<PairWiseMatches::key_type> vec_toRemove;
-          for (const auto & pairwisematches_it : geometric_matches)
+        //-- Perform an additional check to remove pairs with poor overlap
+        std::vector<PairWiseMatches::key_type> vec_toRemove;
+        for (const auto &pairwisematches_it : geometric_matches)
+        {
+          const size_t putativePhotometricCount = map_PutativesMatches.find(pairwisematches_it.first)->second.size();
+          const size_t putativeGeometricCount = pairwisematches_it.second.size();
+          const float ratio = putativeGeometricCount / static_cast<float>(putativePhotometricCount);
+          if (putativeGeometricCount < 50 || ratio < .3f)
           {
-            const size_t putativePhotometricCount = map_PutativesMatches.find(pairwisematches_it.first)->second.size();
-            const size_t putativeGeometricCount = pairwisematches_it.second.size();
-            const float ratio = putativeGeometricCount / static_cast<float>(putativePhotometricCount);
-            if (putativeGeometricCount < 50 || ratio < .3f)  {
-              // the pair will be removed
-              vec_toRemove.push_back(pairwisematches_it.first);
-            }
-          }
-          //-- remove discarded pairs
-          for (const auto & pair_to_remove_it : vec_toRemove)
-          {
-            geometric_matches.erase(pair_to_remove_it);
+            // the pair will be removed
+            vec_toRemove.push_back(pairwisematches_it.first);
           }
         }
-        break;
-        case ESSENTIAL_MATRIX_ANGULAR:
+        //-- remove discarded pairs
+        for (const auto &pair_to_remove_it : vec_toRemove)
         {
-          filter_ptr->Robust_model_estimation(
+          geometric_matches.erase(pair_to_remove_it);
+        }
+      }
+      break;
+      case ESSENTIAL_MATRIX_ANGULAR:
+      {
+        /*filter_ptr->Robust_model_estimation(
             GeometricFilter_ESphericalMatrix_AC_Angular(4.0, imax_iteration),
             map_PutativesMatches, bGuided_matching);
-          geometric_matches = filter_ptr->Get_geometric_matches();
-        }
-        break;
-        case ESSENTIAL_MATRIX_ORTHO:
-        {
-          filter_ptr->Robust_model_estimation(
+        geometric_matches = filter_ptr->Get_geometric_matches();*/
+      }
+      break;
+      case ESSENTIAL_MATRIX_ORTHO:
+      {
+        filter_ptr->Robust_model_estimation(
             GeometricFilter_EOMatrix_RA(2.0, imax_iteration),
             map_PutativesMatches, bGuided_matching, d_distance_ratio);
-          geometric_matches = filter_ptr->Get_geometric_matches();
-        }
-        break;
+        geometric_matches = filter_ptr->Get_geometric_matches();
+      }
+      break;
       }
     }
   }
@@ -786,47 +792,53 @@ bool OpenMVGReconstructionAgent::ComputeMatches(const std::set<std::string>& new
   return true;
 }
 
-openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string>& new_image_ids,   
-                                                                      std::vector<std::string>& relevant_matches){    
-    std::set<IndexT> new_ids;
-    openMVG::Pair_Set matches_to_compute;
-    auto search_client =  GetIndexingClient(CONFIG_GET_STRING("index.address"));
-    if(this->_sfm_data->GetViews().size() < 2){
-      return openMVG::Pair_Set();
-    }
+openMVG::Pair_Set OpenMVGReconstructionAgent::_GatherMatchesToCompute(const std::set<std::string> &new_image_ids,
+                                                                      std::vector<std::string> &relevant_matches)
+{
+  std::set<IndexT> new_ids;
+  openMVG::Pair_Set matches_to_compute;
+  auto search_client = GetIndexingClient(CONFIG_GET_STRING("index.address"));
+  if (this->_sfm_data->GetViews().size() < 2)
+  {
+    return openMVG::Pair_Set();
+  }
 
-    for(const std::string& image_id : new_image_ids){
-      LOG(INFO) << "Gathering matches for " << image_id;
-      IndexT view_idx_1 = this->_openmvg_storage->GetViewIdxByImageID(image_id);
-      if(view_idx_1 == -1){
-        LOG(INFO) << "Uncalibrated image " << image_id << ". No matches to compute.";
-        continue;
-      }
-      grpc::ClientContext context;
-      ClosestNRequest req;
-      ClosestNResponse resp;
-      req.set_reconstruction_id(this->_reconstruction_id);
-      req.set_image_id(image_id);
-      req.set_n(10);
-      search_client->ClosestN(&context, req, &resp);
-      auto search_result = resp.image_ids();
-      for(const std::string& similar_id : search_result){
-        IndexT view_idx_2 = this->_openmvg_storage->GetViewIdxByImageID(similar_id);
-        if(view_idx_2 == -1) continue; // uncalibrated match
-        relevant_matches.push_back(similar_id);
-        if(matches_to_compute.find({view_idx_2, view_idx_1}) == matches_to_compute.end())
-          matches_to_compute.insert({view_idx_1, view_idx_2});
-      }
+  for (const std::string &image_id : new_image_ids)
+  {
+    LOG(INFO) << "Gathering matches for " << image_id;
+    IndexT view_idx_1 = this->_openmvg_storage->GetViewIdxByImageID(image_id);
+    if (view_idx_1 == -1)
+    {
+      LOG(INFO) << "Uncalibrated image " << image_id << ". No matches to compute.";
+      continue;
     }
-    return matches_to_compute;
+    grpc::ClientContext context;
+    ClosestNRequest req;
+    ClosestNResponse resp;
+    req.set_reconstruction_id(this->_reconstruction_id);
+    req.set_image_id(image_id);
+    req.set_n(10);
+    search_client->ClosestN(&context, req, &resp);
+    auto search_result = resp.image_ids();
+    for (const std::string &similar_id : search_result)
+    {
+      IndexT view_idx_2 = this->_openmvg_storage->GetViewIdxByImageID(similar_id);
+      if (view_idx_2 == -1)
+        continue; // uncalibrated match
+      relevant_matches.push_back(similar_id);
+      if (matches_to_compute.find({view_idx_2, view_idx_1}) == matches_to_compute.end())
+        matches_to_compute.insert({view_idx_1, view_idx_2});
+    }
+  }
+  return matches_to_compute;
 }
 
-bool OpenMVGReconstructionAgent::IncrementalSFM(){
+bool OpenMVGReconstructionAgent::IncrementalSFM()
+{
   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
-    this->_reconstruction_id,
-    "openmvg",
-    nullptr
-  );
+      this->_reconstruction_id,
+      "openmvg",
+      nullptr);
   std::string sIntrinsic_refinement_options = config->get_string("intrinsic_refinement_options");
   int i_User_camera_model = config->get_int("user_camera_model");
   bool b_use_motion_priors = config->get_bool("use_motion_priors");
@@ -835,221 +847,244 @@ bool OpenMVGReconstructionAgent::IncrementalSFM(){
   std::unique_ptr<Regions> regions_type = Init_region_type_from_json(image_describer->jsonify());
   if (!regions_type)
   {
-      throw std::runtime_error("Invalid regions type");
+    throw std::runtime_error("Invalid regions type");
   }
 
   std::shared_ptr<Matches_Provider> matches_provider = std::make_shared<Matches_Provider>();
-  matches_provider->pairWise_matches_ = std::move(this->_openmvg_storage->GetMatches(this->_reconstruction_id));
-  std::shared_ptr<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> feats_provider 
-    = std::make_shared<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage);
-  feats_provider->load_from_storage(this->_reconstruction_id, CONFIG_GET_STRING("sql.openmvg_views_table"), CONFIG_GET_STRING("sql.openmvg_matches_table"));
+  {
+    PrecisionTimer t("IncrementalSFM.LoadMatches");
+    matches_provider->pairWise_matches_ = std::move(this->_openmvg_storage->GetMatches(this->_reconstruction_id));
+  }
+  std::shared_ptr<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> feats_provider =
+      std::make_shared<FeaturesProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage);
+  {
+    PrecisionTimer t("IncrementalSFM.LoadFeatures");
+    feats_provider->load_from_storage(this->_reconstruction_id, CONFIG_GET_STRING("sql.openmvg_views_table"), CONFIG_GET_STRING("sql.openmvg_matches_table"));
+  }
   std::unique_ptr<SfMSceneInitializer> scene_initializer;
-    
-  if(!this->_sfm_data->poses.empty()){
-      LOG(INFO) << "Initailizing using a previous reconstruction.";
-      scene_initializer.reset(new SfMSceneInitializer(*this->_sfm_data,
-      feats_provider.get(),
-      matches_provider.get()));
-  }else{
-      LOG(INFO) << "Initializing using Stellar.";
-      scene_initializer.reset(new SfMSceneInitializerMaxPair(*this->_sfm_data,
-      feats_provider.get(),
-      matches_provider.get()));
+
+  if (!this->_sfm_data->poses.empty())
+  {
+    LOG(INFO) << "Initailizing using a previous reconstruction.";
+    scene_initializer.reset(new SfMSceneInitializer(*this->_sfm_data,
+                                                    feats_provider.get(),
+                                                    matches_provider.get()));
+  }
+  else
+  {
+    LOG(INFO) << "Initializing using Stellar.";
+    scene_initializer.reset(new SfMSceneInitializerStellar(*this->_sfm_data,
+                                                           feats_provider.get(),
+                                                           matches_provider.get()));
   }
 
   SequentialSfMReconstructionEngine2 sfmEngine(
-    scene_initializer.get(),
-    *this->_sfm_data,
-    "/tmp",
-    "Reconstruction_Report.html");
+      scene_initializer.get(),
+      *this->_sfm_data,
+      "/tmp",
+      "Reconstruction_Report.html");
   // Configure the features_provider & the matches_provider
   sfmEngine.SetFeaturesProvider(feats_provider.get());
   sfmEngine.SetMatchesProvider(matches_provider.get());
 
   const cameras::Intrinsic_Parameter_Type intrinsic_refinement_options =
-    cameras::StringTo_Intrinsic_Parameter_Type(sIntrinsic_refinement_options);
+      cameras::StringTo_Intrinsic_Parameter_Type(sIntrinsic_refinement_options);
   sfmEngine.Set_Intrinsics_Refinement_Type(intrinsic_refinement_options);
   sfmEngine.SetUnknownCameraType(EINTRINSIC(i_User_camera_model));
   sfmEngine.Set_Use_Motion_Prior(b_use_motion_priors);
   sfmEngine.SetTriangulationMethod(static_cast<ETriangulationMethod>(triangulation_method));
 
-  if (sfmEngine.Process())
-  {    
-    *this->_sfm_data = sfmEngine.Get_SfM_Data();  
+  {
+    PrecisionTimer t("IncrementSFM.SFMProcess");
+    if (sfmEngine.Process())
+    {
+      *this->_sfm_data = sfmEngine.Get_SfM_Data();
 
-    for(auto view_it : this->_sfm_data->GetViews()){
-      std::shared_ptr<View> v = view_it.second;
-      if(v->id_pose != -1){
-        Pose3 pose = this->_sfm_data->poses[v->id_pose];
-        this->_openmvg_storage->StorePoseUpdateView(this->_reconstruction_id, v, pose);
+      for (auto view_it : this->_sfm_data->GetViews())
+      {
+        std::shared_ptr<View> v = view_it.second;
+        if (v->id_pose != -1)
+        {
+          Pose3 pose = this->_sfm_data->poses[v->id_pose];
+          this->_openmvg_storage->StorePoseUpdateView(this->_reconstruction_id, v, pose);
+        }
       }
     }
-  }else{
-    LOG(ERROR) << "SFM Process failed";
-    this->_sfm_data->poses.clear();
-    return false;
+    else
+    {
+      LOG(ERROR) << "SFM Process failed";
+      this->_sfm_data->poses.clear();
+      return false;
+    }
   }
   return true;
 }
 
-
-bool GetPLYDataFromSFMData(const SfM_Data& sfm_data, std::string* data_out){
+bool GetPLYDataFromSFMData(const SfM_Data &sfm_data, std::string *data_out)
+{
   const bool b_structure = true;
   const bool b_control_points = true;
   const bool b_extrinsics = true;
   const bool b_write_in_ascii = false;
 
   if (!(b_structure || b_extrinsics || b_control_points))
-      return false;
+    return false;
 
   // Create the stream and check its status
   std::ostringstream stream;
   bool bOk = false;
   {
-      // Count how many views having valid poses:
-      IndexT view_with_pose_count = 0;
-      IndexT view_with_pose_prior_count = 0;
-      if (b_extrinsics)
+    // Count how many views having valid poses:
+    IndexT view_with_pose_count = 0;
+    IndexT view_with_pose_prior_count = 0;
+    if (b_extrinsics)
+    {
+      for (const auto &view : sfm_data.GetViews())
       {
-          for (const auto & view : sfm_data.GetViews())
-          {
-              view_with_pose_count += sfm_data.IsPoseAndIntrinsicDefined(view.second.get());
-          }
-
-          for (const auto & view : sfm_data.GetViews())
-          {
-              if (const sfm::ViewPriors *prior = dynamic_cast<sfm::ViewPriors*>(view.second.get()))
-              {
-                  view_with_pose_prior_count += prior->b_use_pose_center_;
-              }
-          }
+        view_with_pose_count += sfm_data.IsPoseAndIntrinsicDefined(view.second.get());
       }
 
-      stream << std::fixed << std::setprecision (std::numeric_limits<double>::digits10 + 1);
-
-      using Vec3uc = Eigen::Matrix<unsigned char, 3, 1>;
-
-      stream << "ply"
-      << '\n' << "format "
-              << (b_write_in_ascii ? "ascii 1.0" : "binary_little_endian 1.0")
-      << '\n' << "comment generated by OpenMVG"
-      << '\n' << "element vertex "
-          // Vertex count: (#landmark + #GCP + #view_with_valid_pose)
-          << (  (b_structure ? sfm_data.GetLandmarks().size() : 0)
-              + (b_control_points ? sfm_data.GetControl_Points().size() : 0)
-              + view_with_pose_count
-              + view_with_pose_prior_count)
-      << '\n' << "property double x"
-      << '\n' << "property double y"
-      << '\n' << "property double z"
-      << '\n' << "property uchar red"
-      << '\n' << "property uchar green"
-      << '\n' << "property uchar blue"
-      << '\n' << "end_header" << std::endl;
-
-      if (b_extrinsics)
+      for (const auto &view : sfm_data.GetViews())
       {
-          for (const auto & view : sfm_data.GetViews())
-          {
-          // Export pose as Green points
-          if (sfm_data.IsPoseAndIntrinsicDefined(view.second.get()))
-          {
-              const geometry::Pose3 pose = sfm_data.GetPoseOrDie(view.second.get());
-              if (b_write_in_ascii)
-              {
-              stream
-                  << pose.center()(0) << ' '
-                  << pose.center()(1) << ' '
-                  << pose.center()(2) << ' '
-                  << "0 255 0\n";
-              }
-              else
-              {
-              stream.write( reinterpret_cast<const char*> ( pose.center().data() ), sizeof(openMVG::Vec3 ) );
-              stream.write( reinterpret_cast<const char*> ( Vec3uc(0, 255, 0).data() ), sizeof( Vec3uc ) );
-              }
-          }
+        if (const sfm::ViewPriors *prior = dynamic_cast<sfm::ViewPriors *>(view.second.get()))
+        {
+          view_with_pose_prior_count += prior->b_use_pose_center_;
+        }
+      }
+    }
 
-          // Export pose priors as Blue points
-          if (const sfm::ViewPriors *prior = dynamic_cast<sfm::ViewPriors*>(view.second.get()))
+    stream << std::fixed << std::setprecision(std::numeric_limits<double>::digits10 + 1);
+
+    using Vec3uc = Eigen::Matrix<unsigned char, 3, 1>;
+
+    stream << "ply"
+           << '\n'
+           << "format "
+           << (b_write_in_ascii ? "ascii 1.0" : "binary_little_endian 1.0")
+           << '\n'
+           << "comment generated by OpenMVG"
+           << '\n'
+           << "element vertex "
+           // Vertex count: (#landmark + #GCP + #view_with_valid_pose)
+           << ((b_structure ? sfm_data.GetLandmarks().size() : 0) + (b_control_points ? sfm_data.GetControl_Points().size() : 0) + view_with_pose_count + view_with_pose_prior_count)
+           << '\n'
+           << "property double x"
+           << '\n'
+           << "property double y"
+           << '\n'
+           << "property double z"
+           << '\n'
+           << "property uchar red"
+           << '\n'
+           << "property uchar green"
+           << '\n'
+           << "property uchar blue"
+           << '\n'
+           << "end_header" << std::endl;
+
+    if (b_extrinsics)
+    {
+      for (const auto &view : sfm_data.GetViews())
+      {
+        // Export pose as Green points
+        if (sfm_data.IsPoseAndIntrinsicDefined(view.second.get()))
+        {
+          const geometry::Pose3 pose = sfm_data.GetPoseOrDie(view.second.get());
+          if (b_write_in_ascii)
           {
-              if (prior->b_use_pose_center_)
-              {
-              if (b_write_in_ascii)
-              {
-                  stream
+            stream
+                << pose.center()(0) << ' '
+                << pose.center()(1) << ' '
+                << pose.center()(2) << ' '
+                << "0 255 0\n";
+          }
+          else
+          {
+            stream.write(reinterpret_cast<const char *>(pose.center().data()), sizeof(openMVG::Vec3));
+            stream.write(reinterpret_cast<const char *>(Vec3uc(0, 255, 0).data()), sizeof(Vec3uc));
+          }
+        }
+
+        // Export pose priors as Blue points
+        if (const sfm::ViewPriors *prior = dynamic_cast<sfm::ViewPriors *>(view.second.get()))
+        {
+          if (prior->b_use_pose_center_)
+          {
+            if (b_write_in_ascii)
+            {
+              stream
                   << prior->pose_center_(0) << ' '
                   << prior->pose_center_(1) << ' '
                   << prior->pose_center_(2) << ' '
                   << "0 0 255\n";
-              }
-              else
-              {
-                  stream.write( reinterpret_cast<const char*> ( prior->pose_center_.data() ), sizeof( openMVG::Vec3 ) );
-                  stream.write( reinterpret_cast<const char*> ( Vec3uc(0, 0, 255).data() ), sizeof( Vec3uc ) );
-              }
-              }
+            }
+            else
+            {
+              stream.write(reinterpret_cast<const char *>(prior->pose_center_.data()), sizeof(openMVG::Vec3));
+              stream.write(reinterpret_cast<const char *>(Vec3uc(0, 0, 255).data()), sizeof(Vec3uc));
+            }
           }
-          }
+        }
       }
+    }
 
-      if (b_structure)
+    if (b_structure)
+    {
+      // Export structure points as White points
+      const Landmarks &landmarks = sfm_data.GetLandmarks();
+      for (const auto &iterLandmarks : landmarks)
       {
-          // Export structure points as White points
-          const Landmarks & landmarks = sfm_data.GetLandmarks();
-          for ( const auto & iterLandmarks : landmarks )
-          {
-          if (b_write_in_ascii)
-          {
-              stream
+        if (b_write_in_ascii)
+        {
+          stream
               << iterLandmarks.second.X(0) << ' '
               << iterLandmarks.second.X(1) << ' '
               << iterLandmarks.second.X(2) << ' '
               << "255 255 255\n";
-          }
-          else
-          {
-              stream.write( reinterpret_cast<const char*> ( iterLandmarks.second.X.data() ), sizeof( openMVG::Vec3 ) );
-              stream.write( reinterpret_cast<const char*> ( Vec3uc(255, 255, 255).data() ), sizeof( Vec3uc ) );
-          }
-          }
+        }
+        else
+        {
+          stream.write(reinterpret_cast<const char *>(iterLandmarks.second.X.data()), sizeof(openMVG::Vec3));
+          stream.write(reinterpret_cast<const char *>(Vec3uc(255, 255, 255).data()), sizeof(Vec3uc));
+        }
       }
+    }
 
-      if (b_control_points)
+    if (b_control_points)
+    {
+      // Export GCP as Red points
+      const Landmarks &landmarks = sfm_data.GetControl_Points();
+      for (const auto &iterGCP : landmarks)
       {
-          // Export GCP as Red points
-          const Landmarks & landmarks = sfm_data.GetControl_Points();
-          for ( const auto & iterGCP : landmarks )
-          {
-          if (b_write_in_ascii)
-          {
-              stream
+        if (b_write_in_ascii)
+        {
+          stream
               << iterGCP.second.X(0) << ' '
               << iterGCP.second.X(1) << ' '
               << iterGCP.second.X(2) << ' '
               << "255 0 0\n";
-          }
-          else
-          {
-              stream.write( reinterpret_cast<const char*> ( iterGCP.second.X.data() ), sizeof( openMVG::Vec3 ) );
-              stream.write( reinterpret_cast<const char*> ( Vec3uc(255, 0, 0).data() ), sizeof( Vec3uc ) );
-          }
-          }
+        }
+        else
+        {
+          stream.write(reinterpret_cast<const char *>(iterGCP.second.X.data()), sizeof(openMVG::Vec3));
+          stream.write(reinterpret_cast<const char *>(Vec3uc(255, 0, 0).data()), sizeof(Vec3uc));
+        }
       }
+    }
 
-      stream.flush();
-      bOk = stream.good();
-      *data_out = stream.str();
-      return bOk;
+    stream.flush();
+    bOk = stream.good();
+    *data_out = stream.str();
+    return bOk;
   }
 }
 
-bool OpenMVGReconstructionAgent::ComputeStructure(){
-   ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
-    this->_reconstruction_id,
-    "openmvg",
-    nullptr
-  );
+bool OpenMVGReconstructionAgent::ComputeStructure()
+{
+  ConfigurationContainerPtr config = this->_configuration_adapter->GetAgentConfigOrDefault(
+      this->_reconstruction_id,
+      "openmvg",
+      nullptr);
   double dMax_reprojection_error = config->get_double("max_reprojection_error");
   unsigned int ui_max_cache_size = config->get_int("ui_max_cache_size");
   int triangulation_method = config->get_int("triangulation_method");
@@ -1060,8 +1095,7 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   {
     throw std::runtime_error("Invalid regions type");
   }
-  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider 
-    = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
+  std::shared_ptr<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>> regions_provider = std::make_shared<RegionsProviderFromStorage<SIFT_Anatomy_Image_describer::Regions_type>>(this->_regions_storage, this->_openmvg_storage, std::move(regions_type));
   regions_provider->load_from_storage(this->_reconstruction_id, CONFIG_GET_STRING("sql.openmvg_views_table"), CONFIG_GET_STRING("sql.openmvg_matches_table"));
 
   PairWiseMatches matches = this->_openmvg_storage->GetMatches(this->_reconstruction_id);
@@ -1069,10 +1103,10 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
 
   const std::set<IndexT> valid_viewIdx = Get_Valid_Views(*this->_sfm_data);
   pairs = Pair_filter(pairs, valid_viewIdx);
-  
+
   SfM_Data_Structure_Estimation_From_Known_Poses structure_estimator(dMax_reprojection_error);
   structure_estimator.run(*this->_sfm_data, pairs, regions_provider,
-      static_cast<ETriangulationMethod>(triangulation_method));
+                          static_cast<ETriangulationMethod>(triangulation_method));
 
   regions_provider.reset();
   RemoveOutliers_AngleError(*this->_sfm_data, 2.0);
@@ -1143,28 +1177,31 @@ bool OpenMVGReconstructionAgent::ComputeStructure(){
   DenseReconstructionFilter((void*)&data);
 }*/
 
-OpenMVGReconstructionAgent::~OpenMVGReconstructionAgent(){}
+OpenMVGReconstructionAgent::~OpenMVGReconstructionAgent() {}
 #define _USE_EIGEN
 #include "InterfaceMVS.h"
 #include "filesystem_storer.h"
 
-bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
+bool OpenMVGReconstructionAgent::ExportToMVS(const std::string &path)
 {
   auto sfm_data = this->_openmvg_storage->GetSFMData(this->_reconstruction_id, ESfM_Data::ALL);
   auto all_image_meta = this->_image_storage->GetAll(this->_reconstruction_id);
   FileSystemStorer image_storer(this->_reconstruction_id + "/images");
   //Copy all remote files here
-  for(auto& image_meta : all_image_meta){
+  for (auto &image_meta : all_image_meta)
+  {
     auto image_data = this->_image_storage->GetUndistorted(image_meta.id());
     image_storer.Store(image_data.data(), image_meta.id() + "." + image_meta.format());
     image_meta.set_path("images/" + image_meta.id() + "." + image_meta.format());
   }
   std::unordered_map<std::string, std::string> image_path_to_id;
-  for(auto image_meta : all_image_meta){
+  for (auto image_meta : all_image_meta)
+  {
     image_path_to_id[image_meta.path()] = image_meta.id();
   }
   std::unordered_map<IndexT, std::string> image_viewid_to_path;
-  for(auto image_meta : all_image_meta){
+  for (auto image_meta : all_image_meta)
+  {
     image_viewid_to_path[this->_openmvg_storage->GetViewIdxByImageID(image_meta.id())] = image_meta.path();
   }
   MVS::Interface scene;
@@ -1175,11 +1212,11 @@ bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
   std::map<openMVG::IndexT, uint32_t> map_intrinsic, map_view;
 
   // define a platform with all the intrinsic group
-  for (const auto& intrinsic: sfm_data->GetIntrinsics())
+  for (const auto &intrinsic : sfm_data->GetIntrinsics())
   {
     if (isPinhole(intrinsic.second->getType()))
     {
-      const Pinhole_Intrinsic * cam = dynamic_cast<const Pinhole_Intrinsic*>(intrinsic.second.get());
+      const Pinhole_Intrinsic *cam = dynamic_cast<const Pinhole_Intrinsic *>(intrinsic.second.get());
       if (map_intrinsic.count(intrinsic.first) == 0)
         map_intrinsic.insert(std::make_pair(intrinsic.first, scene.platforms.size()));
       MVS::Interface::Platform platform;
@@ -1196,13 +1233,13 @@ bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
 
   // define images & poses
   scene.images.reserve(nViews);
-  for (const auto& view : sfm_data->GetViews())
+  for (const auto &view : sfm_data->GetViews())
   {
     map_view[view.first] = scene.images.size();
     MVS::Interface::Image image;
     image.name = image_viewid_to_path[view.first];
     image.platformID = map_intrinsic.at(view.second->id_intrinsic);
-    MVS::Interface::Platform& platform = scene.platforms[image.platformID];
+    MVS::Interface::Platform &platform = scene.platforms[image.platformID];
     image.cameraID = 0;
     if (sfm_data->IsPoseAndIntrinsicDefined(view.second.get()))
     {
@@ -1224,15 +1261,16 @@ bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
 
   // define structure
   scene.vertices.reserve(sfm_data->GetLandmarks().size());
-  for (const auto& vertex: sfm_data->GetLandmarks())
+  for (const auto &vertex : sfm_data->GetLandmarks())
   {
-    const Landmark & landmark = vertex.second;
+    const Landmark &landmark = vertex.second;
     MVS::Interface::Vertex vert;
-    MVS::Interface::Vertex::ViewArr& views = vert.views;
-    for (const auto& observation: landmark.obs)
+    MVS::Interface::Vertex::ViewArr &views = vert.views;
+    for (const auto &observation : landmark.obs)
     {
       const auto it(map_view.find(observation.first));
-      if (it != map_view.end()) {
+      if (it != map_view.end())
+      {
         MVS::Interface::Vertex::View view;
         view.imageID = it->second;
         view.confidence = 0;
@@ -1242,25 +1280,24 @@ bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
     if (views.size() < 2)
       continue;
     std::sort(
-      views.begin(), views.end(),
-      [] (const MVS::Interface::Vertex::View& view0, const MVS::Interface::Vertex::View& view1)
-      {
-        return view0.imageID < view1.imageID;
-      }
-    );
+        views.begin(), views.end(),
+        [](const MVS::Interface::Vertex::View &view0, const MVS::Interface::Vertex::View &view1) {
+          return view0.imageID < view1.imageID;
+        });
     vert.X = landmark.X.cast<float>();
     scene.vertices.push_back(vert);
   }
 
   // normalize camera intrinsics
-  for (size_t p=0; p<scene.platforms.size(); ++p)
+  for (size_t p = 0; p < scene.platforms.size(); ++p)
   {
-    MVS::Interface::Platform& platform = scene.platforms[p];
-    for (size_t c=0; c<platform.cameras.size(); ++c) {
-      MVS::Interface::Platform::Camera& camera = platform.cameras[c];
+    MVS::Interface::Platform &platform = scene.platforms[p];
+    for (size_t c = 0; c < platform.cameras.size(); ++c)
+    {
+      MVS::Interface::Platform::Camera &camera = platform.cameras[c];
       // find one image using this camera
-      MVS::Interface::Image* pImage(nullptr);
-      for (MVS::Interface::Image& image: scene.images)
+      MVS::Interface::Image *pImage(nullptr);
+      for (MVS::Interface::Image &image : scene.images)
       {
         if (image.platformID == p && image.cameraID == c && image.poseID != NO_ID)
         {
@@ -1277,7 +1314,7 @@ bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
       ImageHeader imageHeader;
       string id = image_path_to_id[pImage->name.c_str()];
       this->_openmvg_images_storage.ReadImageHeader(id, &imageHeader);
-      const double fScale(1.0/std::max(imageHeader.width, imageHeader.height));
+      const double fScale(1.0 / std::max(imageHeader.width, imageHeader.height));
       camera.K(0, 0) *= fScale;
       camera.K(1, 1) *= fScale;
       camera.K(0, 2) *= fScale;
@@ -1294,11 +1331,12 @@ bool OpenMVGReconstructionAgent::ExportToMVS(const std::string& path)
 #include "openmvs.h"
 #include "filesystem_storer.h"
 
-void GetOBJDataFromWorkpace(const std::string workspace, OBJData& obj_data){
+void GetOBJDataFromWorkspace(const std::string workspace, OBJData &obj_data)
+{
   FileSystemStorer file_reader("");
-  std::string obj_path = workspace + "/scene_dense_mesh_refine_texture.obj";
-  std::string texture_path = workspace + "/scene_dense_mesh_refine_texture_material_0_map_Kd.jpg";
-  std::string mtl_path = workspace + "/scene_dense_mesh_refine_texture.mtl";
+  std::string obj_path = workspace + "/scene_dense_mesh_texture.obj";
+  std::string texture_path = workspace + "/scene_dense_mesh_texture_material_0_map_Kd.jpg";
+  std::string mtl_path = workspace + "/scene_dense_mesh_texture.mtl";
 
   std::vector<char> buff;
   file_reader.Read(obj_path, buff);
@@ -1313,38 +1351,49 @@ void GetOBJDataFromWorkpace(const std::string workspace, OBJData& obj_data){
   obj_data.set_mtl_data(std::string(buff.begin(), buff.end()));
 }
 
-bool OpenMVGReconstructionAgent::MVS(){
+bool OpenMVGReconstructionAgent::MVS()
+{
   std::string mvs_path = "scene.mvs";
   CleanAndMakeDir(this->_reconstruction_id);
   this->ExportToMVS(this->_reconstruction_id + "/" + mvs_path);
-  
+
   std::string dense_scene_path = "scene_dense.mvs";
   std::string dense_mesh_scene_path = "scene_dense_mesh.mvs";
   std::string dense_mesh_refined_scene_path = "scene_dense_mesh_refine.mvs";
   std::string dense_mesh_refined_textured_path = "scene_dense_mesh_refine_texture.mvs";
-  std::string obj_path = "scene_dense_mesh_refine_texture.obj";
+  /*std::string obj_path = "scene_dense_mesh_refine_texture.obj";
   std::string texture_path = "scene_dense_mesh_refine_texture_material_0_map_Kd.jpg";
-  std::string mtl_path = "scene_dense_mesh_refine_texture.mtl";
+  std::string mtl_path = "scene_dense_mesh_refine_texture.mtl";*/
+  std::string obj_path = "scene_dense_mesh_texture.obj";
+  std::string texture_path = "scene_dense_mesh_texture_material_0_map_Kd.jpg";
+  std::string mtl_path = "scene_dense_mesh_texture.mtl";
   LOG(INFO) << "Creating Dense Point Cloud for " << _reconstruction_id;
-  if(!OpenMVSDensifyPointCloud(this->_reconstruction_id, mvs_path, 1)){
-      return false;
+  if (!OpenMVSDensifyPointCloud(this->_reconstruction_id, mvs_path, 1))
+  {
+    return false;
   }
   LOG(INFO) << "Reconstructing Mesh for " << _reconstruction_id;
-  if(!OpenMVSReconstructMesh(this->_reconstruction_id, dense_scene_path)){
-      return false;
+  if (!OpenMVSReconstructMesh(this->_reconstruction_id, dense_scene_path))
+  {
+    return false;
   }
-  LOG(INFO) << "Refining Mesh for " << _reconstruction_id;
+  /*LOG(INFO) << "Refining Mesh for " << _reconstruction_id;
   if(!OpenMVSRefineMesh(this->_reconstruction_id, dense_mesh_scene_path, CONFIG_GET_INT("worker.cores"))){
       return false;
   }
   LOG(INFO) << "Texturing Mesh for " << _reconstruction_id;
   if(!OpenMVSTextureMesh(this->_reconstruction_id, dense_mesh_refined_scene_path)){
       return false;
+  }*/
+  LOG(INFO) << "Texturing Mesh for " << _reconstruction_id;
+  if (!OpenMVSTextureMesh(this->_reconstruction_id, dense_mesh_scene_path))
+  {
+    return false;
   }
 
   OBJData obj_data;
   OBJMetaData obj_metadata;
-  GetOBJDataFromWorkpace(_reconstruction_id, obj_data);
+  GetOBJDataFromWorkspace(_reconstruction_id, obj_data);
   obj_metadata.set_reconstruction(this->_reconstruction_id);
   obj_metadata.set_path(this->_reconstruction_id + "/MVS/" + obj_path);
   obj_metadata.set_mtl_path(this->_reconstruction_id + "/MVS/" + mtl_path);

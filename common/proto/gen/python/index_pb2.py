@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0bindex.proto\"\x19\n\tIndexWord\x12\x0c\n\x04word\x18\x01 \x01(\x0c\"@\n\x11IndexImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12IndexImageResponse\"(\n\x14GetBagOfWordsRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\"2\n\x15GetBagOfWordsResponse\x12\x19\n\x05words\x18\x01 \x03(\x0b\x32\n.IndexWord\"I\n\x0f\x43losestNRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\x12\t\n\x01N\x18\x03 \x01(\r\"%\n\x10\x43losestNResponse\x12\x11\n\timage_ids\x18\x01 \x03(\t2\xbf\x01\n\x15VisualIndexingService\x12\x35\n\nIndexImage\x12\x12.IndexImageRequest\x1a\x13.IndexImageResponse\x12>\n\rGetBagOfWords\x12\x15.GetBagOfWordsRequest\x1a\x16.GetBagOfWordsResponse\x12/\n\x08\x43losestN\x12\x10.ClosestNRequest\x1a\x11.ClosestNResponseb\x06proto3'
+  serialized_pb=b'\n\x0bindex.proto\"\x19\n\tIndexWord\x12\x0c\n\x04word\x18\x01 \x01(\x0c\"@\n\x11IndexImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12IndexImageResponse\"(\n\x14GetBagOfWordsRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\"2\n\x15GetBagOfWordsResponse\x12\x19\n\x05words\x18\x01 \x03(\x0b\x32\n.IndexWord\"b\n\x0f\x43losestNRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\x12\t\n\x01N\x18\x03 \x01(\r\x12\x17\n\x0finclude_details\x18\x04 \x01(\x08\"H\n\x10\x43losestNResponse\x12\x11\n\timage_ids\x18\x01 \x03(\t\x12!\n\x07\x64\x65tails\x18\x02 \x01(\x0b\x32\x10.ClosestNDetails\"\xe1\x02\n\x0f\x43losestNDetails\x12\x39\n\rimage_details\x18\x01 \x03(\x0b\x32\".ClosestNDetails.ImageDetailsEntry\x1a\xb6\x01\n\x14\x43losestNImageDetails\x12V\n\x11\x64\x65scriptor_scores\x18\x01 \x03(\x0b\x32;.ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry\x12\r\n\x05score\x18\x02 \x01(\x02\x1a\x37\n\x15\x44\x65scriptorScoresEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\x1aZ\n\x11ImageDetailsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.ClosestNDetails.ClosestNImageDetails:\x02\x38\x01\"4\n\x17IndexScoreImagesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1a\n\x18IndexScoreImagesResponse2\x83\x02\n\x15VisualIndexingService\x12\x35\n\nIndexImage\x12\x12.IndexImageRequest\x1a\x13.IndexImageResponse\x12>\n\rGetBagOfWords\x12\x15.GetBagOfWordsRequest\x1a\x16.GetBagOfWordsResponse\x12/\n\x08\x43losestN\x12\x10.ClosestNRequest\x1a\x11.ClosestNResponse\x12\x42\n\x0bScoreImages\x12\x18.IndexScoreImagesRequest\x1a\x19.IndexScoreImagesResponseb\x06proto3'
 )
 
 
@@ -207,6 +207,13 @@ _CLOSESTNREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='include_details', full_name='ClosestNRequest.include_details', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -220,7 +227,7 @@ _CLOSESTNREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=224,
-  serialized_end=297,
+  serialized_end=322,
 )
 
 
@@ -238,6 +245,13 @@ _CLOSESTNRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='details', full_name='ClosestNResponse.details', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -250,11 +264,215 @@ _CLOSESTNRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=299,
-  serialized_end=336,
+  serialized_start=324,
+  serialized_end=396,
+)
+
+
+_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY = _descriptor.Descriptor(
+  name='DescriptorScoresEntry',
+  full_name='ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry.value', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=605,
+  serialized_end=660,
+)
+
+_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS = _descriptor.Descriptor(
+  name='ClosestNImageDetails',
+  full_name='ClosestNDetails.ClosestNImageDetails',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='descriptor_scores', full_name='ClosestNDetails.ClosestNImageDetails.descriptor_scores', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='score', full_name='ClosestNDetails.ClosestNImageDetails.score', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=478,
+  serialized_end=660,
+)
+
+_CLOSESTNDETAILS_IMAGEDETAILSENTRY = _descriptor.Descriptor(
+  name='ImageDetailsEntry',
+  full_name='ClosestNDetails.ImageDetailsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='ClosestNDetails.ImageDetailsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='ClosestNDetails.ImageDetailsEntry.value', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=662,
+  serialized_end=752,
+)
+
+_CLOSESTNDETAILS = _descriptor.Descriptor(
+  name='ClosestNDetails',
+  full_name='ClosestNDetails',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='image_details', full_name='ClosestNDetails.image_details', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS, _CLOSESTNDETAILS_IMAGEDETAILSENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=399,
+  serialized_end=752,
+)
+
+
+_INDEXSCOREIMAGESREQUEST = _descriptor.Descriptor(
+  name='IndexScoreImagesRequest',
+  full_name='IndexScoreImagesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='reconstruction_id', full_name='IndexScoreImagesRequest.reconstruction_id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=754,
+  serialized_end=806,
+)
+
+
+_INDEXSCOREIMAGESRESPONSE = _descriptor.Descriptor(
+  name='IndexScoreImagesResponse',
+  full_name='IndexScoreImagesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=808,
+  serialized_end=834,
 )
 
 _GETBAGOFWORDSRESPONSE.fields_by_name['words'].message_type = _INDEXWORD
+_CLOSESTNRESPONSE.fields_by_name['details'].message_type = _CLOSESTNDETAILS
+_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY.containing_type = _CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS
+_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS.fields_by_name['descriptor_scores'].message_type = _CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY
+_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS.containing_type = _CLOSESTNDETAILS
+_CLOSESTNDETAILS_IMAGEDETAILSENTRY.fields_by_name['value'].message_type = _CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS
+_CLOSESTNDETAILS_IMAGEDETAILSENTRY.containing_type = _CLOSESTNDETAILS
+_CLOSESTNDETAILS.fields_by_name['image_details'].message_type = _CLOSESTNDETAILS_IMAGEDETAILSENTRY
 DESCRIPTOR.message_types_by_name['IndexWord'] = _INDEXWORD
 DESCRIPTOR.message_types_by_name['IndexImageRequest'] = _INDEXIMAGEREQUEST
 DESCRIPTOR.message_types_by_name['IndexImageResponse'] = _INDEXIMAGERESPONSE
@@ -262,6 +480,9 @@ DESCRIPTOR.message_types_by_name['GetBagOfWordsRequest'] = _GETBAGOFWORDSREQUEST
 DESCRIPTOR.message_types_by_name['GetBagOfWordsResponse'] = _GETBAGOFWORDSRESPONSE
 DESCRIPTOR.message_types_by_name['ClosestNRequest'] = _CLOSESTNREQUEST
 DESCRIPTOR.message_types_by_name['ClosestNResponse'] = _CLOSESTNRESPONSE
+DESCRIPTOR.message_types_by_name['ClosestNDetails'] = _CLOSESTNDETAILS
+DESCRIPTOR.message_types_by_name['IndexScoreImagesRequest'] = _INDEXSCOREIMAGESREQUEST
+DESCRIPTOR.message_types_by_name['IndexScoreImagesResponse'] = _INDEXSCOREIMAGESRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 IndexWord = _reflection.GeneratedProtocolMessageType('IndexWord', (_message.Message,), {
@@ -313,7 +534,54 @@ ClosestNResponse = _reflection.GeneratedProtocolMessageType('ClosestNResponse', 
   })
 _sym_db.RegisterMessage(ClosestNResponse)
 
+ClosestNDetails = _reflection.GeneratedProtocolMessageType('ClosestNDetails', (_message.Message,), {
 
+  'ClosestNImageDetails' : _reflection.GeneratedProtocolMessageType('ClosestNImageDetails', (_message.Message,), {
+
+    'DescriptorScoresEntry' : _reflection.GeneratedProtocolMessageType('DescriptorScoresEntry', (_message.Message,), {
+      'DESCRIPTOR' : _CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY,
+      '__module__' : 'index_pb2'
+      # @@protoc_insertion_point(class_scope:ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry)
+      })
+    ,
+    'DESCRIPTOR' : _CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS,
+    '__module__' : 'index_pb2'
+    # @@protoc_insertion_point(class_scope:ClosestNDetails.ClosestNImageDetails)
+    })
+  ,
+
+  'ImageDetailsEntry' : _reflection.GeneratedProtocolMessageType('ImageDetailsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CLOSESTNDETAILS_IMAGEDETAILSENTRY,
+    '__module__' : 'index_pb2'
+    # @@protoc_insertion_point(class_scope:ClosestNDetails.ImageDetailsEntry)
+    })
+  ,
+  'DESCRIPTOR' : _CLOSESTNDETAILS,
+  '__module__' : 'index_pb2'
+  # @@protoc_insertion_point(class_scope:ClosestNDetails)
+  })
+_sym_db.RegisterMessage(ClosestNDetails)
+_sym_db.RegisterMessage(ClosestNDetails.ClosestNImageDetails)
+_sym_db.RegisterMessage(ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry)
+_sym_db.RegisterMessage(ClosestNDetails.ImageDetailsEntry)
+
+IndexScoreImagesRequest = _reflection.GeneratedProtocolMessageType('IndexScoreImagesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _INDEXSCOREIMAGESREQUEST,
+  '__module__' : 'index_pb2'
+  # @@protoc_insertion_point(class_scope:IndexScoreImagesRequest)
+  })
+_sym_db.RegisterMessage(IndexScoreImagesRequest)
+
+IndexScoreImagesResponse = _reflection.GeneratedProtocolMessageType('IndexScoreImagesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _INDEXSCOREIMAGESRESPONSE,
+  '__module__' : 'index_pb2'
+  # @@protoc_insertion_point(class_scope:IndexScoreImagesResponse)
+  })
+_sym_db.RegisterMessage(IndexScoreImagesResponse)
+
+
+_CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY._options = None
+_CLOSESTNDETAILS_IMAGEDETAILSENTRY._options = None
 
 _VISUALINDEXINGSERVICE = _descriptor.ServiceDescriptor(
   name='VisualIndexingService',
@@ -321,8 +589,8 @@ _VISUALINDEXINGSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=339,
-  serialized_end=530,
+  serialized_start=837,
+  serialized_end=1096,
   methods=[
   _descriptor.MethodDescriptor(
     name='IndexImage',
@@ -349,6 +617,15 @@ _VISUALINDEXINGSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CLOSESTNREQUEST,
     output_type=_CLOSESTNRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ScoreImages',
+    full_name='VisualIndexingService.ScoreImages',
+    index=3,
+    containing_service=None,
+    input_type=_INDEXSCOREIMAGESREQUEST,
+    output_type=_INDEXSCOREIMAGESRESPONSE,
     serialized_options=None,
   ),
 ])

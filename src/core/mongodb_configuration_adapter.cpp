@@ -147,7 +147,7 @@ ConfigurationContainerPtr MongoDBConfigurationAdapter::GetAgentConfigOrDefault(c
 void MongoDBConfigurationAdapter::SetAgentConfig(const std::string& reconstruction_id, const std::string& agent_name, const std::string& config_json){
     collection configs = this->_db[this->_agents_collection];
     bsoncxx::v_noabi::document::value config_value = bsoncxx::from_json(config_json);
-    options::update options;
+    options::replace options;
     options.upsert(true);
 
     auto filter = document{} << RECONSTRUCTION_ID_KEY << reconstruction_id << AGENT_NAME_KEY << agent_name << finalize;
@@ -185,7 +185,7 @@ void MongoDBConfigurationAdapter::SetReconstructionConfig(const std::string& rec
     collection configs = this->_db[this->_reconstruction_configs_collection];
     bsoncxx::v_noabi::document::value config_value = bsoncxx::from_json(json);
     auto filter = document{} << RECONSTRUCTION_ID_KEY << reconstruction_id << finalize;
-    options::update options;
+    options::replace options;
     options.upsert(true);
     if(config_value.view().find(RECONSTRUCTION_ID_KEY) == config_value.view().end()){
         auto doc = document{};

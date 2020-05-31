@@ -1,134 +1,138 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-
-
-
-
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "server",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/gateway",
+      "args": ["/home/gumbo00/OnlineSFM/build/config.json"],
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
         {
-            "name": "server",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/gateway",
-            "args": ["/home/gumbo00/OnlineSFM/build/config.json"],
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "build index",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/build_index",
-            "args": ["/home/gumbo00/OnlineSFM/datasets/ImageDataset_SceauxCastle-master/images"],
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "indexing server",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/indexing_server",
-            "args": ["config.json", "index.bin"],
-            "cwd": "${workspaceFolder}/build",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "worker pool",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/worker_manager",
-            "args": ["config.json"],
-            "cwd": "${workspaceFolder}/build",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "worker",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/worker",
-            "args": ["config.json", "0.0.0.0:9994"],
-            "cwd": "${workspaceFolder}/build",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "",
-            "miDebuggerPath": "/usr/bin/gdb"
-        },
-        {
-            "name": "upload intrinsics",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "/home/gumbo00/OnlineSFM/build/upload_intrinsics_tool",
-            "args": ["/home/gumbo00/OnlineSFM/depends/openMVG/src/openMVG/exif/sensor_width_database/sensor_width_camera_database.txt", 
-                     "tcp://127.0.0.1:3306",
-                     "root", "password", "reconstruction", "CAMERA_INTRINSICS"],
-            "cwd": "${workspaceFolder}/build",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "",
-            "miDebuggerPath": "/usr/bin/gdb"
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
         }
-    ]
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "build index",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/build_index",
+      "args": [
+        "/home/gumbo00/OnlineSFM/datasets/ImageDataset_SceauxCastle-master/images",
+        "index.bin"
+      ],
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "indexing server",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/indexing_server",
+      "args": ["config.json", "index.bin"],
+      "cwd": "${workspaceFolder}/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "worker pool",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/worker_manager",
+      "args": ["config.json"],
+      "cwd": "${workspaceFolder}/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "worker",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/worker",
+      "args": ["config.json", "0.0.0.0:9994"],
+      "cwd": "${workspaceFolder}/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "upload intrinsics",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/upload_intrinsics_tool",
+      "args": [
+        "/home/gumbo00/OnlineSFM/depends/openMVG/src/openMVG/exif/sensor_width_database/sensor_width_camera_database.txt",
+        "tcp://127.0.0.1:3306",
+        "root",
+        "password",
+        "reconstruction",
+        "CAMERA_INTRINSICS"
+      ],
+      "cwd": "${workspaceFolder}/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    }
+  ]
 }

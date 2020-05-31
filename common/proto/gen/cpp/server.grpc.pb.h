@@ -170,6 +170,20 @@ class ReconstructionService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetAllImagesResponse>> PrepareAsyncGetAllImages(::grpc::ClientContext* context, const ::GetAllImagesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetAllImagesResponse>>(PrepareAsyncGetAllImagesRaw(context, request, cq));
     }
+    virtual ::grpc::Status GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::GetImageRegionsResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetImageRegionsResponse>> AsyncGetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetImageRegionsResponse>>(AsyncGetImageRegionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetImageRegionsResponse>> PrepareAsyncGetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::GetImageRegionsResponse>>(PrepareAsyncGetImageRegionsRaw(context, request, cq));
+    }
+    virtual ::grpc::Status ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::ScoreImagesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImagesResponse>> AsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImagesResponse>>(AsyncScoreImageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImagesResponse>> PrepareAsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImagesResponse>>(PrepareAsyncScoreImageRaw(context, request, cq));
+    }
     class experimental_async_interface {
      public:
       virtual ~experimental_async_interface() {}
@@ -354,6 +368,30 @@ class ReconstructionService final {
       #else
       virtual void GetAllImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetAllImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
+      virtual void GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetImageRegions(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetImageRegionsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void GetImageRegions(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetImageRegionsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void GetImageRegions(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetImageRegionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      #else
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
     typedef class experimental_async_interface async_interface;
@@ -404,6 +442,10 @@ class ReconstructionService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::SetReconstructionConfigFieldsResponse>* PrepareAsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetAllImagesResponse>* AsyncGetAllImagesRaw(::grpc::ClientContext* context, const ::GetAllImagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetAllImagesResponse>* PrepareAsyncGetAllImagesRaw(::grpc::ClientContext* context, const ::GetAllImagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetImageRegionsResponse>* AsyncGetImageRegionsRaw(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetImageRegionsResponse>* PrepareAsyncGetImageRegionsRaw(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImagesResponse>* AsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImagesResponse>* PrepareAsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -543,6 +585,20 @@ class ReconstructionService final {
     }
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetAllImagesResponse>> PrepareAsyncGetAllImages(::grpc::ClientContext* context, const ::GetAllImagesRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetAllImagesResponse>>(PrepareAsyncGetAllImagesRaw(context, request, cq));
+    }
+    ::grpc::Status GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::GetImageRegionsResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetImageRegionsResponse>> AsyncGetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetImageRegionsResponse>>(AsyncGetImageRegionsRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetImageRegionsResponse>> PrepareAsyncGetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::GetImageRegionsResponse>>(PrepareAsyncGetImageRegionsRaw(context, request, cq));
+    }
+    ::grpc::Status ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::ScoreImagesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>> AsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>>(AsyncScoreImageRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>> PrepareAsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>>(PrepareAsyncScoreImageRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -728,6 +784,30 @@ class ReconstructionService final {
       #else
       void GetAllImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetAllImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
+      void GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetImageRegions(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetImageRegionsResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void GetImageRegions(::grpc::ClientContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void GetImageRegions(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetImageRegionsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void GetImageRegions(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::GetImageRegionsResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      void ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)>) override;
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
+      #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      #else
+      void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      #endif
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -780,6 +860,10 @@ class ReconstructionService final {
     ::grpc::ClientAsyncResponseReader< ::SetReconstructionConfigFieldsResponse>* PrepareAsyncSetReconstructionConfigFieldsRaw(::grpc::ClientContext* context, const ::SetReconstructionConfigFieldsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetAllImagesResponse>* AsyncGetAllImagesRaw(::grpc::ClientContext* context, const ::GetAllImagesRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::GetAllImagesResponse>* PrepareAsyncGetAllImagesRaw(::grpc::ClientContext* context, const ::GetAllImagesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetImageRegionsResponse>* AsyncGetImageRegionsRaw(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::GetImageRegionsResponse>* PrepareAsyncGetImageRegionsRaw(::grpc::ClientContext* context, const ::GetImageRegionsRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>* AsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>* PrepareAsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_Handshake_;
     const ::grpc::internal::RpcMethod rpcmethod_ReconstructionUploadImage_;
     const ::grpc::internal::RpcMethod rpcmethod_ComputeMatches_;
@@ -798,6 +882,8 @@ class ReconstructionService final {
     const ::grpc::internal::RpcMethod rpcmethod_SetAgentConfigFields_;
     const ::grpc::internal::RpcMethod rpcmethod_SetReconstructionConfigFields_;
     const ::grpc::internal::RpcMethod rpcmethod_GetAllImages_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetImageRegions_;
+    const ::grpc::internal::RpcMethod rpcmethod_ScoreImage_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -823,6 +909,8 @@ class ReconstructionService final {
     virtual ::grpc::Status SetAgentConfigFields(::grpc::ServerContext* context, const ::SetAgentConfigFieldsRequest* request, ::SetAgentConfigFieldsResponse* response);
     virtual ::grpc::Status SetReconstructionConfigFields(::grpc::ServerContext* context, const ::SetReconstructionConfigFieldsRequest* request, ::SetReconstructionConfigFieldsResponse* response);
     virtual ::grpc::Status GetAllImages(::grpc::ServerContext* context, const ::GetAllImagesRequest* request, ::GetAllImagesResponse* response);
+    virtual ::grpc::Status GetImageRegions(::grpc::ServerContext* context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response);
+    virtual ::grpc::Status ScoreImage(::grpc::ServerContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Handshake : public BaseClass {
@@ -1184,7 +1272,47 @@ class ReconstructionService final {
       ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Handshake<WithAsyncMethod_ReconstructionUploadImage<WithAsyncMethod_ComputeMatches<WithAsyncMethod_SparseReconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_GetAgentConfig<WithAsyncMethod_ReconstructionUploadImageBatch<WithAsyncMethod_MVS<WithAsyncMethod_SetAgentConfigFields<WithAsyncMethod_SetReconstructionConfigFields<WithAsyncMethod_GetAllImages<Service > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetImageRegions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetImageRegions() {
+      ::grpc::Service::MarkMethodAsync(18);
+    }
+    ~WithAsyncMethod_GetImageRegions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetImageRegions(::grpc::ServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetImageRegions(::grpc::ServerContext* context, ::GetImageRegionsRequest* request, ::grpc::ServerAsyncResponseWriter< ::GetImageRegionsResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_ScoreImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_ScoreImage() {
+      ::grpc::Service::MarkMethodAsync(19);
+    }
+    ~WithAsyncMethod_ScoreImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestScoreImage(::grpc::ServerContext* context, ::ScoreImagesRequest* request, ::grpc::ServerAsyncResponseWriter< ::ScoreImagesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_Handshake<WithAsyncMethod_ReconstructionUploadImage<WithAsyncMethod_ComputeMatches<WithAsyncMethod_SparseReconstruct<WithAsyncMethod_GetOBJ<WithAsyncMethod_GetSparse<WithAsyncMethod_NewReconstruction<WithAsyncMethod_DeleteReconstruction<WithAsyncMethod_StartSession<WithAsyncMethod_StopSession<WithAsyncMethod_SessionAddImage<WithAsyncMethod_GetReconstructionConfig<WithAsyncMethod_GetAgentConfig<WithAsyncMethod_ReconstructionUploadImageBatch<WithAsyncMethod_MVS<WithAsyncMethod_SetAgentConfigFields<WithAsyncMethod_SetReconstructionConfigFields<WithAsyncMethod_GetAllImages<WithAsyncMethod_GetImageRegions<WithAsyncMethod_ScoreImage<Service > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_Handshake : public BaseClass {
    private:
@@ -1986,11 +2114,105 @@ class ReconstructionService final {
     #endif
       { return nullptr; }
   };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_GetImageRegions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_GetImageRegions() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(18,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::GetImageRegionsRequest, ::GetImageRegionsResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::GetImageRegionsRequest* request, ::GetImageRegionsResponse* response) { return this->GetImageRegions(context, request, response); }));}
+    void SetMessageAllocatorFor_GetImageRegions(
+        ::grpc::experimental::MessageAllocator< ::GetImageRegionsRequest, ::GetImageRegionsResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(18);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::GetImageRegionsRequest, ::GetImageRegionsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_GetImageRegions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetImageRegions(::grpc::ServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* GetImageRegions(
+      ::grpc::CallbackServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* GetImageRegions(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithCallbackMethod_ScoreImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithCallbackMethod_ScoreImage() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodCallback(19,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::ScoreImagesRequest, ::ScoreImagesResponse>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response) { return this->ScoreImage(context, request, response); }));}
+    void SetMessageAllocatorFor_ScoreImage(
+        ::grpc::experimental::MessageAllocator< ::ScoreImagesRequest, ::ScoreImagesResponse>* allocator) {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+    #else
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(19);
+    #endif
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::ScoreImagesRequest, ::ScoreImagesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~ExperimentalWithCallbackMethod_ScoreImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ScoreImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ScoreImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/)
+    #endif
+      { return nullptr; }
+  };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_ReconstructionUploadImage<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_GetAgentConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<ExperimentalWithCallbackMethod_GetAllImages<Service > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_ReconstructionUploadImage<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_GetAgentConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<ExperimentalWithCallbackMethod_GetAllImages<ExperimentalWithCallbackMethod_GetImageRegions<ExperimentalWithCallbackMethod_ScoreImage<Service > > > > > > > > > > > > > > > > > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_ReconstructionUploadImage<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_GetAgentConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<ExperimentalWithCallbackMethod_GetAllImages<Service > > > > > > > > > > > > > > > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_Handshake<ExperimentalWithCallbackMethod_ReconstructionUploadImage<ExperimentalWithCallbackMethod_ComputeMatches<ExperimentalWithCallbackMethod_SparseReconstruct<ExperimentalWithCallbackMethod_GetOBJ<ExperimentalWithCallbackMethod_GetSparse<ExperimentalWithCallbackMethod_NewReconstruction<ExperimentalWithCallbackMethod_DeleteReconstruction<ExperimentalWithCallbackMethod_StartSession<ExperimentalWithCallbackMethod_StopSession<ExperimentalWithCallbackMethod_SessionAddImage<ExperimentalWithCallbackMethod_GetReconstructionConfig<ExperimentalWithCallbackMethod_GetAgentConfig<ExperimentalWithCallbackMethod_ReconstructionUploadImageBatch<ExperimentalWithCallbackMethod_MVS<ExperimentalWithCallbackMethod_SetAgentConfigFields<ExperimentalWithCallbackMethod_SetReconstructionConfigFields<ExperimentalWithCallbackMethod_GetAllImages<ExperimentalWithCallbackMethod_GetImageRegions<ExperimentalWithCallbackMethod_ScoreImage<Service > > > > > > > > > > > > > > > > > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_Handshake : public BaseClass {
    private:
@@ -2293,6 +2515,40 @@ class ReconstructionService final {
     }
     // disable synchronous version of this method
     ::grpc::Status GetAllImages(::grpc::ServerContext* /*context*/, const ::GetAllImagesRequest* /*request*/, ::GetAllImagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetImageRegions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetImageRegions() {
+      ::grpc::Service::MarkMethodGeneric(18);
+    }
+    ~WithGenericMethod_GetImageRegions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetImageRegions(::grpc::ServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_ScoreImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_ScoreImage() {
+      ::grpc::Service::MarkMethodGeneric(19);
+    }
+    ~WithGenericMethod_ScoreImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2655,6 +2911,46 @@ class ReconstructionService final {
     }
     void RequestGetAllImages(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetImageRegions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetImageRegions() {
+      ::grpc::Service::MarkMethodRaw(18);
+    }
+    ~WithRawMethod_GetImageRegions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetImageRegions(::grpc::ServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetImageRegions(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_ScoreImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_ScoreImage() {
+      ::grpc::Service::MarkMethodRaw(19);
+    }
+    ~WithRawMethod_ScoreImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestScoreImage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -3342,6 +3638,82 @@ class ReconstructionService final {
       { return nullptr; }
   };
   template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_GetImageRegions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_GetImageRegions() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(18,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetImageRegions(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_GetImageRegions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetImageRegions(::grpc::ServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* GetImageRegions(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* GetImageRegions(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
+  class ExperimentalWithRawCallbackMethod_ScoreImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    ExperimentalWithRawCallbackMethod_ScoreImage() {
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+      ::grpc::Service::
+    #else
+      ::grpc::Service::experimental().
+    #endif
+        MarkMethodRawCallback(19,
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+                   ::grpc::CallbackServerContext*
+    #else
+                   ::grpc::experimental::CallbackServerContext*
+    #endif
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ScoreImage(context, request, response); }));
+    }
+    ~ExperimentalWithRawCallbackMethod_ScoreImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
+    virtual ::grpc::ServerUnaryReactor* ScoreImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #else
+    virtual ::grpc::experimental::ServerUnaryReactor* ScoreImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
+    #endif
+      { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_Handshake : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -3601,7 +3973,47 @@ class ReconstructionService final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedGetAllImages(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GetAllImagesRequest,::GetAllImagesResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_SparseReconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_GetAgentConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<WithStreamedUnaryMethod_GetAllImages<Service > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetImageRegions : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetImageRegions() {
+      ::grpc::Service::MarkMethodStreamed(18,
+        new ::grpc::internal::StreamedUnaryHandler< ::GetImageRegionsRequest, ::GetImageRegionsResponse>(std::bind(&WithStreamedUnaryMethod_GetImageRegions<BaseClass>::StreamedGetImageRegions, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_GetImageRegions() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetImageRegions(::grpc::ServerContext* /*context*/, const ::GetImageRegionsRequest* /*request*/, ::GetImageRegionsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetImageRegions(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::GetImageRegionsRequest,::GetImageRegionsResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_ScoreImage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_ScoreImage() {
+      ::grpc::Service::MarkMethodStreamed(19,
+        new ::grpc::internal::StreamedUnaryHandler< ::ScoreImagesRequest, ::ScoreImagesResponse>(std::bind(&WithStreamedUnaryMethod_ScoreImage<BaseClass>::StreamedScoreImage, this, std::placeholders::_1, std::placeholders::_2)));
+    }
+    ~WithStreamedUnaryMethod_ScoreImage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImagesRequest* /*request*/, ::ScoreImagesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedScoreImage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ScoreImagesRequest,::ScoreImagesResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_SparseReconstruct<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_GetAgentConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<WithStreamedUnaryMethod_GetAllImages<WithStreamedUnaryMethod_GetImageRegions<WithStreamedUnaryMethod_ScoreImage<Service > > > > > > > > > > > > > > > StreamedUnaryService;
   template <class BaseClass>
   class WithSplitStreamingMethod_GetOBJ : public BaseClass {
    private:
@@ -3643,7 +4055,7 @@ class ReconstructionService final {
     virtual ::grpc::Status StreamedGetSparse(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::GetSparseRequest,::GetSparseResponse>* server_split_streamer) = 0;
   };
   typedef WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<Service > > SplitStreamedService;
-  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_SparseReconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_GetAgentConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<WithStreamedUnaryMethod_GetAllImages<Service > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Handshake<WithStreamedUnaryMethod_ComputeMatches<WithStreamedUnaryMethod_SparseReconstruct<WithSplitStreamingMethod_GetOBJ<WithSplitStreamingMethod_GetSparse<WithStreamedUnaryMethod_NewReconstruction<WithStreamedUnaryMethod_DeleteReconstruction<WithStreamedUnaryMethod_StartSession<WithStreamedUnaryMethod_StopSession<WithStreamedUnaryMethod_GetReconstructionConfig<WithStreamedUnaryMethod_GetAgentConfig<WithStreamedUnaryMethod_MVS<WithStreamedUnaryMethod_SetAgentConfigFields<WithStreamedUnaryMethod_SetReconstructionConfigFields<WithStreamedUnaryMethod_GetAllImages<WithStreamedUnaryMethod_GetImageRegions<WithStreamedUnaryMethod_ScoreImage<Service > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 

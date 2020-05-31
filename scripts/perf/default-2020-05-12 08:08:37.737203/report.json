@@ -1,8 +1,0 @@
-{
- "test": "default",
- "steps": {
-  "NewReconstruction": 14.827489852905273,
-  "UploadDirectory": 544180.9957027435,
-  "SparseReconstruction": 1.7726421356201172
- }
-}

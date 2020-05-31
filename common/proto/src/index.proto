@@ -25,14 +25,33 @@ message ClosestNRequest{
     string reconstruction_id = 1;
     string image_id = 2;
     uint32 N = 3;
+    bool include_details = 4;
 };
 
 message ClosestNResponse {
     repeated string image_ids = 1;
+    ClosestNDetails details = 2;
 }
+
+message ClosestNDetails {
+    message ClosestNImageDetails {
+        map<string, float> descriptor_scores = 1;
+        float score = 2;
+    }
+    map<string, ClosestNImageDetails> image_details = 1;
+}
+
+message IndexScoreImagesRequest {
+    string reconstruction_id = 1;
+};
+
+message IndexScoreImagesResponse {
+
+};
 
 service VisualIndexingService {
    rpc IndexImage(IndexImageRequest) returns (IndexImageResponse);
    rpc GetBagOfWords(GetBagOfWordsRequest) returns (GetBagOfWordsResponse);
    rpc ClosestN(ClosestNRequest) returns (ClosestNResponse);
+   rpc ScoreImages(IndexScoreImagesRequest) returns (IndexScoreImagesResponse);
 };

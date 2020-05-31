@@ -7,14 +7,14 @@
 #define SQL_DELETE_RECONSTRUCTION(t) "DELETE FROM " + t + " WHERE ID = ?"
 
 SQLReconstructionStorage::SQLReconstructionStorage(
-                                                   const std::string& table) : 
-                                                                                    _table(table){
-    
+    const std::string &table) : _table(table)
+{
 }
 
-void SQLReconstructionStorage::Store(const ReconstructionData& data){
+void SQLReconstructionStorage::Store(const ReconstructionData &data)
+{
     LOG(INFO) << "Storing reconstruction " << data.id();
-    this->IssueUpdate(SQL_INSERT_RECONSTRUCTION(this->_table), [this, data](sql::PreparedStatement* pstmt){
+    this->IssueUpdate(SQL_INSERT_RECONSTRUCTION(this->_table), [this, data](sql::PreparedStatement *pstmt) {
         pstmt->setString(1, data.id());
         pstmt->setString(2, data.root());
         pstmt->setString(3, data.images_path());
@@ -27,26 +27,31 @@ void SQLReconstructionStorage::Store(const ReconstructionData& data){
         pstmt->setString(10, data.matches_path());
         pstmt->setString(11, data.sfm_path());
         pstmt->setString(12, data.mvs_path());
-
     });
 }
 
-ReconstructionData SQLReconstructionStorage::Get(const std::string& id){
+ReconstructionData SQLReconstructionStorage::Get(const std::string &id)
+{
     auto connection_loan = this->GetConnection();
-    sql::ResultSet* res;
-    try{
+    sql::ResultSet *res;
+    try
+    {
         res = this->IssueQuery(SQL_GET_RECONSTRUCTION(this->_table), connection_loan.con,
-            [id](sql::PreparedStatement *stmt){
-                stmt->setString(1, id);
-        });
-    }catch(const std::exception& e){
+                               [id](sql::PreparedStatement *stmt) {
+                                   stmt->setString(1, id);
+                               });
+    }
+    catch (const std::exception &e)
+    {
         throw;
     }
     ReconstructionData reconstruction_data;
-    if(!res){
+    if (!res)
+    {
         LOG(ERROR) << "Failed to get reconstruction data for " << id;
     }
-    if(res->next()){
+    if (res->next())
+    {
         reconstruction_data.set_id(res->getString("ID"));
         reconstruction_data.set_root(res->getString("ROOT_PATH"));
         reconstruction_data.set_images_path(res->getString("IMAGES_PATH"));
@@ -59,12 +64,13 @@ ReconstructionData SQLReconstructionStorage::Get(const std::string& id){
     return reconstruction_data;
 }
 
-void SQLReconstructionStorage::Delete(const std::string& id){
+void SQLReconstructionStorage::Delete(const std::string &id)
+{
     LOG(INFO) << "Deleting Reconstruction " << id;
     ReconstructionData reconstruction_data = Get(id);
     boost::filesystem::remove_all(reconstruction_data.root());
-    this->IssueUpdate(SQL_DELETE_RECONSTRUCTION(this->_table), 
-        [id](sql::PreparedStatement *stmt){
-            stmt->setString(1, id);
-    });
+    this->IssueUpdate(SQL_DELETE_RECONSTRUCTION(this->_table),
+                      [id](sql::PreparedStatement *stmt) {
+                          stmt->setString(1, id);
+                      });
 }

@@ -6,18 +6,19 @@
 #include <cppconn/driver.h>
 #include <glog/logging.h>
 
-
-template<>
-std::shared_ptr<sql::Connection> MySQLConnectionPool::Create(){
-    sql::Driver* driver(get_driver_instance());
-    auto connection = std::shared_ptr<sql::Connection>(driver->connect(CONFIG_GET_STRING("sql.address"), 
-                                                    CONFIG_GET_STRING("sql.user"), 
-                                                    CONFIG_GET_STRING("sql.password")));
+template <>
+std::shared_ptr<sql::Connection> MySQLConnectionPool::Create()
+{
+    sql::Driver *driver(get_driver_instance());
+    auto connection = std::shared_ptr<sql::Connection>(driver->connect(CONFIG_GET_STRING("sql.address"),
+                                                                       CONFIG_GET_STRING("sql.user"),
+                                                                       CONFIG_GET_STRING("sql.password")));
     connection->setSchema(CONFIG_GET_STRING("sql.db"));
     return connection;
 }
 
-template<>
-void MySQLConnectionPool::Close(std::shared_ptr<sql::Connection> con){
+template <>
+void MySQLConnectionPool::Close(std::shared_ptr<sql::Connection> con)
+{
     con->close();
 }

@@ -4,7 +4,8 @@ set(CMAKE_BUILD_TYPE DEBUG)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)  
 include_directories(common/proto/gen/cpp 
                     depends/openMVS/openMVS_build
-                    depends/openMVG/src/software/SfM/export/
+                    depends/openMVG/src/software/SfM/export
+                    /usr/local/include/openMVG/third_party/flann/src/cpp
                     depends/
                     src/core
                     src/gateway
@@ -19,7 +20,6 @@ include_directories(common/proto/gen/cpp
                     /usr/local/include/libbson-1.0)
 find_package(Protobuf REQUIRED)
 find_package(Boost COMPONENTS filesystem REQUIRED)
-find_package(glog REQUIRED)
 find_package(gRPC REQUIRED)
 find_package(OpenMVG REQUIRED)
 
@@ -65,7 +65,6 @@ target_link_libraries(core
                      elasticlient
                      mongocxx 
                      bsoncxx
-                     stlplus3
                      ${Protobuf_LIBRARIES} 
                      vlsift 
                      gRPC::grpc++
