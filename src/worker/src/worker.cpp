@@ -61,7 +61,6 @@ class WorkerServer : public Worker::Service
         catch (const CameraIntrinsicNotFoundException &e)
         {
             LOG(INFO) << e.what();
-            // todo: log intrinsic not found
             return Status::OK;
         }
         catch (const std::exception &e)
@@ -152,6 +151,10 @@ class WorkerServer : public Worker::Service
     }
 };
 
+#include "capacity_bounded_job_queue_decorator.h"
+#include "ampq_job_queue.h"
+#include "static_job_cost_provider.h"
+#include "jobs.h"
 int main(int argc, char *argv[])
 {
     google::InitGoogleLogging(argv[0]);
@@ -179,6 +182,115 @@ int main(int argc, char *argv[])
     req.set_cores(CONFIG_GET_INT("worker.cores"));
     manager->Register(&ctx, req, &resp);
     LOG(INFO) << "Server waiting for connections...";
+
+    auto cost_provider = std::make_shared<StaticJobCostProvider>();
+    cost_provider->Load(CONFIG_GET_STRING("jobs.cost_file"));
+    JobCost resources;
+    resources.exclusive_cores = 10;
+    resources.ram_usage = 1000000 * 10;
+    auto job_queue = std::make_shared<CapacityBoundedJobQueueDecorator>(std::make_shared<AMQPJobExchange>(event_base_new(),
+                                                                                                          "amqp://user:bitnami@localhost:5672",
+                                                                                                          "job_exchange",
+                                                                                                          "my_key"),
+                                                                        cost_provider,
+                                                                        resources);
+
+    job_queue->Consume<ComputeFeaturesJob>([](ComputeFeaturesJob &j, JobResult &jr) {
+        try
+        {
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(j.reconstruction_id));
+            jr.status = reconstruction->ComputeFeatures({j.image_id});
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
+    job_queue->Consume<AddImageJob>([](AddImageJob &j, JobResult &jr) {
+        try
+        {
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(j.reconstruction_id));
+            jr.status = reconstruction->AddImage(j.image_id, true);
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
+    job_queue->Consume<ComputeMatchesJob>([](ComputeMatchesJob &j, JobResult &jr) {
+        try
+        {
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(j.reconstruction_id));
+            jr.status = reconstruction->ComputeMatches(std::set<std::string>{j.image_id});
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
+    job_queue->Consume<SparseReconstructionJob>([](SparseReconstructionJob &j, JobResult &jr) {
+        try
+        {
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(j.reconstruction_id));
+            jr.status = reconstruction->SparseReconstruct();
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
+    job_queue->Consume<ComputeStructureJob>([](ComputeStructureJob &j, JobResult &jr) {
+        try
+        {
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(j.reconstruction_id));
+            jr.status = reconstruction->ComputeStructure();
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
+    job_queue->Consume<MVSJob>([](MVSJob &j, JobResult &jr) {
+        try
+        {
+            ReconstructionFetcher rf;
+            auto reconstruction = rf.Fetch(OpenMVGReconstructionContext(j.reconstruction_id));
+            jr.status = reconstruction->MVS();
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
     server->Wait();
     return 1;
 }

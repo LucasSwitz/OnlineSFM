@@ -12,7 +12,9 @@ RUN ["bash", "/scripts/install/install_mvg.sh"]
 RUN ["bash", "/scripts/install/install_mvs.sh"]
 RUN ["bash", "/scripts/install/install_ctpl.sh"]
 RUN ["bash", "/scripts/install/install_glog.sh"]
+RUN ["bash", "/scripts/install/install_nlohmann-json"]
 RUN ["bash", "/scripts/install/install_redis++.sh"]
+RUN ["bash", "/scripts/install/install_ctpl.sh"]
 RUN mkdir -p /OnlineSFM
 COPY CMakeLists.txt /OnlineSFM/CMakeLists.txt
 COPY Makefile /OnlineSFM/Makefile

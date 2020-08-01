@@ -9,7 +9,7 @@
 #define SQL_DELETE_DESCRIPTORS(t) "DELETE FROM " + t + " WHERE IMAGE_ID = ?"
 #define SQL_STORE_DESCRIPTOR(t) "INSERT INTO " + t + " VALUES (?,?,?,?)"
 #define SQL_GET_DESCRIPTOR_FREQUENCY(t) "SELECT DESCRIPTOR, SUM(N) as N FROM " + t + " WHERE DESCRIPTOR IN (?) GROUP BY DESCRIPTOR"
-#define SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(t) "SELECT T1.IMAGE_ID FROM " + t + " as T1 WHERE T1.RECONSTRUCTION_ID = ? AND exists(SELECT * FROM IMAGE_WORDS as T2 WHERE T2.IMAGE_ID = ? AND T1.DESCRIPTOR = T2.DESCRIPTOR)"
+#define SQL_GET_ALL_WITH_DESCRIPTORS_COMMON(t) "SELECT T1.IMAGE_ID FROM " + t + " as T1 WHERE T1.RECONSTRUCTION_ID = ? AND T1.IMAGE_ID != ? AND exists(SELECT * FROM IMAGE_WORDS as T2 WHERE T2.IMAGE_ID = ? AND T1.DESCRIPTOR = T2.DESCRIPTOR)"
 #define SQL_GET_UNIQUE_IMAGE_COUNT(t) "SELECT COUNT(DISTINCT IMAGE_ID) as TOTAL FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 #define SQL_GET_GLOBAL_DESCRIPTOR_FREQUENCIES(t) "SELECT DESCRIPTOR, SUM(N) as N FROM " + t + " WHERE RECONSTRUCTION_ID = ? GROUP BY DESCRIPTOR"
 #define SQL_GET_ALL_WITH_DESCRIPTORS_COMMON_PAGED(t) "SELECT T2.IMAGE_ID, T2.DESCRIPTOR, T2.N FROM " + t + " as T1, " + t + " as T2 WHERE T1.IMAGE_ID = (?) AND T1.DESCRIPTOR > ? AND T1.IMAGE_ID != T2.IMAGE_ID AND T1.RECONSTRUCTION_ID = T2.RECONSTRUCTION_ID AND T1.DESCRIPTOR = T2.DESCRIPTOR ORDER BY T2.DESCRIPTOR ASC LIMIT ?"
@@ -80,6 +80,7 @@ public:
                                    [reconstruction_id, image_id](sql::PreparedStatement *stmt) {
                                        stmt->setString(1, reconstruction_id);
                                        stmt->setString(2, image_id);
+                                       stmt->setString(3, image_id);
                                    });
         }
         else if (!page_start)
@@ -127,10 +128,10 @@ public:
         return total;
     }
 
-    virtual SIFT_Descriptor_count_map GetGlobalDescriptorFrequencies(const std::string &reconstruction_id)
+    virtual std::shared_ptr<SIFT_Descriptor_count_map> GetGlobalDescriptorFrequencies(const std::string &reconstruction_id)
     {
         auto connection_loan = this->GetConnection();
-        SIFT_Descriptor_count_map map;
+        std::shared_ptr<SIFT_Descriptor_count_map> map = std::make_shared<SIFT_Descriptor_count_map>();
         sql::ResultSet *res = this->IssueQuery(SQL_GET_GLOBAL_DESCRIPTOR_FREQUENCIES(this->_table), connection_loan.con,
                                                [reconstruction_id](sql::PreparedStatement *stmt) {
                                                    stmt->setString(1, reconstruction_id);
@@ -140,8 +141,7 @@ public:
             SIFT_Descriptor descriptor;
             std::string desc_str = res->getString("DESCRIPTOR");
             memcpy((char *)descriptor.data(), desc_str.data(), 128);
-            map[descriptor] = res->getInt("N");
-            assert(map[descriptor] != 0);
+            (*map)[descriptor] = res->getInt("N");
         }
         delete res;
         return map;

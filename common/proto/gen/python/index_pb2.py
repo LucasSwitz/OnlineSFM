@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0bindex.proto\"\x19\n\tIndexWord\x12\x0c\n\x04word\x18\x01 \x01(\x0c\"@\n\x11IndexImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12IndexImageResponse\"(\n\x14GetBagOfWordsRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\"2\n\x15GetBagOfWordsResponse\x12\x19\n\x05words\x18\x01 \x03(\x0b\x32\n.IndexWord\"b\n\x0f\x43losestNRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\x12\t\n\x01N\x18\x03 \x01(\r\x12\x17\n\x0finclude_details\x18\x04 \x01(\x08\"H\n\x10\x43losestNResponse\x12\x11\n\timage_ids\x18\x01 \x03(\t\x12!\n\x07\x64\x65tails\x18\x02 \x01(\x0b\x32\x10.ClosestNDetails\"\xe1\x02\n\x0f\x43losestNDetails\x12\x39\n\rimage_details\x18\x01 \x03(\x0b\x32\".ClosestNDetails.ImageDetailsEntry\x1a\xb6\x01\n\x14\x43losestNImageDetails\x12V\n\x11\x64\x65scriptor_scores\x18\x01 \x03(\x0b\x32;.ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry\x12\r\n\x05score\x18\x02 \x01(\x02\x1a\x37\n\x15\x44\x65scriptorScoresEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\x1aZ\n\x11ImageDetailsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.ClosestNDetails.ClosestNImageDetails:\x02\x38\x01\"4\n\x17IndexScoreImagesRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\"\x1a\n\x18IndexScoreImagesResponse2\x83\x02\n\x15VisualIndexingService\x12\x35\n\nIndexImage\x12\x12.IndexImageRequest\x1a\x13.IndexImageResponse\x12>\n\rGetBagOfWords\x12\x15.GetBagOfWordsRequest\x1a\x16.GetBagOfWordsResponse\x12/\n\x08\x43losestN\x12\x10.ClosestNRequest\x1a\x11.ClosestNResponse\x12\x42\n\x0bScoreImages\x12\x18.IndexScoreImagesRequest\x1a\x19.IndexScoreImagesResponseb\x06proto3'
+  serialized_pb=b'\n\x0bindex.proto\"\x19\n\tIndexWord\x12\x0c\n\x04word\x18\x01 \x01(\x0c\"@\n\x11IndexImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12IndexImageResponse\"(\n\x14GetBagOfWordsRequest\x12\x10\n\x08image_id\x18\x01 \x01(\t\"2\n\x15GetBagOfWordsResponse\x12\x19\n\x05words\x18\x01 \x03(\x0b\x32\n.IndexWord\"b\n\x0f\x43losestNRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\x12\t\n\x01N\x18\x03 \x01(\r\x12\x17\n\x0finclude_details\x18\x04 \x01(\x08\"H\n\x10\x43losestNResponse\x12\x11\n\timage_ids\x18\x01 \x03(\t\x12!\n\x07\x64\x65tails\x18\x02 \x01(\x0b\x32\x10.ClosestNDetails\"\xe1\x02\n\x0f\x43losestNDetails\x12\x39\n\rimage_details\x18\x01 \x03(\x0b\x32\".ClosestNDetails.ImageDetailsEntry\x1a\xb6\x01\n\x14\x43losestNImageDetails\x12V\n\x11\x64\x65scriptor_scores\x18\x01 \x03(\x0b\x32;.ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry\x12\r\n\x05score\x18\x02 \x01(\x02\x1a\x37\n\x15\x44\x65scriptorScoresEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x02:\x02\x38\x01\x1aZ\n\x11ImageDetailsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.ClosestNDetails.ClosestNImageDetails:\x02\x38\x01\"@\n\x11ScoreImageRequest\x12\x19\n\x11reconstruction_id\x18\x01 \x01(\t\x12\x10\n\x08image_id\x18\x02 \x01(\t\"\x14\n\x12ScoreImageResponse2\xf6\x01\n\x15VisualIndexingService\x12\x35\n\nIndexImage\x12\x12.IndexImageRequest\x1a\x13.IndexImageResponse\x12>\n\rGetBagOfWords\x12\x15.GetBagOfWordsRequest\x1a\x16.GetBagOfWordsResponse\x12/\n\x08\x43losestN\x12\x10.ClosestNRequest\x1a\x11.ClosestNResponse\x12\x35\n\nScoreImage\x12\x12.ScoreImageRequest\x1a\x13.ScoreImageResponseb\x06proto3'
 )
 
 
@@ -411,16 +411,23 @@ _CLOSESTNDETAILS = _descriptor.Descriptor(
 )
 
 
-_INDEXSCOREIMAGESREQUEST = _descriptor.Descriptor(
-  name='IndexScoreImagesRequest',
-  full_name='IndexScoreImagesRequest',
+_SCOREIMAGEREQUEST = _descriptor.Descriptor(
+  name='ScoreImageRequest',
+  full_name='ScoreImageRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='reconstruction_id', full_name='IndexScoreImagesRequest.reconstruction_id', index=0,
+      name='reconstruction_id', full_name='ScoreImageRequest.reconstruction_id', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='image_id', full_name='ScoreImageRequest.image_id', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -438,13 +445,13 @@ _INDEXSCOREIMAGESREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=754,
-  serialized_end=806,
+  serialized_end=818,
 )
 
 
-_INDEXSCOREIMAGESRESPONSE = _descriptor.Descriptor(
-  name='IndexScoreImagesResponse',
-  full_name='IndexScoreImagesResponse',
+_SCOREIMAGERESPONSE = _descriptor.Descriptor(
+  name='ScoreImageResponse',
+  full_name='ScoreImageResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -461,8 +468,8 @@ _INDEXSCOREIMAGESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=808,
-  serialized_end=834,
+  serialized_start=820,
+  serialized_end=840,
 )
 
 _GETBAGOFWORDSRESPONSE.fields_by_name['words'].message_type = _INDEXWORD
@@ -481,8 +488,8 @@ DESCRIPTOR.message_types_by_name['GetBagOfWordsResponse'] = _GETBAGOFWORDSRESPON
 DESCRIPTOR.message_types_by_name['ClosestNRequest'] = _CLOSESTNREQUEST
 DESCRIPTOR.message_types_by_name['ClosestNResponse'] = _CLOSESTNRESPONSE
 DESCRIPTOR.message_types_by_name['ClosestNDetails'] = _CLOSESTNDETAILS
-DESCRIPTOR.message_types_by_name['IndexScoreImagesRequest'] = _INDEXSCOREIMAGESREQUEST
-DESCRIPTOR.message_types_by_name['IndexScoreImagesResponse'] = _INDEXSCOREIMAGESRESPONSE
+DESCRIPTOR.message_types_by_name['ScoreImageRequest'] = _SCOREIMAGEREQUEST
+DESCRIPTOR.message_types_by_name['ScoreImageResponse'] = _SCOREIMAGERESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 IndexWord = _reflection.GeneratedProtocolMessageType('IndexWord', (_message.Message,), {
@@ -565,19 +572,19 @@ _sym_db.RegisterMessage(ClosestNDetails.ClosestNImageDetails)
 _sym_db.RegisterMessage(ClosestNDetails.ClosestNImageDetails.DescriptorScoresEntry)
 _sym_db.RegisterMessage(ClosestNDetails.ImageDetailsEntry)
 
-IndexScoreImagesRequest = _reflection.GeneratedProtocolMessageType('IndexScoreImagesRequest', (_message.Message,), {
-  'DESCRIPTOR' : _INDEXSCOREIMAGESREQUEST,
+ScoreImageRequest = _reflection.GeneratedProtocolMessageType('ScoreImageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SCOREIMAGEREQUEST,
   '__module__' : 'index_pb2'
-  # @@protoc_insertion_point(class_scope:IndexScoreImagesRequest)
+  # @@protoc_insertion_point(class_scope:ScoreImageRequest)
   })
-_sym_db.RegisterMessage(IndexScoreImagesRequest)
+_sym_db.RegisterMessage(ScoreImageRequest)
 
-IndexScoreImagesResponse = _reflection.GeneratedProtocolMessageType('IndexScoreImagesResponse', (_message.Message,), {
-  'DESCRIPTOR' : _INDEXSCOREIMAGESRESPONSE,
+ScoreImageResponse = _reflection.GeneratedProtocolMessageType('ScoreImageResponse', (_message.Message,), {
+  'DESCRIPTOR' : _SCOREIMAGERESPONSE,
   '__module__' : 'index_pb2'
-  # @@protoc_insertion_point(class_scope:IndexScoreImagesResponse)
+  # @@protoc_insertion_point(class_scope:ScoreImageResponse)
   })
-_sym_db.RegisterMessage(IndexScoreImagesResponse)
+_sym_db.RegisterMessage(ScoreImageResponse)
 
 
 _CLOSESTNDETAILS_CLOSESTNIMAGEDETAILS_DESCRIPTORSCORESENTRY._options = None
@@ -589,8 +596,8 @@ _VISUALINDEXINGSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=837,
-  serialized_end=1096,
+  serialized_start=843,
+  serialized_end=1089,
   methods=[
   _descriptor.MethodDescriptor(
     name='IndexImage',
@@ -620,12 +627,12 @@ _VISUALINDEXINGSERVICE = _descriptor.ServiceDescriptor(
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(
-    name='ScoreImages',
-    full_name='VisualIndexingService.ScoreImages',
+    name='ScoreImage',
+    full_name='VisualIndexingService.ScoreImage',
     index=3,
     containing_service=None,
-    input_type=_INDEXSCOREIMAGESREQUEST,
-    output_type=_INDEXSCOREIMAGESRESPONSE,
+    input_type=_SCOREIMAGEREQUEST,
+    output_type=_SCOREIMAGERESPONSE,
     serialized_options=None,
   ),
 ])

@@ -24,7 +24,7 @@ static const char* VisualIndexingService_method_names[] = {
   "/VisualIndexingService/IndexImage",
   "/VisualIndexingService/GetBagOfWords",
   "/VisualIndexingService/ClosestN",
-  "/VisualIndexingService/ScoreImages",
+  "/VisualIndexingService/ScoreImage",
 };
 
 std::unique_ptr< VisualIndexingService::Stub> VisualIndexingService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -37,7 +37,7 @@ VisualIndexingService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterfac
   : channel_(channel), rpcmethod_IndexImage_(VisualIndexingService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetBagOfWords_(VisualIndexingService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_ClosestN_(VisualIndexingService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ScoreImages_(VisualIndexingService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ScoreImage_(VisualIndexingService_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status VisualIndexingService::Stub::IndexImage(::grpc::ClientContext* context, const ::IndexImageRequest& request, ::IndexImageResponse* response) {
@@ -124,32 +124,32 @@ void VisualIndexingService::Stub::experimental_async::ClosestN(::grpc::ClientCon
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ClosestNResponse>::Create(channel_.get(), cq, rpcmethod_ClosestN_, context, request, false);
 }
 
-::grpc::Status VisualIndexingService::Stub::ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::IndexScoreImagesResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ScoreImages_, context, request, response);
+::grpc::Status VisualIndexingService::Stub::ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::ScoreImageResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ScoreImage_, context, request, response);
 }
 
-void VisualIndexingService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, std::move(f));
+void VisualIndexingService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, std::move(f));
 }
 
-void VisualIndexingService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, std::move(f));
+void VisualIndexingService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, std::move(f));
 }
 
-void VisualIndexingService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, reactor);
+void VisualIndexingService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, reactor);
 }
 
-void VisualIndexingService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, reactor);
+void VisualIndexingService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>* VisualIndexingService::Stub::AsyncScoreImagesRaw(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::IndexScoreImagesResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImages_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>* VisualIndexingService::Stub::AsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ScoreImageResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImage_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>* VisualIndexingService::Stub::PrepareAsyncScoreImagesRaw(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::IndexScoreImagesResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImages_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>* VisualIndexingService::Stub::PrepareAsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ScoreImageResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImage_, context, request, false);
 }
 
 VisualIndexingService::Service::Service() {
@@ -171,8 +171,8 @@ VisualIndexingService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       VisualIndexingService_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< VisualIndexingService::Service, ::IndexScoreImagesRequest, ::IndexScoreImagesResponse>(
-          std::mem_fn(&VisualIndexingService::Service::ScoreImages), this)));
+      new ::grpc::internal::RpcMethodHandler< VisualIndexingService::Service, ::ScoreImageRequest, ::ScoreImageResponse>(
+          std::mem_fn(&VisualIndexingService::Service::ScoreImage), this)));
 }
 
 VisualIndexingService::Service::~Service() {
@@ -199,7 +199,7 @@ VisualIndexingService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status VisualIndexingService::Service::ScoreImages(::grpc::ServerContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response) {
+::grpc::Status VisualIndexingService::Service::ScoreImage(::grpc::ServerContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response) {
   (void) context;
   (void) request;
   (void) response;

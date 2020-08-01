@@ -1345,8 +1345,8 @@ proto.ReconstructionServicePromiseClient.prototype.getImageRegions =
  *   !proto.ScoreImagesRequest,
  *   !proto.ScoreImagesResponse>}
  */
-const methodDescriptor_ReconstructionService_ScoreImage = new grpc.web.MethodDescriptor(
-  '/ReconstructionService/ScoreImage',
+const methodDescriptor_ReconstructionService_ScoreImages = new grpc.web.MethodDescriptor(
+  '/ReconstructionService/ScoreImages',
   grpc.web.MethodType.UNARY,
   proto.ScoreImagesRequest,
   proto.ScoreImagesResponse,
@@ -1367,7 +1367,7 @@ const methodDescriptor_ReconstructionService_ScoreImage = new grpc.web.MethodDes
  *   !proto.ScoreImagesRequest,
  *   !proto.ScoreImagesResponse>}
  */
-const methodInfo_ReconstructionService_ScoreImage = new grpc.web.AbstractClientBase.MethodInfo(
+const methodInfo_ReconstructionService_ScoreImages = new grpc.web.AbstractClientBase.MethodInfo(
   proto.ScoreImagesResponse,
   /**
    * @param {!proto.ScoreImagesRequest} request
@@ -1390,13 +1390,13 @@ const methodInfo_ReconstructionService_ScoreImage = new grpc.web.AbstractClientB
  * @return {!grpc.web.ClientReadableStream<!proto.ScoreImagesResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.ReconstructionServiceClient.prototype.scoreImage =
+proto.ReconstructionServiceClient.prototype.scoreImages =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/ReconstructionService/ScoreImage',
+      '/ReconstructionService/ScoreImages',
       request,
       metadata || {},
-      methodDescriptor_ReconstructionService_ScoreImage,
+      methodDescriptor_ReconstructionService_ScoreImages,
       callback);
 };
 
@@ -1409,13 +1409,13 @@ proto.ReconstructionServiceClient.prototype.scoreImage =
  * @return {!Promise<!proto.ScoreImagesResponse>}
  *     A native promise that resolves to the response
  */
-proto.ReconstructionServicePromiseClient.prototype.scoreImage =
+proto.ReconstructionServicePromiseClient.prototype.scoreImages =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/ReconstructionService/ScoreImage',
+      '/ReconstructionService/ScoreImages',
       request,
       metadata || {},
-      methodDescriptor_ReconstructionService_ScoreImage);
+      methodDescriptor_ReconstructionService_ScoreImages);
 };
 
 

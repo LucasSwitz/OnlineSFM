@@ -16,4 +16,5 @@ public:
     virtual ImageData GetUndistorted(const std::string &image_id) = 0;
     virtual unsigned int GetImageCount(const std::string &reconstruction_id) = 0;
     virtual ~ImageStorageAdapter(){};
+    virtual std::set<std::string> GetAllImageIds(const std::string &reconstruction_id) = 0;
 };

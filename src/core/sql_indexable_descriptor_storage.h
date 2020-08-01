@@ -47,15 +47,15 @@ public:
                     std::advance(it, 1);
                 }
             },
-            sql::enum_transaction_isolation::TRANSACTION_READ_COMMITTED);
+                              sql::enum_transaction_isolation::TRANSACTION_READ_COMMITTED);
         }
     }
 
-    SIFT_Descriptor_count_map
+    std::shared_ptr<SIFT_Descriptor_count_map>
     GetGlobalDescriptorFrequencies(const std::string &reconstruction_id) override
     {
         auto connection_loan = this->GetConnection();
-        SIFT_Descriptor_count_map map;
+        std::shared_ptr<SIFT_Descriptor_count_map> map = std::make_shared<SIFT_Descriptor_count_map>();
         sql::ResultSet *res = this->IssueQuery(SQL_GET_INDEXABLE_GLOBAL_DESCRIPTOR_FREQUENCY(this->_frequency_table), connection_loan.con,
                                                [reconstruction_id](sql::PreparedStatement *stmt) {
                                                    stmt->setString(1, reconstruction_id);
@@ -65,8 +65,7 @@ public:
             SIFT_Descriptor descriptor;
             std::string desc_str = res->getString("WORD");
             memcpy((char *)descriptor.data(), desc_str.data(), 128);
-            map[descriptor] = res->getInt("N");
-            assert(map[descriptor] != 0);
+            (*map)[descriptor] = res->getInt("N");
         }
         delete res;
         return map;

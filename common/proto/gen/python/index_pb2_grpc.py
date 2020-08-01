@@ -28,10 +28,10 @@ class VisualIndexingServiceStub(object):
                 request_serializer=index__pb2.ClosestNRequest.SerializeToString,
                 response_deserializer=index__pb2.ClosestNResponse.FromString,
                 )
-        self.ScoreImages = channel.unary_unary(
-                '/VisualIndexingService/ScoreImages',
-                request_serializer=index__pb2.IndexScoreImagesRequest.SerializeToString,
-                response_deserializer=index__pb2.IndexScoreImagesResponse.FromString,
+        self.ScoreImage = channel.unary_unary(
+                '/VisualIndexingService/ScoreImage',
+                request_serializer=index__pb2.ScoreImageRequest.SerializeToString,
+                response_deserializer=index__pb2.ScoreImageResponse.FromString,
                 )
 
 
@@ -56,7 +56,7 @@ class VisualIndexingServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ScoreImages(self, request, context):
+    def ScoreImage(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -80,10 +80,10 @@ def add_VisualIndexingServiceServicer_to_server(servicer, server):
                     request_deserializer=index__pb2.ClosestNRequest.FromString,
                     response_serializer=index__pb2.ClosestNResponse.SerializeToString,
             ),
-            'ScoreImages': grpc.unary_unary_rpc_method_handler(
-                    servicer.ScoreImages,
-                    request_deserializer=index__pb2.IndexScoreImagesRequest.FromString,
-                    response_serializer=index__pb2.IndexScoreImagesResponse.SerializeToString,
+            'ScoreImage': grpc.unary_unary_rpc_method_handler(
+                    servicer.ScoreImage,
+                    request_deserializer=index__pb2.ScoreImageRequest.FromString,
+                    response_serializer=index__pb2.ScoreImageResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -144,7 +144,7 @@ class VisualIndexingService(object):
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ScoreImages(request,
+    def ScoreImage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -153,8 +153,8 @@ class VisualIndexingService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/VisualIndexingService/ScoreImages',
-            index__pb2.IndexScoreImagesRequest.SerializeToString,
-            index__pb2.IndexScoreImagesResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/VisualIndexingService/ScoreImage',
+            index__pb2.ScoreImageRequest.SerializeToString,
+            index__pb2.ScoreImageResponse.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)

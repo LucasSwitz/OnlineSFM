@@ -352,7 +352,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string &image_id)
   GroupSharedIntrinsics(*this->_sfm_data);
 
   // Undistort image and store undistorted
-  /*Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
+  Image<openMVG::image::RGBColor> imageRGB, imageRGB_ud;
   {
     {
       PrecisionTimer t("ReadImageToUndistort");
@@ -374,7 +374,7 @@ bool OpenMVGReconstructionAgent::AddImage(const std::string &image_id)
       PrecisionTimer t("StoreUndistortedImage");
       this->_image_storage->StoreUndistorted(image_id, img_undistorted);
     }
-  }*/
+  }
   return true;
 }
 
@@ -513,7 +513,6 @@ bool OpenMVGReconstructionAgent::ComputeFeatures(const std::set<std::string> &im
       }
 
       Image<unsigned char> *mask = nullptr; // The mask is null by default
-
       /*
         Image<unsigned char> imageMask;
         const std::string

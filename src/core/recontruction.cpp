@@ -3,7 +3,7 @@
 #include "util.h"
 #include "image_filesystem_storer.h"
 #include <thread>
-#include "index_helpers.h"
+#include "job_index_service.h"
 
 std::shared_ptr<Reconstruction> ReconstructionFetcher::Fetch(std::shared_ptr<ReconstructionContext> ctx)
 {
@@ -173,16 +173,10 @@ bool Reconstruction::AddImage(const std::string &image_id, bool index)
     LOG(INFO) << "Adding image: " << image_id;
     if (index)
     {
-        auto indexing_client = GetIndexingClient(CONFIG_GET_STRING("index.address"));
-        //TODO: Wrap this shit
-        IndexImageRequest req;
-        req.set_image_id(image_id);
-        req.set_reconstruction_id(this->_id);
-        IndexImageResponse resp;
-        grpc::ClientContext context;
+
+        JobIndexService is;
         LOG(INFO) << "Indexing image: " << image_id;
-        auto status = indexing_client->IndexImage(&context, req, &resp);
-        if (!status.ok())
+        if (!is.Index(this->_id, image_id))
         {
             LOG(ERROR) << "Failed to index image: " << image_id;
             return false;

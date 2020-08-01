@@ -10,6 +10,8 @@ include_directories(common/proto/gen/cpp
                     src/core
                     src/gateway
                     src/index/src
+                    src/job
+                    src/job/test
                     src/worker
                     src/worker_manager
                     /usr/local/include/openMVG_dependencies
@@ -27,6 +29,15 @@ file(GLOB CORE_SOURCES
     common/proto/gen/cpp/*.cc
     common/proto/gen/cpp/*.cpp
     src/core/*.cpp
+    src/job/*.cpp
+)
+
+file(GLOB JOB_TEST_PRODUCER_SOURCES
+    src/job/test/test_producer.cpp
+)
+
+file(GLOB JOB_TEST_WORKER_SOURCES
+    src/job/test/test_worker.cpp
 )
 
 file(GLOB GATEWAY_SOURCES
@@ -62,6 +73,7 @@ file(GLOB WORKER_SOURCES
 add_library(core ${CORE_SOURCES})
 set_property(TARGET core PROPERTY CXX_STANDARD 14)
 target_link_libraries(core 
+                     amqpcpp
                      elasticlient
                      mongocxx 
                      bsoncxx
@@ -71,7 +83,9 @@ target_link_libraries(core
                      glog
                      mysqlcppconn Boost::filesystem 
                      redis++ 
-                     hiredis      
+                     hiredis
+                     event
+                     amqpcpp
                      OpenMVG::openMVG_image
                      OpenMVG::openMVG_features
 )
@@ -79,6 +93,14 @@ target_link_libraries(core
 add_executable(gateway ${GATEWAY_SOURCES})
 set_property(TARGET gateway PROPERTY CXX_STANDARD 14)
 target_link_libraries(gateway core)
+
+add_executable(job_test_producer ${JOB_TEST_PRODUCER_SOURCES})
+set_property(TARGET gateway PROPERTY CXX_STANDARD 14)
+target_link_libraries(job_test_producer core)
+
+add_executable(job_test_worker ${JOB_TEST_WORKER_SOURCES})
+set_property(TARGET job_test_worker PROPERTY CXX_STANDARD 14)
+target_link_libraries(job_test_worker core)
 
 add_executable(upload_intrinsics_tool ${UPLOAD_INTRINISICS_SOURCES})
 set_property(TARGET upload_intrinsics_tool PROPERTY CXX_STANDARD 14)

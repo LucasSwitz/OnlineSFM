@@ -6,7 +6,6 @@
 class RemoteReconstructionAgent : public ReconstructionAgent
 {
 public:
-    std::shared_ptr<ReconstructionAgent> MakeDefault();
     RemoteReconstructionAgent(const std::string &reconstruction_id,
                               const std::string &address);
     bool AddImage(const std::string &image_id);

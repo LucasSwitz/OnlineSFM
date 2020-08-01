@@ -8,9 +8,14 @@
 #include "config.h"
 #include "reconstruction.h"
 #include "remote_reconstruction_agent.h"
+#include "job_remote_reconstruction_agent.h"
+#include "capacity_bounded_job_queue_decorator.h"
+#include "ampq_job_queue.h"
+#include "static_job_cost_provider.h"
 #include "expotential_backoff.h"
 #include <cppconn/driver.h>
 #include <mutex>
+#include "event2/event.h"
 
 static std::mutex sql_driver_mux;
 
@@ -46,7 +51,16 @@ std::shared_ptr<ReconstructionContext> RemoteReconstructionContext(const std::st
                                                                                     sparse_storage,
                                                                                     reconstruction_storage,
                                                                                     obj_storage);
-        auto reconstruction_agent = std::make_shared<RemoteReconstructionAgent>(id, CONFIG_GET_STRING("worker_pool.address"));
+        //auto reconstruction_agent = std::make_shared<RemoteReconstructionAgent>(id, CONFIG_GET_STRING("worker_pool.address"));
+        auto cost_provider = std::make_shared<StaticJobCostProvider>();
+        cost_provider->Load(CONFIG_GET_STRING("jobs.cost_file"));
+        auto job_queue = std::make_shared<CapacityBoundedJobQueueDecorator>(std::make_shared<AMQPJobExchange>(event_base_new(),
+                                                                                                              "amqp://user:bitnami@localhost:5672",
+                                                                                                              "job_exchange",
+                                                                                                              "my_key"),
+                                                                            cost_provider,
+                                                                            JobCost());
+        auto reconstruction_agent = std::make_shared<JobRemoteReconstructionAgent>(id, job_queue);
         return std::make_shared<ReconstructionContext>(id, connection_context, reconstruction_agent);
     }
     catch (const std::exception &e)

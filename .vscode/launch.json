@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "server",
+      "name": "gateway",
       "type": "cppdbg",
       "request": "launch",
       "program": "/home/gumbo00/OnlineSFM/build/gateway",
@@ -121,6 +121,46 @@
         "CAMERA_INTRINSICS"
       ],
       "cwd": "${workspaceFolder}/build",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "job producer",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/job_test_producer",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "job worker",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "/home/gumbo00/OnlineSFM/build/job_test_worker",
+      "args": [],
+      "cwd": "${workspaceFolder}",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",

@@ -17,7 +17,9 @@
 #include "sql_image_storage.h"
 #include "remote_storage_adapter.h"
 #include "sql_indexable_descriptor_storage.h"
+#include "sql_descriptor_score_storage.h"
 #include <cppconn/driver.h>
+#include "cached_descriptor_storage.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;
@@ -76,12 +78,15 @@ class VisualIndexingServer : public VisualIndexingService::Service
             std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
                 /*std::make_shared<SQLDescriptorStorage>(
                     CONFIG_GET_STRING("sql.words_table")),*/
-                std::make_shared<SQLIndexableDescriptorStorage>(
-                    CONFIG_GET_STRING("sql.words_table"),
-                    CONFIG_GET_STRING("sql.word_frequencies_table")),
+                std::make_shared<CachedDescriptorStorage<SIFT_Descriptor>>(
+                    std::make_shared<SQLIndexableDescriptorStorage>(
+                        CONFIG_GET_STRING("sql.words_table"),
+                        CONFIG_GET_STRING("sql.word_frequencies_table"))),
                 std::make_shared<SQLImageStorage>(
                     std::make_shared<RemoteStorageAdapter>(CONFIG_GET_STRING("storage.address")),
-                    CONFIG_GET_STRING("sql.views_table")));
+                    CONFIG_GET_STRING("sql.views_table")),
+                std::make_shared<SQLDescriptorScoreStorage>(
+                    CONFIG_GET_STRING("sql.word_scores_table")));
             SearchEngine search_engine(std::move(image_indexer), std::move(ranker));
             std::vector<std::string> results;
             if (request->include_details())
@@ -109,8 +114,39 @@ class VisualIndexingServer : public VisualIndexingService::Service
             LOG(ERROR) << e.what();
         }
     }
+
+    Status ScoreImage(ServerContext *context, const ScoreImageRequest *request, ScoreImageResponse *response)
+    {
+        LOG(INFO) << "Scoring image " << request->image_id();
+        try
+        {
+            std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
+                /*std::make_shared<SQLDescriptorStorage>(
+                    CONFIG_GET_STRING("sql.words_table")),*/
+                std::make_shared<CachedDescriptorStorage<SIFT_Descriptor>>(
+                    std::make_shared<SQLIndexableDescriptorStorage>(
+                        CONFIG_GET_STRING("sql.words_table"),
+                        CONFIG_GET_STRING("sql.word_frequencies_table"))),
+                std::make_shared<SQLImageStorage>(
+                    std::make_shared<RemoteStorageAdapter>(CONFIG_GET_STRING("storage.address")),
+                    CONFIG_GET_STRING("sql.views_table")),
+                std::make_shared<SQLDescriptorScoreStorage>(
+                    CONFIG_GET_STRING("sql.word_scores_table")));
+            ranker->Score(request->reconstruction_id(), request->image_id());
+            return Status::OK;
+        }
+        catch (const std::exception &e)
+        {
+            LOG(ERROR) << e.what();
+            return Status::CANCELLED;
+        }
+    }
 };
 
+#include "capacity_bounded_job_queue_decorator.h"
+#include "ampq_job_queue.h"
+#include "static_job_cost_provider.h"
+#include "jobs.h"
 int main(int argc, char *argv[])
 {
     google::InitGoogleLogging(argv[0]);
@@ -131,6 +167,63 @@ int main(int argc, char *argv[])
     builder.RegisterService(&service);
     std::shared_ptr<Server> server(builder.BuildAndStart());
     LOG(INFO) << "Server waiting for connections...";
+
+    auto cost_provider = std::make_shared<StaticJobCostProvider>();
+    cost_provider->Load(CONFIG_GET_STRING("jobs.cost_file"));
+    JobCost resources;
+    resources.exclusive_cores = 10;
+    resources.ram_usage = 1000000 * 10;
+    auto job_queue = std::make_shared<CapacityBoundedJobQueueDecorator>(std::make_shared<AMQPJobExchange>(event_base_new(),
+                                                                                                          "amqp://user:bitnami@localhost:5672",
+                                                                                                          "job_exchange",
+                                                                                                          "my_key"),
+                                                                        cost_provider,
+                                                                        resources);
+
+    job_queue->Consume<IndexImageJob>([](IndexImageJob &j, JobResult &jr) {
+        try
+        {
+            LOG(INFO) << "Indexing image " << j.image_id;
+            auto image_indexer =
+                ImageIndexerFactory::GetImageIndexer(visual_vocab_index);
+            image_indexer->Index(j.reconstruction_id, j.image_id);
+            jr.status = true;
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
+    job_queue->Consume<ScoreImageJob>([](ScoreImageJob &j, JobResult &jr) {
+        try
+        {
+            LOG(INFO) << "Scoring image " << j.image_id;
+            std::unique_ptr<Ranker> ranker = std::make_unique<TFIDFRanker>(
+                std::make_shared<CachedDescriptorStorage<SIFT_Descriptor>>(
+                    std::make_shared<SQLIndexableDescriptorStorage>(
+                        CONFIG_GET_STRING("sql.words_table"),
+                        CONFIG_GET_STRING("sql.word_frequencies_table"))),
+                std::make_shared<SQLImageStorage>(
+                    std::make_shared<RemoteStorageAdapter>(CONFIG_GET_STRING("storage.address")),
+                    CONFIG_GET_STRING("sql.views_table")),
+                std::make_shared<SQLDescriptorScoreStorage>(
+                    CONFIG_GET_STRING("sql.word_scores_table")));
+            ranker->Score(j.reconstruction_id, j.image_id);
+            jr.status = true;
+        }
+        catch (const std::exception &e)
+        {
+            jr.status = false;
+            jr.info = e.what();
+            LOG(ERROR) << e.what();
+        }
+        return true;
+    });
+
     server->Wait();
 
     return 1;

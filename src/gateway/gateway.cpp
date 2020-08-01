@@ -24,6 +24,11 @@
 #include "sql_storage.h"
 #include "sql_regions_storage.h"
 
+#include "index.grpc.pb.h"
+#include "index_helpers.h"
+#include "sql_image_storage.h"
+#include "job_index_service.h"
+
 using grpc::Server;
 using grpc::ServerBuilder;
 using grpc::ServerContext;
@@ -251,71 +256,6 @@ public:
         }
     };
 
-    Status StartSession(ServerContext *context,
-                        const StartSessionRequest *request,
-                        StartSessionResponse *response)
-    {
-        /* LOG(INFO) << "Creating new session for reconstruction " << request->reconstruction_id();
-            std::string session_id = GetUUID();
-            Session* s = new Session(session_id, 
-                                        request->reconstruction_id(), 
-                                        new RedisSFMBacklog(CONFIG_GET_STRING("redis.address"),
-                                                                    CONFIG_GET_STRING("redis.user"),
-                                                                    CONFIG_GET_STRING("redis.password")));
-            
-            this->_sessions[session_id] = s;
-            response->set_reconstruction_id(request->reconstruction_id());
-            response->set_session_id(session_id);
-            LOG(INFO) << "Starting session " << session_id << " for reconstruction " << request->reconstruction_id();
-            s->Start();
-            return Status::OK;*/
-    }
-
-    Status StopSession(ServerContext *context,
-                       const StopSessionRequest *request,
-                       StopSessionResponse *response)
-    {
-        /*Session* s = this->_sessions[request->session_id()];
-            response->set_session_id(request->session_id());
-            LOG(INFO) << "Stopping session " << request->session_id();
-            s->Stop();
-            delete this->_sessions[request->session_id()];
-            return Status::OK;*/
-    }
-
-    Status SessionAddImage(ServerContext *context,
-                           ServerReader<SessionAddImageRequest> *stream,
-                           SessionAddImageResponse *response)
-    {
-        SessionAddImageRequest request;
-        stream->Read(&request);
-        ImageData final_image;
-        final_image.CopyFrom(request.upload_image().image());
-        while (stream->Read(&request))
-        {
-            ReconstructionUploadImageRequest upload_image_request = request.upload_image();
-            final_image.mutable_data()->append(upload_image_request.image().data());
-        }
-        LOG(INFO) << "Adding Image for " << final_image.metadata().reconstruction();
-        try
-        {
-            this->thread_pool.push([final_image](int id) mutable {
-                ReconstructionFetcher rf;
-                auto reconstruction = rf.Fetch(RemoteReconstructionContext(final_image.metadata().reconstruction()));
-                std::string image_uuid = reconstruction->StoreImage(final_image);
-                reconstruction->ComputeFeatures({final_image.metadata().path()});
-                reconstruction->AddImage(final_image.metadata().id());
-                reconstruction->ComputeMatches({final_image.metadata().path()});
-            });
-            return Status::OK;
-        }
-        catch (const std::exception &e)
-        {
-            LOG(ERROR) << e.what();
-            return Status::CANCELLED;
-        }
-    }
-
     Status GetSparse(ServerContext *context,
                      const GetSparseRequest *request,
                      ServerWriter<GetSparseResponse> *writer)
@@ -511,6 +451,25 @@ public:
         }
     }
 
+    Status ScoreImages(ServerContext *context, const ScoreImagesRequest *request, ScoreImagesResponse *response)
+    {
+        try
+        {
+            auto image_storage = std::make_shared<SQLImageStorage>(
+                std::make_shared<RemoteStorageAdapter>(CONFIG_GET_STRING("storage.address")),
+                CONFIG_GET_STRING("sql.views_table"));
+            auto images = image_storage->GetAllImageIds(request->reconstruction_id());
+            std::vector<std::string> i(images.begin(), images.end());
+            JobIndexService is;
+            return is.Score(request->reconstruction_id(), i) ? Status::OK : Status::CANCELLED;
+        }
+        catch (const std::exception &e)
+        {
+            LOG(ERROR) << e.what();
+            return Status::CANCELLED;
+        }
+    }
+
 private:
     //std::unordered_map<std::string, Session*> _sessions;
     ctpl::thread_pool thread_pool;
@@ -532,6 +491,5 @@ int main(int argc, char *argv[])
     std::shared_ptr<Server> server(builder.BuildAndStart());
     LOG(INFO) << "Server waiting for connections...";
     server->Wait();
-
     return 1;
 }

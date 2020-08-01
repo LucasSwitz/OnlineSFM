@@ -19,6 +19,7 @@ public:
     ImageData Get(const std::string &image_id);
     ImageData GetUndistorted(const std::string &image_id);
     unsigned int GetImageCount(const std::string &reconstruction_id);
+    std::set<std::string> GetAllImageIds(const std::string &reconstruction_id);
 
 private:
     std::string _table;

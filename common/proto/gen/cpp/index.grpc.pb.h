@@ -55,12 +55,12 @@ class VisualIndexingService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>> PrepareAsyncClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>>(PrepareAsyncClosestNRaw(context, request, cq));
     }
-    virtual ::grpc::Status ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::IndexScoreImagesResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::IndexScoreImagesResponse>> AsyncScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::IndexScoreImagesResponse>>(AsyncScoreImagesRaw(context, request, cq));
+    virtual ::grpc::Status ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::ScoreImageResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImageResponse>> AsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImageResponse>>(AsyncScoreImageRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::IndexScoreImagesResponse>> PrepareAsyncScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::IndexScoreImagesResponse>>(PrepareAsyncScoreImagesRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImageResponse>> PrepareAsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImageResponse>>(PrepareAsyncScoreImageRaw(context, request, cq));
     }
     class experimental_async_interface {
      public:
@@ -101,17 +101,17 @@ class VisualIndexingService final {
       #else
       virtual void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
-      virtual void ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, std::function<void(::grpc::Status)>) = 0;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      virtual void ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       #else
-      virtual void ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       #endif
     };
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
@@ -128,8 +128,8 @@ class VisualIndexingService final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::GetBagOfWordsResponse>* PrepareAsyncGetBagOfWordsRaw(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>* AsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::ClosestNResponse>* PrepareAsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::IndexScoreImagesResponse>* AsyncScoreImagesRaw(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::IndexScoreImagesResponse>* PrepareAsyncScoreImagesRaw(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImageResponse>* AsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::ScoreImageResponse>* PrepareAsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -155,12 +155,12 @@ class VisualIndexingService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>> PrepareAsyncClosestN(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>>(PrepareAsyncClosestNRaw(context, request, cq));
     }
-    ::grpc::Status ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::IndexScoreImagesResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>> AsyncScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>>(AsyncScoreImagesRaw(context, request, cq));
+    ::grpc::Status ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::ScoreImageResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>> AsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>>(AsyncScoreImageRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>> PrepareAsyncScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>>(PrepareAsyncScoreImagesRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>> PrepareAsyncScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>>(PrepareAsyncScoreImageRaw(context, request, cq));
     }
     class experimental_async final :
       public StubInterface::experimental_async_interface {
@@ -201,17 +201,17 @@ class VisualIndexingService final {
       #else
       void ClosestN(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ClosestNResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
-      void ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, std::function<void(::grpc::Status)>) override;
-      void ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, std::function<void(::grpc::Status)>) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, std::function<void(::grpc::Status)>) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, std::function<void(::grpc::Status)>) override;
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void ScoreImages(::grpc::ClientContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
       #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-      void ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       #else
-      void ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::IndexScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImageResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       #endif
      private:
       friend class Stub;
@@ -230,12 +230,12 @@ class VisualIndexingService final {
     ::grpc::ClientAsyncResponseReader< ::GetBagOfWordsResponse>* PrepareAsyncGetBagOfWordsRaw(::grpc::ClientContext* context, const ::GetBagOfWordsRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>* AsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::ClosestNResponse>* PrepareAsyncClosestNRaw(::grpc::ClientContext* context, const ::ClosestNRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>* AsyncScoreImagesRaw(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::IndexScoreImagesResponse>* PrepareAsyncScoreImagesRaw(::grpc::ClientContext* context, const ::IndexScoreImagesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>* AsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::ScoreImageResponse>* PrepareAsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImageRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_IndexImage_;
     const ::grpc::internal::RpcMethod rpcmethod_GetBagOfWords_;
     const ::grpc::internal::RpcMethod rpcmethod_ClosestN_;
-    const ::grpc::internal::RpcMethod rpcmethod_ScoreImages_;
+    const ::grpc::internal::RpcMethod rpcmethod_ScoreImage_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -246,7 +246,7 @@ class VisualIndexingService final {
     virtual ::grpc::Status IndexImage(::grpc::ServerContext* context, const ::IndexImageRequest* request, ::IndexImageResponse* response);
     virtual ::grpc::Status GetBagOfWords(::grpc::ServerContext* context, const ::GetBagOfWordsRequest* request, ::GetBagOfWordsResponse* response);
     virtual ::grpc::Status ClosestN(::grpc::ServerContext* context, const ::ClosestNRequest* request, ::ClosestNResponse* response);
-    virtual ::grpc::Status ScoreImages(::grpc::ServerContext* context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response);
+    virtual ::grpc::Status ScoreImage(::grpc::ServerContext* context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_IndexImage : public BaseClass {
@@ -309,26 +309,26 @@ class VisualIndexingService final {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_ScoreImages : public BaseClass {
+  class WithAsyncMethod_ScoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_ScoreImages() {
+    WithAsyncMethod_ScoreImage() {
       ::grpc::Service::MarkMethodAsync(3);
     }
-    ~WithAsyncMethod_ScoreImages() override {
+    ~WithAsyncMethod_ScoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ScoreImages(::grpc::ServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/) override {
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestScoreImages(::grpc::ServerContext* context, ::IndexScoreImagesRequest* request, ::grpc::ServerAsyncResponseWriter< ::IndexScoreImagesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestScoreImage(::grpc::ServerContext* context, ::ScoreImageRequest* request, ::grpc::ServerAsyncResponseWriter< ::ScoreImageResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_IndexImage<WithAsyncMethod_GetBagOfWords<WithAsyncMethod_ClosestN<WithAsyncMethod_ScoreImages<Service > > > > AsyncService;
+  typedef WithAsyncMethod_IndexImage<WithAsyncMethod_GetBagOfWords<WithAsyncMethod_ClosestN<WithAsyncMethod_ScoreImage<Service > > > > AsyncService;
   template <class BaseClass>
   class ExperimentalWithCallbackMethod_IndexImage : public BaseClass {
    private:
@@ -471,57 +471,57 @@ class VisualIndexingService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithCallbackMethod_ScoreImages : public BaseClass {
+  class ExperimentalWithCallbackMethod_ScoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithCallbackMethod_ScoreImages() {
+    ExperimentalWithCallbackMethod_ScoreImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
       ::grpc::Service::experimental().
     #endif
         MarkMethodCallback(3,
-          new ::grpc_impl::internal::CallbackUnaryHandler< ::IndexScoreImagesRequest, ::IndexScoreImagesResponse>(
+          new ::grpc_impl::internal::CallbackUnaryHandler< ::ScoreImageRequest, ::ScoreImageResponse>(
             [this](
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
                    ::grpc::CallbackServerContext*
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::IndexScoreImagesRequest* request, ::IndexScoreImagesResponse* response) { return this->ScoreImages(context, request, response); }));}
-    void SetMessageAllocatorFor_ScoreImages(
-        ::grpc::experimental::MessageAllocator< ::IndexScoreImagesRequest, ::IndexScoreImagesResponse>* allocator) {
+                     context, const ::ScoreImageRequest* request, ::ScoreImageResponse* response) { return this->ScoreImage(context, request, response); }));}
+    void SetMessageAllocatorFor_ScoreImage(
+        ::grpc::experimental::MessageAllocator< ::ScoreImageRequest, ::ScoreImageResponse>* allocator) {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
     #else
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::experimental().GetHandler(3);
     #endif
-      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::IndexScoreImagesRequest, ::IndexScoreImagesResponse>*>(handler)
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::ScoreImageRequest, ::ScoreImageResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~ExperimentalWithCallbackMethod_ScoreImages() override {
+    ~ExperimentalWithCallbackMethod_ScoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ScoreImages(::grpc::ServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/) override {
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* ScoreImages(
-      ::grpc::CallbackServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/)
+    virtual ::grpc::ServerUnaryReactor* ScoreImage(
+      ::grpc::CallbackServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ScoreImages(
-      ::grpc::experimental::CallbackServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/)
+    virtual ::grpc::experimental::ServerUnaryReactor* ScoreImage(
+      ::grpc::experimental::CallbackServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/)
     #endif
       { return nullptr; }
   };
   #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_ClosestN<ExperimentalWithCallbackMethod_ScoreImages<Service > > > > CallbackService;
+  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_ClosestN<ExperimentalWithCallbackMethod_ScoreImage<Service > > > > CallbackService;
   #endif
 
-  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_ClosestN<ExperimentalWithCallbackMethod_ScoreImages<Service > > > > ExperimentalCallbackService;
+  typedef ExperimentalWithCallbackMethod_IndexImage<ExperimentalWithCallbackMethod_GetBagOfWords<ExperimentalWithCallbackMethod_ClosestN<ExperimentalWithCallbackMethod_ScoreImage<Service > > > > ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_IndexImage : public BaseClass {
    private:
@@ -574,18 +574,18 @@ class VisualIndexingService final {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_ScoreImages : public BaseClass {
+  class WithGenericMethod_ScoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_ScoreImages() {
+    WithGenericMethod_ScoreImage() {
       ::grpc::Service::MarkMethodGeneric(3);
     }
-    ~WithGenericMethod_ScoreImages() override {
+    ~WithGenericMethod_ScoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ScoreImages(::grpc::ServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/) override {
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -651,22 +651,22 @@ class VisualIndexingService final {
     }
   };
   template <class BaseClass>
-  class WithRawMethod_ScoreImages : public BaseClass {
+  class WithRawMethod_ScoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_ScoreImages() {
+    WithRawMethod_ScoreImage() {
       ::grpc::Service::MarkMethodRaw(3);
     }
-    ~WithRawMethod_ScoreImages() override {
+    ~WithRawMethod_ScoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ScoreImages(::grpc::ServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/) override {
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestScoreImages(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestScoreImage(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -785,11 +785,11 @@ class VisualIndexingService final {
       { return nullptr; }
   };
   template <class BaseClass>
-  class ExperimentalWithRawCallbackMethod_ScoreImages : public BaseClass {
+  class ExperimentalWithRawCallbackMethod_ScoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    ExperimentalWithRawCallbackMethod_ScoreImages() {
+    ExperimentalWithRawCallbackMethod_ScoreImage() {
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
       ::grpc::Service::
     #else
@@ -803,21 +803,21 @@ class VisualIndexingService final {
     #else
                    ::grpc::experimental::CallbackServerContext*
     #endif
-                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ScoreImages(context, request, response); }));
+                     context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ScoreImage(context, request, response); }));
     }
-    ~ExperimentalWithRawCallbackMethod_ScoreImages() override {
+    ~ExperimentalWithRawCallbackMethod_ScoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ScoreImages(::grpc::ServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/) override {
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     #ifdef GRPC_CALLBACK_API_NONEXPERIMENTAL
-    virtual ::grpc::ServerUnaryReactor* ScoreImages(
+    virtual ::grpc::ServerUnaryReactor* ScoreImage(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
     #else
-    virtual ::grpc::experimental::ServerUnaryReactor* ScoreImages(
+    virtual ::grpc::experimental::ServerUnaryReactor* ScoreImage(
       ::grpc::experimental::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)
     #endif
       { return nullptr; }
@@ -883,28 +883,28 @@ class VisualIndexingService final {
     virtual ::grpc::Status StreamedClosestN(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ClosestNRequest,::ClosestNResponse>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_ScoreImages : public BaseClass {
+  class WithStreamedUnaryMethod_ScoreImage : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_ScoreImages() {
+    WithStreamedUnaryMethod_ScoreImage() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::IndexScoreImagesRequest, ::IndexScoreImagesResponse>(std::bind(&WithStreamedUnaryMethod_ScoreImages<BaseClass>::StreamedScoreImages, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler< ::ScoreImageRequest, ::ScoreImageResponse>(std::bind(&WithStreamedUnaryMethod_ScoreImage<BaseClass>::StreamedScoreImage, this, std::placeholders::_1, std::placeholders::_2)));
     }
-    ~WithStreamedUnaryMethod_ScoreImages() override {
+    ~WithStreamedUnaryMethod_ScoreImage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ScoreImages(::grpc::ServerContext* /*context*/, const ::IndexScoreImagesRequest* /*request*/, ::IndexScoreImagesResponse* /*response*/) override {
+    ::grpc::Status ScoreImage(::grpc::ServerContext* /*context*/, const ::ScoreImageRequest* /*request*/, ::ScoreImageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedScoreImages(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::IndexScoreImagesRequest,::IndexScoreImagesResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedScoreImage(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::ScoreImageRequest,::ScoreImageResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_ClosestN<WithStreamedUnaryMethod_ScoreImages<Service > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_ClosestN<WithStreamedUnaryMethod_ScoreImage<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_ClosestN<WithStreamedUnaryMethod_ScoreImages<Service > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_IndexImage<WithStreamedUnaryMethod_GetBagOfWords<WithStreamedUnaryMethod_ClosestN<WithStreamedUnaryMethod_ScoreImage<Service > > > > StreamedService;
 };
 
 

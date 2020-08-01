@@ -312,80 +312,80 @@ proto.VisualIndexingServicePromiseClient.prototype.closestN =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.IndexScoreImagesRequest,
- *   !proto.IndexScoreImagesResponse>}
+ *   !proto.ScoreImageRequest,
+ *   !proto.ScoreImageResponse>}
  */
-const methodDescriptor_VisualIndexingService_ScoreImages = new grpc.web.MethodDescriptor(
-  '/VisualIndexingService/ScoreImages',
+const methodDescriptor_VisualIndexingService_ScoreImage = new grpc.web.MethodDescriptor(
+  '/VisualIndexingService/ScoreImage',
   grpc.web.MethodType.UNARY,
-  proto.IndexScoreImagesRequest,
-  proto.IndexScoreImagesResponse,
+  proto.ScoreImageRequest,
+  proto.ScoreImageResponse,
   /**
-   * @param {!proto.IndexScoreImagesRequest} request
+   * @param {!proto.ScoreImageRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.IndexScoreImagesResponse.deserializeBinary
+  proto.ScoreImageResponse.deserializeBinary
 );
 
 
 /**
  * @const
  * @type {!grpc.web.AbstractClientBase.MethodInfo<
- *   !proto.IndexScoreImagesRequest,
- *   !proto.IndexScoreImagesResponse>}
+ *   !proto.ScoreImageRequest,
+ *   !proto.ScoreImageResponse>}
  */
-const methodInfo_VisualIndexingService_ScoreImages = new grpc.web.AbstractClientBase.MethodInfo(
-  proto.IndexScoreImagesResponse,
+const methodInfo_VisualIndexingService_ScoreImage = new grpc.web.AbstractClientBase.MethodInfo(
+  proto.ScoreImageResponse,
   /**
-   * @param {!proto.IndexScoreImagesRequest} request
+   * @param {!proto.ScoreImageRequest} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.IndexScoreImagesResponse.deserializeBinary
+  proto.ScoreImageResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.IndexScoreImagesRequest} request The
+ * @param {!proto.ScoreImageRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.Error, ?proto.IndexScoreImagesResponse)}
+ * @param {function(?grpc.web.Error, ?proto.ScoreImageResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.IndexScoreImagesResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.ScoreImageResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.VisualIndexingServiceClient.prototype.scoreImages =
+proto.VisualIndexingServiceClient.prototype.scoreImage =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/VisualIndexingService/ScoreImages',
+      '/VisualIndexingService/ScoreImage',
       request,
       metadata || {},
-      methodDescriptor_VisualIndexingService_ScoreImages,
+      methodDescriptor_VisualIndexingService_ScoreImage,
       callback);
 };
 
 
 /**
- * @param {!proto.IndexScoreImagesRequest} request The
+ * @param {!proto.ScoreImageRequest} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.IndexScoreImagesResponse>}
+ * @return {!Promise<!proto.ScoreImageResponse>}
  *     A native promise that resolves to the response
  */
-proto.VisualIndexingServicePromiseClient.prototype.scoreImages =
+proto.VisualIndexingServicePromiseClient.prototype.scoreImage =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/VisualIndexingService/ScoreImages',
+      '/VisualIndexingService/ScoreImage',
       request,
       metadata || {},
-      methodDescriptor_VisualIndexingService_ScoreImages);
+      methodDescriptor_VisualIndexingService_ScoreImage);
 };
 
 

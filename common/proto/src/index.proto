@@ -41,11 +41,12 @@ message ClosestNDetails {
     map<string, ClosestNImageDetails> image_details = 1;
 }
 
-message IndexScoreImagesRequest {
+message ScoreImageRequest {
     string reconstruction_id = 1;
+    string image_id = 2;
 };
 
-message IndexScoreImagesResponse {
+message ScoreImageResponse {
 
 };
 
@@ -53,5 +54,5 @@ service VisualIndexingService {
    rpc IndexImage(IndexImageRequest) returns (IndexImageResponse);
    rpc GetBagOfWords(GetBagOfWordsRequest) returns (GetBagOfWordsResponse);
    rpc ClosestN(ClosestNRequest) returns (ClosestNResponse);
-   rpc ScoreImages(IndexScoreImagesRequest) returns (IndexScoreImagesResponse);
+   rpc ScoreImage(ScoreImageRequest) returns (ScoreImageResponse);
 };

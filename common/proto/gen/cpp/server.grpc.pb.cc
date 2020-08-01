@@ -40,7 +40,7 @@ static const char* ReconstructionService_method_names[] = {
   "/ReconstructionService/SetReconstructionConfigFields",
   "/ReconstructionService/GetAllImages",
   "/ReconstructionService/GetImageRegions",
-  "/ReconstructionService/ScoreImage",
+  "/ReconstructionService/ScoreImages",
 };
 
 std::unique_ptr< ReconstructionService::Stub> ReconstructionService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -69,7 +69,7 @@ ReconstructionService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterfac
   , rpcmethod_SetReconstructionConfigFields_(ReconstructionService_method_names[16], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetAllImages_(ReconstructionService_method_names[17], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetImageRegions_(ReconstructionService_method_names[18], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ScoreImage_(ReconstructionService_method_names[19], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ScoreImages_(ReconstructionService_method_names[19], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ReconstructionService::Stub::Handshake(::grpc::ClientContext* context, const ::HandhsakeRequest& request, ::HandshakeResponse* response) {
@@ -544,32 +544,32 @@ void ReconstructionService::Stub::experimental_async::GetImageRegions(::grpc::Cl
   return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::GetImageRegionsResponse>::Create(channel_.get(), cq, rpcmethod_GetImageRegions_, context, request, false);
 }
 
-::grpc::Status ReconstructionService::Stub::ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::ScoreImagesResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ScoreImage_, context, request, response);
+::grpc::Status ReconstructionService::Stub::ScoreImages(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::ScoreImagesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ScoreImages_, context, request, response);
 }
 
-void ReconstructionService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, std::move(f));
+void ReconstructionService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, std::move(f));
 }
 
-void ReconstructionService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)> f) {
-  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, std::move(f));
+void ReconstructionService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc_impl::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, std::move(f));
 }
 
-void ReconstructionService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, reactor);
+void ReconstructionService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, reactor);
 }
 
-void ReconstructionService::Stub::experimental_async::ScoreImage(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
-  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImage_, context, request, response, reactor);
+void ReconstructionService::Stub::experimental_async::ScoreImages(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::ScoreImagesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) {
+  ::grpc_impl::internal::ClientCallbackUnaryFactory::Create(stub_->channel_.get(), stub_->rpcmethod_ScoreImages_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>* ReconstructionService::Stub::AsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ScoreImagesResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImage_, context, request, true);
+::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>* ReconstructionService::Stub::AsyncScoreImagesRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ScoreImagesResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImages_, context, request, true);
 }
 
-::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>* ReconstructionService::Stub::PrepareAsyncScoreImageRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ScoreImagesResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImage_, context, request, false);
+::grpc::ClientAsyncResponseReader< ::ScoreImagesResponse>* ReconstructionService::Stub::PrepareAsyncScoreImagesRaw(::grpc::ClientContext* context, const ::ScoreImagesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc_impl::internal::ClientAsyncResponseReaderFactory< ::ScoreImagesResponse>::Create(channel_.get(), cq, rpcmethod_ScoreImages_, context, request, false);
 }
 
 ReconstructionService::Service::Service() {
@@ -672,7 +672,7 @@ ReconstructionService::Service::Service() {
       ReconstructionService_method_names[19],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ReconstructionService::Service, ::ScoreImagesRequest, ::ScoreImagesResponse>(
-          std::mem_fn(&ReconstructionService::Service::ScoreImage), this)));
+          std::mem_fn(&ReconstructionService::Service::ScoreImages), this)));
 }
 
 ReconstructionService::Service::~Service() {
@@ -811,7 +811,7 @@ ReconstructionService::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status ReconstructionService::Service::ScoreImage(::grpc::ServerContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response) {
+::grpc::Status ReconstructionService::Service::ScoreImages(::grpc::ServerContext* context, const ::ScoreImagesRequest* request, ::ScoreImagesResponse* response) {
   (void) context;
   (void) request;
   (void) response;

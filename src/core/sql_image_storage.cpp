@@ -10,7 +10,7 @@
 #define SQL_DELETE_ALL_IMAGES(t) "DELETE FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 #define SQL_INSERT_UNDISTORTED(t) "UPDATE " + t + " SET UNDISTORTED_PATH = ? WHERE ID = ?"
 #define SQL_GET_IMAGE_COUNT(t) "SELECT count(DISTINCT ID) as N FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
-
+#define SQL_GET_ALL_IMAGE_IDS(t) "SELECT DISTINCT ID FROM " + t + " WHERE RECONSTRUCTION_ID = ?"
 SQLImageStorage::SQLImageStorage(
     std::shared_ptr<ImageDataStorage> data_storage,
     const std::string &table) : _data_storage(data_storage),
@@ -186,4 +186,26 @@ unsigned int SQLImageStorage::GetImageCount(const std::string &reconstruction_id
     }
     delete res;
     return image_count;
+}
+
+std::set<std::string> SQLImageStorage::GetAllImageIds(const std::string &reconstruction_id)
+{
+    auto connection_loan = this->GetConnection();
+    std::set<std::string> image_ids;
+    sql::ResultSet *res = this->IssueQuery(SQL_GET_ALL_IMAGE_IDS(this->_table), connection_loan.con,
+                                           [this, reconstruction_id](sql::PreparedStatement *stmt) {
+                                               stmt->setString(1, reconstruction_id);
+                                           });
+    if (!res)
+    {
+        LOG(ERROR) << "Failure to retrieve results";
+        return image_ids;
+    }
+
+    while (res->next())
+    {
+        image_ids.insert(res->getString("ID"));
+    }
+    delete res;
+    return image_ids;
 }

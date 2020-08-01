@@ -1,0 +1,60 @@
+Performing C++ SOURCE FILE Test COMPILER_SUPPORT_wd981 failed with the following output:
+Change Dir: /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_e4867/fast && /usr/bin/make -f CMakeFiles/cmTC_e4867.dir/build.make CMakeFiles/cmTC_e4867.dir/build
+make[1]: Entering directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_e4867.dir/src.cxx.o
+/usr/bin/c++    -fexceptions -pedantic -Wall -Wextra -Wundef -Wcast-align -Wchar-subscripts -Wnon-virtual-dtor -Wunused-local-typedefs -Wpointer-arith -Wwrite-strings -Wformat-security -Wno-psabi -Wno-variadic-macros -Wno-long-long -fno-check-new -fno-common -fstrict-aliasing -DCOMPILER_SUPPORT_wd981 -Werror   -wd981 -o CMakeFiles/cmTC_e4867.dir/src.cxx.o -c /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-wd981'
+make[1]: *** [CMakeFiles/cmTC_e4867.dir/build.make:66: CMakeFiles/cmTC_e4867.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_e4867/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORT_wd2304 failed with the following output:
+Change Dir: /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_842c6/fast && /usr/bin/make -f CMakeFiles/cmTC_842c6.dir/build.make CMakeFiles/cmTC_842c6.dir/build
+make[1]: Entering directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_842c6.dir/src.cxx.o
+/usr/bin/c++    -fexceptions -pedantic -Wall -Wextra -Wundef -Wcast-align -Wchar-subscripts -Wnon-virtual-dtor -Wunused-local-typedefs -Wpointer-arith -Wwrite-strings -Wformat-security -Wno-psabi -Wno-variadic-macros -Wno-long-long -fno-check-new -fno-common -fstrict-aliasing -DCOMPILER_SUPPORT_wd2304 -Werror   -wd2304 -o CMakeFiles/cmTC_842c6.dir/src.cxx.o -c /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-wd2304'
+make[1]: *** [CMakeFiles/cmTC_842c6.dir/build.make:66: CMakeFiles/cmTC_842c6.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_842c6/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORT_STRICTANSI failed with the following output:
+Change Dir: /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_87fe7/fast && /usr/bin/make -f CMakeFiles/cmTC_87fe7.dir/build.make CMakeFiles/cmTC_87fe7.dir/build
+make[1]: Entering directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_87fe7.dir/src.cxx.o
+/usr/bin/c++    -fexceptions -pedantic -Wall -Wextra -Wundef -Wcast-align -Wchar-subscripts -Wnon-virtual-dtor -Wunused-local-typedefs -Wpointer-arith -Wwrite-strings -Wformat-security -Wno-psabi -Wno-variadic-macros -Wno-long-long -fno-check-new -fno-common -fstrict-aliasing -DCOMPILER_SUPPORT_STRICTANSI -Werror   -strict-ansi -o CMakeFiles/cmTC_87fe7.dir/src.cxx.o -c /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-strict-ansi'; did you mean '-fstrict-enums'?
+make[1]: *** [CMakeFiles/cmTC_87fe7.dir/build.make:66: CMakeFiles/cmTC_87fe7.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_87fe7/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORT_Qunusedarguments failed with the following output:
+Change Dir: /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_81c8f/fast && /usr/bin/make -f CMakeFiles/cmTC_81c8f.dir/build.make CMakeFiles/cmTC_81c8f.dir/build
+make[1]: Entering directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_81c8f.dir/src.cxx.o
+/usr/bin/c++    -fexceptions -pedantic -Wall -Wextra -Wundef -Wcast-align -Wchar-subscripts -Wnon-virtual-dtor -Wunused-local-typedefs -Wpointer-arith -Wwrite-strings -Wformat-security -Wno-psabi -Wno-variadic-macros -Wno-long-long -fno-check-new -fno-common -fstrict-aliasing -DCOMPILER_SUPPORT_Qunusedarguments -Werror   -Qunused-arguments -o CMakeFiles/cmTC_81c8f.dir/src.cxx.o -c /home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Qunused-arguments'
+make[1]: *** [CMakeFiles/cmTC_81c8f.dir/build.make:66: CMakeFiles/cmTC_81c8f.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/gumbo00/OnlineSFM/scripts/install/eigen_build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_81c8f/fast] Error 2
+
+
+Source file was:
+int main() { return 0; }

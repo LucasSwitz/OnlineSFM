@@ -51,6 +51,7 @@ class ConnectionPool
 public:
     ConnectionPool(unsigned int pool_size)
     {
+        this->_pool_size = pool_size;
         while (pool_size--)
         {
             auto connection = this->Create();
@@ -67,7 +68,7 @@ public:
     ConnectionLoan<T> Get()
     {
         std::unique_lock<std::mutex> lck(this->_mtx);
-        while (this->_used_connections == this->_pool_size)
+        while (this->_connections.empty())
         {
             this->_cv.wait(lck);
         }

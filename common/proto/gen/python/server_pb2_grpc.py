@@ -108,8 +108,8 @@ class ReconstructionServiceStub(object):
                 request_serializer=server__pb2.GetImageRegionsRequest.SerializeToString,
                 response_deserializer=server__pb2.GetImageRegionsResponse.FromString,
                 )
-        self.ScoreImage = channel.unary_unary(
-                '/ReconstructionService/ScoreImage',
+        self.ScoreImages = channel.unary_unary(
+                '/ReconstructionService/ScoreImages',
                 request_serializer=server__pb2.ScoreImagesRequest.SerializeToString,
                 response_deserializer=server__pb2.ScoreImagesResponse.FromString,
                 )
@@ -232,7 +232,7 @@ class ReconstructionServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ScoreImage(self, request, context):
+    def ScoreImages(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -336,8 +336,8 @@ def add_ReconstructionServiceServicer_to_server(servicer, server):
                     request_deserializer=server__pb2.GetImageRegionsRequest.FromString,
                     response_serializer=server__pb2.GetImageRegionsResponse.SerializeToString,
             ),
-            'ScoreImage': grpc.unary_unary_rpc_method_handler(
-                    servicer.ScoreImage,
+            'ScoreImages': grpc.unary_unary_rpc_method_handler(
+                    servicer.ScoreImages,
                     request_deserializer=server__pb2.ScoreImagesRequest.FromString,
                     response_serializer=server__pb2.ScoreImagesResponse.SerializeToString,
             ),
@@ -656,7 +656,7 @@ class ReconstructionService(object):
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def ScoreImage(request,
+    def ScoreImages(request,
             target,
             options=(),
             channel_credentials=None,
@@ -665,7 +665,7 @@ class ReconstructionService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ReconstructionService/ScoreImage',
+        return grpc.experimental.unary_unary(request, target, '/ReconstructionService/ScoreImages',
             server__pb2.ScoreImagesRequest.SerializeToString,
             server__pb2.ScoreImagesResponse.FromString,
             options, channel_credentials,

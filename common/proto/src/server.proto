@@ -272,5 +272,5 @@ service ReconstructionService {
     rpc SetReconstructionConfigFields(SetReconstructionConfigFieldsRequest) returns (SetReconstructionConfigFieldsResponse);
     rpc GetAllImages(GetAllImagesRequest) returns (GetAllImagesResponse);
     rpc GetImageRegions(GetImageRegionsRequest) returns (GetImageRegionsResponse);
-    rpc ScoreImage(ScoreImagesRequest) returns (ScoreImagesResponse);
+    rpc ScoreImages(ScoreImagesRequest) returns (ScoreImagesResponse);
 }

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libMath.a  CMakeFiles/Math.dir/Common.cpp.o CMakeFiles/Math.dir/IBFS/IBFS.cpp.o CMakeFiles/Math.dir/LMFit/lmmin.cpp.o
+/usr/bin/ranlib ../../lib/libMath.a

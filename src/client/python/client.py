@@ -13,7 +13,8 @@ from server_pb2 import (ImageData,
                         GetAgentConfigRequest,
                         ReconstructionUploadImageRequest,
                         ComputeMatchesRequest,
-                        GetAllImagesRequest)
+                        GetAllImagesRequest,
+                        ScoreImagesRequest)
 from server_pb2_grpc import ReconstructionServiceStub
 import sys
 import random
@@ -70,20 +71,26 @@ class OnlineSFMReconstruction:
         print("Uploading Images")
         image_ids = []
         image_ids_lock = Lock()
+        done_uploading_lock = Lock()
         active_requests_cv = Condition(image_ids_lock)
+        done_uploading_cv = Condition(done_uploading_lock)
         active_requests = 0
 
         def done_callback(f):
             nonlocal active_requests
             nonlocal active_requests_cv
+            nonlocal done_uploading_cv
             with active_requests_cv:
                 image_ids.append(f.result().image_id)
                 active_requests -= 1
+                with done_uploading_cv:
+                    if len(image_ids) == len(files):
+                        done_uploading_cv.notify_all()
                 active_requests_cv.notify()
 
         for i in range(0, len(files)):
             with active_requests_cv:
-                while active_requests >= 10:
+                while active_requests >= 100:
                     active_requests_cv.wait()
             print(f"Uploading {i} images")
             active_requests += 1
@@ -102,7 +109,13 @@ class OnlineSFMReconstruction:
                     iter(chunked))
                 future.add_done_callback(done_callback)
 
+        with done_uploading_lock:
+            if len(image_ids) != len(files):
+                done_uploading_cv.wait()
+        print("Scoring Images...")
+        self.score_images()
         matches_futures = []
+        print("Computing Matches...")
         for image_id in image_ids:
             matches_futures.append(self._client.ComputeMatches.future(ComputeMatchesRequest(reconstruction_id=self._id,
                                                                                             image_id=image_id), timeout=10000))
@@ -117,6 +130,10 @@ class OnlineSFMReconstruction:
                                                                                                 image_id=image), timeout=10000))
             for match_future in matches_futures:
                 match_future.result()
+
+    def score_images(self):
+        self._client.ScoreImages(ScoreImagesRequest(
+            reconstruction_id=self._id))
 
     def get_all_image_ids(self):
         return self._client.GetAllImages(GetAllImagesRequest(reconstruction_id=self._id)).images

@@ -87,15 +87,15 @@ extern IndexImageRequestDefaultTypeInternal _IndexImageRequest_default_instance_
 class IndexImageResponse;
 class IndexImageResponseDefaultTypeInternal;
 extern IndexImageResponseDefaultTypeInternal _IndexImageResponse_default_instance_;
-class IndexScoreImagesRequest;
-class IndexScoreImagesRequestDefaultTypeInternal;
-extern IndexScoreImagesRequestDefaultTypeInternal _IndexScoreImagesRequest_default_instance_;
-class IndexScoreImagesResponse;
-class IndexScoreImagesResponseDefaultTypeInternal;
-extern IndexScoreImagesResponseDefaultTypeInternal _IndexScoreImagesResponse_default_instance_;
 class IndexWord;
 class IndexWordDefaultTypeInternal;
 extern IndexWordDefaultTypeInternal _IndexWord_default_instance_;
+class ScoreImageRequest;
+class ScoreImageRequestDefaultTypeInternal;
+extern ScoreImageRequestDefaultTypeInternal _ScoreImageRequest_default_instance_;
+class ScoreImageResponse;
+class ScoreImageResponseDefaultTypeInternal;
+extern ScoreImageResponseDefaultTypeInternal _ScoreImageResponse_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::ClosestNDetails* Arena::CreateMaybeMessage<::ClosestNDetails>(Arena*);
 template<> ::ClosestNDetails_ClosestNImageDetails* Arena::CreateMaybeMessage<::ClosestNDetails_ClosestNImageDetails>(Arena*);
@@ -107,9 +107,9 @@ template<> ::GetBagOfWordsRequest* Arena::CreateMaybeMessage<::GetBagOfWordsRequ
 template<> ::GetBagOfWordsResponse* Arena::CreateMaybeMessage<::GetBagOfWordsResponse>(Arena*);
 template<> ::IndexImageRequest* Arena::CreateMaybeMessage<::IndexImageRequest>(Arena*);
 template<> ::IndexImageResponse* Arena::CreateMaybeMessage<::IndexImageResponse>(Arena*);
-template<> ::IndexScoreImagesRequest* Arena::CreateMaybeMessage<::IndexScoreImagesRequest>(Arena*);
-template<> ::IndexScoreImagesResponse* Arena::CreateMaybeMessage<::IndexScoreImagesResponse>(Arena*);
 template<> ::IndexWord* Arena::CreateMaybeMessage<::IndexWord>(Arena*);
+template<> ::ScoreImageRequest* Arena::CreateMaybeMessage<::ScoreImageRequest>(Arena*);
+template<> ::ScoreImageResponse* Arena::CreateMaybeMessage<::ScoreImageResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
@@ -1622,23 +1622,23 @@ class ClosestNDetails PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
-class IndexScoreImagesRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:IndexScoreImagesRequest) */ {
+class ScoreImageRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ScoreImageRequest) */ {
  public:
-  inline IndexScoreImagesRequest() : IndexScoreImagesRequest(nullptr) {};
-  virtual ~IndexScoreImagesRequest();
+  inline ScoreImageRequest() : ScoreImageRequest(nullptr) {};
+  virtual ~ScoreImageRequest();
 
-  IndexScoreImagesRequest(const IndexScoreImagesRequest& from);
-  IndexScoreImagesRequest(IndexScoreImagesRequest&& from) noexcept
-    : IndexScoreImagesRequest() {
+  ScoreImageRequest(const ScoreImageRequest& from);
+  ScoreImageRequest(ScoreImageRequest&& from) noexcept
+    : ScoreImageRequest() {
     *this = ::std::move(from);
   }
 
-  inline IndexScoreImagesRequest& operator=(const IndexScoreImagesRequest& from) {
+  inline ScoreImageRequest& operator=(const ScoreImageRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline IndexScoreImagesRequest& operator=(IndexScoreImagesRequest&& from) noexcept {
+  inline ScoreImageRequest& operator=(ScoreImageRequest&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1656,20 +1656,20 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const IndexScoreImagesRequest& default_instance();
+  static const ScoreImageRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const IndexScoreImagesRequest* internal_default_instance() {
-    return reinterpret_cast<const IndexScoreImagesRequest*>(
-               &_IndexScoreImagesRequest_default_instance_);
+  static inline const ScoreImageRequest* internal_default_instance() {
+    return reinterpret_cast<const ScoreImageRequest*>(
+               &_ScoreImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     11;
 
-  friend void swap(IndexScoreImagesRequest& a, IndexScoreImagesRequest& b) {
+  friend void swap(ScoreImageRequest& a, ScoreImageRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(IndexScoreImagesRequest* other) {
+  inline void Swap(ScoreImageRequest* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -1677,7 +1677,7 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(IndexScoreImagesRequest* other) {
+  void UnsafeArenaSwap(ScoreImageRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -1685,17 +1685,17 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline IndexScoreImagesRequest* New() const final {
-    return CreateMaybeMessage<IndexScoreImagesRequest>(nullptr);
+  inline ScoreImageRequest* New() const final {
+    return CreateMaybeMessage<ScoreImageRequest>(nullptr);
   }
 
-  IndexScoreImagesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<IndexScoreImagesRequest>(arena);
+  ScoreImageRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ScoreImageRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const IndexScoreImagesRequest& from);
-  void MergeFrom(const IndexScoreImagesRequest& from);
+  void CopyFrom(const ScoreImageRequest& from);
+  void MergeFrom(const ScoreImageRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1709,13 +1709,13 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(IndexScoreImagesRequest* other);
+  void InternalSwap(ScoreImageRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "IndexScoreImagesRequest";
+    return "ScoreImageRequest";
   }
   protected:
-  explicit IndexScoreImagesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit ScoreImageRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1736,6 +1736,7 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
 
   enum : int {
     kReconstructionIdFieldNumber = 1,
+    kImageIdFieldNumber = 2,
   };
   // string reconstruction_id = 1;
   void clear_reconstruction_id();
@@ -1762,7 +1763,32 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_reconstruction_id();
   public:
 
-  // @@protoc_insertion_point(class_scope:IndexScoreImagesRequest)
+  // string image_id = 2;
+  void clear_image_id();
+  const std::string& image_id() const;
+  void set_image_id(const std::string& value);
+  void set_image_id(std::string&& value);
+  void set_image_id(const char* value);
+  void set_image_id(const char* value, size_t size);
+  std::string* mutable_image_id();
+  std::string* release_image_id();
+  void set_allocated_image_id(std::string* image_id);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_image_id();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_image_id(
+      std::string* image_id);
+  private:
+  const std::string& _internal_image_id() const;
+  void _internal_set_image_id(const std::string& value);
+  std::string* _internal_mutable_image_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:ScoreImageRequest)
  private:
   class _Internal;
 
@@ -1770,28 +1796,29 @@ class IndexScoreImagesRequest PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reconstruction_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr image_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_index_2eproto;
 };
 // -------------------------------------------------------------------
 
-class IndexScoreImagesResponse PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:IndexScoreImagesResponse) */ {
+class ScoreImageResponse PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:ScoreImageResponse) */ {
  public:
-  inline IndexScoreImagesResponse() : IndexScoreImagesResponse(nullptr) {};
-  virtual ~IndexScoreImagesResponse();
+  inline ScoreImageResponse() : ScoreImageResponse(nullptr) {};
+  virtual ~ScoreImageResponse();
 
-  IndexScoreImagesResponse(const IndexScoreImagesResponse& from);
-  IndexScoreImagesResponse(IndexScoreImagesResponse&& from) noexcept
-    : IndexScoreImagesResponse() {
+  ScoreImageResponse(const ScoreImageResponse& from);
+  ScoreImageResponse(ScoreImageResponse&& from) noexcept
+    : ScoreImageResponse() {
     *this = ::std::move(from);
   }
 
-  inline IndexScoreImagesResponse& operator=(const IndexScoreImagesResponse& from) {
+  inline ScoreImageResponse& operator=(const ScoreImageResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline IndexScoreImagesResponse& operator=(IndexScoreImagesResponse&& from) noexcept {
+  inline ScoreImageResponse& operator=(ScoreImageResponse&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -1809,20 +1836,20 @@ class IndexScoreImagesResponse PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const IndexScoreImagesResponse& default_instance();
+  static const ScoreImageResponse& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const IndexScoreImagesResponse* internal_default_instance() {
-    return reinterpret_cast<const IndexScoreImagesResponse*>(
-               &_IndexScoreImagesResponse_default_instance_);
+  static inline const ScoreImageResponse* internal_default_instance() {
+    return reinterpret_cast<const ScoreImageResponse*>(
+               &_ScoreImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     12;
 
-  friend void swap(IndexScoreImagesResponse& a, IndexScoreImagesResponse& b) {
+  friend void swap(ScoreImageResponse& a, ScoreImageResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(IndexScoreImagesResponse* other) {
+  inline void Swap(ScoreImageResponse* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -1830,7 +1857,7 @@ class IndexScoreImagesResponse PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(IndexScoreImagesResponse* other) {
+  void UnsafeArenaSwap(ScoreImageResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -1838,17 +1865,17 @@ class IndexScoreImagesResponse PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline IndexScoreImagesResponse* New() const final {
-    return CreateMaybeMessage<IndexScoreImagesResponse>(nullptr);
+  inline ScoreImageResponse* New() const final {
+    return CreateMaybeMessage<ScoreImageResponse>(nullptr);
   }
 
-  IndexScoreImagesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<IndexScoreImagesResponse>(arena);
+  ScoreImageResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ScoreImageResponse>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const IndexScoreImagesResponse& from);
-  void MergeFrom(const IndexScoreImagesResponse& from);
+  void CopyFrom(const ScoreImageResponse& from);
+  void MergeFrom(const ScoreImageResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -1862,13 +1889,13 @@ class IndexScoreImagesResponse PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(IndexScoreImagesResponse* other);
+  void InternalSwap(ScoreImageResponse* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "IndexScoreImagesResponse";
+    return "ScoreImageResponse";
   }
   protected:
-  explicit IndexScoreImagesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit ScoreImageResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -1887,7 +1914,7 @@ class IndexScoreImagesResponse PROTOBUF_FINAL :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:IndexScoreImagesResponse)
+  // @@protoc_insertion_point(class_scope:ScoreImageResponse)
  private:
   class _Internal;
 
@@ -2746,60 +2773,60 @@ ClosestNDetails::mutable_image_details() {
 
 // -------------------------------------------------------------------
 
-// IndexScoreImagesRequest
+// ScoreImageRequest
 
 // string reconstruction_id = 1;
-inline void IndexScoreImagesRequest::clear_reconstruction_id() {
+inline void ScoreImageRequest::clear_reconstruction_id() {
   reconstruction_id_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& IndexScoreImagesRequest::reconstruction_id() const {
-  // @@protoc_insertion_point(field_get:IndexScoreImagesRequest.reconstruction_id)
+inline const std::string& ScoreImageRequest::reconstruction_id() const {
+  // @@protoc_insertion_point(field_get:ScoreImageRequest.reconstruction_id)
   return _internal_reconstruction_id();
 }
-inline void IndexScoreImagesRequest::set_reconstruction_id(const std::string& value) {
+inline void ScoreImageRequest::set_reconstruction_id(const std::string& value) {
   _internal_set_reconstruction_id(value);
-  // @@protoc_insertion_point(field_set:IndexScoreImagesRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set:ScoreImageRequest.reconstruction_id)
 }
-inline std::string* IndexScoreImagesRequest::mutable_reconstruction_id() {
-  // @@protoc_insertion_point(field_mutable:IndexScoreImagesRequest.reconstruction_id)
+inline std::string* ScoreImageRequest::mutable_reconstruction_id() {
+  // @@protoc_insertion_point(field_mutable:ScoreImageRequest.reconstruction_id)
   return _internal_mutable_reconstruction_id();
 }
-inline const std::string& IndexScoreImagesRequest::_internal_reconstruction_id() const {
+inline const std::string& ScoreImageRequest::_internal_reconstruction_id() const {
   return reconstruction_id_.Get();
 }
-inline void IndexScoreImagesRequest::_internal_set_reconstruction_id(const std::string& value) {
+inline void ScoreImageRequest::_internal_set_reconstruction_id(const std::string& value) {
   
   reconstruction_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void IndexScoreImagesRequest::set_reconstruction_id(std::string&& value) {
+inline void ScoreImageRequest::set_reconstruction_id(std::string&& value) {
   
   reconstruction_id_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:IndexScoreImagesRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_rvalue:ScoreImageRequest.reconstruction_id)
 }
-inline void IndexScoreImagesRequest::set_reconstruction_id(const char* value) {
+inline void ScoreImageRequest::set_reconstruction_id(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   reconstruction_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:IndexScoreImagesRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_char:ScoreImageRequest.reconstruction_id)
 }
-inline void IndexScoreImagesRequest::set_reconstruction_id(const char* value,
+inline void ScoreImageRequest::set_reconstruction_id(const char* value,
     size_t size) {
   
   reconstruction_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:IndexScoreImagesRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_pointer:ScoreImageRequest.reconstruction_id)
 }
-inline std::string* IndexScoreImagesRequest::_internal_mutable_reconstruction_id() {
+inline std::string* ScoreImageRequest::_internal_mutable_reconstruction_id() {
   
   return reconstruction_id_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* IndexScoreImagesRequest::release_reconstruction_id() {
-  // @@protoc_insertion_point(field_release:IndexScoreImagesRequest.reconstruction_id)
+inline std::string* ScoreImageRequest::release_reconstruction_id() {
+  // @@protoc_insertion_point(field_release:ScoreImageRequest.reconstruction_id)
   return reconstruction_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void IndexScoreImagesRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
+inline void ScoreImageRequest::set_allocated_reconstruction_id(std::string* reconstruction_id) {
   if (reconstruction_id != nullptr) {
     
   } else {
@@ -2807,16 +2834,16 @@ inline void IndexScoreImagesRequest::set_allocated_reconstruction_id(std::string
   }
   reconstruction_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reconstruction_id,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:IndexScoreImagesRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_set_allocated:ScoreImageRequest.reconstruction_id)
 }
-inline std::string* IndexScoreImagesRequest::unsafe_arena_release_reconstruction_id() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:IndexScoreImagesRequest.reconstruction_id)
+inline std::string* ScoreImageRequest::unsafe_arena_release_reconstruction_id() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:ScoreImageRequest.reconstruction_id)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return reconstruction_id_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void IndexScoreImagesRequest::unsafe_arena_set_allocated_reconstruction_id(
+inline void ScoreImageRequest::unsafe_arena_set_allocated_reconstruction_id(
     std::string* reconstruction_id) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (reconstruction_id != nullptr) {
@@ -2826,12 +2853,93 @@ inline void IndexScoreImagesRequest::unsafe_arena_set_allocated_reconstruction_i
   }
   reconstruction_id_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       reconstruction_id, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:IndexScoreImagesRequest.reconstruction_id)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ScoreImageRequest.reconstruction_id)
+}
+
+// string image_id = 2;
+inline void ScoreImageRequest::clear_image_id() {
+  image_id_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& ScoreImageRequest::image_id() const {
+  // @@protoc_insertion_point(field_get:ScoreImageRequest.image_id)
+  return _internal_image_id();
+}
+inline void ScoreImageRequest::set_image_id(const std::string& value) {
+  _internal_set_image_id(value);
+  // @@protoc_insertion_point(field_set:ScoreImageRequest.image_id)
+}
+inline std::string* ScoreImageRequest::mutable_image_id() {
+  // @@protoc_insertion_point(field_mutable:ScoreImageRequest.image_id)
+  return _internal_mutable_image_id();
+}
+inline const std::string& ScoreImageRequest::_internal_image_id() const {
+  return image_id_.Get();
+}
+inline void ScoreImageRequest::_internal_set_image_id(const std::string& value) {
+  
+  image_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void ScoreImageRequest::set_image_id(std::string&& value) {
+  
+  image_id_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:ScoreImageRequest.image_id)
+}
+inline void ScoreImageRequest::set_image_id(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  image_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:ScoreImageRequest.image_id)
+}
+inline void ScoreImageRequest::set_image_id(const char* value,
+    size_t size) {
+  
+  image_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:ScoreImageRequest.image_id)
+}
+inline std::string* ScoreImageRequest::_internal_mutable_image_id() {
+  
+  return image_id_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* ScoreImageRequest::release_image_id() {
+  // @@protoc_insertion_point(field_release:ScoreImageRequest.image_id)
+  return image_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void ScoreImageRequest::set_allocated_image_id(std::string* image_id) {
+  if (image_id != nullptr) {
+    
+  } else {
+    
+  }
+  image_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), image_id,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:ScoreImageRequest.image_id)
+}
+inline std::string* ScoreImageRequest::unsafe_arena_release_image_id() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:ScoreImageRequest.image_id)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return image_id_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void ScoreImageRequest::unsafe_arena_set_allocated_image_id(
+    std::string* image_id) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (image_id != nullptr) {
+    
+  } else {
+    
+  }
+  image_id_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      image_id, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ScoreImageRequest.image_id)
 }
 
 // -------------------------------------------------------------------
 
-// IndexScoreImagesResponse
+// ScoreImageResponse
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop

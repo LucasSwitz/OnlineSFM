@@ -1532,7 +1532,7 @@ const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "eatureList:\0028\001\"E\n\026GetImageRegionsRequest"
   "\022\031\n\021reconstruction_id\030\001 \001(\t\022\020\n\010image_id\030"
   "\002 \001(\t\"/\n\022ScoreImagesRequest\022\031\n\021reconstru"
-  "ction_id\030\001 \001(\t\"\025\n\023ScoreImagesResponse2\300\013"
+  "ction_id\030\001 \001(\t\"\025\n\023ScoreImagesResponse2\301\013"
   "\n\025ReconstructionService\0224\n\tHandshake\022\021.H"
   "andhsakeRequest\032\022.HandshakeResponse\"\000\022f\n"
   "\031ReconstructionUploadImage\022!.Reconstruct"
@@ -1568,8 +1568,9 @@ const char descriptor_table_protodef_server_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "onse\022;\n\014GetAllImages\022\024.GetAllImagesReque"
   "st\032\025.GetAllImagesResponse\022D\n\017GetImageReg"
   "ions\022\027.GetImageRegionsRequest\032\030.GetImage"
-  "RegionsResponse\0227\n\nScoreImage\022\023.ScoreIma"
-  "gesRequest\032\024.ScoreImagesResponseb\006proto3"
+  "RegionsResponse\0228\n\013ScoreImages\022\023.ScoreIm"
+  "agesRequest\032\024.ScoreImagesResponseb\006proto"
+  "3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_server_2eproto_deps[1] = {
 };
@@ -1629,7 +1630,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_ser
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_server_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_server_2eproto = {
-  false, false, descriptor_table_protodef_server_2eproto, "server.proto", 4960,
+  false, false, descriptor_table_protodef_server_2eproto, "server.proto", 4961,
   &descriptor_table_server_2eproto_once, descriptor_table_server_2eproto_sccs, descriptor_table_server_2eproto_deps, 52, 0,
   schemas, file_default_instances, TableStruct_server_2eproto::offsets,
   file_level_metadata_server_2eproto, 52, file_level_enum_descriptors_server_2eproto, file_level_service_descriptors_server_2eproto,
